@@ -1,7 +1,6 @@
 // Roguelike.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include <Windows.h>
 #include <time.h>
 #include <cstdlib>
@@ -12,10 +11,7 @@
 
 using namespace std;
 
-
-
-void ClearScreen()
-{
+void ClearScreen() {
 	HANDLE                     hStdOut;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	DWORD                      count;
@@ -71,7 +67,7 @@ void Draw_Console(char* map) {
 	}
 }
 
-int main(){
+int main() {
 	//FreeConsole();
 	int x = 0;
 	srand((unsigned)time(0));
