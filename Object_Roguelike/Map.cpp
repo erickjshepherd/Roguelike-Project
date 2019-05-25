@@ -3,6 +3,16 @@
 #include <ctime>
 #include "Map.h"
 #include <vector>
+#include <queue>
+#include <string>
+#include "Global_Map.h"
+#include "Monsters.h"
+#include "Tile.h"
+#include <iterator>
+#include <iostream>
+#include <conio.h>
+#include <Windows.h>
+#include "Console.h"
 
 
 Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level){
@@ -51,6 +61,8 @@ void Map::Map_Generate() {
 
 	Fill_Dead_Ends();
 	Fill_Dead_Ends();
+
+	Spawn_Enemies();
 
 	Set_Exit();
 }
@@ -446,7 +458,58 @@ void Map::Set_Exit() {
 // Spawn enemies on the map
 void Map::Spawn_Enemies() {
 
+	int x, location;
+	int Total_Size = size * size;
+	Tile* under;
+	for (x = 0; x < 100; x++) {
+		location = rand();
+		location %= Total_Size;
+		while (this->map[location]->icon != '.') {
+			location = rand();
+			location %= Total_Size;
+		}
+		under = this->map[location];
+		Slime* newSlime = new Slime(location);
+		this->map[location] = newSlime;
+		this->map[location]->under = under;
+		this->Enemy_List.push_back(newSlime);
 
+	}
+}
+
+// iterate through each enemy on the map and move them
+void Map::Enemy_Turn() {
+	int x, enemies;
+	enemies = this->Enemy_List.size();
+	for (x = 0; x < enemies; x++) {
+		this->Enemy_List[x]->enemyTurn();
+	}
+}
+
+void Map::Add_Event(std::string event) {
+	this->events.push_back(event);
+	if (this->events.size() > 5) {
+		this->events.pop_front();
+	}
+}
+
+void Map::Draw_Events() {
+	std::list<std::string>::reverse_iterator current;
+	short view_size = (short)(this->player->view_distance * 2) + 1;
+	
+	// set console cursor
+	COORD position = {0, view_size + 1 + (5-this->events.size())};
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+
+	for (current = this->events.rbegin(); current != this->events.rend(); current++) {
+		std::cout << *current << std::endl;
+	}
+
+	// set console cursor
+	position = { view_size, view_size };
+	handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
 }
 
 Map::~Map(){

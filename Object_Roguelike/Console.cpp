@@ -12,7 +12,7 @@
 #include "Player.h"
 #include "Console.h"
 
-char acceptable[] = { '#', '.', '@', 'E' };
+char acceptable[] = { '#', '.', '@', 'E', 'S' };
 
 void Draw_Console(Map* map, int Size) {
 

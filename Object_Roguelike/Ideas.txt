@@ -1,0 +1,20 @@
+Features:
+	display event log
+	player stats
+	change generation based on player stats
+	melee like necrodancer, only use arrow keys to attack but different shapes
+	equipment (head, chest, legs, weapon, trinkets)
+	spells (mix of range, power, type, status)
+	custom spells based on level
+	display affected area and rotate before casting
+	cast spells/items off hotbar, display in GUI
+	add new enemies/items
+	bosses/mini-bosses
+	save game (only need to save player state)
+	player ghosts
+	main menu GUI
+	sound/music
+	overworld introduction
+	graphics
+	
+	

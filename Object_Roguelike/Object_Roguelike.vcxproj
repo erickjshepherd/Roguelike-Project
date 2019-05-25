@@ -150,6 +150,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Global_Map.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Monsters.cpp" />
     <ClCompile Include="ObjectRoguelike.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">

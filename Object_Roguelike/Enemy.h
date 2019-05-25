@@ -1,5 +1,8 @@
 #pragma once
 #include "Tile.h"
+#include <queue>
+#include <vector>
+#include <string>
 
 class Enemy : public Tile {
 
@@ -8,18 +11,30 @@ public:
 	Enemy();
 	~Enemy();
 
-	// attributes
+	// stats
 	int health;
-	int location;
 	int speed;
+	int strength;
+	int viewDistance;
+
+	// data
+	std::string name;
+	int location;
 	int consoleX, consoleY;
+
+	// turn
+	void enemyTurn();
 
 	// movement
 	int sensePlayer();
-	void Move(int direction);
+	int sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
+	int Move(int direction);
 
 	// attack
+	void attackPlayer();
 
+	// screen
+	void onScreen(int* X, int* Y);
 
 };
 

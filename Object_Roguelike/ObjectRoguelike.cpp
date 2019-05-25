@@ -21,6 +21,7 @@ int main(){
 
 	while (1) {
 		PC->turn();
+		global_map->Enemy_Turn();
 	}
 
 	return 0;

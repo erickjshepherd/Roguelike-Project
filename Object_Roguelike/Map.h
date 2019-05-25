@@ -2,6 +2,9 @@
 #include "Tile.h"
 #include "Player.h"
 #include <vector>
+#include <list>
+#include <string>
+#include "Enemy.h"
 
 class Map{
 
@@ -11,6 +14,8 @@ public:
 	~Map();
 
 	std::vector<Tile*> map;
+	std::vector<Enemy*> Enemy_List;
+	std::list<std::string> events;
 	Player* player;
 	
 	int size;
@@ -21,6 +26,10 @@ public:
 	int room_overlap;
 	int type;
 	int level;
+
+	void Enemy_Turn();
+	void Add_Event(std::string event);
+	void Draw_Events();
 
 private:
 

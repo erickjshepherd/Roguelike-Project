@@ -8,11 +8,14 @@
 #include <Windows.h>
 #include "Console.h"
 
+#include <list>
+
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
+// player class
 Player::Player(){
 	
 	// set player state
@@ -36,6 +39,7 @@ Player::Player(){
 }
 
 // player turn function
+// reads key input and selects a direction to move
 void Player::turn() {
 
 	int direction = 0;
@@ -79,6 +83,8 @@ void Player::turn() {
 }
 
 // get a random location in the new map to start
+// input: 1 if a town map, 0 if a random map
+// output: the integer location of the start point
 int Player::getStart(int type) {
 
 	int total_size = size*size;
@@ -110,7 +116,8 @@ int Player::getStart(int type) {
 	return location;
 }
 
-// is the player within the camera view
+// is the player within the camera view?
+// output: true if yes, false if no
 bool Player::inView() {
 
 	int x, y, xy;
@@ -147,6 +154,7 @@ bool Player::inView() {
 }
 
 // update the screen at specific coordinates
+// inputs: X and Y are console coordinates, out is printed there
 void Player::updateScreen(int X, int Y, char out) {
 
 	short view_size = (short)(view_distance * 2) + 1;
@@ -170,6 +178,7 @@ void Player::updateScreen(int X, int Y, char out) {
 }
 
 // set the player screen coordinates
+// output: updates consoleX and consoleY of the player class
 void Player::setCoordinates() {
 
 	int x, y, xy;
@@ -198,6 +207,7 @@ void Player::setCoordinates() {
 }
 
 // draw the players view
+// output: the area around the player is drawn to the console
 void Player::Draw_Player_View() {
 
 	int x, y, xy;
@@ -223,15 +233,23 @@ void Player::Draw_Player_View() {
 			}
 		}
 
+		if (y == 0) {
+			std::cout << "  Health: " << health << "   ";
+		}
+		else if (y == 1) {
+			std::cout << "  Floor: " << global_map->level << "   ";
+		}
+		else if (y == 2) {
+			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
+		}
 		std::cout << std::endl;
 	}
 
-	std::cout << "Health: " << health << std::endl;
-	std::cout << "Floor: " << global_map->level << std::endl;
-	std::cout << "Rooms: " << global_map->actual_total_rooms << std::endl;
+	
 }
 
 // create a new level
+// input: 0 if random, 1 if town
 void Player::Get_New_Level(int level) {
 
 	Map* next = new Map(size, total_rooms, max_room_size, min_room_size, room_overlap, 0, level);
@@ -258,6 +276,8 @@ void Player::Get_New_Level(int level) {
 	Draw_Player_View();
 }
 
+// move the player in one of four directions
+// input: 1 is up, 2 is down, 3 is left, 4 is right
 int Player::Move(int direction) {
 
 	int nextLocation;
@@ -408,6 +428,35 @@ int Player::Move(int direction) {
 	else {
 		return -1;
 	}
+}
+
+void Player::takeDamage(int amount) {
+	if (health < amount) {
+		health = 0;
+		// player is dead
+	}
+	else {
+		health = health - amount;
+	}
+
+	// update health
+	short view_size = (short)(view_distance * 2) + 1;
+
+	short x = 2 * view_size;
+	short y = 0;
+
+	// set console cursor
+	COORD position = { x, y };
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+
+	// print the character
+	std::cout << "  Health: " << health << "   ";
+
+	// set console cursor
+	position = { view_size, view_size };
+	handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
 }
 
 // destructor
