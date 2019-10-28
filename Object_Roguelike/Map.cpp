@@ -503,7 +503,7 @@ void Map::Draw_Events() {
 	SetConsoleCursorPosition(handle, position);
 
 	for (current = this->events.rbegin(); current != this->events.rend(); current++) {
-		std::cout << *current << std::endl;
+		std::cout << *current << "                                     " << std::endl;
 	}
 
 	// set console cursor

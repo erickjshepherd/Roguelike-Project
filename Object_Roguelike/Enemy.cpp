@@ -306,6 +306,43 @@ void Enemy::attackPlayer() {
 	global_map->Draw_Events();
 }
 
+void Enemy::takeDamage(int amount) {
+	health = health - amount;
+	// create damage event
+	std::string event("A ");
+	event.append(this->name);
+	event.append(" takes ");
+	event.append(std::to_string(amount));
+	event.append(" damage");
+	if (health <= 0) {
+		int x, y;
+		onScreen(&x, &y);
+		health = 0;
+		int i;
+		// find the index of the dead enemy then remove from list and map
+		for (i = 0; i < global_map->Enemy_List.size(); i++) {
+			if (global_map->Enemy_List[i] == this) {
+				break;
+			}
+		}
+		global_map->Enemy_List.erase(global_map->Enemy_List.begin() + i);
+		global_map->map[location] = under;
+		// update the screen
+		if (x != -1) {
+			global_map->player->updateScreen(x, y, global_map->map[location]->icon);
+		}
+		event.append(" and dies.");
+		global_map->Dead_Enemies.push_back(this);
+	}
+	else {
+		event.append(". It has ");
+		event.append(std::to_string(health));
+		event.append(" health left.");
+	}
+	global_map->Add_Event(event);
+	global_map->Draw_Events();
+}
+
 void Enemy::enemyTurn() {
 	
 	int moveResult;
@@ -369,3 +406,6 @@ void Enemy::onScreen(int* X, int* Y) {
 	return;
 }
 
+void Enemy::Player_Interact() {
+	takeDamage(global_map->player->strength);
+}

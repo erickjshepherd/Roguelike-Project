@@ -1,10 +1,13 @@
 Features:
-	display event log
 	player stats
 	change generation based on player stats
 	melee like necrodancer, only use arrow keys to attack but different shapes
 	equipment (head, chest, legs, weapon, trinkets)
+		swap weapons as an action
+		hold 2? weapons at a time
 	spells (mix of range, power, type, status)
+		ice to freeze
+		lighting to chain between enemies
 	custom spells based on level
 	display affected area and rotate before casting
 	cast spells/items off hotbar, display in GUI
@@ -16,5 +19,8 @@ Features:
 	sound/music
 	overworld introduction
 	graphics
+	generate enemies in clusters with synergy
+	reduce enemy sight from rooms to hallways
+	different vision/movement for different enemies
 	
 	

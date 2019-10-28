@@ -22,6 +22,7 @@ Player::Player(){
 	blocking = 1;
 	icon = '@';
 	health = 100;
+	strength = 10;
 	
 	// set initial map generation variables
 	size = 100;
@@ -70,7 +71,29 @@ void Player::turn() {
 
 	// Interact if can't move
 	if (move_success == -1) {
-	
+
+		int target = -1;
+
+		if (direction == 1) {
+			target = location - size;
+		}
+		else if (direction == 2) {
+			target = location + size;
+		}
+		else if (direction == 3) {
+			target = location - 1;
+		}
+		else if (direction == 4) {
+			target = location + 1;
+		}
+		global_map->map[target]->Player_Interact();
+
+		// free memory of dead enemies
+		while (global_map->Dead_Enemies.size() > 0) {
+			Enemy* dead = global_map->Dead_Enemies.back();
+			global_map->Dead_Enemies.pop_back();
+			//delete dead;
+		}
 	}
 	else {
 		
@@ -237,9 +260,12 @@ void Player::Draw_Player_View() {
 			std::cout << "  Health: " << health << "   ";
 		}
 		else if (y == 1) {
-			std::cout << "  Floor: " << global_map->level << "   ";
+			std::cout << "  Strength: " << strength << "  ";
 		}
 		else if (y == 2) {
+			std::cout << "  Floor: " << global_map->level << "   ";
+		}
+		else if (y == 3) {
 			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
 		}
 		std::cout << std::endl;

@@ -15,6 +15,7 @@ public:
 
 	// player state variables
 	int health;
+	int strength;
 
 	// map variables
 	int size;

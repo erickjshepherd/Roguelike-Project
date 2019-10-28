@@ -16,6 +16,7 @@ public:
 	std::vector<Tile*> map;
 	std::vector<Enemy*> Enemy_List;
 	std::list<std::string> events;
+	std::vector<Enemy*> Dead_Enemies;
 	Player* player;
 	
 	int size;

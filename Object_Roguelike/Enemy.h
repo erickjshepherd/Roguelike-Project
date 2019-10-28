@@ -33,8 +33,13 @@ public:
 	// attack
 	void attackPlayer();
 
+	// take damage
+	void takeDamage(int amount);
+
 	// screen
 	void onScreen(int* X, int* Y);
 
+	// player interaction
+	void Player_Interact();
 };
 

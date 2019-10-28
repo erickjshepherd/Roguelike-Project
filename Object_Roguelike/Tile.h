@@ -7,6 +7,9 @@ public:
 	Tile(char iconI, bool blockingI);
 	~Tile();
 
+	// interact functions
+	virtual void Player_Interact();
+
 	// properties
 	bool blocking;
 	char icon;
