@@ -307,13 +307,19 @@ void Enemy::attackPlayer() {
 }
 
 void Enemy::takeDamage(int amount) {
+	// draw the attack symbol on the enemy
+	flashChar(global_map->player->attack_char);
+
+	// update health
 	health = health - amount;
+	
 	// create damage event
 	std::string event("A ");
 	event.append(this->name);
 	event.append(" takes ");
 	event.append(std::to_string(amount));
 	event.append(" damage");
+
 	if (health <= 0) {
 		int x, y;
 		onScreen(&x, &y);
@@ -408,4 +414,16 @@ void Enemy::onScreen(int* X, int* Y) {
 
 void Enemy::Player_Interact() {
 	takeDamage(global_map->player->strength);
+}
+
+// draws the input char and then redraws the original char
+void Enemy::flashChar(char flash) {
+	int x, y;
+
+	onScreen(&x, &y);
+	if (x != -1 && y != -1) {
+		global_map->player->updateScreen(x, y, flash);
+		// todo: put sleep function here
+		global_map->player->updateScreen(x, y, global_map->map[location]->icon);
+	}
 }

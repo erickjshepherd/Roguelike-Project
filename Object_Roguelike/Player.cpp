@@ -31,6 +31,9 @@ Player::Player(){
 	min_room_size = 5;
 	room_overlap = 0;
 
+	// set attack character
+	attack_char = 'x';
+
 	// set map and location variables
 	view_distance = 10;
 	consoleX = view_distance * 2;
@@ -89,11 +92,10 @@ void Player::turn() {
 		global_map->map[target]->Player_Interact();
 
 		// free memory of dead enemies
-		while (global_map->Dead_Enemies.size() > 0) {
-			Enemy* dead = global_map->Dead_Enemies.back();
-			global_map->Dead_Enemies.pop_back();
-			//delete dead;
-		}
+		//while (global_map->Dead_Enemies.size() > 0) {
+			//Enemy* dead = global_map->Dead_Enemies.back();
+			//global_map->Dead_Enemies.pop_back();
+		//}
 	}
 	else {
 		
@@ -271,7 +273,7 @@ void Player::Draw_Player_View() {
 		std::cout << std::endl;
 	}
 
-	
+	global_map->Draw_Events();
 }
 
 // create a new level

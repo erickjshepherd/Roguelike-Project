@@ -36,10 +36,13 @@ public:
 	// take damage
 	void takeDamage(int amount);
 
-	// screen
+	// get screen coordinates
 	void onScreen(int* X, int* Y);
 
 	// player interaction
 	void Player_Interact();
+
+	// flash a char
+	void flashChar(char flash);
 };
 

@@ -17,6 +17,10 @@ public:
 	int health;
 	int strength;
 
+	// misc variables
+	// todo: pull this from weapon/spell
+	char attack_char;
+
 	// map variables
 	int size;
 	int total_rooms;
