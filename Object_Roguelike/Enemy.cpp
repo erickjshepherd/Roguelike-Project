@@ -413,7 +413,7 @@ void Enemy::onScreen(int* X, int* Y) {
 }
 
 void Enemy::Player_Interact() {
-	takeDamage(global_map->player->strength);
+	takeDamage(global_map->player->getDamage());
 }
 
 // draws the input char and then redraws the original char

@@ -1,5 +1,7 @@
 #pragma once
 #include "Tile.h"
+#include "Weapon.h"
+
 class Player : public Tile{
 
 public:
@@ -16,6 +18,9 @@ public:
 	// player state variables
 	int health;
 	int strength;
+
+	// player objects
+	Weapon* weapon;
 
 	// misc variables
 	// todo: pull this from weapon/spell
@@ -38,5 +43,6 @@ public:
 	//void Draw_Town();
 	void Get_New_Level(int level);
 	int Move(int direction);
+	int getDamage();
 };
 

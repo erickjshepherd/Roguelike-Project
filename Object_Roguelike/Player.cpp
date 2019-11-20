@@ -458,6 +458,14 @@ int Player::Move(int direction) {
 	}
 }
 
+int Player::getDamage(){
+	int damage = this->strength;
+	if (this->weapon != NULL) {
+		damage += this->weapon->damage;
+	}
+	return damage;
+}
+
 void Player::takeDamage(int amount) {
 	if (health < amount) {
 		health = 0;
