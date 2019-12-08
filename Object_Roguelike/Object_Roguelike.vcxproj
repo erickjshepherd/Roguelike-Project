@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -149,6 +149,7 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Global_Map.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monsters.cpp" />
     <ClCompile Include="ObjectRoguelike.cpp" />

@@ -461,6 +461,7 @@ void Map::Spawn_Enemies() {
 	int x, location;
 	int Total_Size = size * size;
 	Tile* under;
+
 	for (x = 0; x < 100; x++) {
 		location = rand();
 		location %= Total_Size;
@@ -474,6 +475,16 @@ void Map::Spawn_Enemies() {
 		this->map[location]->under = under;
 		this->Enemy_List.push_back(newSlime);
 
+	}
+}
+
+void Map::Spawn_Items() {
+	int x, location;
+	int Total_Size = size * size;
+	Tile* under;
+
+	for (x = 0; x < 20; x++) {
+		
 	}
 }
 

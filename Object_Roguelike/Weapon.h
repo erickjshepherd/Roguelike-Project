@@ -12,4 +12,5 @@ public:
 	int defense;
 	int magic;
 	int type;
+	int location;
 };
