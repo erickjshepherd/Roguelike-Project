@@ -10,6 +10,8 @@
 #include "Console.h"
 #include <queue>
 #include <vector>
+#include "Monsters.h"
+#include "Items.h"
 
 Enemy::Enemy(){
 	blocking = 1;
@@ -320,6 +322,7 @@ void Enemy::takeDamage(int amount) {
 	event.append(std::to_string(amount));
 	event.append(" damage");
 
+	// death
 	if (health <= 0) {
 		int x, y;
 		onScreen(&x, &y);
@@ -330,6 +333,13 @@ void Enemy::takeDamage(int amount) {
 			if (global_map->Enemy_List[i] == this) {
 				break;
 			}
+		}
+		// get loot
+		int loot_index = rand() % 10;
+		if (loot[loot_index] != -1) {
+			Tile* dropped_loot = Get_Item(location, loot[loot_index]);
+			dropped_loot->under = under;
+			under = dropped_loot;
 		}
 		global_map->Enemy_List.erase(global_map->Enemy_List.begin() + i);
 		global_map->map[location] = under;

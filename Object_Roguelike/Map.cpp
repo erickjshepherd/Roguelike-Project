@@ -7,6 +7,7 @@
 #include <string>
 #include "Global_Map.h"
 #include "Monsters.h"
+#include "Items.h"
 #include "Tile.h"
 #include <iterator>
 #include <iostream>
@@ -458,7 +459,7 @@ void Map::Set_Exit() {
 // Spawn enemies on the map
 void Map::Spawn_Enemies() {
 
-	int x, location;
+	int x, location, index;
 	int Total_Size = size * size;
 	Tile* under;
 
@@ -470,11 +471,11 @@ void Map::Spawn_Enemies() {
 			location %= Total_Size;
 		}
 		under = this->map[location];
-		Slime* newSlime = new Slime(location);
-		this->map[location] = newSlime;
+		index = rand() % NUM_MONSTERS;
+		Enemy* enemy = Get_Enemy(location, index);
+		this->map[location] = enemy;
 		this->map[location]->under = under;
-		this->Enemy_List.push_back(newSlime);
-
+		this->Enemy_List.push_back(enemy);
 	}
 }
 

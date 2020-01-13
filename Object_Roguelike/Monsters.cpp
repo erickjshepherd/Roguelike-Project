@@ -9,6 +9,7 @@ Slime::Slime() {
 	viewDistance = 6;
 	icon = 'S';
 	location = 0;
+	loot[0] = 0; // 1/10 to drop dagger
 }
 
 Slime::Slime(int location) {
@@ -19,9 +20,17 @@ Slime::Slime(int location) {
 	viewDistance = 6;
 	icon = 'S';
 	this->location = location;
+	loot[0] = 0;
 }
 
 // slime destructor
 Slime::~Slime() {
 
+}
+
+Enemy* Get_Enemy(int location, int index) {
+
+	if (index == 0) {
+		return new Slime(location);
+	}
 }

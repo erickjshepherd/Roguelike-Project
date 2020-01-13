@@ -17,6 +17,9 @@ public:
 	int strength;
 	int viewDistance;
 
+	// loot table
+	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
+
 	// data
 	std::string name;
 	int location;

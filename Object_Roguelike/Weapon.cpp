@@ -5,6 +5,7 @@ Weapon::Weapon(){
 	defense = 0;
 	magic = 0;
 	type = 0;
+	blocking = 0;
 }
 
 Weapon::Weapon(int damage, int defense, int magic, int type) {
@@ -12,6 +13,7 @@ Weapon::Weapon(int damage, int defense, int magic, int type) {
 	this->defense = defense;
 	this->magic = magic;
 	this->type = type;
+	blocking = 0;
 }
 
 Weapon::~Weapon(){
