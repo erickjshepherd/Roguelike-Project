@@ -13,4 +13,7 @@ public:
 	int magic;
 	int type;
 	int location;
+
+	// player interaction
+	void Player_Interact();
 };

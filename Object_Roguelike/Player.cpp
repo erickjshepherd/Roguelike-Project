@@ -14,6 +14,7 @@
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
+#define ENTER 13
 
 // player class
 Player::Player(){
@@ -52,8 +53,10 @@ void Player::turn() {
 
 	// get the key press
 	direction = _getch();
-	direction = _getch();
-
+	if (direction == 224) {
+		direction = _getch();
+	}
+	
 	// get the direction and attempt to move
 	if (direction == KEY_UP) {
 		direction = 1;
@@ -67,13 +70,17 @@ void Player::turn() {
 	else if (direction == KEY_RIGHT) {
 		direction = 4;
 	}
+	else if (direction == ENTER) {
+		direction = 0;
+		under->Player_Interact();
+	}
 	else {
 		direction = 0;
 	}
 	move_success = Move(direction);
 
 	// Interact if can't move
-	if (move_success == -1) {
+	if (move_success == -1 && direction != 0) {
 
 		int target = -1;
 
@@ -97,12 +104,19 @@ void Player::turn() {
 			//global_map->Dead_Enemies.pop_back();
 		//}
 	}
+	// Do post move actions
 	else {
 		
 		// Generate a new level when moving onto E
 		if (under->icon == 'E') {
 
 			Get_New_Level(global_map->level + 1);
+		}
+		if (under->icon == 'd') {
+			// todo: make a more generic message that pulls the name from the object
+			std::string event("You see a dagger.");
+			global_map->Add_Event(event);
+			global_map->Draw_Events();
 		}
 	}
 }

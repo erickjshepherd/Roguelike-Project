@@ -1,4 +1,6 @@
 #include "Weapon.h"
+#include "Player.h"
+#include "Global_Map.h"
 
 Weapon::Weapon(){
 	damage = 0;
@@ -17,4 +19,16 @@ Weapon::Weapon(int damage, int defense, int magic, int type) {
 }
 
 Weapon::~Weapon(){
+}
+
+void Weapon::Player_Interact() {
+	if (global_map->player->weapon != NULL) {
+		global_map->player->under = global_map->player->weapon;
+		global_map->player->under->under = this->under;
+	}
+	else {
+		global_map->player->under = this->under;
+		this->under = NULL;
+	}
+	global_map->player->weapon = this;
 }
