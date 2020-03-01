@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Player.h"
 #include "Global_Map.h"
 #include <time.h>
@@ -7,7 +8,6 @@
 #include <conio.h>
 #include <Windows.h>
 #include "Console.h"
-
 #include <list>
 
 #define KEY_UP 72
@@ -283,6 +283,14 @@ void Player::Draw_Player_View() {
 		}
 		else if (y == 3) {
 			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
+		}
+		else if (y == 5) {
+			if (weapon != NULL) {
+				std::cout << "  Weapon: " << weapon->name << "   ";
+			}
+			else {
+				std::cout << "  Weapon: none   ";
+			}
 		}
 		std::cout << std::endl;
 	}

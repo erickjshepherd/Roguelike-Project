@@ -1,5 +1,6 @@
 #pragma once
 #include "Tile.h"
+#include <string>
 
 class Weapon : public Tile {
 public:
@@ -13,6 +14,7 @@ public:
 	int magic;
 	int type;
 	int location;
+	std::string name;
 
 	// player interaction
 	void Player_Interact();

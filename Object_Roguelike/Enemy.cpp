@@ -336,8 +336,10 @@ void Enemy::takeDamage(int amount) {
 		}
 		// get loot
 		int loot_index = rand() % 10;
+		Tile* dropped_loot = new Tile();
 		if (loot[loot_index] != -1) {
-			Tile* dropped_loot = Get_Item(location, loot[loot_index]);
+			delete dropped_loot;
+			dropped_loot = Get_Item(location, loot[loot_index]);
 			dropped_loot->under = under;
 			under = dropped_loot;
 		}

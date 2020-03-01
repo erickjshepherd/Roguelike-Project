@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Items.h"
 
 dagger::dagger() {
@@ -6,6 +7,7 @@ dagger::dagger() {
 	magic = 0;
 	type = 1;
 	icon = 'd';
+	name = std::string("dagger");
 }
 
 dagger::dagger(int location) {
@@ -15,6 +17,7 @@ dagger::dagger(int location) {
 	type = 1;
 	this->location = location;
 	icon = 'd';
+	name = std::string("dagger");
 }
 
 dagger::~dagger() {

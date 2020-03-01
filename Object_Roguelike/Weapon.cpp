@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Weapon.h"
 #include "Player.h"
 #include "Global_Map.h"
@@ -31,4 +32,5 @@ void Weapon::Player_Interact() {
 		this->under = NULL;
 	}
 	global_map->player->weapon = this;
+	// todo: update weapon value on screen
 }

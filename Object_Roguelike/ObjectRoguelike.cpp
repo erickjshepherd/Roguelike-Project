@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Player.h"
 #include "Map.h"
 #include "Global_Map.h"

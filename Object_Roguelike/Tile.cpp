@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Tile.h"
 #include "Global_Map.h"
 
