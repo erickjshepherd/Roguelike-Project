@@ -32,5 +32,5 @@ void Weapon::Player_Interact() {
 		this->under = NULL;
 	}
 	global_map->player->weapon = this;
-	// todo: update weapon value on screen
+	global_map->player->updateWeapon();
 }

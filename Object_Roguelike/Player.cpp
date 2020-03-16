@@ -497,9 +497,12 @@ void Player::takeDamage(int amount) {
 		health = health - amount;
 	}
 
-	// update health
-	short view_size = (short)(view_distance * 2) + 1;
+	updateHealth();
+}
 
+void Player::updateHealth() {
+	
+	short view_size = (short)(view_distance * 2) + 1;
 	short x = 2 * view_size;
 	short y = 0;
 
@@ -510,6 +513,26 @@ void Player::takeDamage(int amount) {
 
 	// print the character
 	std::cout << "  Health: " << health << "   ";
+
+	// set console cursor
+	position = { view_size, view_size };
+	handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+}
+
+void Player::updateWeapon() {
+
+	short view_size = (short)(view_distance * 2) + 1;
+	short x = 2 * view_size;
+	short y = 5;
+
+	// set console cursor
+	COORD position = { x, y };
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+
+	// print the character
+	std::cout << "  Weapon: " << weapon->name << "   ";
 
 	// set console cursor
 	position = { view_size, view_size };
