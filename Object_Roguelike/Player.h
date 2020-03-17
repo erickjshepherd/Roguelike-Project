@@ -39,9 +39,8 @@ public:
 	void updateScreen(int X, int Y, char out);
 	void setCoordinates();
 	void Draw_Player_View();
+	void drawStats(int line);
 	void takeDamage(int amount);
-	void updateHealth();
-	void updateWeapon();
 	//void Draw_Town();
 	void Get_New_Level(int level);
 	int Move(int direction);

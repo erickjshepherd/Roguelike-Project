@@ -507,7 +507,7 @@ void Map::Add_Event(std::string event) {
 }
 
 void Map::Draw_Events() {
-	std::list<std::string>::reverse_iterator current;
+	std::list<std::string>::iterator current;
 	short view_size = (short)(this->player->view_distance * 2) + 1;
 	
 	// set console cursor
@@ -515,7 +515,7 @@ void Map::Draw_Events() {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(handle, position);
 
-	for (current = this->events.rbegin(); current != this->events.rend(); current++) {
+	for (current = this->events.begin(); current != this->events.end(); current++) {
 		std::cout << *current << "                                     " << std::endl;
 	}
 

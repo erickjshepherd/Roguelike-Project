@@ -497,47 +497,56 @@ void Player::takeDamage(int amount) {
 		health = health - amount;
 	}
 
-	updateHealth();
+	drawStats(0);
 }
 
-void Player::updateHealth() {
-	
+// input: The line number that corrosponds to the stat. -1 draws all
+void Player::drawStats(int line) {
 	short view_size = (short)(view_distance * 2) + 1;
 	short x = 2 * view_size;
-	short y = 0;
+	short y;
 
-	// set console cursor
-	COORD position = { x, y };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
+	COORD position;
+	HANDLE handle;
 
-	// print the character
-	std::cout << "  Health: " << health << "   ";
-
-	// set console cursor
-	position = { view_size, view_size };
-	handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
-}
-
-void Player::updateWeapon() {
-
-	short view_size = (short)(view_distance * 2) + 1;
-	short x = 2 * view_size;
-	short y = 5;
-
-	// set console cursor
-	COORD position = { x, y };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
-
-	// print the character
-	std::cout << "  Weapon: " << weapon->name << "   ";
-
-	// set console cursor
-	position = { view_size, view_size };
-	handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
+	// y is the line number for each stat
+	for (y = 0; y < 6; y++) {
+		if ((y == 0 && y == line) || line == -1 ) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			std::cout << "  Health: " << health << "   ";
+		}
+		else if ((y == 1 && y == line) || line == -1) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			std::cout << "  Strength: " << strength << "  ";
+		}
+		else if ((y == 2 && y == line) || line == -1) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			std::cout << "  Floor: " << global_map->level << "   ";
+		}
+		else if ((y == 3 && y == line) || line == -1) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
+		}
+		else if ((y == 5 && y == line) || line == -1) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (weapon != NULL) {
+				std::cout << "  Weapon: " << weapon->name << "   ";
+			}
+			else {
+				std::cout << "  Weapon: none   ";
+			}
+		}
+	}
 }
 
 // destructor

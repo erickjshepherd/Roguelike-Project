@@ -32,5 +32,5 @@ void Weapon::Player_Interact() {
 		this->under = NULL;
 	}
 	global_map->player->weapon = this;
-	global_map->player->updateWeapon();
+	global_map->player->drawStats(5);
 }
