@@ -6,14 +6,15 @@ class Weapon : public Tile {
 public:
 
 	Weapon();
-	Weapon(int damage, int defense, int magic, int type);
+	Weapon(int defense, int magic, int type);
 	~Weapon();
 
-	int damage;
 	int defense;
 	int magic;
 	int type;
 	int location;
+	int hit[3][3];
+	int damage[3][3];
 	std::string name;
 
 	// player interaction

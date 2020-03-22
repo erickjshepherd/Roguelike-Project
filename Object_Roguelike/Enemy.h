@@ -43,7 +43,7 @@ public:
 	void onScreen(int* X, int* Y);
 
 	// player interaction
-	void Player_Interact();
+	int Player_Attack(int damage);
 
 	// flash a char
 	void flashChar(char flash);

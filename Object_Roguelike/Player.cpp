@@ -9,6 +9,7 @@
 #include <Windows.h>
 #include "Console.h"
 #include <list>
+#include "Items.h"
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -41,6 +42,8 @@ Player::Player(){
 	consoleY = view_distance;
 	view_start = location - view_distance;
 	view_start = view_start - (size * view_distance);
+
+	weapon = new dagger();
 }
 
 // player turn function
@@ -49,7 +52,7 @@ void Player::turn() {
 
 	int direction = 0;
 	int nextLocation = 0;
-	int move_success;
+	int move_success, attack_success;
 
 	// get the key press
 	direction = _getch();
@@ -77,10 +80,15 @@ void Player::turn() {
 	else {
 		direction = 0;
 	}
-	move_success = Move(direction);
 
-	// Interact if can't move
-	if (move_success == -1 && direction != 0) {
+	// try to attack and then try to move
+	attack_success = attack(direction);
+	if (attack_success == 0) {
+		move_success = Move(direction);
+	}
+	
+	// Interact if can't attack or move
+	if (attack_success != 1 && move_success == -1 && direction != 0) {
 
 		int target = -1;
 
@@ -194,6 +202,7 @@ bool Player::inView() {
 
 // update the screen at specific coordinates
 // inputs: X and Y are console coordinates, out is printed there
+// todo: does this belong in the player class?
 void Player::updateScreen(int X, int Y, char out) {
 
 	short view_size = (short)(view_distance * 2) + 1;
@@ -480,14 +489,17 @@ int Player::Move(int direction) {
 	}
 }
 
-int Player::getDamage(){
+// output: the damage the player deals with an attack
+int Player::getDamage(int x, int y){
 	int damage = this->strength;
 	if (this->weapon != NULL) {
-		damage += this->weapon->damage;
+		damage += this->weapon->damage[x][y];
 	}
 	return damage;
 }
 
+// handles logic for the player taking damage
+// input: the amount of damage to take
 void Player::takeDamage(int amount) {
 	if (health < amount) {
 		health = 0;
@@ -547,6 +559,96 @@ void Player::drawStats(int line) {
 			}
 		}
 	}
+}
+
+bool Player::attack(int direction) {
+	int x, y, target, priority, success;
+	// up
+	success = 0;
+	if (direction == 1) {
+		for (priority = 1; priority < 10; priority++) {
+			target = location - (3 * size) - 1;
+			for (x = 0; x < 3; x++) {
+				target += x * size;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+							success = 1;
+						}
+					}
+					target += 1;
+				}
+				target = location - (3 * size) - 1;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
+	}
+	// down
+	else if (direction == 2) {
+		for (priority = 1; priority < 10; priority++) {
+			target = location + (3 * size) + 1;
+			for (x = 0; x < 3; x++) {
+				target -= x * size;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+							success = 1;
+						}
+					}
+					target -= 1;
+				}
+				target = location + (3 * size) + 1;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
+	}
+	// left
+	else if (direction == 3) {
+		for (priority = 1; priority < 10; priority++) {
+			target = location - 3 + size;
+			for (x = 0; x < 3; x++) {
+				target += x;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+							success = 1;
+						}
+					}
+					target -= size;
+				}
+				target = location - 3 + size;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
+	}
+	// right
+	else if (direction == 4) {
+		for (priority = 1; priority < 10; priority++) {
+			target = location + 3 - size;
+			for (x = 0; x < 3; x++) {
+				target -= x;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+							success = 1;
+						}
+					}
+					target += size;
+				}
+				target = location + 3 - size;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
+	}
+	return success;
 }
 
 // destructor

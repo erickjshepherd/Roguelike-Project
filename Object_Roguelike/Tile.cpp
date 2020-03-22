@@ -22,3 +22,7 @@ Tile::~Tile(){
 void Tile::Player_Interact() {
 
 }
+
+int Tile::Player_Attack(int damage) {
+	return 0;
+}

@@ -44,6 +44,7 @@ public:
 	//void Draw_Town();
 	void Get_New_Level(int level);
 	int Move(int direction);
-	int getDamage();
+	int getDamage(int x, int y);
+	bool attack(int direction);
 };
 
