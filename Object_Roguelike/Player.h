@@ -1,6 +1,7 @@
 #pragma once
 #include "Tile.h"
 #include "Weapon.h"
+#include "Armour.h"
 
 class Player : public Tile{
 
@@ -21,6 +22,9 @@ public:
 
 	// player objects
 	Weapon* weapon;
+	Armour* head;
+	Armour* chest;
+	Armour* legs;
 
 	// misc variables
 	// todo: pull this from weapon/spell
