@@ -311,24 +311,31 @@ void Player::Draw_Player_View() {
 // input: 0 if random, 1 if town
 void Player::Get_New_Level(int level) {
 
-	Map* next = new Map(size, total_rooms, max_room_size, min_room_size, room_overlap, 0, level);
-	next->player = this;
-	
-	// delete the old map
-	delete(global_map);
+	while (1) {
+		Map* next = new Map(size, total_rooms, max_room_size, min_room_size, room_overlap, 0, level);
+		next->player = this;
 
-	// set up the new map and location
-	global_map = next;
-	location = getStart(global_map->type);
-	view_distance = 10;
-	consoleX = view_distance * 2;
-	consoleY = view_distance;
-	view_start = location - view_distance;
-	view_start = view_start - (size * view_distance);
+		// delete the old map
+		delete(global_map);
 
-	// set the player in the map
-	under = global_map->map[location];
-	global_map->map[location] = this;
+		// set up the new map and location
+		global_map = next;
+		location = getStart(global_map->type);
+		view_distance = 10;
+		consoleX = view_distance * 2;
+		consoleY = view_distance;
+		view_start = location - view_distance;
+		view_start = view_start - (size * view_distance);
+
+		// set the player in the map
+		under = global_map->map[location];
+		global_map->map[location] = this;
+
+		// check that the exit can be reached
+		if (global_map->findExit(location)) {
+			break;
+		}
+	}
 
 	// update the screen
 	ClearScreen();

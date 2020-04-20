@@ -525,6 +525,83 @@ void Map::Draw_Events() {
 	SetConsoleCursorPosition(handle, position);
 }
 
+int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {
+	if (nodes.size() == 0) {
+		return -1;
+	}
+
+	// get the current node
+	int current_node = nodes.front();
+	nodes.pop();
+	int previous_node = parent_nodes.front();
+	parent_nodes.pop();
+
+	if (map[current_node]->icon == 'E') {
+		return previous_node;
+	}
+
+	// add the surrounding nodes
+	int x, next_node;
+	for (x = 0; x < 4; x++) {
+		if (x == 0) {
+			next_node = current_node - size;
+		}
+		else if (x == 1) {
+			next_node = current_node + size;
+		}
+		else if (x == 2) {
+			next_node = current_node - 1;
+		}
+		else {
+			next_node = current_node + 1;
+		}
+
+		// add unvisited, non-blocking nodes to the search list
+		// throws error
+		if (map[next_node]->blocking == 0 || (map[next_node]->icon == 'E')) {
+			int isVisited, y;
+			isVisited = 0;
+			for (y = 0; y < visited.size(); y++) {
+				if (visited[y] == next_node) {
+					isVisited = 1;
+				}
+			}
+
+			if (isVisited == 0) {
+				nodes.push(next_node);
+				parent_nodes.push(current_node);
+				visited.push_back(next_node);
+			}
+		}
+	}
+
+	// recursively call function, return the next parent in the chain
+	int result = findExit_BFS(nodes, parent_nodes, visited, start);
+	if (result == current_node) {
+		if (previous_node == start) {
+			return result;
+		}
+		else {
+			return previous_node;
+		}
+	}
+	else {
+		return result;
+	}
+}
+
+int Map::findExit(int start) {
+	std::queue<int> nodes;
+	std::queue<int> parent_nodes;
+	std::vector<int> visited;
+
+	nodes.push(start);
+	parent_nodes.push(-1);
+	visited.push_back(start);
+
+	return findExit_BFS(nodes, parent_nodes, visited, start);
+}
+
 Map::~Map(){
 
 }

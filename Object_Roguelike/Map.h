@@ -31,6 +31,8 @@ public:
 	void Enemy_Turn();
 	void Add_Event(std::string event);
 	void Draw_Events();
+	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
+	int findExit(int start);
 
 private:
 
