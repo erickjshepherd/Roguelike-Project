@@ -28,10 +28,12 @@ Player::Player(){
 	
 	// set initial map generation variables
 	size = 100;
-	total_rooms = 20;
-	max_room_size = 15;
-	min_room_size = 5;
-	room_overlap = 0;
+	totalRooms = 20;
+	maxRoomSize = 15;
+	minRoomSize = 5;
+	maxTunnelSize = 10;
+	minTunnelSize = 4;
+	roomOverlap = 0;
 
 	// set attack character
 	attack_char = 'x';
@@ -93,10 +95,10 @@ void Player::turn() {
 		int target = -1;
 
 		if (direction == 1) {
-			target = location - size;
+			target = location - global_map->size;
 		}
 		else if (direction == 2) {
-			target = location + size;
+			target = location + global_map->size;
 		}
 		else if (direction == 3) {
 			target = location - 1;
@@ -134,7 +136,7 @@ void Player::turn() {
 // output: the integer location of the start point
 int Player::getStart(int type) {
 
-	int total_size = size*size;
+	int total_size = global_map->size*global_map->size;
 	int location = rand() % total_size;
 	bool found_start = false;
 
@@ -180,14 +182,14 @@ bool Player::inView() {
 
 			// set start to one square diagonally down/right from view_start
 			xy = view_start;
-			xy += size;
+			xy += global_map->size;
 			xy++;
 
-			xy += y * size;
+			xy += y * global_map->size;
 			xy += x;
 
 			// don't read out of range
-			if (xy >= 0 && xy < (size * size)) {
+			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 				
 				if (global_map->map[xy] == this) {
 
@@ -239,10 +241,10 @@ void Player::setCoordinates() {
 		for (x = 0; x < view_size; x++) {
 
 			xy = view_start;
-			xy += y * size;
+			xy += y * global_map->size;
 			xy += x;
 
-			if (xy >= 0 && xy < (size * size)) {
+			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 				
 				if (global_map->map[xy] == this) {
 
@@ -268,10 +270,10 @@ void Player::Draw_Player_View() {
 		for (x = 0; x < view_size; x++) {
 
 			xy = view_start;
-			xy += y * size;
+			xy += y * global_map->size;
 			xy += x;
 
-			if (xy >= 0 && xy < (size * size)) {
+			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 				
 				if (Acceptable(global_map->map[xy]->icon)) {
 
@@ -312,7 +314,7 @@ void Player::Draw_Player_View() {
 void Player::Get_New_Level(int level) {
 
 	while (1) {
-		Map* next = new Map(size, total_rooms, max_room_size, min_room_size, room_overlap, 0, level);
+		Map* next = new Map(getMapSize(), getTotalRooms(), getMaxRoomSize(), getMinRoomSize(),getRoomOverlap(), 0, level, getMaxTunnelSize(), getMinTunnelSize());
 		next->player = this;
 
 		// delete the old map
@@ -325,7 +327,7 @@ void Player::Get_New_Level(int level) {
 		consoleX = view_distance * 2;
 		consoleY = view_distance;
 		view_start = location - view_distance;
-		view_start = view_start - (size * view_distance);
+		view_start = view_start - (global_map->size * view_distance);
 
 		// set the player in the map
 		under = global_map->map[location];
@@ -352,17 +354,17 @@ int Player::Move(int direction) {
 	// get the input and move if able
 	if (direction == 1) {
 
-		nextLocation = location - size;
+		nextLocation = location - global_map->size;
 
-		if (global_map->map[location - size]->blocking == 0) {
+		if (global_map->map[location - global_map->size]->blocking == 0) {
 
 			// get the new under tile
-			Tile* new_under = global_map->map[location - size];
+			Tile* new_under = global_map->map[location - global_map->size];
 
 			// update map
-			global_map->map[location - size] = this;
+			global_map->map[location - global_map->size] = this;
 			global_map->map[location] = under;
-			location -= size;
+			location -= global_map->size;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, under->icon);
@@ -375,9 +377,9 @@ int Player::Move(int direction) {
 			// update camera position and redraw screen
 			if (inView() == false) {
 
-				view_start -= size * view_distance;
+				view_start -= global_map->size * view_distance;
 				while (view_start < 0) {
-					view_start += size;
+					view_start += global_map->size;
 				}
 
 				ClearScreen();
@@ -391,15 +393,15 @@ int Player::Move(int direction) {
 	}
 	else if (direction == 2) {
 
-		nextLocation = location + size;
+		nextLocation = location + global_map->size;
 
-		if (global_map->map[location + size]->blocking == 0) {
+		if (global_map->map[location + global_map->size]->blocking == 0) {
 
-			Tile* new_under = global_map->map[location + size];
+			Tile* new_under = global_map->map[location + global_map->size];
 
-			global_map->map[location + size] = this;
+			global_map->map[location + global_map->size] = this;
 			global_map->map[location] = under;
-			location += size;
+			location += global_map->size;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, under->icon);
@@ -411,7 +413,7 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				view_start += size * view_distance;
+				view_start += global_map->size * view_distance;
 				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
@@ -574,18 +576,18 @@ bool Player::attack(int direction) {
 	success = 0;
 	if (direction == 1) {
 		for (priority = 1; priority < 10; priority++) {
-			target = location - (3 * size) - 1;
+			target = location - (3 * global_map->size) - 1;
 			for (x = 0; x < 3; x++) {
-				target += x * size;
+				target += x * global_map->size;
 				for (y = 0; y < 3; y++) {
-					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
 						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
 					target += 1;
 				}
-				target = location - (3 * size) - 1;
+				target = location - (3 * global_map->size) - 1;
 			}
 			if (success == 1) {
 				break;
@@ -595,18 +597,18 @@ bool Player::attack(int direction) {
 	// down
 	else if (direction == 2) {
 		for (priority = 1; priority < 10; priority++) {
-			target = location + (3 * size) + 1;
+			target = location + (3 * global_map->size) + 1;
 			for (x = 0; x < 3; x++) {
-				target -= x * size;
+				target -= x * global_map->size;
 				for (y = 0; y < 3; y++) {
-					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
 						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
 					target -= 1;
 				}
-				target = location + (3 * size) + 1;
+				target = location + (3 * global_map->size) + 1;
 			}
 			if (success == 1) {
 				break;
@@ -616,18 +618,18 @@ bool Player::attack(int direction) {
 	// left
 	else if (direction == 3) {
 		for (priority = 1; priority < 10; priority++) {
-			target = location - 3 + size;
+			target = location - 3 + global_map->size;
 			for (x = 0; x < 3; x++) {
 				target += x;
 				for (y = 0; y < 3; y++) {
-					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
 						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
-					target -= size;
+					target -= global_map->size;
 				}
-				target = location - 3 + size;
+				target = location - 3 + global_map->size;
 			}
 			if (success == 1) {
 				break;
@@ -637,18 +639,18 @@ bool Player::attack(int direction) {
 	// right
 	else if (direction == 4) {
 		for (priority = 1; priority < 10; priority++) {
-			target = location + 3 - size;
+			target = location + 3 - global_map->size;
 			for (x = 0; x < 3; x++) {
 				target -= x;
 				for (y = 0; y < 3; y++) {
-					if (target >= 0 && target < (size*size) && weapon->hit[x][y] == priority) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
 						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
-					target += size;
+					target += global_map->size;
 				}
-				target = location + 3 - size;
+				target = location + 3 - global_map->size;
 			}
 			if (success == 1) {
 				break;
@@ -656,6 +658,95 @@ bool Player::attack(int direction) {
 		}
 	}
 	return success;
+}
+
+int Player::getMapSize() {
+	int total = size;
+	if (head != NULL) {
+		total += head->totalSize;
+	}
+	if (chest != NULL) {
+		total += chest->totalSize;
+	}
+	if (legs != NULL) {
+		total += legs->totalSize;
+	}
+	return total;
+}
+
+int Player::getTotalRooms() {
+	int total = totalRooms;
+	if (head != NULL) {
+		total += head->totalRooms;
+	}
+	if (chest != NULL) {
+		total += chest->totalRooms;
+	}
+	if (legs != NULL) {
+		total += legs->totalRooms;
+	}
+	return total;
+}
+
+int Player::getMaxRoomSize() {
+	int total = maxRoomSize;
+	if (head != NULL) {
+		total += head->maxRoomSize;
+	}
+	if (chest != NULL) {
+		total += chest->maxRoomSize;
+	}
+	if (legs != NULL) {
+		total += legs->maxRoomSize;
+	}
+	return total;
+}
+
+
+int Player::getMinRoomSize() {
+	int total = minRoomSize;
+	if (head != NULL) {
+		total += head->minRoomSize;
+	}
+	if (chest != NULL) {
+		total += chest->minRoomSize;
+	}
+	if (legs != NULL) {
+		total += legs->minRoomSize;
+	}
+	return total;
+}
+
+int Player::getMaxTunnelSize() {
+	int total = maxTunnelSize;
+	if (head != NULL) {
+		total += head->maxTunnelSize;
+	}
+	if (chest != NULL) {
+		total += chest->maxTunnelSize;
+	}
+	if (legs != NULL) {
+		total += legs->maxTunnelSize;
+	}
+	return total;
+}
+
+int Player::getMinTunnelSize() {
+	int total = minTunnelSize;
+	if (head != NULL) {
+		total += head->minTunnelSize;
+	}
+	if (chest != NULL) {
+		total += chest->minTunnelSize;
+	}
+	if (legs != NULL) {
+		total += legs->minTunnelSize;
+	}
+	return total;
+}
+
+int Player::getRoomOverlap() {
+	return roomOverlap;
 }
 
 // destructor

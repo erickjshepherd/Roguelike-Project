@@ -10,8 +10,11 @@ public:
 	int type;
 	int defense;
 	int health;
-	int rooms;
-	int roomSize;
+	int totalRooms;
+	int maxRoomSize;
+	int minRoomSize;
+	int maxTunnelSize;
+	int minTunnelSize;
 	int totalSize;
 	std::string name;
 

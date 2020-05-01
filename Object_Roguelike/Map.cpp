@@ -17,7 +17,7 @@
 #include "Console.h"
 
 
-Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level){
+Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
 
 	map.resize(size*size);
 
@@ -27,6 +27,8 @@ Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int l
 	this->min_room_size = min;
 	this->type = mapType;
 	this->level = level;
+	this->maxTunnelSize = maxTunnel;
+	this->minTunnelSize = minTunnel;
 
 	if (overlap) {
 
@@ -277,8 +279,10 @@ void Map::Tunnel() {
 					}
 
 					amount = rand();
-					amount %= 6;
-					amount += 4;
+					amount %= maxTunnelSize;
+					if (amount < minTunnelSize) {
+						amount = minTunnelSize;
+					}
 				}
 
 				if (direction == 0) { // up

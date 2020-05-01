@@ -10,7 +10,7 @@ class Map{
 
 public:
 	
-	Map(int size, int total, int max, int min, bool overlap, int mapType, int level);
+	Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel);
 	~Map();
 
 	std::vector<Tile*> map;
@@ -24,6 +24,8 @@ public:
 	int actual_total_rooms;
 	int max_room_size;
 	int min_room_size;
+	int maxTunnelSize;
+	int minTunnelSize;
 	int room_overlap;
 	int type;
 	int level;

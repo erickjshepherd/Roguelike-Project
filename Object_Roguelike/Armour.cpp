@@ -6,8 +6,9 @@ Armour::Armour() {
 	type = 0;
 	defense = 0;
 	health = 0;
-	rooms = 0;
-	roomSize = 0;
+	totalRooms = 0;
+	maxRoomSize = 0;
+	minRoomSize = 0;
 	totalSize = 0;
 	blocking = 0;
 }

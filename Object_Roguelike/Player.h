@@ -32,10 +32,12 @@ public:
 
 	// map variables
 	int size;
-	int total_rooms;
-	int max_room_size;
-	int min_room_size;
-	int room_overlap;
+	int totalRooms;
+	int maxRoomSize;
+	int minRoomSize;
+	int maxTunnelSize;
+	int minTunnelSize;
+	int roomOverlap;
 
 	int getStart(int type);
 	void turn();
@@ -50,5 +52,13 @@ public:
 	int Move(int direction);
 	int getDamage(int x, int y);
 	bool attack(int direction);
+
+	int getMapSize();
+	int getTotalRooms();
+	int getMaxRoomSize();
+	int getMinRoomSize();
+	int getMaxTunnelSize();
+	int getMinTunnelSize();
+	int getRoomOverlap();
 };
 
