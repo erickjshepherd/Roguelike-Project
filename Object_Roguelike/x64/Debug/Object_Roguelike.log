@@ -1,4 +1,4 @@
-﻿Build started 4/30/2020 9:31:57 PM.
+﻿Build started 5/18/2020 1:58:52 AM.
 Environment at start of build:
 ALLUSERSPROFILE = C:\ProgramData
 ANT_HOME = C:\Users\Erick\apache-ant-1.10.5
@@ -8,6 +8,8 @@ AV_APPDATA = C:\Users\Erick\AppData\Roaming
 CommonProgramFiles = C:\Program Files (x86)\Common Files
 CommonProgramFiles(x86) = C:\Program Files (x86)\Common Files
 CommonProgramW6432 = C:\Program Files\Common Files
+COMPLUS_InstallRoot = 
+COMPLUS_Version = 
 COMPUTERNAME = DESKTOP-7N7RCM0
 ComSpec = C:\WINDOWS\system32\cmd.exe
 CUDA_PATH = C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0
@@ -62,8 +64,8 @@ VSLANG = 1033
 VSSKUEDITION = Community
 windir = C:\WINDOWS
 
-21:31:57.252     1>Project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" on node 2 (Build target(s)).
-21:31:57.252     1>Initial Properties:
+01:58:52.532     1>Project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" on node 2 (Build target(s)).
+01:58:52.532     1>Initial Properties:
                    _AfterCompileWinFXInternalDependsOn = 
                            PrepareResourcesForSatelliteAssemblies;
                            MergeLocalizationDirectives;
@@ -92,6 +94,7 @@ windir = C:\WINDOWS
                    _DirectoryBuildTargetsBasePath = 
                    _DirectoryBuildTargetsFile = Directory.Build.targets
                    _DocumentationFileProduced = false
+                   _FindDependencies = false
                    _FullFrameworkReferenceAssemblyPaths = C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0
                    _GenerateAppxManifestDependsOn = ;_FixVCLibs120References
                    _GenerateBindingRedirectsIntermediateAppConfig = x64\Debug\Object_Roguelike.exe.config
@@ -104,6 +107,7 @@ windir = C:\WINDOWS
                    _IgnoreInstalledPlatformToolset_v110_xp = true
                    _InitialBaseIntermediateOutputPath = obj\
                    _InitialMSBuildProjectExtensionsPath = C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\obj\
+                   _InvalidConfigurationMessageText = The OutputPath property is not set for project 'Object_Roguelike.vcxproj'.  Please check to make sure that you have specified a valid combination of Configuration and Platform for this project.  Configuration='Debug'  Platform='x64'.  This error may also appear if some other project is trying to follow a project-to-project reference to this project, this project has been unloaded or is not included in the solution, and the referencing project does not build using the same or an equivalent Configuration or Platform.
                    _ManifestDependsOn = 
                          ;
                          
@@ -184,7 +188,7 @@ windir = C:\WINDOWS
                    _VCToolsVersionProps = C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.props
                    AddAdditionalExplicitAssemblyReferences = true
                    AddAppConfigToBuildOutputs = true
-                   AdditionalExplicitAssemblyReferences = System.Core;
+                   AdditionalExplicitAssemblyReferences = 
                    AfterBuildCompileTargets = 
                          ;
                          AfterBuildCompileEvent;
@@ -385,6 +389,7 @@ windir = C:\WINDOWS
                        
                    BuildSystem = MSBuild
                    BuildTaskAssembly = PresentationBuildTasks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+                   BuildType = Build
                    BuiltProjectOutputGroupDependenciesDependsOn = 
                          ;
                          
@@ -881,6 +886,7 @@ windir = C:\WINDOWS
                    MSBuildFrameworkToolsPath32 = C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\
                    MSBuildFrameworkToolsPath64 = C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\
                    MSBuildFrameworkToolsRoot = C:\WINDOWS\Microsoft.NET\Framework\
+                   MSBuildLastTaskResult = true
                    MSBuildLoadMicrosoftTargetsReadOnly = true
                    MSBuildNodeCount = 4
                    MSBuildProgramFiles32 = C:\Program Files (x86)
@@ -1162,6 +1168,7 @@ windir = C:\WINDOWS
                    SGenUseKeep = false
                    SGenUseProxyTypes = true
                    ShouldMarkCertainSDKReferencesAsRuntimeOnly = true
+                   ShouldUnsetParentConfigurationAndPlatform = true
                    SkipCopyBuildProduct = true
                    SkipCopyUnchangedFiles = true
                    SolutionDir = C:\Users\Erick\Documents\GitHub\Roguelike-Project\
@@ -1187,7 +1194,7 @@ windir = C:\WINDOWS
                    TargetFileName = Object_Roguelike.exe
                    TargetFrameworkAsMSBuildRuntime = CLR4
                    TargetFrameworkIdentifier = .NETFramework
-                   TargetFrameworkMoniker = .NETFramework,Version=v4.0
+                   TargetFrameworkMoniker = 
                    TargetFrameworkMonikerAssemblyAttributesPath = C:\Users\Erick\AppData\Local\Temp\.NETFramework,Version=v4.0.AssemblyAttributes.cpp
                    TargetFrameworkMonikerDisplayName = .NET Framework 4
                    TargetFrameworkSDKToolsDirectory = C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\
@@ -1335,8 +1342,9 @@ windir = C:\WINDOWS
                    VsInstallRoot = C:\Program Files (x86)\Microsoft Visual Studio\2017\Community
                    VSLANG = 1033
                    VSSKUEDITION = Community
-                   VSTEL_CurrentSolutionBuildID = 87087484
-                   VSTEL_SolutionSessionID = {68858E09-0CC9-4F58-873F-2D541C596017}
+                   VSTEL_CurrentSolutionBuildID = 137358000
+                   VSTEL_ProjectID = {FA14B8FA-940D-49B2-AE4C-0C311F52E855}
+                   VSTEL_SolutionSessionID = {42E7E2B1-76BB-4E08-96C6-FAD6E6634ED9}
                    VSVersion = $(VisualStudioVersion)
                    WebBrowserDebuggerDebuggerType = Auto
                    WebReference_EnableLegacyEventingModel = false
@@ -1392,9 +1400,9 @@ windir = C:\WINDOWS
                    XamlTemporaryAssemblyName = Object_Roguelike
                    YieldDuringToolExecution = true
 
-21:31:57.252     1>Building with tools version "15.0".
+01:58:52.532     1>Building with tools version "15.0".
                    Target "EnableIntermediateOutputPathMismatchWarning" skipped, due to false condition; ('$(RestoreProjectStyle)' == 'PackageReference') was evaluated as ('' == 'PackageReference').
-21:31:57.252     1>Target "_CheckForInvalidConfigurationAndPlatform: (TargetId:2)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "SetTelemetryEnvironmentVariables" depends on it):
+01:58:52.532     1>Target "_CheckForInvalidConfigurationAndPlatform: (TargetId:2)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "SetTelemetryEnvironmentVariables" depends on it):
                    Set Property: _InvalidConfigurationMessageText=The OutputPath property is not set for project 'Object_Roguelike.vcxproj'.  Please check to make sure that you have specified a valid combination of Configuration and Platform for this project.  Configuration='Debug'  Platform='x64'.
                    Set Property: _InvalidConfigurationMessageText=The OutputPath property is not set for project 'Object_Roguelike.vcxproj'.  Please check to make sure that you have specified a valid combination of Configuration and Platform for this project.  Configuration='Debug'  Platform='x64'.  This error may also appear if some other project is trying to follow a project-to-project reference to this project, this project has been unloaded or is not included in the solution, and the referencing project does not build using the same or an equivalent Configuration or Platform.
                    Task "Error" skipped, due to false condition; ( '$(_InvalidConfigurationError)' == 'true' ) was evaluated as ( '' == 'true' ).
@@ -1415,21 +1423,21 @@ windir = C:\WINDOWS
                    Task "Error" skipped, due to false condition; ('$(IntermediateOutputPath)' != '' and !HasTrailingSlash('$(IntermediateOutputPath)')) was evaluated as ('x64\Debug\' != '' and !HasTrailingSlash('x64\Debug\')).
                    Task "Error" skipped, due to false condition; ( '$(_InitialMSBuildProjectExtensionsPath)' != '' And '$(MSBuildProjectExtensionsPath)' != '$(_InitialMSBuildProjectExtensionsPath)' ) was evaluated as ( 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\obj\' != '' And 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\obj\' != 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\obj\' ).
                    Task "Warning" skipped, due to false condition; ( '$(EnableBaseIntermediateOutputPathMismatchWarning)' == 'true' And '$(_InitialBaseIntermediateOutputPath)' != '$(BaseIntermediateOutputPath)' And '$(BaseIntermediateOutputPath)' != '$(MSBuildProjectExtensionsPath)' ) was evaluated as ( '' == 'true' And 'obj\' != 'obj\' And 'obj\' != 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\obj\' ).
-21:31:57.263     1>Done building target "_CheckForInvalidConfigurationAndPlatform" in project "Object_Roguelike.vcxproj".: (TargetId:2)
+01:58:52.538     1>Done building target "_CheckForInvalidConfigurationAndPlatform" in project "Object_Roguelike.vcxproj".: (TargetId:2)
                    Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
-21:31:57.263     1>Target "SetTelemetryEnvironmentVariables: (TargetId:3)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.DesignTime.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:52.538     1>Target "SetTelemetryEnvironmentVariables: (TargetId:3)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.DesignTime.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
                    Using "SetEnv" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Build.CppTasks.Common.dll".
                    Task "SetEnv" (TaskId:4)
                      Task Parameter:Name=VSTEL_SolutionSessionID (TaskId:4)
-                     Task Parameter:Value={68858E09-0CC9-4F58-873F-2D541C596017} (TaskId:4)
+                     Task Parameter:Value={42E7E2B1-76BB-4E08-96C6-FAD6E6634ED9} (TaskId:4)
                      Task Parameter:Prefix=False (TaskId:4)
-                     VSTEL_SolutionSessionID={68858E09-0CC9-4F58-873F-2D541C596017} (TaskId:4)
+                     VSTEL_SolutionSessionID={42E7E2B1-76BB-4E08-96C6-FAD6E6634ED9} (TaskId:4)
                    Done executing task "SetEnv". (TaskId:4)
                    Task "SetEnv" (TaskId:5)
                      Task Parameter:Name=VSTEL_CurrentSolutionBuildID (TaskId:5)
-                     Task Parameter:Value=87087484 (TaskId:5)
+                     Task Parameter:Value=137358000 (TaskId:5)
                      Task Parameter:Prefix=False (TaskId:5)
-                     VSTEL_CurrentSolutionBuildID=87087484 (TaskId:5)
+                     VSTEL_CurrentSolutionBuildID=137358000 (TaskId:5)
                    Done executing task "SetEnv". (TaskId:5)
                    Task "SetEnv" (TaskId:6)
                      Task Parameter:Name=VSTEL_ProjectID (TaskId:6)
@@ -1438,8 +1446,8 @@ windir = C:\WINDOWS
                      VSTEL_ProjectID={FA14B8FA-940D-49B2-AE4C-0C311F52E855} (TaskId:6)
                      Output Property: VSTEL_ProjectID={FA14B8FA-940D-49B2-AE4C-0C311F52E855} (TaskId:6)
                    Done executing task "SetEnv". (TaskId:6)
-21:31:57.268     1>Done building target "SetTelemetryEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:3)
-21:31:57.269     1>Target "_PrepareForBuild: (TargetId:4)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:52.539     1>Done building target "SetTelemetryEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:3)
+01:58:52.539     1>Target "_PrepareForBuild: (TargetId:4)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
                    Set Property: BuildType=Build
                    Set Property: _BuildActionType=Build
                    Task "CreateItem" skipped, due to false condition; ('%(CustomBuild.IncludeFileToTool)'!='') was evaluated as (''!='').
@@ -1447,17 +1455,17 @@ windir = C:\WINDOWS
                        CustomBuildStep=
                            Object_Roguelike
                                    Message=Performing Custom Build Step
-21:31:57.270     1>Done building target "_PrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:4)
-21:31:57.270     1>Target "_PrepareForReferenceResolution: (TargetId:5)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.539     1>Done building target "_PrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:4)
+01:58:52.539     1>Target "_PrepareForReferenceResolution: (TargetId:5)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
                    Set Property: TargetFrameworkMoniker=
                    Set Property: _FindDependencies=false
                    Set Property: AdditionalExplicitAssemblyReferences=
                    Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
-21:31:57.270     1>Done building target "_PrepareForReferenceResolution" in project "Object_Roguelike.vcxproj".: (TargetId:5)
+01:58:52.539     1>Done building target "_PrepareForReferenceResolution" in project "Object_Roguelike.vcxproj".: (TargetId:5)
                    Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('Armour.cpp;Console.cpp;Enemy.cpp;Items.cpp;Map.cpp;Monsters.cpp;ObjectRoguelike.cpp;Player.cpp;stdafx.cpp;Tile.cpp;Weapon.cpp'!='' and 'false'=='true' and '' != 'false').
-21:31:57.271     1>Target "BeforeResolveReferences: (TargetId:6)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
-21:31:57.271     1>Done building target "BeforeResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:6)
-21:31:57.271     1>Target "AssignProjectConfiguration: (TargetId:7)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.539     1>Target "BeforeResolveReferences: (TargetId:6)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.539     1>Done building target "BeforeResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:6)
+01:58:52.539     1>Target "AssignProjectConfiguration: (TargetId:7)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
                    Set Property: ShouldUnsetParentConfigurationAndPlatform=true
                    Using "AssignProjectConfiguration" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignProjectConfiguration" (TaskId:7)
@@ -1472,12 +1480,12 @@ windir = C:\WINDOWS
                      Task Parameter:OnlyReferenceAndBuildProjectsEnabledInSolutionConfiguration=True (TaskId:7)
                      Task Parameter:ShouldUnsetParentConfigurationAndPlatform=True (TaskId:7)
                    Done executing task "AssignProjectConfiguration". (TaskId:7)
-21:31:57.272     1>Done building target "AssignProjectConfiguration" in project "Object_Roguelike.vcxproj".: (TargetId:7)
+01:58:52.540     1>Done building target "AssignProjectConfiguration" in project "Object_Roguelike.vcxproj".: (TargetId:7)
                    Target "AssignProjectConfiguration" skipped. Previously built successfully.
-21:31:57.272     1>Target "_SplitProjectReferencesByFileExistence: (TargetId:8)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareProjectReferences" depends on it):
+01:58:52.540     1>Target "_SplitProjectReferencesByFileExistence: (TargetId:8)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareProjectReferences" depends on it):
                    Task "ResolveNonMSBuildProjectOutput" skipped, due to false condition; ('$(BuildingInsideVisualStudio)'=='true' and '@(ProjectReferenceWithConfiguration)'!='') was evaluated as ('true'=='true' and ''!='').
-21:31:57.272     1>Done building target "_SplitProjectReferencesByFileExistence" in project "Object_Roguelike.vcxproj".: (TargetId:8)
-21:31:57.272     1>Target "_GetProjectReferenceTargetFrameworkProperties: (TargetId:9)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareProjectReferences" depends on it):
+01:58:52.540     1>Done building target "_SplitProjectReferencesByFileExistence" in project "Object_Roguelike.vcxproj".: (TargetId:8)
+01:58:52.540     1>Target "_GetProjectReferenceTargetFrameworkProperties: (TargetId:9)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareProjectReferences" depends on it):
                    Set Property: ReferringTargetFrameworkForProjectReferences=.NETFramework,Version=v4.0
                    Using "MSBuild" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "MSBuild" (TaskId:8)
@@ -1487,23 +1495,23 @@ windir = C:\WINDOWS
                      Task Parameter:SkipNonexistentTargets=True (TaskId:8)
                    Done executing task "MSBuild". (TaskId:8)
                    Task "GetReferenceNearestTargetFrameworkTask" skipped, due to false condition; ('@(_ProjectReferenceTargetFrameworkPossibilities->Count())' != '0' and '$(ReferringTargetFrameworkForProjectReferences)' != '') was evaluated as ('0' != '0' and '.NETFramework,Version=v4.0' != '').
-21:31:57.273     1>Done building target "_GetProjectReferenceTargetFrameworkProperties" in project "Object_Roguelike.vcxproj".: (TargetId:9)
-21:31:57.273     1>Target "PrepareProjectReferences: (TargetId:10)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveProjectReferences" depends on it):
-21:31:57.273     1>Done building target "PrepareProjectReferences" in project "Object_Roguelike.vcxproj".: (TargetId:10)
+01:58:52.542     1>Done building target "_GetProjectReferenceTargetFrameworkProperties" in project "Object_Roguelike.vcxproj".: (TargetId:9)
+01:58:52.542     1>Target "PrepareProjectReferences: (TargetId:10)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveProjectReferences" depends on it):
+01:58:52.542     1>Done building target "PrepareProjectReferences" in project "Object_Roguelike.vcxproj".: (TargetId:10)
                    Target "_RemoveNameMetadataFromProjectReferenceItems" skipped, due to false condition; ('@(ProjectReference)'!='') was evaluated as (''!='').
-21:31:57.273     1>Target "ResolveProjectReferences: (TargetId:11)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.542     1>Target "ResolveProjectReferences: (TargetId:11)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(BuildProjectReferences)' != 'true') and '$(VisualStudioVersion)' != '10.0' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and ('true' == 'true' or 'true' != 'true') and '15.0' != '10.0' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(BuildProjectReferences)' != 'true') and '$(VisualStudioVersion)' == '10.0' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and ('true' == 'true' or 'true' != 'true') and '15.0' == '10.0' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '$(BuildingInsideVisualStudio)' != 'true' and '$(BuildProjectReferences)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and 'true' != 'true' and 'true' == 'true' and '' != '').
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '$(BuildingProject)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('' == 'true' and '' != '' and 'true' == 'true' and '' != '').
                    Task "Warning" skipped, due to false condition; ('@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceNonexistent)' != '') was evaluated as ('' != '' and '' != '').
-21:31:57.292     1>Done building target "ResolveProjectReferences" in project "Object_Roguelike.vcxproj".: (TargetId:11)
+01:58:52.542     1>Done building target "ResolveProjectReferences" in project "Object_Roguelike.vcxproj".: (TargetId:11)
                    Target "FindInvalidProjectReferences" skipped, due to false condition; ('$(FindInvalidProjectReferences)' == 'true') was evaluated as ('' == 'true').
                    Target "ResolveNativeReferences" skipped, due to false condition; ('@(NativeReference)'!='') was evaluated as (''!='').
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
                    Target "ResolveProjectReferences" skipped. Previously built successfully.
                    Target "FindInvalidProjectReferences" skipped, due to false condition; ('$(FindInvalidProjectReferences)' == 'true') was evaluated as ('' == 'true').
-21:31:57.292     1>Target "GetFrameworkPaths: (TargetId:12)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.NETFramework.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.542     1>Target "GetFrameworkPaths: (TargetId:12)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.NETFramework.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Added Item(s): _TargetFramework40DirectoryItem=C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319
                    Added Item(s): _TargetFramework35DirectoryItem=C:\WINDOWS\Microsoft.NET\Framework\v3.5
                    Added Item(s): _TargetFramework30DirectoryItem=C:\WINDOWS\Microsoft.NET\Framework\v3.0
@@ -1513,18 +1521,18 @@ windir = C:\WINDOWS
                    Set Property: TargetFrameworkDirectory=C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319
                    Set Property: TargetFrameworkSDKDirectory=C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\
                    Added Item(s): _TargetFrameworkSDKDirectoryItem=C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\
-21:31:57.292     1>Done building target "GetFrameworkPaths" in project "Object_Roguelike.vcxproj".: (TargetId:12)
+01:58:52.542     1>Done building target "GetFrameworkPaths" in project "Object_Roguelike.vcxproj".: (TargetId:12)
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
                    Target "GetWinFXPath" skipped, due to false condition; (('@(Page)' != '' or '@(ApplicationDefinition)' != '' or '@(Resource)' != '') and ('$(GetWinFXNativePath)' != '' or '$(GetWinFXWoWPath)' != '' )) was evaluated as (('' != '' or '' != '' or '' != '') and ('' != '' or '' != '' )).
                    Target "GetFrameworkPaths" skipped. Previously built successfully.
-21:31:57.292     1>Target "GetReferenceAssemblyPaths: (TargetId:13)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.542     1>Target "GetReferenceAssemblyPaths: (TargetId:13)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Set Property: TargetFrameworkDirectory=
                    Task "GetReferenceAssemblyPaths" skipped, due to false condition; ('$(TargetFrameworkMoniker)' != '' and ('$(_TargetFrameworkDirectories)' == '' or '$(_FullFrameworkReferenceAssemblyPaths)' == '')) was evaluated as ('' != '' and ('C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0' == '' or 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0' == '')).
                    Set Property: TargetFrameworkDirectory=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0;;
                    Set Property: TargetFrameworkDirectory=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0;;;C:\Program Files (x86)\Windows Kits\10\References
                    Set Property: RemoveAssemblyFoldersIfNoTargetFramework=true
-21:31:57.293     1>Done building target "GetReferenceAssemblyPaths" in project "Object_Roguelike.vcxproj".: (TargetId:13)
-21:31:57.293     1>Target "SetBuildDefaultEnvironmentVariables: (TargetId:14)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Current.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
+01:58:52.542     1>Done building target "GetReferenceAssemblyPaths" in project "Object_Roguelike.vcxproj".: (TargetId:13)
+01:58:52.542     1>Target "SetBuildDefaultEnvironmentVariables: (TargetId:14)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Current.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
                    Task "SetEnv" (TaskId:9)
                      Task Parameter:Name=PATH (TaskId:9)
                      Task Parameter:Value=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x86;C:\Program Files (x86)\Windows Kits\10\bin\10.0.15063.0\x86;;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\tools;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin;C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\;;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\libnvvp;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\Erick\apache-ant-1.10.5\bin;C:\Users\Erick\apache-maven-3.6.0\bin;C:\Program Files\Calibre2\;C:\Users\Erick\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\Erick\AppData\Local\Programs\Python\Python37\;C:\Users\Erick\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Erick\AppData\Local\Programs\Python\Python36\;C:\Users\Erick\AppData\Local\Programs\Python\Python36-32\Scripts\;C:\Users\Erick\AppData\Local\Programs\Python\Python36-32\;C:\Users\Erick\AppData\Local\Microsoft\WindowsApps;C:\Users\Erick\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Java\jdk1.8.0_131\bin;C:\Users\Erick\AppData\Local\Microsoft\WindowsApps;C:\Modeltech_pe_edu_10.4a\win32pe_edu;C:\Program Files\JetBrains\PyCharm Community Edition 2018.3.4\bin;;;; (TaskId:9)
@@ -1553,10 +1561,10 @@ windir = C:\WINDOWS
                      INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include;;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\atlmfc\include;;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\VS\include;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt;;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\winrt;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um; (TaskId:12)
                      Output Property: INCLUDE=C:\Program Files %28x86%29\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include%3b%3bC:\Program Files %28x86%29\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\atlmfc\include%3b%3bC:\Program Files %28x86%29\Microsoft Visual Studio\2017\Community\VC\Auxiliary\VS\include%3b%3bC:\Program Files %28x86%29\Windows Kits\10\Include\10.0.15063.0\ucrt%3b%3b%3bC:\Program Files %28x86%29\Windows Kits\10\Include\10.0.15063.0\um%3bC:\Program Files %28x86%29\Windows Kits\10\Include\10.0.15063.0\shared%3bC:\Program Files %28x86%29\Windows Kits\10\Include\10.0.15063.0\winrt%3bC:\Program Files %28x86%29\Windows Kits\NETFXSDK\4.6.1\Include\um%3bC:\Program Files %28x86%29\Windows Kits\NETFXSDK\4.6.1\Include\um%3b (TaskId:12)
                    Done executing task "SetEnv". (TaskId:12)
-21:31:57.293     1>Done building target "SetBuildDefaultEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:14)
+01:58:52.548     1>Done building target "SetBuildDefaultEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:14)
                    Target "SetUserMacroEnvironmentVariables" skipped, due to false condition; ('@(BuildMacro)' != '' and '$(DesignTimeBuild)' != 'true') was evaluated as ('' != '' and '' != 'true').
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
-21:31:57.293     1>Target "GetResolvedWinMD: (TargetId:15)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
+01:58:52.549     1>Target "GetResolvedWinMD: (TargetId:15)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
                    Added Item(s): 
                        Link=
                            tmp
@@ -1639,8 +1647,8 @@ windir = C:\WINDOWS
                                    TypeLibraryResourceID=1
                                    UACExecutionLevel=AsInvoker
                                    UACUIAccess=false
-21:31:57.294     1>Done building target "GetResolvedWinMD" in project "Object_Roguelike.vcxproj".: (TargetId:15)
-21:31:57.294     1>Target "PlatformPrepareForBuild: (TargetId:16)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
+01:58:52.549     1>Done building target "GetResolvedWinMD" in project "Object_Roguelike.vcxproj".: (TargetId:15)
+01:58:52.549     1>Target "PlatformPrepareForBuild: (TargetId:16)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
                    Set Property: ConfigurationPlatformExists=true
                    Set Property: _CurrentPlatformToolsetShortName=v141
                    Task "VCMessage" skipped, due to false condition; ('$(_Error64bitToolsNotInstalled)' == 'true') was evaluated as ('' == 'true').
@@ -1649,8 +1657,8 @@ windir = C:\WINDOWS
                    Task "VCMessage" skipped, due to false condition; ('$(DesignTimeBuild)'!='true' and '$(_ToolsetFound)' != 'true' and '$(PlatformToolset)' == 'v100') was evaluated as (''!='true' and 'true' != 'true' and 'v141' == 'v100').
                    Task "VCMessage" skipped, due to false condition; ('$(DesignTimeBuild)'!='true' and '$(_ToolsetFound)' != 'true' and '$(PlatformToolset)' == 'v90') was evaluated as (''!='true' and 'true' != 'true' and 'v141' == 'v90').
                    Task "VCMessage" skipped, due to false condition; ('$(DesignTimeBuild)'!='true' and '$(_ToolsetFound)' != 'true' and '$(PlatformToolset)' != 'v90' and '$(PlatformToolset)' != 'v100' and '$(PlatformToolset)' != 'v110') was evaluated as (''!='true' and 'true' != 'true' and 'v141' != 'v90' and 'v141' != 'v100' and 'v141' != 'v110').
-21:31:57.294     1>Done building target "PlatformPrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:16)
-21:31:57.294     1>Target "_CheckWindowsSDKInstalled: (TargetId:17)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
+01:58:52.549     1>Done building target "PlatformPrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:16)
+01:58:52.549     1>Target "_CheckWindowsSDKInstalled: (TargetId:17)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
                    Set Property: WindowsSDKInstalled=false
                    Set Property: WindowsSDK_UAP_Support=false
                    Set Property: WindowsSDK_Desktop_Support=false
@@ -1659,19 +1667,19 @@ windir = C:\WINDOWS
                    Set Property: WindowsSDK_Desktop_Support=true
                    Task "VCMessage" skipped, due to false condition; ('$(WindowsSDKInstalled)' != 'true') was evaluated as ('true' != 'true').
                    Task "VCMessage" skipped, due to false condition; ('$(WindowsAppContainer)' != 'true' and '$(WindowsSDK_Desktop_Support)' != true) was evaluated as ('false' != 'true' and 'true' != true).
-21:31:57.294     1>Done building target "_CheckWindowsSDKInstalled" in project "Object_Roguelike.vcxproj".: (TargetId:17)
+01:58:52.550     1>Done building target "_CheckWindowsSDKInstalled" in project "Object_Roguelike.vcxproj".: (TargetId:17)
                    Target "GetFrameworkPaths" skipped. Previously built successfully.
                    Target "GetReferenceAssemblyPaths" skipped. Previously built successfully.
                    Target "AssignLinkMetadata" skipped, due to false condition; ( '$(SynthesizeLinkMetadata)' == 'true' ) was evaluated as ( '' == 'true' ).
-21:31:57.294     1>Target "SetCABuildNativeEnvironmentVariables: (TargetId:18)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Microsoft\VisualStudio\v15.0\CodeAnalysis\Microsoft.CodeAnalysis.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
+01:58:52.550     1>Target "SetCABuildNativeEnvironmentVariables: (TargetId:18)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Microsoft\VisualStudio\v15.0\CodeAnalysis\Microsoft.CodeAnalysis.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForBuild" depends on it):
                    Task "SetEnv" (TaskId:13)
                      Task Parameter:Value=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\winrt;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um; (TaskId:13)
                      Task Parameter:Name=CAExcludePath (TaskId:13)
                      Task Parameter:Prefix=False (TaskId:13)
                      CAExcludePath=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\atlmfc\include;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\ucrt;;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\winrt;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\Include\um; (TaskId:13)
                    Done executing task "SetEnv". (TaskId:13)
-21:31:57.294     1>Done building target "SetCABuildNativeEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:18)
-21:31:57.294     1>Target "PrepareForBuild: (TargetId:19)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.550     1>Done building target "SetCABuildNativeEnvironmentVariables" in project "Object_Roguelike.vcxproj".: (TargetId:18)
+01:58:52.550     1>Target "PrepareForBuild: (TargetId:19)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Set Property: TargetDir=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\
                    Set Property: LocalDebuggerCommand=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe
                    Set Property: BuildProjectReferences=false
@@ -1701,22 +1709,22 @@ windir = C:\WINDOWS
                              C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\
                              x64\Debug\Object_Roguelike.tlog\ (TaskId:15)
                    Done executing task "MakeDir". (TaskId:15)
-21:31:57.302     1>Done building target "PrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:19)
+01:58:52.553     1>Done building target "PrepareForBuild" in project "Object_Roguelike.vcxproj".: (TargetId:19)
                    Target "_PrepareForReferenceResolution" skipped. Previously built successfully.
                    Target "ComputeCrtSDKReference" skipped, due to false condition; ('@(ClCompile)'!='' and '$(WindowsAppContainer)'=='true' and '$(UseCrtSDKReference)' != 'false') was evaluated as ('Armour.cpp;Console.cpp;Enemy.cpp;Items.cpp;Map.cpp;Monsters.cpp;ObjectRoguelike.cpp;Player.cpp;stdafx.cpp;Tile.cpp;Weapon.cpp'!='' and 'false'=='true' and '' != 'false').
                    Target "GetInstalledSDKLocations" skipped, due to false condition; ('@(SDKReference)' != '') was evaluated as ('' != '').
-21:31:57.302     1>Target "ResolveSDKReferences: (TargetId:20)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.553     1>Target "ResolveSDKReferences: (TargetId:20)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "ResolveSDKReference" skipped, due to false condition; ('@(SDKReference)'!='') was evaluated as (''!='').
-21:31:57.302     1>Done building target "ResolveSDKReferences" in project "Object_Roguelike.vcxproj".: (TargetId:20)
+01:58:52.553     1>Done building target "ResolveSDKReferences" in project "Object_Roguelike.vcxproj".: (TargetId:20)
                    Target "ResolveSDKReferences" skipped. Previously built successfully.
-21:31:57.302     1>Target "ExpandSDKReferences: (TargetId:21)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.554     1>Target "ExpandSDKReferences: (TargetId:21)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Task "GetSDKReferenceFiles" skipped, due to false condition; ('@(ResolvedSDKReference)'!='') was evaluated as (''!='').
-21:31:57.302     1>Done building target "ExpandSDKReferences" in project "Object_Roguelike.vcxproj".: (TargetId:21)
+01:58:52.554     1>Done building target "ExpandSDKReferences" in project "Object_Roguelike.vcxproj".: (TargetId:21)
                    Target "ResolveNuGetPackageAssets" skipped, due to false condition; ('$(ResolveNuGetPackages)' == 'true' and exists('$(ProjectLockFile)')) was evaluated as ('true' == 'true' and exists('obj\project.assets.json')).
                    Target "ImplicitlyExpandNETStandardFacades" skipped, due to false condition; ('$(ImplicitlyExpandNETStandardFacades)' == 'true') was evaluated as ('' == 'true').
                    Target "GetReferenceAssemblyPaths" skipped. Previously built successfully.
                    Target "ImplicitlyExpandNETStandardFacades" skipped, due to false condition; ('$(ImplicitlyExpandNETStandardFacades)' == 'true') was evaluated as ('' == 'true').
-21:31:57.302     1>Target "_HandlePackageFileConflicts: (TargetId:22)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Microsoft\Microsoft.NET.Build.Extensions\Microsoft.NET.Build.Extensions.ConflictResolution.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
+01:58:52.554     1>Target "_HandlePackageFileConflicts: (TargetId:22)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Microsoft\Microsoft.NET.Build.Extensions\Microsoft.NET.Build.Extensions.ConflictResolution.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveAssemblyReferences" depends on it):
                    Using "ResolvePackageFileConflicts" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Microsoft\Microsoft.NET.Build.Extensions\\tools\net46\Microsoft.NET.Build.Extensions.Tasks.dll".
                    Task "ResolvePackageFileConflicts" (TaskId:16)
                      Task Parameter:
@@ -1942,8 +1950,8 @@ windir = C:\WINDOWS
                             (TaskId:16)
                      Output Item(s): _ReferenceCopyLocalPathsWithoutConflicts= (TaskId:16)
                    Done executing task "ResolvePackageFileConflicts". (TaskId:16)
-21:31:57.325     1>Done building target "_HandlePackageFileConflicts" in project "Object_Roguelike.vcxproj".: (TargetId:22)
-21:31:57.325     1>Target "ResolveAssemblyReferences: (TargetId:23)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.554     1>Done building target "_HandlePackageFileConflicts" in project "Object_Roguelike.vcxproj".: (TargetId:22)
+01:58:52.554     1>Target "ResolveAssemblyReferences: (TargetId:23)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
                    Added Item(s): 
                        _ReferenceInstalledAssemblyDirectory=
                            C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0
@@ -1953,20 +1961,20 @@ windir = C:\WINDOWS
                    Set Property: ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch=Warning
                    Set Property: FindDependenciesOfExternallyResolvedReferences=false
                    Task "ResolveAssemblyReference" skipped, due to false condition; ('@(Reference)'!='' or '@(_ResolvedProjectReferencePaths)'!='' or '@(_ExplicitReference)' != '') was evaluated as (''!='' or ''!='' or '' != '').
-21:31:57.325     1>Done building target "ResolveAssemblyReferences" in project "Object_Roguelike.vcxproj".: (TargetId:23)
+01:58:52.555     1>Done building target "ResolveAssemblyReferences" in project "Object_Roguelike.vcxproj".: (TargetId:23)
                    Target "GenerateBindingRedirects" skipped, due to false condition; ('$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true') was evaluated as ('' == 'true' and 'true' == 'true').
                    Target "_RemoveZipFileSuggestedRedirect" skipped, due to false condition; ('$(_TargetFrameworkVersionWithoutV)' >= '4.7.1' And '$(AllowZipFileRedirect)' != 'true') was evaluated as ('4.0' >= '4.7.1' And '' != 'true').
                    Target "GenerateBindingRedirectsUpdateAppConfig" skipped, due to false condition; ('$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true' and Exists('$(_GenerateBindingRedirectsIntermediateAppConfig)')) was evaluated as ('' == 'true' and 'true' == 'true' and Exists('x64\Debug\Object_Roguelike.exe.config')).
                    Target "ResolveComReferences" skipped, due to false condition; ('@(COMReference)'!='' or '@(COMFileReference)'!='') was evaluated as (''!='' or ''!='').
-21:31:57.325     1>Target "AfterResolveReferences: (TargetId:24)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
-21:31:57.325     1>Done building target "AfterResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:24)
+01:58:52.555     1>Target "AfterResolveReferences: (TargetId:24)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ResolveReferences" depends on it):
+01:58:52.555     1>Done building target "AfterResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:24)
                    Target "ImplicitlyExpandDesignTimeFacades" skipped, due to false condition; ('$(ImplicitlyExpandDesignTimeFacades)' == 'true') was evaluated as ('' == 'true').
                    Target "ResolveTestReferences" skipped, due to false condition; ('@(Shadow)'!='') was evaluated as (''!='').
-21:31:57.325     1>Target "ResolveReferences: (TargetId:25)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
-21:31:57.325     1>Done building target "ResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:25)
+01:58:52.555     1>Target "ResolveReferences: (TargetId:25)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:52.555     1>Done building target "ResolveReferences" in project "Object_Roguelike.vcxproj".: (TargetId:25)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "PrepareForBuild" skipped. Previously built successfully.
-21:31:57.325     1>Target "InitializeBuildStatus: (TargetId:26)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:52.555     1>Target "InitializeBuildStatus: (TargetId:26)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
                    Using "ReadLinesFromFile" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "ReadLinesFromFile" (TaskId:17)
                      Task Parameter:File=x64\Debug\Object_Roguelike.tlog\Object_Roguelike.lastbuildstate (TaskId:17)
@@ -1992,19 +2000,19 @@ windir = C:\WINDOWS
                      Task Parameter:Files=x64\Debug\Object_Roguelike.tlog\unsuccessfulbuild (TaskId:19)
                      Creating "x64\Debug\Object_Roguelike.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified. (TaskId:19)
                    Done executing task "Touch". (TaskId:19)
-21:31:57.331     1>Done building target "InitializeBuildStatus" in project "Object_Roguelike.vcxproj".: (TargetId:26)
+01:58:52.557     1>Done building target "InitializeBuildStatus" in project "Object_Roguelike.vcxproj".: (TargetId:26)
                    Target "PrepareProjectReferences" skipped. Previously built successfully.
-21:31:57.331     1>Target "BuildGenerateSourcesTraverse: (TargetId:27)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildGenerateSources" depends on it):
+01:58:52.557     1>Target "BuildGenerateSourcesTraverse: (TargetId:27)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildGenerateSources" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != '' and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != '' and '' == 'true').
-21:31:57.331     1>Done building target "BuildGenerateSourcesTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:27)
+01:58:52.557     1>Done building target "BuildGenerateSourcesTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:27)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-21:31:57.331     1>Target "BeforeBuildGenerateSources: (TargetId:28)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-21:31:57.331     1>Done building target "BeforeBuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:28)
-21:31:57.331     1>Target "PreBuildEvent: (TargetId:29)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.557     1>Target "BeforeBuildGenerateSources: (TargetId:28)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.557     1>Done building target "BeforeBuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:28)
+01:58:52.557     1>Target "PreBuildEvent: (TargetId:29)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PreBuildEvent.Message)' != '' and '%(PreBuildEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PreBuildEvent.Command)' != '') was evaluated as ('' != '').
-21:31:57.331     1>Done building target "PreBuildEvent" in project "Object_Roguelike.vcxproj".: (TargetId:29)
+01:58:52.557     1>Done building target "PreBuildEvent" in project "Object_Roguelike.vcxproj".: (TargetId:29)
                    Target "CustomBuild" skipped, due to false condition; ('@(CustomBuild)' != '') was evaluated as ('' != '').
                    Target "FxExport" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
                    Target "FxCompile" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
@@ -2013,9 +2021,9 @@ windir = C:\WINDOWS
                    Target "InitializeBuildStatus" skipped. Previously built successfully.
                    Target "SetBuildDefaultEnvironmentVariables" skipped. Previously built successfully.
                    Target "SetUserMacroEnvironmentVariables" skipped, due to false condition; ('@(BuildMacro)' != '' and '$(DesignTimeBuild)' != 'true') was evaluated as ('' != '' and '' != 'true').
-21:31:57.331     1>Target "_SelectedFiles: (TargetId:30)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFileToFolders" depends on it):
-21:31:57.331     1>Done building target "_SelectedFiles" in project "Object_Roguelike.vcxproj".: (TargetId:30)
-21:31:57.331     1>Target "CopyFileToFolders: (TargetId:31)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.558     1>Target "_SelectedFiles: (TargetId:30)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFileToFolders" depends on it):
+01:58:52.558     1>Done building target "_SelectedFiles" in project "Object_Roguelike.vcxproj".: (TargetId:30)
+01:58:52.558     1>Target "CopyFileToFolders: (TargetId:31)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
                    Using "GetOutOfDateItems" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Build.CppTasks.Common.dll".
                    Task "GetOutOfDateItems" (TaskId:20)
                      Task Parameter:OutputsMetadataName=FullDestinationPath (TaskId:20)
@@ -2024,51 +2032,51 @@ windir = C:\WINDOWS
                      Task Parameter:TLogNamePrefix=CopyFile (TaskId:20)
                    Done executing task "GetOutOfDateItems". (TaskId:20)
                    Task "Copy" skipped, due to false condition; ('@(_OutOfDateCopyFile)' != '') was evaluated as ('' != '').
-21:31:57.337     1>Done building target "CopyFileToFolders" in project "Object_Roguelike.vcxproj".: (TargetId:31)
+01:58:52.559     1>Done building target "CopyFileToFolders" in project "Object_Roguelike.vcxproj".: (TargetId:31)
                    Target "Xsd" skipped, due to false condition; ('@(Xsd)' != '') was evaluated as ('' != '').
-21:31:57.337     1>Target "_Xsd: (TargetId:32)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-21:31:57.337     1>Done building target "_Xsd" in project "Object_Roguelike.vcxproj".: (TargetId:32)
-21:31:57.337     1>Target "MakeDirsForMidl: (TargetId:33)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
+01:58:52.559     1>Target "_Xsd: (TargetId:32)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.559     1>Done building target "_Xsd" in project "Object_Roguelike.vcxproj".: (TargetId:32)
+01:58:52.560     1>Target "MakeDirsForMidl: (TargetId:33)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
                    Set Property: Midl_OutputDir=
                    Task "Makedir" (TaskId:21)
                    Done executing task "Makedir". (TaskId:21)
-21:31:57.338     1>Done building target "MakeDirsForMidl" in project "Object_Roguelike.vcxproj".: (TargetId:33)
+01:58:52.560     1>Done building target "MakeDirsForMidl" in project "Object_Roguelike.vcxproj".: (TargetId:33)
                    Target "Midl" skipped, due to false condition; ('@(Midl)' != '') was evaluated as ('' != '').
                    Target "CustomBuild" skipped, due to false condition; ('@(CustomBuild)' != '') was evaluated as ('' != '').
                    Target "FxExport" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
                    Target "FxCompile" skipped, due to false condition; ('@(FxCompile)' != '') was evaluated as ('' != '').
-21:31:57.338     1>Target "ComputeMIDLGeneratedCompileInputs: (TargetId:34)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
+01:58:52.560     1>Target "ComputeMIDLGeneratedCompileInputs: (TargetId:34)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
                    Set Property: Midl_OutputDir=
-21:31:57.338     1>Done building target "ComputeMIDLGeneratedCompileInputs" in project "Object_Roguelike.vcxproj".: (TargetId:34)
-21:31:57.338     1>Target "AfterMidl: (TargetId:35)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
-21:31:57.338     1>Done building target "AfterMidl" in project "Object_Roguelike.vcxproj".: (TargetId:35)
-21:31:57.338     1>Target "_Midl: (TargetId:36)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-21:31:57.338     1>Done building target "_Midl" in project "Object_Roguelike.vcxproj".: (TargetId:36)
-21:31:57.338     1>Target "AfterBuildGenerateSources: (TargetId:37)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-21:31:57.338     1>Done building target "AfterBuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:37)
-21:31:57.338     1>Target "AfterBuildGenerateSourcesEvent: (TargetId:38)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
-21:31:57.338     1>Done building target "AfterBuildGenerateSourcesEvent" in project "Object_Roguelike.vcxproj".: (TargetId:38)
-21:31:57.338     1>Target "_BuildGenerateSourcesAction: (TargetId:39)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildGenerateSources" depends on it):
-21:31:57.338     1>Done building target "_BuildGenerateSourcesAction" in project "Object_Roguelike.vcxproj".: (TargetId:39)
-21:31:57.338     1>Target "BuildGenerateSources: (TargetId:40)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
-21:31:57.338     1>Done building target "BuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:40)
+01:58:52.560     1>Done building target "ComputeMIDLGeneratedCompileInputs" in project "Object_Roguelike.vcxproj".: (TargetId:34)
+01:58:52.560     1>Target "AfterMidl: (TargetId:35)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Midl" depends on it):
+01:58:52.560     1>Done building target "AfterMidl" in project "Object_Roguelike.vcxproj".: (TargetId:35)
+01:58:52.560     1>Target "_Midl: (TargetId:36)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.560     1>Done building target "_Midl" in project "Object_Roguelike.vcxproj".: (TargetId:36)
+01:58:52.560     1>Target "AfterBuildGenerateSources: (TargetId:37)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.560     1>Done building target "AfterBuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:37)
+01:58:52.560     1>Target "AfterBuildGenerateSourcesEvent: (TargetId:38)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildGenerateSourcesAction" depends on it):
+01:58:52.560     1>Done building target "AfterBuildGenerateSourcesEvent" in project "Object_Roguelike.vcxproj".: (TargetId:38)
+01:58:52.560     1>Target "_BuildGenerateSourcesAction: (TargetId:39)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildGenerateSources" depends on it):
+01:58:52.560     1>Done building target "_BuildGenerateSourcesAction" in project "Object_Roguelike.vcxproj".: (TargetId:39)
+01:58:52.560     1>Target "BuildGenerateSources: (TargetId:40)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:52.560     1>Done building target "BuildGenerateSources" in project "Object_Roguelike.vcxproj".: (TargetId:40)
                    Target "PrepareProjectReferences" skipped. Previously built successfully.
-21:31:57.338     1>Target "BuildCompileTraverse: (TargetId:41)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildCompile" depends on it):
+01:58:52.560     1>Target "BuildCompileTraverse: (TargetId:41)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildCompile" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''  and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != ''  and '' == 'true').
-21:31:57.338     1>Done building target "BuildCompileTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:41)
+01:58:52.560     1>Done building target "BuildCompileTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:41)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-21:31:57.338     1>Target "BeforeClCompile: (TargetId:42)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
-21:31:57.338     1>Done building target "BeforeClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:42)
+01:58:52.560     1>Target "BeforeClCompile: (TargetId:42)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.560     1>Done building target "BeforeClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:42)
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
-21:31:57.338     1>Target "ComputeCLInputPDBName: (TargetId:43)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
-21:31:57.338     1>Done building target "ComputeCLInputPDBName" in project "Object_Roguelike.vcxproj".: (TargetId:43)
+01:58:52.560     1>Target "ComputeCLInputPDBName: (TargetId:43)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.560     1>Done building target "ComputeCLInputPDBName" in project "Object_Roguelike.vcxproj".: (TargetId:43)
                    Target "ResolveReferences" skipped. Previously built successfully.
-21:31:57.338     1>Target "ComputeReferenceCLInput: (TargetId:44)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.560     1>Target "ComputeReferenceCLInput: (TargetId:44)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
                    Task "WriteLinesToFile" skipped, due to false condition; (('@(_ReferenceCopyLocalPaths)'!='') and '$(DesignTimeBuild)' != 'true') was evaluated as ((''!='') and '' != 'true').
                    Task "Message" skipped, due to false condition; ('$(_REFERENCE_DEBUG)'=='true') was evaluated as (''=='true').
-21:31:57.338     1>Done building target "ComputeReferenceCLInput" in project "Object_Roguelike.vcxproj".: (TargetId:44)
-21:31:57.338     1>Target "WarnCompileDuplicatedFilename: (TargetId:45)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.561     1>Done building target "ComputeReferenceCLInput" in project "Object_Roguelike.vcxproj".: (TargetId:44)
+01:58:52.561     1>Target "WarnCompileDuplicatedFilename: (TargetId:45)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Armour.cpp' != 'Armour.cpp' and 'x64\Debug\' == 'x64\Debug\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Console.cpp' != 'Console.cpp' and 'x64\Debug\' == 'x64\Debug\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Enemy.cpp' != 'Enemy.cpp' and 'x64\Debug\' == 'x64\Debug\').
@@ -2080,10 +2088,10 @@ windir = C:\WINDOWS
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'stdafx.cpp' != 'stdafx.cpp' and 'x64\Debug\' == 'x64\Debug\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Tile.cpp' != 'Tile.cpp' and 'x64\Debug\' == 'x64\Debug\').
                    Task "VCMessage" skipped, due to false condition; ('%(ClCompile.ExcludedFromBuild)' != 'true' and '%(Filename)%(Extension)' != '@(ClCompile->'%(Filename)%(Extension)')' and '%(ObjectFileName)' == '@(ClCompile->Metadata(ObjectFileName)->Distinct())') was evaluated as ('' != 'true' and 'Weapon.cpp' != 'Weapon.cpp' and 'x64\Debug\' == 'x64\Debug\').
-21:31:57.340     1>Done building target "WarnCompileDuplicatedFilename" in project "Object_Roguelike.vcxproj".: (TargetId:45)
-21:31:57.340     1>Target "FixupCLCompileOptions: (TargetId:46)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
-21:31:57.341     1>Done building target "FixupCLCompileOptions" in project "Object_Roguelike.vcxproj".: (TargetId:46)
-21:31:57.341     1>Target "MakeDirsForCl: (TargetId:47)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.563     1>Done building target "WarnCompileDuplicatedFilename" in project "Object_Roguelike.vcxproj".: (TargetId:45)
+01:58:52.563     1>Target "FixupCLCompileOptions: (TargetId:46)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.563     1>Done building target "FixupCLCompileOptions" in project "Object_Roguelike.vcxproj".: (TargetId:46)
+01:58:52.563     1>Target "MakeDirsForCl: (TargetId:47)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
                    Added Item(s): ClDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
                    Added Item(s): ClDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
                    Added Item(s): ClDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
@@ -2105,7 +2113,7 @@ windir = C:\WINDOWS
                            C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
                            C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
                            C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
-21:31:57.341     1>Done building target "MakeDirsForCl" in project "Object_Roguelike.vcxproj".: (TargetId:47)
+01:58:52.564     1>Done building target "MakeDirsForCl" in project "Object_Roguelike.vcxproj".: (TargetId:47)
                    Target "_SelectedFiles" skipped. Previously built successfully.
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
                    Target "ComputeCLInputPDBName" skipped. Previously built successfully.
@@ -2113,13 +2121,13 @@ windir = C:\WINDOWS
                    Target "WarnCompileDuplicatedFilename" skipped. Previously built successfully.
                    Target "FixupCLCompileOptions" skipped. Previously built successfully.
                    Target "_SelectedFiles" skipped. Previously built successfully.
-21:31:57.341     1>Target "SelectCustomBuild: (TargetId:48)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "SelectClCompile" depends on it):
-21:31:57.341     1>Done building target "SelectCustomBuild" in project "Object_Roguelike.vcxproj".: (TargetId:48)
-21:31:57.341     1>Target "SelectClCompile: (TargetId:49)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ClCompile" depends on it):
-21:31:57.341     1>Done building target "SelectClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:49)
+01:58:52.564     1>Target "SelectCustomBuild: (TargetId:48)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "SelectClCompile" depends on it):
+01:58:52.564     1>Done building target "SelectCustomBuild" in project "Object_Roguelike.vcxproj".: (TargetId:48)
+01:58:52.564     1>Target "SelectClCompile: (TargetId:49)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ClCompile" depends on it):
+01:58:52.564     1>Done building target "SelectClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:49)
                    Target "GenerateTargetFrameworkMonikerAttribute" skipped, due to false condition; ('$(GenerateTargetFrameworkAttribute)' == 'true') was evaluated as ('false' == 'true').
                    Target "ManagedIncrementalBuildPreProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('Armour.cpp;Console.cpp;Enemy.cpp;Items.cpp;Map.cpp;Monsters.cpp;ObjectRoguelike.cpp;Player.cpp;stdafx.cpp;Tile.cpp;Weapon.cpp' != '' and 'false' == 'True').
-21:31:57.341     1>Target "ClCompile: (TargetId:50)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:52.564     1>Target "ClCompile: (TargetId:50)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
                    Set Property: CLToolArchitecture=Native32Bit
                    Set Property: CLDeleteOutputOnExecute=true
                    Task "Delete" skipped, due to false condition; ('%(ClCompile.DebugInformationFormat)' != '' and '%(ClCompile.DebugInformationFormat)' != 'None' and '%(ClCompile.DebugInformationFormat)' != 'OldStyle' and '%(ClCompile.ProgramDataBaseFileName)' != '' and !Exists(%(ClCompile.ProgramDataBaseFileName))) was evaluated as ('EditAndContinue' != '' and 'EditAndContinue' != 'None' and 'EditAndContinue' != 'OldStyle' and 'x64\Debug\vc141.pdb' != '' and !Exists(x64\Debug\vc141.pdb)).
@@ -3021,77 +3029,56 @@ windir = C:\WINDOWS
                      	C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\PLAYER.OBJ (TaskId:24)
                      	C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\TILE.OBJ (TaskId:24)
                      	C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\WEAPON.OBJ (TaskId:24)
-                     Armour.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\ARMOUR.H was modified at 4/30/2020 9:31:42 PM. (TaskId:24)
-                     Console.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\MAP.H was modified at 4/30/2020 9:21:17 PM. (TaskId:24)
-                     Enemy.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\MAP.H was modified at 4/30/2020 9:21:17 PM. (TaskId:24)
-                     Map.cpp will be compiled because C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Map.cpp was modified at 4/30/2020 9:24:23 PM. (TaskId:24)
-                     ObjectRoguelike.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.H was modified at 4/30/2020 9:26:36 PM. (TaskId:24)
-                     Player.cpp will be compiled because C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Player.cpp was modified at 4/30/2020 9:31:12 PM. (TaskId:24)
-                     Tile.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\MAP.H was modified at 4/30/2020 9:21:17 PM. (TaskId:24)
-                     Weapon.cpp will be compiled because C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.H was modified at 4/30/2020 9:26:36 PM. (TaskId:24)
-                     No output for C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\ARMOUR.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\CONSOLE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\ENEMY.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\MAP.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\OBJECTROGUELIKE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\TILE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\WEAPON.CPP was found in the tracking log; source compilation required. (TaskId:24)
+                     Player.cpp will be compiled because C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Player.cpp was modified at 5/18/2020 1:58:43 AM. (TaskId:24)
+                     Outputs for C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.CPP: (TaskId:24)
+                     	C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\PLAYER.OBJ (TaskId:24)
                      Write Tracking Logs: (TaskId:24)
                      	x64\Debug\Object_Roguelike.tlog\CL.write.1.tlog (TaskId:24)
                      Environment Variables passed to tool: (TaskId:24)
-                       VS_UNICODE_OUTPUT=1512 (TaskId:24)
-                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc141.pdb" /Gd /TP /FC /errorReport:prompt Armour.cpp Console.cpp Enemy.cpp Map.cpp ObjectRoguelike.cpp Player.cpp Tile.cpp Weapon.cpp (TaskId:24)
+                       VS_UNICODE_OUTPUT=1736 (TaskId:24)
+                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc141.pdb" /Gd /TP /FC /errorReport:prompt Player.cpp (TaskId:24)
                      Tracking command: (TaskId:24)
-                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug\Object_Roguelike.tlog /r "C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\ARMOUR.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\CONSOLE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\ENEMY.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\MAP.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\OBJECTROGUELIKE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\TILE.CPP|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\WEAPON.CPP" /b MSBuildConsole_CancelEvente3bb394acfb44cfaa6eefac70dfb40b4  /c "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\CL.exe"  /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc141.pdb" /Gd /TP /FC /errorReport:prompt Armour.cpp Console.cpp Enemy.cpp Map.cpp ObjectRoguelike.cpp Player.cpp Tile.cpp Weapon.cpp (TaskId:24)
-                     Armour.cpp (TaskId:24)
-                     Console.cpp (TaskId:24)
-                     Enemy.cpp (TaskId:24)
-21:32:07.813     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(367): warning C4101: 'is_viewed': unreferenced local variable
-21:32:07.814     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(367): warning C4101: 'was_viewed': unreferenced local variable
-                     Map.cpp (TaskId:24)
-21:32:09.281     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(490): warning C4101: 'under': unreferenced local variable
-21:32:09.281     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(488): warning C4101: 'location': unreferenced local variable
-21:32:09.297     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(500): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-21:32:09.319     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
-21:32:09.319     1>c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
-                     ObjectRoguelike.cpp (TaskId:24)
+                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Tracker.exe /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug\Object_Roguelike.tlog /r C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\PLAYER.CPP /b MSBuildConsole_CancelEventaa839ee7af2540e3820c17e4133c7ca3  /c "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\CL.exe"  /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc141.pdb" /Gd /TP /FC /errorReport:prompt Player.cpp (TaskId:24)
                      Player.cpp (TaskId:24)
-                     Tile.cpp (TaskId:24)
-                     Weapon.cpp (TaskId:24)
-                     Generating Code... (TaskId:24)
                    Done executing task "CL". (TaskId:24)
                    Task "CL" skipped, due to false condition; ('%(ClCompile.PrecompiledHeader)' != 'Create' and '%(ClCompile.ExcludedFromBuild)'!='true' and '%(ClCompile.CompilerIteration)' == '' and @(ClCompile) != '') was evaluated as ('Create' != 'Create' and ''!='true' and '' == '' and stdafx.cpp != '').
-21:32:14.880     1>Done building target "ClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:50)
+01:58:53.780     1>Done building target "ClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:50)
                    Target "RunSelectedFileNativeCodeAnalysis" skipped, due to false condition; ('$(RunCppAnalysis)'=='true' and '$(SelectedFiles)'!='') was evaluated as ('false'=='true' and ''!='').
                    Target "ManagedIncrementalBuildPostProcessDependencyGraph" skipped, due to false condition; ('@(ClCompile)' != '' and '$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('Armour.cpp;Console.cpp;Enemy.cpp;Items.cpp;Map.cpp;Monsters.cpp;ObjectRoguelike.cpp;Player.cpp;stdafx.cpp;Tile.cpp;Weapon.cpp' != '' and 'false' == 'True').
-21:32:14.880     1>Target "AfterClCompile: (TargetId:51)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
-21:32:14.880     1>Done building target "AfterClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:51)
-21:32:14.880     1>Target "_ClCompile: (TargetId:52)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
-21:32:14.880     1>Done building target "_ClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:52)
+01:58:53.780     1>Target "AfterClCompile: (TargetId:51)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ClCompile" depends on it):
+01:58:53.780     1>Done building target "AfterClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:51)
+01:58:53.780     1>Target "_ClCompile: (TargetId:52)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
+01:58:53.780     1>Done building target "_ClCompile" in project "Object_Roguelike.vcxproj".: (TargetId:52)
                    Target "_ResGen" skipped, due to false condition; ('@(EmbeddedResource)'!='') was evaluated as (''!='').
-21:32:14.880     1>Target "BeforeResourceCompile: (TargetId:53)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
-21:32:14.880     1>Done building target "BeforeResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:53)
-21:32:14.880     1>Target "MakeDirsForResourceCompile: (TargetId:54)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
+01:58:53.780     1>Target "BeforeResourceCompile: (TargetId:53)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
+01:58:53.780     1>Done building target "BeforeResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:53)
+01:58:53.780     1>Target "MakeDirsForResourceCompile: (TargetId:54)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
                    Added Item(s): RcDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
                    Task "MakeDir" (TaskId:25)
                      Task Parameter:Directories=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug (TaskId:25)
                    Done executing task "MakeDir". (TaskId:25)
                    Removed Item(s): RcDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug
-21:32:14.880     1>Done building target "MakeDirsForResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:54)
+01:58:53.780     1>Done building target "MakeDirsForResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:54)
                    Target "ResourceCompile" skipped, due to false condition; ('@(ResourceCompile)' != '') was evaluated as ('' != '').
-21:32:14.880     1>Target "AfterResourceCompile: (TargetId:55)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
-21:32:14.880     1>Done building target "AfterResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:55)
-21:32:14.880     1>Target "_ResourceCompile: (TargetId:56)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
-21:32:14.880     1>Done building target "_ResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:56)
+01:58:53.780     1>Target "AfterResourceCompile: (TargetId:55)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_ResourceCompile" depends on it):
+01:58:53.780     1>Done building target "AfterResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:55)
+01:58:53.780     1>Target "_ResourceCompile: (TargetId:56)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
+01:58:53.780     1>Done building target "_ResourceCompile" in project "Object_Roguelike.vcxproj".: (TargetId:56)
                    Target "_ImpLib" skipped, due to false condition; ('$(ImpLibCompiled)' == 'true') was evaluated as ('' == 'true').
                    Target "_Lib" skipped, due to false condition; ('$(LibCompiled)' == 'true') was evaluated as ('' == 'true').
-21:32:14.880     1>Target "AfterBuildCompileEvent: (TargetId:57)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
-21:32:14.880     1>Done building target "AfterBuildCompileEvent" in project "Object_Roguelike.vcxproj".: (TargetId:57)
-21:32:14.880     1>Target "_BuildCompileAction: (TargetId:58)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildCompile" depends on it):
-21:32:14.880     1>Done building target "_BuildCompileAction" in project "Object_Roguelike.vcxproj".: (TargetId:58)
-21:32:14.880     1>Target "BuildCompile: (TargetId:59)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
-21:32:14.880     1>Done building target "BuildCompile" in project "Object_Roguelike.vcxproj".: (TargetId:59)
+01:58:53.780     1>Target "AfterBuildCompileEvent: (TargetId:57)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildCompileAction" depends on it):
+01:58:53.780     1>Done building target "AfterBuildCompileEvent" in project "Object_Roguelike.vcxproj".: (TargetId:57)
+01:58:53.780     1>Target "_BuildCompileAction: (TargetId:58)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildCompile" depends on it):
+01:58:53.780     1>Done building target "_BuildCompileAction" in project "Object_Roguelike.vcxproj".: (TargetId:58)
+01:58:53.780     1>Target "BuildCompile: (TargetId:59)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:53.780     1>Done building target "BuildCompile" in project "Object_Roguelike.vcxproj".: (TargetId:59)
                    Target "PrepareProjectReferences" skipped. Previously built successfully.
-21:32:14.880     1>Target "BuildLinkTraverse: (TargetId:60)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildLink" depends on it):
+01:58:53.780     1>Target "BuildLinkTraverse: (TargetId:60)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildLink" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('$(BuildPassReferences)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''  and '%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true') was evaluated as ('' == 'true' and '' != '' and '' != ''  and '' == 'true').
-21:32:14.880     1>Done building target "BuildLinkTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:60)
+01:58:53.780     1>Done building target "BuildLinkTraverse" in project "Object_Roguelike.vcxproj".: (TargetId:60)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-21:32:14.880     1>Target "ComputeLegacyManifestEmbedding: (TargetId:61)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:53.780     1>Target "ComputeLegacyManifestEmbedding: (TargetId:61)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
                    Added Item(s): 
                        Manifest=
                            temp
@@ -3121,26 +3108,26 @@ windir = C:\WINDOWS
                                    TrackerLogDirectory=x64\Debug\Object_Roguelike.tlog\
                                    UpdateFileHashes=false
                                    VerboseOutput=true
-21:32:14.880     1>Done building target "ComputeLegacyManifestEmbedding" in project "Object_Roguelike.vcxproj".: (TargetId:61)
-21:32:14.881     1>Target "BeforeLink: (TargetId:62)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:14.881     1>Done building target "BeforeLink" in project "Object_Roguelike.vcxproj".: (TargetId:62)
-21:32:14.881     1>Target "ComputeRCOutputs: (TargetId:63)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ComputeRCGeneratedLinkInputs" depends on it):
-21:32:14.881     1>Done building target "ComputeRCOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:63)
-21:32:14.881     1>Target "ComputeRCGeneratedLinkInputs: (TargetId:64)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:14.881     1>Done building target "ComputeRCGeneratedLinkInputs" in project "Object_Roguelike.vcxproj".: (TargetId:64)
-21:32:14.881     1>Target "ComputeManifestGeneratedLinkerInputs: (TargetId:65)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:14.881     1>Done building target "ComputeManifestGeneratedLinkerInputs" in project "Object_Roguelike.vcxproj".: (TargetId:65)
-21:32:14.881     1>Target "ComputeCustomBuildOutput: (TargetId:66)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.781     1>Done building target "ComputeLegacyManifestEmbedding" in project "Object_Roguelike.vcxproj".: (TargetId:61)
+01:58:53.781     1>Target "BeforeLink: (TargetId:62)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.781     1>Done building target "BeforeLink" in project "Object_Roguelike.vcxproj".: (TargetId:62)
+01:58:53.781     1>Target "ComputeRCOutputs: (TargetId:63)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ComputeRCGeneratedLinkInputs" depends on it):
+01:58:53.781     1>Done building target "ComputeRCOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:63)
+01:58:53.781     1>Target "ComputeRCGeneratedLinkInputs: (TargetId:64)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.781     1>Done building target "ComputeRCGeneratedLinkInputs" in project "Object_Roguelike.vcxproj".: (TargetId:64)
+01:58:53.781     1>Target "ComputeManifestGeneratedLinkerInputs: (TargetId:65)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.781     1>Done building target "ComputeManifestGeneratedLinkerInputs" in project "Object_Roguelike.vcxproj".: (TargetId:65)
+01:58:53.781     1>Target "ComputeCustomBuildOutput: (TargetId:66)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Task "CreateItem" skipped, due to false condition; ('%(CustomBuildOutputs.OutputItemType)'!='') was evaluated as (''!='').
                    Task "MakeDir" (TaskId:26)
                    Done executing task "MakeDir". (TaskId:26)
-21:32:14.881     1>Done building target "ComputeCustomBuildOutput" in project "Object_Roguelike.vcxproj".: (TargetId:66)
+01:58:53.781     1>Done building target "ComputeCustomBuildOutput" in project "Object_Roguelike.vcxproj".: (TargetId:66)
                    Target "ComputeMIDLGeneratedCompileInputs" skipped. Previously built successfully.
                    Target "ComputeCLInputPDBName" skipped. Previously built successfully.
                    Target "ComputeReferenceCLInput" skipped. Previously built successfully.
                    Target "WarnCompileDuplicatedFilename" skipped. Previously built successfully.
                    Target "FixupCLCompileOptions" skipped. Previously built successfully.
-21:32:14.881     1>Target "ComputeCLOutputs: (TargetId:67)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ComputeCLGeneratedLinkInputs" depends on it):
+01:58:53.781     1>Target "ComputeCLOutputs: (TargetId:67)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "ComputeCLGeneratedLinkInputs" depends on it):
                    Added Item(s): 
                        Obj=
                            x64\Debug\Armour.obj
@@ -3836,8 +3823,8 @@ windir = C:\WINDOWS
                                    WholeProgramOptimization=false
                                    WinRTNoStdLib=false
                                    XMLDocumentationFileName=x64\Debug\
-21:32:14.884     1>Done building target "ComputeCLOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:67)
-21:32:14.884     1>Target "ComputeCLGeneratedLinkInputs: (TargetId:68)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.786     1>Done building target "ComputeCLOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:67)
+01:58:53.786     1>Target "ComputeCLGeneratedLinkInputs: (TargetId:68)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Added Item(s): 
                        Link=
                            x64\Debug\Armour.obj
@@ -4258,11 +4245,11 @@ windir = C:\WINDOWS
                                    TypeLibraryResourceID=1
                                    UACExecutionLevel=AsInvoker
                                    UACUIAccess=false
-21:32:14.969     1>Done building target "ComputeCLGeneratedLinkInputs" in project "Object_Roguelike.vcxproj".: (TargetId:68)
-21:32:14.969     1>Target "ComputeLinkInputsFromProject: (TargetId:69)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:14.969     1>Done building target "ComputeLinkInputsFromProject" in project "Object_Roguelike.vcxproj".: (TargetId:69)
+01:58:53.787     1>Done building target "ComputeCLGeneratedLinkInputs" in project "Object_Roguelike.vcxproj".: (TargetId:68)
+01:58:53.787     1>Target "ComputeLinkInputsFromProject: (TargetId:69)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.787     1>Done building target "ComputeLinkInputsFromProject" in project "Object_Roguelike.vcxproj".: (TargetId:69)
                    Target "ComputeReferenceLinkInputs" skipped, due to false condition; (@(ProjectReference) != '') was evaluated as ( != '').
-21:32:14.969     1>Target "ComputeManifestInputsTargets: (TargetId:70)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.787     1>Target "ComputeManifestInputsTargets: (TargetId:70)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Added Item(s): 
                        Manifest=
                            temp
@@ -4293,10 +4280,10 @@ windir = C:\WINDOWS
                                    TrackerLogDirectory=x64\Debug\Object_Roguelike.tlog\
                                    UpdateFileHashes=false
                                    VerboseOutput=true
-21:32:14.969     1>Done building target "ComputeManifestInputsTargets" in project "Object_Roguelike.vcxproj".: (TargetId:70)
+01:58:53.787     1>Done building target "ComputeManifestInputsTargets" in project "Object_Roguelike.vcxproj".: (TargetId:70)
                    Target "ManifestResourceCompile" skipped, due to false condition; ('$(EmbedManifestBy)' == 'LINK' and '@(Manifest)' != '') was evaluated as ('LINK' == 'LINK' and '' != '').
                    Target "AssignWinFXEmbeddedResource" skipped, due to false condition; ('@(WinFXEmbeddedResource)' != '') was evaluated as ('' != '').
-21:32:14.969     1>Target "AssignTargetPaths: (TargetId:71)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
+01:58:53.787     1>Target "AssignTargetPaths: (TargetId:71)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
                    Using "AssignTargetPath" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignTargetPath" (TaskId:27)
                      Task Parameter:RootFolder=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike (TaskId:27)
@@ -4311,9 +4298,9 @@ windir = C:\WINDOWS
                      Task Parameter:RootFolder=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike (TaskId:30)
                    Done executing task "AssignTargetPath". (TaskId:30)
                    Task "AssignTargetPath" skipped, due to false condition; ('@(_DeploymentBaseManifestWithTargetPath)'=='' and '%(None.Extension)'=='.manifest') was evaluated as (''=='' and ''=='.manifest').
-21:32:14.970     1>Done building target "AssignTargetPaths" in project "Object_Roguelike.vcxproj".: (TargetId:71)
+01:58:53.787     1>Done building target "AssignTargetPaths" in project "Object_Roguelike.vcxproj".: (TargetId:71)
                    Target "AssignTargetPaths" skipped. Previously built successfully.
-21:32:14.970     1>Target "SplitResourcesByCulture: (TargetId:72)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
+01:58:53.787     1>Target "SplitResourcesByCulture: (TargetId:72)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
                    Task "Warning" skipped, due to false condition; ('@(ResxWithNoCulture)'!='') was evaluated as (''!='').
                    Task "Warning" skipped, due to false condition; ('@(ResxWithCulture)'!='') was evaluated as (''!='').
                    Task "Warning" skipped, due to false condition; ('@(NonResxWithCulture)'!='') was evaluated as (''!='').
@@ -4321,13 +4308,13 @@ windir = C:\WINDOWS
                    Using "AssignCulture" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "AssignCulture" (TaskId:31)
                    Done executing task "AssignCulture". (TaskId:31)
-21:32:14.970     1>Done building target "SplitResourcesByCulture" in project "Object_Roguelike.vcxproj".: (TargetId:72)
+01:58:53.788     1>Done building target "SplitResourcesByCulture" in project "Object_Roguelike.vcxproj".: (TargetId:72)
                    Target "CreateManifestResourceNames" skipped, due to false condition; ('@(EmbeddedResource)' != '') was evaluated as ('' != '').
-21:32:14.970     1>Target "CreateCustomManifestResourceNames: (TargetId:73)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
-21:32:14.971     1>Done building target "CreateCustomManifestResourceNames" in project "Object_Roguelike.vcxproj".: (TargetId:73)
-21:32:14.971     1>Target "PrepareResourceNames: (TargetId:74)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:14.971     1>Done building target "PrepareResourceNames" in project "Object_Roguelike.vcxproj".: (TargetId:74)
-21:32:14.971     1>Target "MakeDirsForLink: (TargetId:75)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.788     1>Target "CreateCustomManifestResourceNames: (TargetId:73)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareResourceNames" depends on it):
+01:58:53.788     1>Done building target "CreateCustomManifestResourceNames" in project "Object_Roguelike.vcxproj".: (TargetId:73)
+01:58:53.788     1>Target "PrepareResourceNames: (TargetId:74)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.788     1>Done building target "PrepareResourceNames" in project "Object_Roguelike.vcxproj".: (TargetId:74)
+01:58:53.788     1>Target "MakeDirsForLink: (TargetId:75)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Set Property: _LinkImportLibrary=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib
                    Added Item(s): _LinkImportLibraryFile=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib
                    Added Item(s): LinkDirsToMake=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug
@@ -4349,25 +4336,25 @@ windir = C:\WINDOWS
                            C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug
                            C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\
                    Removed Item(s): _LinkImportLibraryFile=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib
-21:32:14.971     1>Done building target "MakeDirsForLink" in project "Object_Roguelike.vcxproj".: (TargetId:75)
-21:32:14.971     1>Target "DoLinkOutputFilesMatch: (TargetId:76)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.788     1>Done building target "MakeDirsForLink" in project "Object_Roguelike.vcxproj".: (TargetId:75)
+01:58:53.788     1>Target "DoLinkOutputFilesMatch: (TargetId:76)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Added Item(s): _OutputFileFromLink=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' == '') was evaluated as ('C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe' == '').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.FullPath)' != '$([System.IO.Path]::GetFullPath($(TargetPath)))') was evaluated as ('C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe' != '' and 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe' != 'C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Extension)' != '' and '%(_OutputFileFromLink.Extension)' != '$(TargetExt)') was evaluated as ('C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe' != '' and '.exe' != '' and '.exe' != '.exe').
                    Task "VCMessage" skipped, due to false condition; ('@(_OutputFileFromLink)' != '' and '%(_OutputFileFromLink.Filename)' != '' and '%(_OutputFileFromLink.Filename)' != '$(TargetName)') was evaluated as ('C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe' != '' and 'Object_Roguelike' != '' and 'Object_Roguelike' != 'Object_Roguelike').
                    Task "VCMessage" skipped, due to false condition; ('%(Link.MinimumRequiredVersion)' != '' and ('%(Link.Subsystem)' == '' or '%(Link.Subsystem)' == 'NotSet')) was evaluated as ('' != '' and ('Console' == '' or 'Console' == 'NotSet')).
-21:32:14.972     1>Done building target "DoLinkOutputFilesMatch" in project "Object_Roguelike.vcxproj".: (TargetId:76)
-21:32:14.972     1>Target "PreLinkEvent: (TargetId:77)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.789     1>Done building target "DoLinkOutputFilesMatch" in project "Object_Roguelike.vcxproj".: (TargetId:76)
+01:58:53.789     1>Target "PreLinkEvent: (TargetId:77)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PreLinkEvent.Message)' != '' and '%(PreLinkEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PreLinkEvent.Command)' != '') was evaluated as ('' != '').
-21:32:14.972     1>Done building target "PreLinkEvent" in project "Object_Roguelike.vcxproj".: (TargetId:77)
-21:32:14.972     1>Target "ComputeLinkSwitches: (TargetId:78)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Link" depends on it):
+01:58:53.789     1>Done building target "PreLinkEvent" in project "Object_Roguelike.vcxproj".: (TargetId:77)
+01:58:53.789     1>Target "ComputeLinkSwitches: (TargetId:78)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Link" depends on it):
                    Set Property: Link_MinimalRebuildFromTracking=true
                    Set Property: LinkToolArchitecture=Native32Bit
                    Set Property: _GenerateWindowsMetadata=
-21:32:14.972     1>Done building target "ComputeLinkSwitches" in project "Object_Roguelike.vcxproj".: (TargetId:78)
-21:32:14.972     1>Target "Link: (TargetId:79)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:53.789     1>Done building target "ComputeLinkSwitches" in project "Object_Roguelike.vcxproj".: (TargetId:78)
+01:58:53.789     1>Target "Link: (TargetId:79)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Using "Link" task from assembly "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Build.CppTasks.Common.dll".
                    Task "Link" (TaskId:33)
                      Task Parameter:BuildingInIde=True (TaskId:33)
@@ -4955,11 +4942,9 @@ windir = C:\WINDOWS
                      	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\COMMUNITY\VC\TOOLS\MSVC\14.16.27023\LIB\X64\OLDNAMES.LIB (TaskId:33)
                      	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\COMMUNITY\VC\TOOLS\MSVC\14.16.27023\LIB\X64\VCRUNTIMED.LIB (TaskId:33)
                      	C:\PROGRAM FILES (X86)\WINDOWS KITS\10\LIB\10.0.15063.0\UCRT\X64\UCRTD.LIB (TaskId:33)
-                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\COMMUNITY\VC\TOOLS\MSVC\14.16.27023\BIN\HOSTX86\X86\MSPDBSRV.EXE (TaskId:33)
-                     	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\COMMUNITY\VC\TOOLS\MSVC\14.16.27023\BIN\HOSTX86\X64\VCTIP.EXE (TaskId:33)
-                     Source compilation required: input C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ARMOUR.OBJ is newer than output C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\X64\DEBUG\OBJECT_ROGUELIKE.PDB. (TaskId:33)
+                     Source compilation required: input C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\PLAYER.OBJ is newer than output C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\X64\DEBUG\OBJECT_ROGUELIKE.PDB. (TaskId:33)
                      Environment Variables passed to tool: (TaskId:33)
-                       VS_UNICODE_OUTPUT=1608 (TaskId:33)
+                       VS_UNICODE_OUTPUT=1744 (TaskId:33)
                      C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib" /MACHINE:X64 x64\Debug\Armour.obj
                      x64\Debug\Console.obj
                      x64\Debug\Enemy.obj
@@ -4972,7 +4957,7 @@ windir = C:\WINDOWS
                      x64\Debug\Tile.obj
                      x64\Debug\Weapon.obj (TaskId:33)
                      Tracking command: (TaskId:33)
-                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug\Object_Roguelike.tlog /r "C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ARMOUR.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\CONSOLE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ENEMY.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ITEMS.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\MAP.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\MONSTERS.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\OBJECTROGUELIKE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\PLAYER.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\STDAFX.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\TILE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\WEAPON.OBJ" /b MSBuildConsole_CancelEventa78f3a40317c44fa96730b725ea3bd4c  /c "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib" /MACHINE:X64 x64\Debug\Armour.obj
+                     C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Tracker.exe /a /d "C:\Program Files (x86)\MSBuild\15.0\FileTracker\FileTracker32.dll" /i C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\x64\Debug\Object_Roguelike.tlog /r "C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ARMOUR.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\CONSOLE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ENEMY.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\ITEMS.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\MAP.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\MONSTERS.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\OBJECTROGUELIKE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\PLAYER.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\STDAFX.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\TILE.OBJ|C:\USERS\ERICK\DOCUMENTS\GITHUB\ROGUELIKE-PROJECT\OBJECT_ROGUELIKE\X64\DEBUG\WEAPON.OBJ" /b MSBuildConsole_CancelEvent8b6501b748044fa6bad0828ab095b052  /c "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x64\link.exe"  /ERRORREPORT:PROMPT /OUT:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.lib" /MACHINE:X64 x64\Debug\Armour.obj
                      x64\Debug\Console.obj
                      x64\Debug\Enemy.obj
                      x64\Debug\Items.obj
@@ -4996,36 +4981,36 @@ windir = C:\WINDOWS
                    Task "VCMessage" skipped, due to false condition; (('$(EmbedManifestBy)' != 'LINK' or '$(LegacyManifestEmbedding)' != 'true' or '$(LinkSkippedExecution)' == 'true') and
                                 %(Link.GenerateDebugInformation) == 'true' and %(Link.ProgramDataBaseFileName) != '') was evaluated as (('LINK' != 'LINK' or '' != 'true' or 'False' == 'true') and
                                 DebugFastLink == 'true' and  != '').
-21:32:19.461     1>Done building target "Link" in project "Object_Roguelike.vcxproj".: (TargetId:79)
+01:58:54.077     1>Done building target "Link" in project "Object_Roguelike.vcxproj".: (TargetId:79)
                    Target "MetaGenInputsOutputs" skipped, due to false condition; ('$(EnableManagedIncrementalBuild)' == 'True') was evaluated as ('false' == 'True').
                    Target "ComputeMetaGenInputs" skipped, due to false condition; ('$(CLRSupport)'!='' and '$(CLRSupport)'!='false') was evaluated as ('false'!='' and 'false'!='false').
                    Target "MetaGen" skipped, due to false condition; ('@(MetaGen)' != '') was evaluated as ('' != '').
-21:32:19.461     1>Target "ComputeLinkImportLibraryOutputsForClean: (TargetId:80)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:54.077     1>Target "ComputeLinkImportLibraryOutputsForClean: (TargetId:80)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
                    Task "WriteLinesToFile" skipped, due to false condition; ('@(_LinkSecondaryOutput)' != '') was evaluated as ('' != '').
-21:32:19.461     1>Done building target "ComputeLinkImportLibraryOutputsForClean" in project "Object_Roguelike.vcxproj".: (TargetId:80)
-21:32:19.461     1>Target "AfterLink: (TargetId:81)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
-21:32:19.461     1>Done building target "AfterLink" in project "Object_Roguelike.vcxproj".: (TargetId:81)
-21:32:19.461     1>Target "_Link: (TargetId:82)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.461     1>Done building target "_Link" in project "Object_Roguelike.vcxproj".: (TargetId:82)
-21:32:19.461     1>Target "_ALink: (TargetId:83)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.461     1>Done building target "_ALink" in project "Object_Roguelike.vcxproj".: (TargetId:83)
+01:58:54.078     1>Done building target "ComputeLinkImportLibraryOutputsForClean" in project "Object_Roguelike.vcxproj".: (TargetId:80)
+01:58:54.078     1>Target "AfterLink: (TargetId:81)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_Link" depends on it):
+01:58:54.078     1>Done building target "AfterLink" in project "Object_Roguelike.vcxproj".: (TargetId:81)
+01:58:54.078     1>Target "_Link: (TargetId:82)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Done building target "_Link" in project "Object_Roguelike.vcxproj".: (TargetId:82)
+01:58:54.078     1>Target "_ALink: (TargetId:83)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Done building target "_ALink" in project "Object_Roguelike.vcxproj".: (TargetId:83)
                    Target "ComputeLegacyManifestEmbedding" skipped. Previously built successfully.
-21:32:19.461     1>Target "_Manifest: (TargetId:84)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Target "_Manifest: (TargetId:84)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "CallTarget" skipped, due to false condition; ('$(LegacyManifestEmbedding)' == 'true') was evaluated as ('' == 'true').
-21:32:19.461     1>Done building target "_Manifest" in project "Object_Roguelike.vcxproj".: (TargetId:84)
-21:32:19.461     1>Target "RegisterOutput: (TargetId:85)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Done building target "_Manifest" in project "Object_Roguelike.vcxproj".: (TargetId:84)
+01:58:54.078     1>Target "RegisterOutput: (TargetId:85)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='DynamicLibrary' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'!='true') was evaluated as ('Application'=='DynamicLibrary' and 'false'=='true' and 'false'!='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='DynamicLibrary' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'=='true') was evaluated as ('Application'=='DynamicLibrary' and 'false'=='true' and 'false'=='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='Application' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'!='true') was evaluated as ('Application'=='Application' and 'false'=='true' and 'false'!='true').
                    Task "Exec" skipped, due to false condition; ('$(ConfigurationType)'=='Application' and '%(Link.RegisterOutput)'=='true' and '%(Link.PerUserRedirection)'=='true') was evaluated as ('Application'=='Application' and 'false'=='true' and 'false'=='true').
                    Task "VCMessage" skipped, due to false condition; ('$(_RegisterOutputExitCode)' != '' and '$(_RegisterOutputExitCode)' != '0') was evaluated as ('' != '' and '' != '0').
-21:32:19.461     1>Done building target "RegisterOutput" in project "Object_Roguelike.vcxproj".: (TargetId:85)
+01:58:54.078     1>Done building target "RegisterOutput" in project "Object_Roguelike.vcxproj".: (TargetId:85)
                    Target "PrepareForBuild" skipped. Previously built successfully.
                    Target "ResolveReferences" skipped. Previously built successfully.
-21:32:19.461     1>Target "ResolvedXDCMake: (TargetId:86)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
+01:58:54.078     1>Target "ResolvedXDCMake: (TargetId:86)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
                    Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.Extension)' == '.vcxproj' and '@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != '' and '$(_ClCompileGenerateXMLDocumentationFiles)' == 'true') was evaluated as ('' == '.vcxproj' and '' != '' and '' != '' and '' == 'true').
-21:32:19.461     1>Done building target "ResolvedXDCMake" in project "Object_Roguelike.vcxproj".: (TargetId:86)
-21:32:19.461     1>Target "ComputeCLCompileGeneratedXDCFiles: (TargetId:87)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
+01:58:54.078     1>Done building target "ResolvedXDCMake" in project "Object_Roguelike.vcxproj".: (TargetId:86)
+01:58:54.078     1>Target "ComputeCLCompileGeneratedXDCFiles: (TargetId:87)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
                    Added Item(s): 
                        XdcMake=
                            temp
@@ -5048,66 +5033,66 @@ windir = C:\WINDOWS
                                    OutputFile=C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.xml
                                    SuppressStartupBanner=true
                                    TrackerLogDirectory=x64\Debug\Object_Roguelike.tlog\
-21:32:19.462     1>Done building target "ComputeCLCompileGeneratedXDCFiles" in project "Object_Roguelike.vcxproj".: (TargetId:87)
-21:32:19.462     1>Target "MakeDirsForXdcMake: (TargetId:88)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
+01:58:54.078     1>Done building target "ComputeCLCompileGeneratedXDCFiles" in project "Object_Roguelike.vcxproj".: (TargetId:87)
+01:58:54.078     1>Target "MakeDirsForXdcMake: (TargetId:88)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_XdcMake" depends on it):
                    Task "MakeDir" (TaskId:35)
                    Done executing task "MakeDir". (TaskId:35)
-21:32:19.462     1>Done building target "MakeDirsForXdcMake" in project "Object_Roguelike.vcxproj".: (TargetId:88)
+01:58:54.078     1>Done building target "MakeDirsForXdcMake" in project "Object_Roguelike.vcxproj".: (TargetId:88)
                    Target "XdcMake" skipped, due to false condition; ('@(XdcMake)' != '') was evaluated as ('' != '').
-21:32:19.462     1>Target "_XdcMake: (TargetId:89)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.462     1>Done building target "_XdcMake" in project "Object_Roguelike.vcxproj".: (TargetId:89)
-21:32:19.462     1>Target "ComputeCLCompileGeneratedSbrFiles: (TargetId:90)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BscMake" depends on it):
-21:32:19.462     1>Done building target "ComputeCLCompileGeneratedSbrFiles" in project "Object_Roguelike.vcxproj".: (TargetId:90)
-21:32:19.462     1>Target "MakeDirsForBscMake: (TargetId:91)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BscMake" depends on it):
+01:58:54.078     1>Target "_XdcMake: (TargetId:89)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Done building target "_XdcMake" in project "Object_Roguelike.vcxproj".: (TargetId:89)
+01:58:54.078     1>Target "ComputeCLCompileGeneratedSbrFiles: (TargetId:90)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BscMake" depends on it):
+01:58:54.078     1>Done building target "ComputeCLCompileGeneratedSbrFiles" in project "Object_Roguelike.vcxproj".: (TargetId:90)
+01:58:54.078     1>Target "MakeDirsForBscMake: (TargetId:91)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BscMake" depends on it):
                    Task "MakeDir" (TaskId:36)
                    Done executing task "MakeDir". (TaskId:36)
-21:32:19.462     1>Done building target "MakeDirsForBscMake" in project "Object_Roguelike.vcxproj".: (TargetId:91)
+01:58:54.078     1>Done building target "MakeDirsForBscMake" in project "Object_Roguelike.vcxproj".: (TargetId:91)
                    Target "BscMake" skipped, due to false condition; ('@(BscMake)' != '') was evaluated as ('' != '').
                    Target "CustomBuildStep" skipped, due to false condition; ('@(CustomBuildStep)' != '' and '$(SelectedFiles)'=='') was evaluated as ('' != '' and ''=='').
-21:32:19.462     1>Target "_BscMake: (TargetId:92)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.462     1>Done building target "_BscMake" in project "Object_Roguelike.vcxproj".: (TargetId:92)
-21:32:19.462     1>Target "_GenerateSatelliteAssemblyInputs: (TargetId:93)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CreateSatelliteAssemblies" depends on it):
+01:58:54.078     1>Target "_BscMake: (TargetId:92)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.078     1>Done building target "_BscMake" in project "Object_Roguelike.vcxproj".: (TargetId:92)
+01:58:54.078     1>Target "_GenerateSatelliteAssemblyInputs: (TargetId:93)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CreateSatelliteAssemblies" depends on it):
                    Task "Warning" skipped, due to false condition; ('@(ManifestResourceWithCulture)'!='' and '%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)'=='') was evaluated as (''!='' and ''=='').
                    Task "Warning" skipped, due to false condition; ('@(ManifestNonResxWithCultureOnDisk)'!='' and '%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)'=='') was evaluated as (''!='' and ''=='').
-21:32:19.462     1>Done building target "_GenerateSatelliteAssemblyInputs" in project "Object_Roguelike.vcxproj".: (TargetId:93)
+01:58:54.079     1>Done building target "_GenerateSatelliteAssemblyInputs" in project "Object_Roguelike.vcxproj".: (TargetId:93)
                    Target "ComputeIntermediateSatelliteAssemblies" skipped, due to false condition; (@(ReferenceSatellitePaths->'%(DestinationSubDirectory)') != '') was evaluated as ( != '').
                    Target "GenerateSatelliteAssemblies" skipped, due to false condition; ('@(_SatelliteAssemblyResourceInputs)' != '') was evaluated as ('' != '').
-21:32:19.462     1>Target "CreateSatelliteAssemblies: (TargetId:94)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.462     1>Done building target "CreateSatelliteAssemblies" in project "Object_Roguelike.vcxproj".: (TargetId:94)
-21:32:19.462     1>Target "_Appverifier: (TargetId:95)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.462     1>Done building target "_Appverifier" in project "Object_Roguelike.vcxproj".: (TargetId:95)
-21:32:19.462     1>Target "_Deploy: (TargetId:96)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.462     1>Done building target "_Deploy" in project "Object_Roguelike.vcxproj".: (TargetId:96)
+01:58:54.079     1>Target "CreateSatelliteAssemblies: (TargetId:94)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.079     1>Done building target "CreateSatelliteAssemblies" in project "Object_Roguelike.vcxproj".: (TargetId:94)
+01:58:54.079     1>Target "_Appverifier: (TargetId:95)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.079     1>Done building target "_Appverifier" in project "Object_Roguelike.vcxproj".: (TargetId:95)
+01:58:54.079     1>Target "_Deploy: (TargetId:96)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.079     1>Done building target "_Deploy" in project "Object_Roguelike.vcxproj".: (TargetId:96)
                    Target "ComputeIntermediateSatelliteAssemblies" skipped, due to false condition; (@(ReferenceSatellitePaths->'%(DestinationSubDirectory)') != '') was evaluated as ( != '').
                    Target "_CopyFilesMarkedCopyLocal" skipped, due to false condition; ('@(ReferenceCopyLocalPaths)' != '') was evaluated as ('' != '').
                    Target "AssignTargetPaths" skipped. Previously built successfully.
                    Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
                    Target "_GetProjectReferenceTargetFrameworkProperties" skipped. Previously built successfully.
-21:32:19.462     1>Target "GetCopyToOutputDirectoryXamlAppDefs: (TargetId:97)" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Xaml.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "GetCopyToOutputDirectoryItems" depends on it):
+01:58:54.079     1>Target "GetCopyToOutputDirectoryXamlAppDefs: (TargetId:97)" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Xaml.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "GetCopyToOutputDirectoryItems" depends on it):
                    Task "AssignTargetPath" (TaskId:37)
                      Task Parameter:RootFolder=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike (TaskId:37)
                    Done executing task "AssignTargetPath". (TaskId:37)
-21:32:19.462     1>Done building target "GetCopyToOutputDirectoryXamlAppDefs" in project "Object_Roguelike.vcxproj".: (TargetId:97)
-21:32:19.462     1>Target "GetCopyToOutputDirectoryItems: (TargetId:98)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_CopySourceItemsToOutputDirectory" depends on it):
+01:58:54.079     1>Done building target "GetCopyToOutputDirectoryXamlAppDefs" in project "Object_Roguelike.vcxproj".: (TargetId:97)
+01:58:54.079     1>Target "GetCopyToOutputDirectoryItems: (TargetId:98)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_CopySourceItemsToOutputDirectory" depends on it):
                    Set Property: _GCTODIKeepDuplicates=false
                    Set Property: _GCTODIKeepMetadata=CopyToOutputDirectory;TargetPath
                    Task "MSBuild" skipped, due to false condition; ('@(_MSBuildProjectReferenceExistent)' != '' and '$(_GetChildProjectCopyToOutputDirectoryItems)' == 'true' and '%(_MSBuildProjectReferenceExistent.Private)' != 'false' and '$(UseCommonOutputDirectory)' != 'true') was evaluated as ('' != '' and 'true' == 'true' and '' != 'false' and 'false' != 'true').
                    Task "AssignTargetPath" (TaskId:38)
                      Task Parameter:RootFolder=C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike (TaskId:38)
                    Done executing task "AssignTargetPath". (TaskId:38)
-21:32:19.462     1>Done building target "GetCopyToOutputDirectoryItems" in project "Object_Roguelike.vcxproj".: (TargetId:98)
+01:58:54.079     1>Done building target "GetCopyToOutputDirectoryItems" in project "Object_Roguelike.vcxproj".: (TargetId:98)
                    Target "_CopyOutOfDateSourceItemsToOutputDirectory" skipped, due to false condition; ( '@(_SourceItemsToCopyToOutputDirectory)' != '' ) was evaluated as ( '' != '' ).
                    Target "_CopyOutOfDateSourceItemsToOutputDirectoryAlways" skipped, due to false condition; ( '@(_SourceItemsToCopyToOutputDirectoryAlways)' != '' ) was evaluated as ( '' != '' ).
-21:32:19.462     1>Target "_CopySourceItemsToOutputDirectory: (TargetId:99)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
-21:32:19.462     1>Done building target "_CopySourceItemsToOutputDirectory" in project "Object_Roguelike.vcxproj".: (TargetId:99)
+01:58:54.079     1>Target "_CopySourceItemsToOutputDirectory: (TargetId:99)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
+01:58:54.079     1>Done building target "_CopySourceItemsToOutputDirectory" in project "Object_Roguelike.vcxproj".: (TargetId:99)
                    Target "_CopyAppConfigFile" skipped, due to false condition; ( '@(AppConfigWithTargetPath)' != '' ) was evaluated as ( '' != '' ).
                    Target "_CopyManifestFiles" skipped, due to false condition; ( '$(_DeploymentCopyApplicationManifest)'=='true' or '$(GenerateClickOnceManifests)'=='true' ) was evaluated as ( ''=='true' or ''=='true' ).
-21:32:19.462     1>Target "_CheckForCompileOutputs: (TargetId:100)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
+01:58:54.079     1>Target "_CheckForCompileOutputs: (TargetId:100)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "CopyFilesToOutputDirectory" depends on it):
                    Set Property: _DocumentationFileProduced=false
                    Set Property: _DebugSymbolsProduced=false
-21:32:19.463     1>Done building target "_CheckForCompileOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:100)
+01:58:54.079     1>Done building target "_CheckForCompileOutputs" in project "Object_Roguelike.vcxproj".: (TargetId:100)
                    Target "_SGenCheckForOutputs" skipped, due to false condition; ('$(_SGenGenerateSerializationAssembliesConfig)' == 'On' or ('@(WebReferenceUrl)'!='' and '$(_SGenGenerateSerializationAssembliesConfig)' == 'Auto')) was evaluated as ('Off' == 'On' or (''!='' and 'Off' == 'Auto')).
-21:32:19.463     1>Target "CopyFilesToOutputDirectory: (TargetId:101)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForRun" depends on it):
+01:58:54.079     1>Target "CopyFilesToOutputDirectory: (TargetId:101)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "PrepareForRun" depends on it):
                    Set Property: CreateHardLinksForCopyFilesToOutputDirectoryIfPossible=false
                    Set Property: CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible=false
                    Set Property: CopyBuildOutputToOutputDirectory=true
@@ -5123,21 +5108,21 @@ windir = C:\WINDOWS
                    Task "Copy" skipped, due to false condition; ('@(ReferenceComWrappersToCopyLocal)' != '' or '@(ResolvedIsolatedComModules)' != '' or '@(_DeploymentLooseManifestFile)' != '' or '@(NativeReferenceFile)' != '' ) was evaluated as ('' != '' or '' != '' or '' != '' or '' != '' ).
                    Task "Copy" skipped, due to false condition; ('$(SkipCopyWinMDArtifact)' != 'true' and '@(WinMDExpArtifacts)' != '') was evaluated as ('' != 'true' and '' != '').
                    Task "Message" skipped, due to false condition; ('$(SkipCopyWinMDArtifact)' != 'true' and '$(_WindowsMetadataOutputPath)' != '') was evaluated as ('' != 'true' and '' != '').
-21:32:19.463     1>Done building target "CopyFilesToOutputDirectory" in project "Object_Roguelike.vcxproj".: (TargetId:101)
-21:32:19.463     1>Target "PrepareForRun: (TargetId:102)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
-21:32:19.463     1>Done building target "PrepareForRun" in project "Object_Roguelike.vcxproj".: (TargetId:102)
+01:58:54.079     1>Done building target "CopyFilesToOutputDirectory" in project "Object_Roguelike.vcxproj".: (TargetId:101)
+01:58:54.079     1>Target "PrepareForRun: (TargetId:102)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.079     1>Done building target "PrepareForRun" in project "Object_Roguelike.vcxproj".: (TargetId:102)
                    Target "CustomBuildStep" skipped, due to false condition; ('@(CustomBuildStep)' != '' and '$(SelectedFiles)'=='') was evaluated as ('' != '' and ''=='').
-21:32:19.463     1>Target "PostBuildEvent: (TargetId:103)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
+01:58:54.080     1>Target "PostBuildEvent: (TargetId:103)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "_BuildLinkAction" depends on it):
                    Task "Message" skipped, due to false condition; ('%(PostBuildEvent.Message)' != '' and '%(PostBuildEvent.Command)' != '') was evaluated as ('' != '' and '' != '').
                    Task "Exec" skipped, due to false condition; ('%(PostBuildEvent.Command)' != '') was evaluated as ('' != '').
-21:32:19.463     1>Done building target "PostBuildEvent" in project "Object_Roguelike.vcxproj".: (TargetId:103)
-21:32:19.463     1>Target "_BuildLinkAction: (TargetId:104)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildLink" depends on it):
-21:32:19.463     1>Done building target "_BuildLinkAction" in project "Object_Roguelike.vcxproj".: (TargetId:104)
-21:32:19.463     1>Target "BuildLink: (TargetId:105)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
-21:32:19.463     1>Done building target "BuildLink" in project "Object_Roguelike.vcxproj".: (TargetId:105)
-21:32:19.463     1>Target "AfterBuild: (TargetId:106)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
-21:32:19.463     1>Done building target "AfterBuild" in project "Object_Roguelike.vcxproj".: (TargetId:106)
-21:32:19.463     1>Target "FinalizeBuildStatus: (TargetId:107)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:54.080     1>Done building target "PostBuildEvent" in project "Object_Roguelike.vcxproj".: (TargetId:103)
+01:58:54.080     1>Target "_BuildLinkAction: (TargetId:104)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "BuildLink" depends on it):
+01:58:54.080     1>Done building target "_BuildLinkAction" in project "Object_Roguelike.vcxproj".: (TargetId:104)
+01:58:54.080     1>Target "BuildLink: (TargetId:105)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:54.080     1>Done building target "BuildLink" in project "Object_Roguelike.vcxproj".: (TargetId:105)
+01:58:54.080     1>Target "AfterBuild: (TargetId:106)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
+01:58:54.080     1>Done building target "AfterBuild" in project "Object_Roguelike.vcxproj".: (TargetId:106)
+01:58:54.080     1>Target "FinalizeBuildStatus: (TargetId:107)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (target "Build" depends on it):
                    Using "Delete" task from assembly "Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
                    Task "Delete" (TaskId:39)
                      Task Parameter:Files=x64\Debug\Object_Roguelike.tlog\unsuccessfulbuild (TaskId:39)
@@ -5147,156 +5132,145 @@ windir = C:\WINDOWS
                      Task Parameter:Files=x64\Debug\Object_Roguelike.tlog\Object_Roguelike.lastbuildstate (TaskId:40)
                      Touching "x64\Debug\Object_Roguelike.tlog\Object_Roguelike.lastbuildstate". (TaskId:40)
                    Done executing task "Touch". (TaskId:40)
-21:32:19.490     1>Done building target "FinalizeBuildStatus" in project "Object_Roguelike.vcxproj".: (TargetId:107)
+01:58:54.080     1>Done building target "FinalizeBuildStatus" in project "Object_Roguelike.vcxproj".: (TargetId:107)
                    Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
                    Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
-21:32:19.490     1>Target "Build: (TargetId:108)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (entry point):
-21:32:19.490     1>Done building target "Build" in project "Object_Roguelike.vcxproj".: (TargetId:108)
-21:32:19.490     1>Done Building Project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (Build target(s)).
+01:58:54.080     1>Target "Build: (TargetId:108)" in file "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.BuildSteps.Targets" from project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (entry point):
+01:58:54.081     1>Done building target "Build" in project "Object_Roguelike.vcxproj".: (TargetId:108)
+01:58:54.081     1>Done Building Project "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (Build target(s)).
 
 Project Performance Summary:
-    22238 ms  C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj   1 calls
-              22238 ms  Build                                      1 calls
+     1549 ms  C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj   1 calls
+               1549 ms  Build                                      1 calls
 
 Target Performance Summary:
         0 ms  AfterResourceCompile                       1 calls
-        0 ms  ComputeLinkSwitches                        1 calls
-        0 ms  PreLinkEvent                               1 calls
-        0 ms  MakeDirsForLink                            1 calls
-        0 ms  PrepareResourceNames                       1 calls
-        0 ms  SplitResourcesByCulture                    1 calls
-        0 ms  ComputeManifestInputsTargets               1 calls
-        0 ms  ComputeLinkInputsFromProject               1 calls
         0 ms  ComputeCustomBuildOutput                   1 calls
         0 ms  ComputeManifestGeneratedLinkerInputs       1 calls
-        0 ms  ComputeLinkImportLibraryOutputsForClean    1 calls
         0 ms  ComputeRCGeneratedLinkInputs               1 calls
+        0 ms  ComputeRCOutputs                           1 calls
         0 ms  BeforeLink                                 1 calls
-        0 ms  ComputeLegacyManifestEmbedding             1 calls
+        0 ms  _CopySourceItemsToOutputDirectory          1 calls
         0 ms  BuildLinkTraverse                          1 calls
         0 ms  BuildCompile                               1 calls
+        0 ms  GetCopyToOutputDirectoryItems              1 calls
         0 ms  _BuildCompileAction                        1 calls
-        0 ms  AfterBuildCompileEvent                     1 calls
         0 ms  _ResourceCompile                           1 calls
+        0 ms  FinalizeBuildStatus                        1 calls
         0 ms  MakeDirsForResourceCompile                 1 calls
         0 ms  BeforeResourceCompile                      1 calls
-        0 ms  ComputeRCOutputs                           1 calls
-        0 ms  AfterLink                                  1 calls
-        0 ms  _Link                                      1 calls
-        0 ms  _ALink                                     1 calls
-        0 ms  AfterBuild                                 1 calls
-        0 ms  BuildLink                                  1 calls
-        0 ms  _BuildLinkAction                           1 calls
-        0 ms  PostBuildEvent                             1 calls
-        0 ms  PrepareForRun                              1 calls
-        0 ms  CopyFilesToOutputDirectory                 1 calls
-        0 ms  _CopySourceItemsToOutputDirectory          1 calls
-        0 ms  GetCopyToOutputDirectoryItems              1 calls
-        0 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
-        0 ms  _Deploy                                    1 calls
-        0 ms  _Appverifier                               1 calls
-        0 ms  CreateSatelliteAssemblies                  1 calls
-        0 ms  _GenerateSatelliteAssemblyInputs           1 calls
+        0 ms  _ClCompile                                 1 calls
+        0 ms  AfterClCompile                             1 calls
+        0 ms  _CheckForCompileOutputs                    1 calls
+        0 ms  SelectClCompile                            1 calls
+        0 ms  AfterBuildCompileEvent                     1 calls
+        0 ms  ComputeLinkInputsFromProject               1 calls
+        0 ms  ComputeManifestInputsTargets               1 calls
+        0 ms  AssignTargetPaths                          1 calls
         0 ms  _BscMake                                   1 calls
         0 ms  MakeDirsForBscMake                         1 calls
         0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
         0 ms  _XdcMake                                   1 calls
         0 ms  MakeDirsForXdcMake                         1 calls
+        0 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
         0 ms  ResolvedXDCMake                            1 calls
         0 ms  RegisterOutput                             1 calls
         0 ms  _Manifest                                  1 calls
-        0 ms  _ClCompile                                 1 calls
-        0 ms  AfterClCompile                             1 calls
-        0 ms  Build                                      1 calls
-        0 ms  SelectClCompile                            1 calls
-        0 ms  PreBuildEvent                              1 calls
-        0 ms  BeforeBuildGenerateSources                 1 calls
-        0 ms  _PrepareForReferenceResolution             1 calls
-        0 ms  BuildGenerateSourcesTraverse               1 calls
-        0 ms  ResolveReferences                          1 calls
-        0 ms  AfterResolveReferences                     1 calls
-        0 ms  ResolveAssemblyReferences                  1 calls
-        0 ms  _SelectedFiles                             1 calls
-        0 ms  BeforeResolveReferences                    1 calls
-        0 ms  ResolveSDKReferences                       1 calls
-        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
-        0 ms  _CheckWindowsSDKInstalled                  1 calls
-        0 ms  PlatformPrepareForBuild                    1 calls
-        0 ms  SetBuildDefaultEnvironmentVariables        1 calls
-        0 ms  GetFrameworkPaths                          1 calls
-        0 ms  PrepareProjectReferences                   1 calls
-        0 ms  ExpandSDKReferences                        1 calls
-        0 ms  _Xsd                                       1 calls
-        0 ms  _SplitProjectReferencesByFileExistence     1 calls
-        0 ms  BeforeClCompile                            1 calls
-        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        0 ms  _ALink                                     1 calls
+        0 ms  _Link                                      1 calls
+        0 ms  AfterLink                                  1 calls
+        0 ms  _Deploy                                    1 calls
+        0 ms  ComputeLinkSwitches                        1 calls
+        0 ms  PreLinkEvent                               1 calls
+        0 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
+        0 ms  MakeDirsForLink                            1 calls
+        0 ms  PrepareResourceNames                       1 calls
+        0 ms  CreateCustomManifestResourceNames          1 calls
+        0 ms  CreateSatelliteAssemblies                  1 calls
+        0 ms  FixupCLCompileOptions                      1 calls
         0 ms  SelectCustomBuild                          1 calls
-        0 ms  MakeDirsForCl                              1 calls
-        0 ms  ComputeReferenceCLInput                    1 calls
+        0 ms  _HandlePackageFileConflicts                1 calls
+        0 ms  CopyFilesToOutputDirectory                 1 calls
+        0 ms  ExpandSDKReferences                        1 calls
+        0 ms  ResolveSDKReferences                       1 calls
+        0 ms  _BuildLinkAction                           1 calls
+        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
+        0 ms  PlatformPrepareForBuild                    1 calls
+        0 ms  GetResolvedWinMD                           1 calls
+        0 ms  BuildLink                                  1 calls
+        0 ms  GetReferenceAssemblyPaths                  1 calls
+        0 ms  GetFrameworkPaths                          1 calls
+        0 ms  ResolveProjectReferences                   1 calls
+        0 ms  PrepareProjectReferences                   1 calls
+        0 ms  AfterBuild                                 1 calls
+        0 ms  _SplitProjectReferencesByFileExistence     1 calls
+        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  _PrepareForReferenceResolution             1 calls
+        0 ms  _PrepareForBuild                           1 calls
+        0 ms  AfterResolveReferences                     1 calls
+        0 ms  ResolveReferences                          1 calls
+        0 ms  _Appverifier                               1 calls
         0 ms  AfterMidl                                  1 calls
-        0 ms  _Midl                                      1 calls
-        0 ms  AfterBuildGenerateSources                  1 calls
-        0 ms  ComputeCLInputPDBName                      1 calls
-        0 ms  AfterBuildGenerateSourcesEvent             1 calls
         0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  AfterBuildGenerateSourcesEvent             1 calls
+        0 ms  AfterBuildGenerateSources                  1 calls
+        0 ms  _Midl                                      1 calls
+        0 ms  PostBuildEvent                             1 calls
+        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        0 ms  MakeDirsForMidl                            1 calls
         0 ms  BuildGenerateSources                       1 calls
+        0 ms  BeforeClCompile                            1 calls
+        0 ms  PrepareForRun                              1 calls
+        0 ms  _SelectedFiles                             1 calls
+        0 ms  PreBuildEvent                              1 calls
+        0 ms  ComputeCLInputPDBName                      1 calls
+        0 ms  BeforeBuildGenerateSources                 1 calls
+        0 ms  BuildGenerateSourcesTraverse               1 calls
+        0 ms  _Xsd                                       1 calls
         0 ms  BuildCompileTraverse                       1 calls
-        1 ms  FixupCLCompileOptions                      1 calls
+        1 ms  ComputeLinkImportLibraryOutputsForClean    1 calls
+        1 ms  ComputeReferenceCLInput                    1 calls
+        1 ms  ComputeCLGeneratedLinkInputs               1 calls
+        1 ms  _CheckWindowsSDKInstalled                  1 calls
+        1 ms  ResolveAssemblyReferences                  1 calls
+        1 ms  SplitResourcesByCulture                    1 calls
+        1 ms  _GenerateSatelliteAssemblyInputs           1 calls
         1 ms  AssignProjectConfiguration                 1 calls
+        1 ms  MakeDirsForCl                              1 calls
+        1 ms  SetTelemetryEnvironmentVariables           1 calls
+        1 ms  Build                                      1 calls
         1 ms  DoLinkOutputFilesMatch                     1 calls
-        1 ms  GetResolvedWinMD                           1 calls
-        1 ms  CreateCustomManifestResourceNames          1 calls
-        1 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
-        1 ms  GetReferenceAssemblyPaths                  1 calls
-        1 ms  AssignTargetPaths                          1 calls
-        1 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
-        1 ms  MakeDirsForMidl                            1 calls
-        1 ms  _CheckForCompileOutputs                    1 calls
-        1 ms  _PrepareForBuild                           1 calls
+        1 ms  ComputeLegacyManifestEmbedding             1 calls
+        1 ms  CopyFileToFolders                          1 calls
+        2 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
         2 ms  WarnCompileDuplicatedFilename              1 calls
-        3 ms  ComputeCLOutputs                           1 calls
-        5 ms  SetTelemetryEnvironmentVariables           1 calls
-        6 ms  CopyFileToFolders                          1 calls
-        6 ms  InitializeBuildStatus                      1 calls
-        8 ms  PrepareForBuild                            1 calls
-       11 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
-       19 ms  ResolveProjectReferences                   1 calls
-       23 ms  _HandlePackageFileConflicts                1 calls
-       27 ms  FinalizeBuildStatus                        1 calls
-       85 ms  ComputeCLGeneratedLinkInputs               1 calls
-     4489 ms  Link                                       1 calls
-    17539 ms  ClCompile                                  1 calls
+        2 ms  InitializeBuildStatus                      1 calls
+        3 ms  PrepareForBuild                            1 calls
+        5 ms  ComputeCLOutputs                           1 calls
+        6 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+        6 ms  SetBuildDefaultEnvironmentVariables        1 calls
+      288 ms  Link                                       1 calls
+     1216 ms  ClCompile                                  1 calls
 
 Task Performance Summary:
-        0 ms  MSBuild                                    1 calls
+        0 ms  ResolvePackageFileConflicts                1 calls
+        0 ms  ReadLinesFromFile                          1 calls
         0 ms  AssignTargetPath                           6 calls
         0 ms  AssignCulture                              1 calls
-        1 ms  WriteLinesToFile                           1 calls
+        0 ms  Delete                                     1 calls
+        1 ms  Touch                                      2 calls
         1 ms  AssignProjectConfiguration                 1 calls
         1 ms  MakeDir                                    9 calls
-        1 ms  SetEnv                                     8 calls
-        2 ms  Message                                    3 calls
-        3 ms  ReadLinesFromFile                          1 calls
-        3 ms  Touch                                      2 calls
-        6 ms  GetOutOfDateItems                          1 calls
-       21 ms  ResolvePackageFileConflicts                1 calls
-       26 ms  Delete                                     1 calls
-     4487 ms  Link                                       1 calls
-    17537 ms  CL                                         2 calls
+        1 ms  WriteLinesToFile                           1 calls
+        1 ms  GetOutOfDateItems                          1 calls
+        2 ms  MSBuild                                    1 calls
+        4 ms  Message                                    3 calls
+        7 ms  SetEnv                                     8 calls
+      285 ms  Link                                       1 calls
+     1213 ms  CL                                         2 calls
 
 Build succeeded.
-
-                   "C:\Users\Erick\Documents\GitHub\Roguelike-Project\Object_Roguelike\Object_Roguelike.vcxproj" (Build target) (1) ->
-                   (ClCompile target) -> 
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(367): warning C4101: 'is_viewed': unreferenced local variable
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(367): warning C4101: 'was_viewed': unreferenced local variable
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(490): warning C4101: 'under': unreferenced local variable
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(488): warning C4101: 'location': unreferenced local variable
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(500): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
-                     c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
-
-    7 Warning(s)
+    0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:22.23
+Time Elapsed 00:00:01.54

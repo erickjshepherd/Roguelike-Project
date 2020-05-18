@@ -282,30 +282,9 @@ void Player::Draw_Player_View() {
 				}
 			}
 		}
-
-		if (y == 0) {
-			std::cout << "  Health: " << health << "   ";
-		}
-		else if (y == 1) {
-			std::cout << "  Strength: " << strength << "  ";
-		}
-		else if (y == 2) {
-			std::cout << "  Floor: " << global_map->level << "   ";
-		}
-		else if (y == 3) {
-			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
-		}
-		else if (y == 5) {
-			if (weapon != NULL) {
-				std::cout << "  Weapon: " << weapon->name << "   ";
-			}
-			else {
-				std::cout << "  Weapon: none   ";
-			}
-		}
 		std::cout << std::endl;
 	}
-
+	drawStats(-1);
 	global_map->Draw_Events();
 }
 
@@ -531,32 +510,32 @@ void Player::drawStats(int line) {
 	HANDLE handle;
 
 	// y is the line number for each stat
-	for (y = 0; y < 6; y++) {
-		if ((y == 0 && y == line) || line == -1 ) {
+	for (y = 0; y < 9; y++) {
+		if (y == 0 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Health: " << health << "   ";
 		}
-		else if ((y == 1 && y == line) || line == -1) {
+		else if (y == 1 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Strength: " << strength << "  ";
 		}
-		else if ((y == 2 && y == line) || line == -1) {
+		else if (y == 2 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Floor: " << global_map->level << "   ";
 		}
-		else if ((y == 3 && y == line) || line == -1) {
+		else if (y == 3 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
 		}
-		else if ((y == 5 && y == line) || line == -1) {
+		else if (y == 5 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
@@ -565,6 +544,39 @@ void Player::drawStats(int line) {
 			}
 			else {
 				std::cout << "  Weapon: none   ";
+			}
+		}
+		else if (y == 6 && (y == line || line == -1)) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (head != NULL) {
+				std::cout << "  Head: " << head->name << "   ";
+			}
+			else {
+				std::cout << "  Head: none   ";
+			}
+		}
+		else if (y == 7 && (y == line || line == -1)) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (chest != NULL) {
+				std::cout << "  Chest: " << chest->name << "   ";
+			}
+			else {
+				std::cout << "  Chest: none   ";
+			}
+		}
+		else if (y == 8 && (y == line || line == -1)) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (legs != NULL) {
+				std::cout << "  Legs: " << legs->name << "   ";
+			}
+			else {
+				std::cout << "  Legs: none   ";
 			}
 		}
 	}
