@@ -15,7 +15,6 @@ public:
 	int location;
 	int hit[3][3];
 	int damage[3][3];
-	std::string name;
 
 	// player interaction
 	void Player_Interact();

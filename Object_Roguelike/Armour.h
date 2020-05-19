@@ -16,7 +16,6 @@ public:
 	int maxTunnelSize;
 	int minTunnelSize;
 	int totalSize;
-	std::string name;
 
 	void Player_Interact();
 };

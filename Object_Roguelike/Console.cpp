@@ -71,6 +71,16 @@ void ClearScreen()
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
 
+// todo: make this actually clear a line, not just write a set number of spaces
+void ClearLine(COORD position, int num) {
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(handle, position);
+	int x;
+	for (x = 0; x < num; x++) {
+		std::cout << " ";
+	}
+}
+
 bool Acceptable(char check) {
 
 	int x;

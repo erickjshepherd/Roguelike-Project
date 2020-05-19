@@ -7,6 +7,7 @@ dagger::dagger() {
 	type = 1;
 	icon = 'd';
 	name = std::string("dagger");
+	description = std::string("A simple dagger");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;
@@ -25,6 +26,7 @@ dagger::dagger(int location) {
 	this->location = location;
 	icon = 'd';
 	name = std::string("dagger");
+	description = std::string("A simple dagger");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;

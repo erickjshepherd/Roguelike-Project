@@ -21,7 +21,6 @@ public:
 	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
 
 	// data
-	std::string name;
 	int location;
 	int consoleX, consoleY;
 

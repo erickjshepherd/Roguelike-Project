@@ -39,6 +39,7 @@ Player::Player(){
 	attack_char = 'x';
 
 	// set map and location variables
+	underDescribed = 0;
 	view_distance = 10;
 	consoleX = view_distance * 2;
 	consoleY = view_distance;
@@ -122,11 +123,19 @@ void Player::turn() {
 
 			Get_New_Level(global_map->level + 1);
 		}
-		if (under->icon == 'd') {
-			// todo: make a more generic message that pulls the name from the object
-			std::string event("You see a dagger.");
-			global_map->Add_Event(event);
-			global_map->Draw_Events();
+		if (under->description.length() > 0) {
+			underDescribed = 1;
+			drawUnderInfo();
+		}
+		else {
+			if (underDescribed == 1) {
+				// todo: make member function
+				underDescribed = 0;
+				short view_size = (short)(view_distance * 2) + 1;
+				short x = 2 * view_size;
+				COORD position = { x, 11 };
+				ClearLine(position, 20);
+			}
 		}
 	}
 }
@@ -510,7 +519,7 @@ void Player::drawStats(int line) {
 	HANDLE handle;
 
 	// y is the line number for each stat
-	for (y = 0; y < 9; y++) {
+	for (y = 0; y < 11; y++) {
 		if (y == 0 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -578,6 +587,12 @@ void Player::drawStats(int line) {
 			else {
 				std::cout << "  Legs: none   ";
 			}
+		}
+		else if (y == 10 && (y == line || line == -1)) {
+			position = { x, 10 };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			std::cout << "  Inspection:";
 		}
 	}
 }
@@ -714,7 +729,6 @@ int Player::getMaxRoomSize() {
 	return total;
 }
 
-
 int Player::getMinRoomSize() {
 	int total = minRoomSize;
 	if (head != NULL) {
@@ -759,6 +773,17 @@ int Player::getMinTunnelSize() {
 
 int Player::getRoomOverlap() {
 	return roomOverlap;
+}
+
+void Player::drawUnderInfo() {
+	short view_size = (short)(view_distance * 2) + 1;
+	short x = 2 * view_size;
+
+	COORD position = { x, 11 };
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
+
+	SetConsoleCursorPosition(handle, position);
+	std::cout << "  " << under->description;
 }
 
 // destructor

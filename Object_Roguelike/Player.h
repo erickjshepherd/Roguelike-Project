@@ -15,6 +15,7 @@ public:
 	int consoleX, consoleY;
 	int view_distance;
 	int view_start;
+	int underDescribed;
 
 	// player state variables
 	int health;
@@ -46,6 +47,7 @@ public:
 	void setCoordinates();
 	void Draw_Player_View();
 	void drawStats(int line);
+	void drawUnderInfo();
 	void takeDamage(int amount);
 	//void Draw_Town();
 	void Get_New_Level(int level);
