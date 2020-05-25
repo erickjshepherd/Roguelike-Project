@@ -54,6 +54,7 @@ public:
 	int Move(int direction);
 	int getDamage(int x, int y);
 	bool attack(int direction);
+	void flashChar(char flash);
 
 	int getMapSize();
 	int getTotalRooms();

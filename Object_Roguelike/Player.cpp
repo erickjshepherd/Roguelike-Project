@@ -498,6 +498,7 @@ int Player::getDamage(int x, int y){
 // handles logic for the player taking damage
 // input: the amount of damage to take
 void Player::takeDamage(int amount) {
+	flashChar(attack_char);
 	if (health < amount) {
 		health = 0;
 		// player is dead
@@ -784,6 +785,14 @@ void Player::drawUnderInfo() {
 
 	SetConsoleCursorPosition(handle, position);
 	std::cout << "  " << under->description;
+}
+
+void Player::flashChar(char flash) {
+	if (consoleX != -1 && consoleY != -1) {
+		global_map->player->updateScreen(consoleX, consoleY, flash);
+		Sleep(100);
+		global_map->player->updateScreen(consoleX, consoleY, global_map->map[location]->icon);
+	}
 }
 
 // destructor

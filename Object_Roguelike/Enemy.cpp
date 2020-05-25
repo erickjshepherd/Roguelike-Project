@@ -436,7 +436,7 @@ void Enemy::flashChar(char flash) {
 	onScreen(&x, &y);
 	if (x != -1 && y != -1) {
 		global_map->player->updateScreen(x, y, flash);
-		// todo: put sleep function here
+		Sleep(100);
 		global_map->player->updateScreen(x, y, global_map->map[location]->icon);
 	}
 }
