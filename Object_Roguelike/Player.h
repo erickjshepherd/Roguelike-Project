@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "Weapon.h"
 #include "Armour.h"
+#include "Spell.h"
 
 class Player : public Tile{
 
@@ -26,6 +27,9 @@ public:
 	Armour* head;
 	Armour* chest;
 	Armour* legs;
+	Spell* spell1;
+	Spell* spell2;
+	Spell* spell3;
 
 	// misc variables
 	// todo: pull this from weapon/spell
