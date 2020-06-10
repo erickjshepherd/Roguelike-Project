@@ -15,7 +15,13 @@
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
+#define KEY_1 49
+#define KEY_2 50
+#define KEY_3 51
 #define ENTER 13
+#define ESC 27
+
+#define INSPECT 14
 
 // player class
 Player::Player(){
@@ -63,7 +69,7 @@ void Player::turn() {
 		direction = _getch();
 	}
 	
-	// get the direction and attempt to move
+	// get the key input
 	if (direction == KEY_UP) {
 		direction = 1;
 	}
@@ -75,6 +81,24 @@ void Player::turn() {
 	}
 	else if (direction == KEY_RIGHT) {
 		direction = 4;
+	}
+	else if (direction == KEY_1) {
+		direction = 0;
+		if (spell1 != NULL) {
+			spell1->Cast();
+		}
+	}
+	else if (direction == KEY_2) {
+		direction = 0;
+		if (spell2 != NULL) {
+			spell2->Cast();
+		}
+	}
+	else if (direction == KEY_3) {
+		direction = 0;
+		if (spell3 != NULL) {
+			spell3->Cast();
+		}
 	}
 	else if (direction == ENTER) {
 		direction = 0;
@@ -133,8 +157,8 @@ void Player::turn() {
 				underDescribed = 0;
 				short view_size = (short)(view_distance * 2) + 1;
 				short x = 2 * view_size;
-				COORD position = { x, 11 };
-				ClearLine(position, 20);
+				COORD position = { x, INSPECT+1 };
+				ClearLine(position, 30);
 			}
 		}
 	}
@@ -220,6 +244,13 @@ void Player::updateScreen(int X, int Y, char out) {
 
 	short x = (short)X;
 	short y = (short)Y;
+
+	if (X >= view_size * 2 || X < 0) {
+		return;
+	}
+	if (Y >= view_size || Y < 0) {
+		return;
+	}
 
 	// set console cursor
 	COORD position = { x, y };
@@ -520,7 +551,7 @@ void Player::drawStats(int line) {
 	HANDLE handle;
 
 	// y is the line number for each stat
-	for (y = 0; y < 11; y++) {
+	for (y = 0; y < 15; y++) {
 		if (y == 0 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -590,7 +621,40 @@ void Player::drawStats(int line) {
 			}
 		}
 		else if (y == 10 && (y == line || line == -1)) {
-			position = { x, 10 };
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (spell1 != NULL) {
+				std::cout << "  Spell 1: " << spell1->name << "   ";
+			}
+			else {
+				std::cout << "  Spell 1: none       ";
+			}
+		}
+		else if (y == 11 && (y == line || line == -1)) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (spell2 != NULL) {
+				std::cout << "  Spell 2: " << spell2->name << "   ";
+			}
+			else {
+				std::cout << "  Spell 2: none       ";
+			}
+		}
+		else if (y == 12 && (y == line || line == -1)) {
+			position = { x, y };
+			handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleCursorPosition(handle, position);
+			if (spell3 != NULL) {
+				std::cout << "  Spell 3: " << spell3->name << "   ";
+			}
+			else {
+				std::cout << "  Spell 3: none       ";
+			}
+		}
+		else if (y == INSPECT && (y == line || line == -1)) {
+			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Inspection:";
@@ -780,7 +844,7 @@ void Player::drawUnderInfo() {
 	short view_size = (short)(view_distance * 2) + 1;
 	short x = 2 * view_size;
 
-	COORD position = { x, 11 };
+	COORD position = { x, INSPECT+1 };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
 
 	SetConsoleCursorPosition(handle, position);

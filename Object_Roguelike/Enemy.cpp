@@ -15,6 +15,11 @@
 
 Enemy::Enemy(){
 	blocking = 1;
+	frozen = 0;
+	burned = 0;
+	slowed = 0;
+	scared = 0;
+	allied = 0;
 }
 
 Enemy::~Enemy(){
@@ -365,8 +370,14 @@ void Enemy::enemyTurn() {
 	
 	int moveResult;
 	int was_viewed, is_viewed;
-	int direction = sensePlayer();
 
+	// Handle frozen status
+	if (frozen > 0) {
+		frozen--;
+		return;
+	}
+
+	int direction = sensePlayer();
 	if (direction != 0) {
 		// check if currently in view
 
@@ -427,6 +438,32 @@ void Enemy::onScreen(int* X, int* Y) {
 int Enemy::Player_Attack(int damage) {
 	takeDamage(damage);
 	return 1;
+}
+
+void Enemy::Spell_Interact(int damage, int effect, int intensity) {
+	if (effect == 1) {
+		std::string event("A ");
+		event.append(this->name);
+		event.append(" has been frozen for ");
+		event.append(std::to_string(intensity));
+		event.append(" turns");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		frozen = intensity;
+	}
+	if (effect == 2) {
+		burned = intensity;
+	}
+	if (effect == 3) {
+		slowed = intensity;
+	}
+	if (effect == 4) {
+		scared = intensity;
+	}
+	if (effect == 5) {
+		allied = intensity;
+	}
+	takeDamage(damage);
 }
 
 // draws the input char and then redraws the original char

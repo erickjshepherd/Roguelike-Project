@@ -17,6 +17,13 @@ public:
 	int strength;
 	int viewDistance;
 
+	// effects
+	int frozen;
+	int burned;
+	int slowed;
+	int scared;
+	int allied;
+
 	// loot table
 	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
 
@@ -43,6 +50,9 @@ public:
 
 	// player interaction
 	int Player_Attack(int damage);
+
+	// spell interaction
+	void Spell_Interact(int damage, int effect, int intensity);
 
 	// flash a char
 	void flashChar(char flash);

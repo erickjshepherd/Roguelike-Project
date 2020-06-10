@@ -10,6 +10,7 @@ public:
 
 	// interact functions
 	virtual void Player_Interact();
+	virtual void Spell_Interact(int damage, int effect, int intensity);
 
 	// todo: create a player_attack function.
 	// this should be called on the 3x3 attack grid when the player tries to move

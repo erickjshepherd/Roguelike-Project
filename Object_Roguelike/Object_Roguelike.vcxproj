@@ -155,6 +155,7 @@
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Spell.h" />
+    <ClInclude Include="Spells.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="ObjectRoguelike.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Spell.cpp" />
+    <ClCompile Include="Spells.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

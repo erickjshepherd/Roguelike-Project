@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Items.h"
+#include "Spells.h"
 
 dagger::dagger() {
 	defense = 0;
@@ -46,5 +47,8 @@ Tile* Get_Item(int location, int index) {
 
 	if (index == 0) {
 		return new dagger(location);
+	}
+	else if (index == 1) {
+		return new Freeze(location);
 	}
 }

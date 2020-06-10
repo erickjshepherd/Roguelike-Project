@@ -11,6 +11,7 @@ Slime::Slime() {
 	icon = 'S';
 	location = 0;
 	loot[0] = 0; // 1/10 to drop dagger
+	loot[1] = 1; // 1/10 to drop freeze
 }
 
 Slime::Slime(int location) {
@@ -22,6 +23,7 @@ Slime::Slime(int location) {
 	icon = 'S';
 	this->location = location;
 	loot[0] = 0;
+	loot[1] = 1;
 }
 
 // slime destructor

@@ -23,6 +23,10 @@ void Tile::Player_Interact() {
 
 }
 
+void Tile::Spell_Interact(int damage, int effect, int intensity) {
+
+}
+
 int Tile::Player_Attack(int damage) {
 	return 0;
 }
