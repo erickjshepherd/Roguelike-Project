@@ -34,8 +34,8 @@ void Spell::Player_Interact() {
 	}
 }
 
-void Spell::Cast() {
-
+int Spell::Cast() {
+	return 0;
 }
 
 void Spell::Flash()

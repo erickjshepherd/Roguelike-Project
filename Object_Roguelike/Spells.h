@@ -7,6 +7,6 @@ class Freeze : public Spell {
 	public:
 		Freeze();
 		Freeze(int location);
-		void Cast();
+		int Cast();
 		void Flash();
 };

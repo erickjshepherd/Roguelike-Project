@@ -61,52 +61,77 @@ void Player::turn() {
 
 	int direction = 0;
 	int nextLocation = 0;
+	int validKey = 0;
 	int move_success, attack_success;
 
-	// get the key press
-	direction = _getch();
-	if (direction == 224) {
+	// get the keyboard input until there is a successful action
+	while (validKey == 0) {
+		validKey = 1;
+		
 		direction = _getch();
-	}
-	
-	// get the key input
-	if (direction == KEY_UP) {
-		direction = 1;
-	}
-	else if (direction == KEY_DOWN) {
-		direction = 2;
-	}
-	else if (direction == KEY_LEFT) {
-		direction = 3;
-	}
-	else if (direction == KEY_RIGHT) {
-		direction = 4;
-	}
-	else if (direction == KEY_1) {
-		direction = 0;
-		if (spell1 != NULL) {
-			spell1->Cast();
+		if (direction == 224) {
+			direction = _getch();
+		}
+
+		// get the key input
+		if (direction == KEY_UP) {
+			direction = 1;
+		}
+		else if (direction == KEY_DOWN) {
+			direction = 2;
+		}
+		else if (direction == KEY_LEFT) {
+			direction = 3;
+		}
+		else if (direction == KEY_RIGHT) {
+			direction = 4;
+		}
+		else if (direction == KEY_1) {
+			direction = 0;
+			if (spell1 != NULL) {
+				if (spell1->Cast() == 0) {
+					validKey = 0;
+				}
+			}
+			else {
+				validKey = 0;
+			}
+		}
+		else if (direction == KEY_2) {
+			direction = 0;
+			if (spell2 != NULL) {
+				if (spell2->Cast() == 0) {
+					validKey = 0;
+				}
+			}
+			else {
+				validKey = 0;
+			}
+		}
+		else if (direction == KEY_3) {
+			direction = 0;
+			if (spell3 != NULL) {
+				if (spell3->Cast() == 0) {
+					validKey = 0;
+				}
+			}
+			else {
+				validKey = 0;
+			}
+
+		}
+		else if (direction == ENTER) {
+			direction = 0;
+			under->Player_Interact();
+		}
+		else {
+			validKey = 0;
+			direction = 0;
 		}
 	}
-	else if (direction == KEY_2) {
-		direction = 0;
-		if (spell2 != NULL) {
-			spell2->Cast();
-		}
-	}
-	else if (direction == KEY_3) {
-		direction = 0;
-		if (spell3 != NULL) {
-			spell3->Cast();
-		}
-	}
-	else if (direction == ENTER) {
-		direction = 0;
-		under->Player_Interact();
-	}
-	else {
-		direction = 0;
-	}
+
+	// decrease spell cooldowns on each successful move
+	decreaseSpellCD();
 
 	// try to attack and then try to move
 	attack_success = attack(direction);
@@ -625,7 +650,7 @@ void Player::drawStats(int line) {
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			if (spell1 != NULL) {
-				std::cout << "  Spell 1: " << spell1->name << "   ";
+				std::cout << "  Spell 1 (" << spell1->cdCount << "): " << spell1->name << "   ";
 			}
 			else {
 				std::cout << "  Spell 1: none       ";
@@ -636,7 +661,7 @@ void Player::drawStats(int line) {
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			if (spell2 != NULL) {
-				std::cout << "  Spell 2: " << spell2->name << "   ";
+				std::cout << "  Spell 2 (" << spell2->cdCount << "): " << spell2->name << "   ";
 			}
 			else {
 				std::cout << "  Spell 2: none       ";
@@ -647,7 +672,7 @@ void Player::drawStats(int line) {
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			if (spell3 != NULL) {
-				std::cout << "  Spell 3: " << spell3->name << "   ";
+				std::cout << "  Spell 3 (" << spell3->cdCount << "): " << spell3->name << "   ";
 			}
 			else {
 				std::cout << "  Spell 3: none       ";
@@ -856,6 +881,27 @@ void Player::flashChar(char flash) {
 		global_map->player->updateScreen(consoleX, consoleY, flash);
 		Sleep(100);
 		global_map->player->updateScreen(consoleX, consoleY, global_map->map[location]->icon);
+	}
+}
+
+void Player::decreaseSpellCD() {
+	if (spell1 != NULL) {
+		if (spell1->cdCount > 0) {
+			spell1->cdCount--;
+			drawStats(10);
+		}
+	}
+	if (spell2 != NULL) {
+		if (spell2->cdCount > 0) {
+			spell2->cdCount--;
+			drawStats(11);
+		}
+	}
+	if (spell3 != NULL) {
+		if (spell3->cdCount > 0) {
+			spell3->cdCount--;
+			drawStats(12);
+		}
 	}
 }
 

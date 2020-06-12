@@ -59,6 +59,7 @@ public:
 	int getDamage(int x, int y);
 	bool attack(int direction);
 	void flashChar(char flash);
+	void decreaseSpellCD();
 
 	int getMapSize();
 	int getTotalRooms();

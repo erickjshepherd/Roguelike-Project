@@ -17,7 +17,8 @@ Freeze::Freeze() {
 	effect = 1;
 	intensity = 2;
 	cd = 5;
-	range = 1;
+	cdCount = 0;
+	range = 2;
 }
 
 Freeze::Freeze(int location) {
@@ -28,14 +29,21 @@ Freeze::Freeze(int location) {
 	effect = 1;
 	intensity = 2;
 	cd = 5;
-	range = 1;
+	cdCount = 0;
+	range = 2;
 }
 
-void Freeze::Cast() {
+int Freeze::Cast() {
 	int direction = 0;
 	int cancel = 0;
+	int success = 0;
 	selecting = 1;
 	currentDirection = 1;
+	
+	if (cdCount != 0) {
+		return 0;
+	}
+
 	std::thread flashThread(&Freeze::Flash, this);
 	while (direction != ENTER && cancel == 0) {
 		direction = _getch();
@@ -62,7 +70,13 @@ void Freeze::Cast() {
 	flashThread.join();
 	if (cancel == 0) {
 		dmgLine(currentDirection, range, damage, effect, intensity);
+		success = 1;
+		cdCount = cd;
 	}
+	else {
+		success = 0;
+	}
+	return success;
 }
 
 void Freeze::Flash() {

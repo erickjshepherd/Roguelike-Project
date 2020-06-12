@@ -19,7 +19,7 @@ public:
 	int selecting;
 
 	void Player_Interact();
-	virtual void Cast();
+	virtual int Cast();
 	virtual void Flash();
 	void dmgLine(int direction, int range, int damage, int effect, int intensity);
 	void flashLine(int direction, int range, char flashChar);
