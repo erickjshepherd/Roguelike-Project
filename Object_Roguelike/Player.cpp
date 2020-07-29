@@ -576,6 +576,7 @@ void Player::drawStats(int line) {
 	HANDLE handle;
 
 	// y is the line number for each stat
+	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
 		if (y == 0 && (y == line || line == -1)) {
 			position = { x, y };
@@ -901,6 +902,36 @@ void Player::decreaseSpellCD() {
 		if (spell3->cdCount > 0) {
 			spell3->cdCount--;
 			drawStats(12);
+		}
+	}
+}
+
+int Player::selectSpell() {
+	int key = 0;
+	int validKey = 0;
+
+	while (validKey == 0) {
+		validKey = 1;
+
+		key = _getch();
+		if (key == 224) {
+			key = _getch();
+		}
+
+		if (key == KEY_1) {
+			return 1;
+		}
+		else if (key == KEY_2) {
+			return 2;
+		}
+		else if (key == KEY_3) {
+			return 3;
+		}
+		else if (key == ESC) {
+			return -1;
+		}
+		else {
+			validKey = 0;
 		}
 	}
 }

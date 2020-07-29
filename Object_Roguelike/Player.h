@@ -60,6 +60,7 @@ public:
 	bool attack(int direction);
 	void flashChar(char flash);
 	void decreaseSpellCD();
+	int selectSpell();
 
 	int getMapSize();
 	int getTotalRooms();

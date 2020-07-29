@@ -1,24 +1,2 @@
-﻿  stdafx.cpp
-  Armour.cpp
-  Console.cpp
-  Enemy.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(372): warning C4101: 'is_viewed': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(372): warning C4101: 'was_viewed': unreferenced local variable
-  Items.cpp
-  Map.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(490): warning C4101: 'under': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(488): warning C4101: 'location': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(500): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(518): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
-  Monsters.cpp
-  ObjectRoguelike.cpp
-  Player.cpp
-  Spell.cpp
-  Spells.cpp
-  Tile.cpp
-  Weapon.cpp
-  Generating Code...
-c:\users\erick\documents\github\roguelike-project\object_roguelike\monsters.cpp(39): warning C4715: 'Get_Enemy': not all control paths return a value
-c:\users\erick\documents\github\roguelike-project\object_roguelike\items.cpp(54): warning C4715: 'Get_Item': not all control paths return a value
+﻿  Spell.cpp
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

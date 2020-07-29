@@ -12,25 +12,49 @@ Spell::~Spell() {
 
 }
 
-// todo: implement a system to choose what spell to replace when full
+// todo: create proper setters for the spells
+// todo: spells should flash while choosing one to forget
 void Spell::Player_Interact() {
-	if (global_map->player->spell1 == NULL) {
-		global_map->player->under = this->under;
-		this->under = NULL;
-		global_map->player->spell1 = this;
-		global_map->player->drawStats(10);
-	}
-	else if (global_map->player->spell2 == NULL) {
-		global_map->player->under = this->under;
-		this->under = NULL;
-		global_map->player->spell2 = this;
-		global_map->player->drawStats(11);
-	}
-	else if (global_map->player->spell3 == NULL) {
-		global_map->player->under = this->under;
-		this->under = NULL;
-		global_map->player->spell2 = this;
-		global_map->player->drawStats(12);
+	int resolved = 0;
+	while (resolved == 0) {
+		resolved = 1;
+		if (global_map->player->spell1 == NULL) {
+			global_map->player->under = this->under;
+			this->under = NULL;
+			global_map->player->spell1 = this;
+			global_map->player->drawStats(10);
+		}
+		else if (global_map->player->spell2 == NULL) {
+			global_map->player->under = this->under;
+			this->under = NULL;
+			global_map->player->spell2 = this;
+			global_map->player->drawStats(11);
+		}
+		else if (global_map->player->spell3 == NULL) {
+			global_map->player->under = this->under;
+			this->under = NULL;
+			global_map->player->spell3 = this;
+			global_map->player->drawStats(12);
+		}
+		else {
+			resolved = 0;
+			std::string event("No more spells can be learned. Select a spell to forget.");
+			global_map->Add_Event(event);
+			global_map->Draw_Events();
+			int spellNum = global_map->player->selectSpell();
+			if (spellNum == 1) {
+				global_map->player->spell1 = NULL;
+			}
+			else if (spellNum == 2) {
+				global_map->player->spell2 = NULL;
+			}
+			else if (spellNum == 3) {
+				global_map->player->spell3 = NULL;
+			}
+			else {
+				resolved = 1;
+			}
+		}
 	}
 }
 
