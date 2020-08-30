@@ -688,6 +688,68 @@ void Player::drawStats(int line) {
 	}
 }
 
+void Player::clearStats(int line) {
+	short view_size = (short)(view_distance * 2) + 1;
+	short x = 2 * view_size;
+	short y;
+
+	COORD position;
+	HANDLE handle;
+
+	// y is the line number for each stat
+	// todo: create functions for each stat. cleaner
+	for (y = 0; y < 15; y++) {
+		if (y == 0 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 1 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 2 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 3 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 5 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 6 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 7 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 8 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 10 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 11 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == 12 && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+		else if (y == INSPECT && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+		}
+	}
+}
+
 bool Player::attack(int direction) {
 	int x, y, target, priority, success;
 	// up
@@ -934,6 +996,18 @@ int Player::selectSpell() {
 			validKey = 0;
 		}
 	}
+}
+
+void Player::flashSpells() {
+	int sleepTime = 200;
+	clearStats(10);
+	clearStats(11);
+	clearStats(12);
+	Sleep(sleepTime);
+	drawStats(10);
+	drawStats(11);
+	drawStats(12);
+	Sleep(sleepTime);
 }
 
 // destructor

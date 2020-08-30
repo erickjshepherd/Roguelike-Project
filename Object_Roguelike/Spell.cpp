@@ -1,5 +1,6 @@
 #include "Global_Map.h"
 #include <Windows.h>
+#include <thread>
 #include "Spell.h"
 
 Spell::Spell() {
@@ -13,7 +14,6 @@ Spell::~Spell() {
 }
 
 // todo: create proper setters for the spells
-// todo: spells should flash while choosing one to forget
 void Spell::Player_Interact() {
 	int resolved = 0;
 	while (resolved == 0) {
@@ -41,7 +41,11 @@ void Spell::Player_Interact() {
 			std::string event("No more spells can be learned. Select a spell to forget.");
 			global_map->Add_Event(event);
 			global_map->Draw_Events();
+			selecting = 1;
+			std::thread flashThread(&Spell::flashSpellsThread, this);
 			int spellNum = global_map->player->selectSpell();
+			selecting = 0;
+			flashThread.join();
 			if (spellNum == 1) {
 				global_map->player->spell1 = NULL;
 			}
@@ -170,5 +174,11 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 			}
 		}
 		Sleep(sleepTime);
+	}
+}
+
+void Spell::flashSpellsThread() {
+	while (selecting == 1) {
+		global_map->player->flashSpells();
 	}
 }

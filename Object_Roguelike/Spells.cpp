@@ -45,6 +45,7 @@ int Freeze::Cast() {
 	}
 
 	std::thread flashThread(&Freeze::Flash, this);
+	// todo: make a function for getting direction
 	while (direction != ENTER && cancel == 0) {
 		direction = _getch();
 		if (direction == 224) {

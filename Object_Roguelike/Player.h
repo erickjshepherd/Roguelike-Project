@@ -51,6 +51,7 @@ public:
 	void setCoordinates();
 	void Draw_Player_View();
 	void drawStats(int line);
+	void clearStats(int line);
 	void drawUnderInfo();
 	void takeDamage(int amount);
 	//void Draw_Town();
@@ -61,6 +62,7 @@ public:
 	void flashChar(char flash);
 	void decreaseSpellCD();
 	int selectSpell();
+	void flashSpells();
 
 	int getMapSize();
 	int getTotalRooms();

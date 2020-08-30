@@ -9,7 +9,7 @@ public:
 
 	int damage;
 	int location;
-	int cd; // todo: make cd matter
+	int cd;
 	int cdCount;
 	int effect;
 	int intensity;
@@ -23,4 +23,5 @@ public:
 	virtual void Flash();
 	void dmgLine(int direction, int range, int damage, int effect, int intensity);
 	void flashLine(int direction, int range, char flashChar);
+	void flashSpellsThread();
 };
