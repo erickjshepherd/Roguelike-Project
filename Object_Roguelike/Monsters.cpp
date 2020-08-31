@@ -22,8 +22,8 @@ Slime::Slime(int location) {
 	viewDistance = 6;
 	icon = 'S';
 	this->location = location;
-	loot[0] = 0;
-	loot[1] = 1;
+	loot[0] = 1;
+	loot[1] = 2;
 }
 
 // slime destructor

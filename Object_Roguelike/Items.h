@@ -6,8 +6,15 @@
 Tile* Get_Item(int location, int index);
 
 class dagger : public Weapon {
-	public:
-		dagger();
-		dagger(int location);
-		~dagger();
+public:
+	dagger();
+	dagger(int location);
+	~dagger();
+};
+
+class longsword : public Weapon {
+public:
+	longsword();
+	longsword(int location);
+	~longsword();
 };
