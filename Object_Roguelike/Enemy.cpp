@@ -15,8 +15,10 @@
 
 Enemy::Enemy(){
 	blocking = 1;
-	frozen = 0;
-	burned = 0;
+	frozenLength = 0;
+	frozenDamage = 0;
+	burnedLength = 0;
+	burnedDamage = 0;
 	slowed = 0;
 	scared = 0;
 	allied = 0;
@@ -371,13 +373,55 @@ void Enemy::enemyTurn() {
 	int moveResult;
 	int was_viewed, is_viewed;
 
+	// Handle frozen + burn
+	if (frozenLength > 0 && burnedLength > 0) {
+		frozenLength = 0;
+		frozenDamage = 0;
+		burnedLength = 0;
+		burnedDamage = 0;
+	}
+
 	// Handle frozen status
-	if (frozen > 0) {
-		frozen--;
+	if (frozenLength > 0) {
+		frozenLength--;
+		if (frozenLength == 0) {
+			takeDamage(frozenDamage);
+			frozenDamage = 0;
+		}
 		return;
+	}
+	// Handle burn status
+	if (burnedLength > 0) {
+		global_map->map[location - global_map->size]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location + global_map->size]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location - 1]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location + 1]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
+		takeDamage(burnedDamage);
+		burnedLength--;
+		if (burnedLength == 0) {
+			burnedDamage = 0;
+		}
+	}
+	if (slowed > 0) {
+		slowed--;
+		if (slowed % 2 == 1) {
+			return;
+		}
 	}
 
 	int direction = sensePlayer();
+
+	// Handle scared status
+	if (slowed > 0) {
+		if (direction == 1 || direction == 3) {
+			direction++;
+		}
+		else if (direction == 2 || direction == 4) {
+			direction--;
+		}
+
+	}
+
 	if (direction != 0) {
 		// check if currently in view
 
@@ -440,30 +484,64 @@ int Enemy::Player_Attack(int damage) {
 	return 1;
 }
 
-void Enemy::Spell_Interact(int damage, int effect, int intensity) {
+void Enemy::Spell_Interact(int damage, int effect, int length) {
+	
+	if (effect == 0) {
+		takeDamage(damage);
+	}
+
 	if (effect == 1) {
 		std::string event("A ");
 		event.append(this->name);
 		event.append(" has been frozen for ");
-		event.append(std::to_string(intensity));
+		event.append(std::to_string(length));
 		event.append(" turns");
 		global_map->Add_Event(event);
 		global_map->Draw_Events();
-		frozen = intensity;
+		frozenLength = length;
+		frozenDamage = damage;
 	}
 	if (effect == 2) {
-		burned = intensity;
+		std::string event("A ");
+		event.append(this->name);
+		event.append(" has been burned (");
+		event.append(std::to_string(length));
+		event.append(")");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		burnedLength = length;
+		burnedDamage = damage;
 	}
 	if (effect == 3) {
-		slowed = intensity;
+		std::string event("A ");
+		event.append(this->name);
+		event.append(" has been slowed for ");
+		event.append(std::to_string(length));
+		event.append(" turns");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		slowed = length;
 	}
 	if (effect == 4) {
-		scared = intensity;
+		std::string event("A ");
+		event.append(this->name);
+		event.append(" has been scared for ");
+		event.append(std::to_string(length));
+		event.append(" turns");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		scared = length;
 	}
 	if (effect == 5) {
-		allied = intensity;
+		std::string event("A ");
+		event.append(this->name);
+		event.append(" has been charmed for ");
+		event.append(std::to_string(length));
+		event.append(" turns");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		allied = length;
 	}
-	takeDamage(damage);
 }
 
 // draws the input char and then redraws the original char

@@ -23,4 +23,9 @@ Features:
 	reduce enemy sight from rooms to hallways
 	different vision/movement for different enemies
 	
+To Do:
+	Clean up code (resolve todos)
+	implement new spell effects
+	test dungeons constraints
+	
 	

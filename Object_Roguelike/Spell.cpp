@@ -1,7 +1,15 @@
 #include "Global_Map.h"
 #include <Windows.h>
 #include <thread>
+#include <conio.h>
 #include "Spell.h"
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define ENTER 13
+#define ESC 27
 
 Spell::Spell() {
 	blocking = 0;
@@ -180,5 +188,31 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 void Spell::flashSpellsThread() {
 	while (selecting == 1) {
 		global_map->player->flashSpells();
+	}
+}
+
+void Spell::getDirection() {
+	int direction = 0;
+	int cancel = 0;
+	while (direction != ENTER && cancel == 0) {
+		direction = _getch();
+		if (direction == 224) {
+			direction = _getch();
+		}
+		if (direction == KEY_UP) {
+			currentDirection = 1;
+		}
+		else if (direction == KEY_DOWN) {
+			currentDirection = 2;
+		}
+		else if (direction == KEY_LEFT) {
+			currentDirection = 3;
+		}
+		else if (direction == KEY_RIGHT) {
+			currentDirection = 4;
+		}
+		else if (direction == ESC) {
+			cancel = 1;
+		}
 	}
 }

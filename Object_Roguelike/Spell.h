@@ -24,4 +24,5 @@ public:
 	void dmgLine(int direction, int range, int damage, int effect, int intensity);
 	void flashLine(int direction, int range, char flashChar);
 	void flashSpellsThread();
+	void getDirection();
 };

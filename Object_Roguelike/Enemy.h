@@ -18,8 +18,10 @@ public:
 	int viewDistance;
 
 	// effects
-	int frozen;
-	int burned;
+	int frozenLength;
+	int frozenDamage;
+	int burnedLength;
+	int burnedDamage;
 	int slowed;
 	int scared;
 	int allied;
@@ -56,5 +58,6 @@ public:
 
 	// flash a char
 	void flashChar(char flash);
+
 };
 
