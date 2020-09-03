@@ -468,7 +468,7 @@ void Map::Spawn_Enemies() {
 	int Total_Size = size * size;
 	Tile* under;
 
-	for (x = 0; x < 100; x++) {
+	for (x = 0; x < size; x++) {
 		location = rand();
 		location %= Total_Size;
 		while (this->map[location]->icon != '.') {
@@ -607,5 +607,18 @@ int Map::findExit(int start) {
 }
 
 Map::~Map(){
-
+	delete player->under;
+	while (!map.empty()) {
+		if (map.back() != player) {
+			delete map.back();
+		}
+		map.pop_back();
+	}
+	while (!Enemy_List.empty()) {
+		Enemy_List.pop_back();
+	}
+	while (!Dead_Enemies.empty()) {
+		delete Dead_Enemies.back();
+		Dead_Enemies.pop_back();
+	}
 }

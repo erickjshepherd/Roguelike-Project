@@ -16,7 +16,12 @@ Tile::Tile(char iconI, bool blockingI){
 
 
 Tile::~Tile(){
-	delete under;
+	try {
+		delete under;
+	}
+	catch(int e){
+	
+	}
 }
 
 void Tile::Player_Interact() {

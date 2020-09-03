@@ -357,7 +357,11 @@ void Enemy::takeDamage(int amount) {
 			global_map->player->updateScreen(x, y, global_map->map[location]->icon);
 		}
 		event.append(" and dies.");
+		under = nullptr;
 		global_map->Dead_Enemies.push_back(this);
+
+		// test
+		global_map->player->size--;
 	}
 	else {
 		event.append(". It has ");
