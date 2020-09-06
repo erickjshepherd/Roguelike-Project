@@ -22,6 +22,7 @@ public:
 
 	// properties
 	bool blocking;
+	bool border;
 	char icon;
 	std::string name;
 	std::string description;

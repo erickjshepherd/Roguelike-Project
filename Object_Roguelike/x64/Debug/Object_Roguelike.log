@@ -1,4 +1,7 @@
-﻿  Player.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(697): warning C4101: 'handle': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(999): warning C4715: 'Player::selectSpell': not all control paths return a value
+﻿  Map.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(562): warning C4101: 'under': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(560): warning C4101: 'location': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(572): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(590): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(590): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

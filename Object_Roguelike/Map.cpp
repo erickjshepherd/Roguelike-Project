@@ -56,9 +56,9 @@ Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int l
 void Map::Map_Generate() {
 
 	Fill_Map();
+	Close_Map();
 	Make_Rooms();
 	Make_Special_Tunnel();
-	Close_Special();
 	Tunnel();
 	Clear_Special();
 	Close_Map();
@@ -123,8 +123,7 @@ void Map::Make_Rooms() {
 				xy += y * size;
 				xy += x;
 
-				if (xy >= (Total_Size - size)) {
-
+				if (xy >= Total_Size) {
 					outofBounds = 1;
 				}
 
@@ -132,8 +131,12 @@ void Map::Make_Rooms() {
 				else {
 
 					if (map[xy]->icon == '.') {
-
 						empty = 0;
+					}
+
+					// do not generate rooms on map borders
+					if (map[xy]->border) {
+						outofBounds = 1;
 					}
 				}
 			}
@@ -160,7 +163,7 @@ void Map::Make_Rooms() {
 				}
 			}
 
-			map[xy + size]->icon = 'T'; // mark tiles for future tunnels
+			map[xy]->icon = 'T'; // mark tiles for future tunnels
 			actual_total_rooms++;
 		}
 	}
@@ -169,10 +172,11 @@ void Map::Make_Rooms() {
 // Create the central tunnel
 void Map::Make_Special_Tunnel() {
 
-	int Location = size + 4; // start at the top of the map
+	int Location = size + 1; // start at the top of the map
 
 	int Bottom = size * size; // dig to lower part of the map
-	Bottom -= size * 2;
+	Bottom--;
+	Bottom -= size;
 
 	int direction;
 	int amount;
@@ -181,7 +185,7 @@ void Map::Make_Special_Tunnel() {
 
 	while (Location < Bottom) {
 
-		// choose a direction, down or right
+		// choose a direction: down, right, left
 		direction = rand();
 		direction = direction % 2;
 
@@ -190,20 +194,30 @@ void Map::Make_Special_Tunnel() {
 
 		for (x = 0; x < amount; x++) {
 
-			if (direction == 0) { // down
+			// down
+			if (direction == 0) {
 
 				if (Location >= 0 && Location < size*size) {
-					map[Location]->icon = 'o';
 					Location += size;
+					if (map[Location]->border) {
+						Location -= size;
+						break;
+					}
+					map[Location]->icon = 'o';
 				}
 			}
 
-			else { // right
+			// right
+			else {
 
 				if (Location >= 0 && Location < size*size) {
-					
-					map[Location]->icon = 'o';
 					Location++;
+					if (map[Location]->border) {
+						Location--;
+						break;
+					}
+					specialTunnelY.push_back(Location / size);
+					map[Location]->icon = 'o';
 				}
 			}
 		}
@@ -224,8 +238,6 @@ void Map::Close_Special() {
 		Bottom_Row -= size;
 		map[Bottom_Row + x]->icon = 'o';
 	}
-
-
 }
 
 // Create tunnels from each room to the central tunnel
@@ -241,72 +253,113 @@ void Map::Tunnel() {
 	int location;
 	int top_or_bot;
 
-	while (x < Total_Size) { // scan through the map
+	// scan through the map
+	while (x < Total_Size) {
 
-		if (map[x]->icon == 'T') { // if the start of a tunnel is found
+		// start digging at marked tiles
+		if (map[x]->icon == 'T') {
 
 			location = x;
-			if (location < (size*size) / 2) { // top half will dig down
+
+			// place a floor tile
+			map[location]->icon = '.';
+			map[location]->blocking = 0;
+
+			// top half will dig down
+			if ((location / size) < specialTunnelY[location % size]) {
 
 				top_or_bot = 0;
 			}
 
-			else { // bottom half will dig up
+			// bottom half will dig up
+			else {
 
 				top_or_bot = 1;
 			}
 
-			while (map[location]->icon != 'o' && location < size*size && location >= 0) { // tunnel until you find 'o'
+			// tunnel until you find 'o'
+			while (map[location]->icon != 'o' && location < size*size && location >= 0) {
 
-				map[location]->icon = '.'; // Place a floor tile
-				map[location]->blocking = 0;
+				// choose a new direction and amount 
+				direction = rand();
+				direction %= 4;
 
-				if (amount == 0) { // choose a new direction and amount 
-
+				// top half can't dig up
+				if (direction == 0 && top_or_bot == 0) {
 					direction = rand();
-					direction %= 4;
+					direction = (direction % 3) + 1;
+				}
 
-					if (direction == 0 && top_or_bot == 0) { // top half can't dig up
+				// bottom half can't dig down
+				if (direction == 3 && top_or_bot == 1) {
+					direction = rand();
+					direction %= 3;
+				}
 
-						direction = rand();
-						direction = (direction % 3) + 1;
+				amount = rand();
+				amount %= maxTunnelSize;
+				if (amount < minTunnelSize) {
+					amount = minTunnelSize;
+				}
+
+				int digCount;
+				for (digCount = 0; digCount < amount; digCount++) {
+					
+					// up
+					if (direction == 0) {
+						location -= size;
+						if (map[location]->border) {
+							location += size;
+							break;
+						}
+						if (map[location]->icon == 'o') {
+							break;
+						}
+						map[location]->icon = '.';
+						map[location]->blocking = 0;
 					}
 
-					if (direction == 3 && top_or_bot == 1) { // bottom half can't dig down
-
-						direction = rand();
-						direction %= 3;
+					// right
+					else if (direction == 1) {
+						location++;
+						if (map[location]->border) {
+							location--;
+							break;
+						}
+						if (map[location]->icon == 'o') {
+							break;
+						}
+						map[location]->icon = '.';
+						map[location]->blocking = 0;
 					}
 
-					amount = rand();
-					amount %= maxTunnelSize;
-					if (amount < minTunnelSize) {
-						amount = minTunnelSize;
+					// left
+					else if (direction == 2) {
+						location--;
+						if (map[location]->border) {
+							location++;
+							break;
+						}
+						if (map[location]->icon == 'o') {
+							break;
+						}
+						map[location]->icon = '.';
+						map[location]->blocking = 0;
 					}
-				}
 
-				if (direction == 0) { // up
-
-					location -= size;
-					amount--;
-				}
-
-				else if (direction == 1) { // right
-
-					location++;
-					amount--;
-				}
-
-				else if (direction == 2) { // left
-
-					location--;
-					amount--;
-				}
-
-				else { // down
-
-					location += size;
-					amount--;
+					// down
+					else {
+						location += size;
+						if (map[location]->border) {
+							location -= size;
+							break;
+						}
+						if (map[location]->icon == 'o') {
+							break;
+						}
+						map[location]->icon = '.';
+						map[location]->blocking = 0;
+					}
 				}
 			}
 		}
@@ -330,30 +383,49 @@ void Map::Clear_Special() {
 	}
 }
 
-// Close off the top and bottom of the map
+// Close off all sides ofthe map
 void Map::Close_Map() {
 
 	int x;
 	int Bottom_Row;
+	int current_b;
+	int current_l;
+	int current_r;
 
 	for (x = 0; x < size; x++) {
 
-		if (x >= 0 && x < size*size) {
-			
-			map[x]->icon = '#';
-			map[x]->blocking = 1;
-		}
+		// top	
+		map[x]->icon = '#';
+		map[x]->blocking = 1;
+		map[x]->border = 1;
 
+		// bottom
 		Bottom_Row = size*size;
 		Bottom_Row -= size;
-		if (x >= 0 && x < size*size) {
+		current_b = Bottom_Row + x;
+		if (current_b >= 0 && current_b < size*size) {
 			
-			map[Bottom_Row + x]->icon = '#';
-			map[Bottom_Row + x]->blocking = 1;
+			map[current_b]->icon = '#';
+			map[current_b]->blocking = 1;
+			map[current_b]->border = 1;
+		}
+
+		// left
+		current_l = x * size;
+		if (current_l >= 0 && current_l < size*size) {
+			map[current_l]->icon = '#';
+			map[current_l]->blocking = 1;
+			map[current_l]->border = 1;
+		}
+
+		// right
+		current_r = (x + 1) * size - 1;
+		if (current_r >= 0 && current_r < size*size) {
+			map[current_l]->icon = '#';
+			map[current_l]->blocking = 1;
+			map[current_l]->border = 1;
 		}
 	}
-
-
 }
 
 // Fill in dead ends

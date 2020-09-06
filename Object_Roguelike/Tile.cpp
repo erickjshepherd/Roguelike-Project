@@ -4,12 +4,14 @@
 
 Tile::Tile() {
 	blocking = 1;
+	border = 0;
 	icon = ' ';
 	under = nullptr;
 }
 
 Tile::Tile(char iconI, bool blockingI){
 	blocking = blockingI;
+	border = 0;
 	icon = iconI;
 	under = nullptr;
 }
