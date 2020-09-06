@@ -33,7 +33,7 @@ Player::Player(){
 	strength = 10;
 	
 	// set initial map generation variables
-	size = 100;
+	size = 30;
 	totalRooms = 20;
 	maxRoomSize = 15;
 	minRoomSize = 5;
@@ -51,6 +51,9 @@ Player::Player(){
 	consoleY = view_distance;
 	view_start = location - view_distance;
 	view_start = view_start - (size * view_distance);
+	while ((view_start % size) > (location % size) || view_start < 0) {
+		view_start++;
+	}
 
 	weapon = new dagger();
 }
@@ -339,11 +342,15 @@ void Player::Draw_Player_View() {
 			xy += x;
 
 			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
-				
+
 				if (Acceptable(global_map->map[xy]->icon)) {
 
 					std::cout << global_map->map[xy]->icon;
 					std::cout << ' ';
+				}
+
+				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
+					break;
 				}
 			}
 		}
@@ -372,6 +379,9 @@ void Player::Get_New_Level(int level) {
 		consoleY = view_distance;
 		view_start = location - view_distance;
 		view_start = view_start - (global_map->size * view_distance);
+		while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+			view_start++;
+		}
 
 		// set the player in the map
 		under = global_map->map[location];
@@ -425,6 +435,9 @@ int Player::Move(int direction) {
 				while (view_start < 0) {
 					view_start += global_map->size;
 				}
+				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+					view_start++;
+				}
 
 				ClearScreen();
 				Draw_Player_View();
@@ -458,6 +471,9 @@ int Player::Move(int direction) {
 			if (inView() == false) {
 
 				view_start += global_map->size * view_distance;
+				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+					view_start++;
+				}
 				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
@@ -489,6 +505,9 @@ int Player::Move(int direction) {
 			if (inView() == false) {
 
 				view_start -= view_distance;
+				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+					view_start++;
+				}
 				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
@@ -519,6 +538,9 @@ int Player::Move(int direction) {
 			if (inView() == false) {
 
 				view_start += view_distance;
+				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+					view_start++;
+				}
 				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();

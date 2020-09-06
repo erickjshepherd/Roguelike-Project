@@ -175,14 +175,15 @@ void Map::Make_Special_Tunnel() {
 	int Location = size + 1; // start at the top of the map
 
 	int Bottom = size * size; // dig to lower part of the map
-	Bottom--;
+	Bottom -= 2;
 	Bottom -= size;
 
 	int direction;
 	int amount;
-
 	int x;
 
+	specialTunnelY.push_back(0);
+	specialTunnelY.push_back(Location / size);
 	while (Location < Bottom) {
 
 		// choose a direction: down, right, left
@@ -421,9 +422,9 @@ void Map::Close_Map() {
 		// right
 		current_r = (x + 1) * size - 1;
 		if (current_r >= 0 && current_r < size*size) {
-			map[current_l]->icon = '#';
-			map[current_l]->blocking = 1;
-			map[current_l]->border = 1;
+			map[current_r]->icon = '#';
+			map[current_r]->blocking = 1;
+			map[current_r]->border = 1;
 		}
 	}
 }
