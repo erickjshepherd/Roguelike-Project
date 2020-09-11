@@ -16,7 +16,6 @@ Tile::Tile(char iconI, bool blockingI){
 	under = nullptr;
 }
 
-
 Tile::~Tile(){
 	try {
 		delete under;
@@ -36,4 +35,8 @@ void Tile::Spell_Interact(int damage, int effect, int intensity) {
 
 int Tile::Player_Attack(int damage) {
 	return 0;
+}
+
+void Tile::render(int x, int y) {
+
 }

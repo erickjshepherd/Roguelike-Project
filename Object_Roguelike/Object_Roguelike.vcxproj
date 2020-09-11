@@ -154,6 +154,7 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Global_Map.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monsters.h" />
@@ -163,13 +164,16 @@
     <ClInclude Include="Spells.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Armour.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monsters.cpp" />
@@ -184,7 +188,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

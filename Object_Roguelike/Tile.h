@@ -20,6 +20,8 @@ public:
 	// todo: add a function to fetch extra tile info like item stats 
 	//virtual std::string getExtraInfo();
 
+	virtual void render(int x, int y);
+
 	// properties
 	bool blocking;
 	bool border;

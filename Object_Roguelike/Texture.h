@@ -9,7 +9,7 @@ public:
 	~Texture();
 	bool loadFromFile(std::string path);
 	void free();
-	void render(int x, int y, SDL_Rect* clip = NULL);
+	void render(int x, int y, SDL_Rect* clip);
 	int getWidth();
 	int getHeight();
 
