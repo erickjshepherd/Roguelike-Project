@@ -10,6 +10,7 @@
 #include "Console.h"
 #include <list>
 #include "Items.h"
+#include <SDL.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -70,7 +71,7 @@ void Player::turn() {
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
 		validKey = 1;
-		
+
 		direction = _getch();
 		if (direction == 224) {
 			direction = _getch();

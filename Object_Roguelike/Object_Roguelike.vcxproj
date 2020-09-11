@@ -75,6 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)..\SDL2_image\include;$(ProjectDir)..\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\SDL2_image\lib\x64;$(ProjectDir)..\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -106,6 +108,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Erick\Documents\GitHub\Roguelike-Project\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -154,6 +158,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SDLFuncs.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="stdafx.h" />
@@ -170,6 +175,7 @@
     <ClCompile Include="Monsters.cpp" />
     <ClCompile Include="ObjectRoguelike.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SDLFuncs.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="Spells.cpp" />
     <ClCompile Include="stdafx.cpp">

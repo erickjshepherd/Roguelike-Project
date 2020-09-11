@@ -1,7 +1,6 @@
-﻿  Map.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(563): warning C4101: 'under': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(561): warning C4101: 'location': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(573): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(591): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
-c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(591): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
+﻿  ObjectRoguelike.cpp
+  SDLFuncs.cpp
+  Generating Code...
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(61): warning C4715: 'loadImage': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(47): warning C4715: 'SDL_Init': not all control paths return a value
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe
