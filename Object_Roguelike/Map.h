@@ -51,6 +51,7 @@ private:
 	void Set_Exit();
 	void Spawn_Enemies();
 	void Spawn_Items();
+	void convertToClasses();
 
 };
 

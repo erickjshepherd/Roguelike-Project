@@ -1,6 +1,8 @@
 
 #include "Texture.h"
 
+std::vector<Texture*> tileSets_g;
+
 Texture::Texture() {
 	width = 0;
 	height = 0;
@@ -56,4 +58,14 @@ int Texture::getWidth() {
 
 int Texture::getHeight() {
 	return height;
+}
+
+void loadTileSets() {
+
+	int x;
+	for (x = 0; x < NUMPATHS; x++) {
+		Texture* tileSet = new Texture();
+		tileSet->loadFromFile(tilePaths[x]);
+		tileSets_g.push_back(tileSet);
+	}
 }

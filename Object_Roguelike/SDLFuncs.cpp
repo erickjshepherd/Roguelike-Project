@@ -1,5 +1,4 @@
 #include "SDLFuncs.h"
-#include <string>
 
 SDL_Surface* winSurface_g;
 SDL_Window* window_g;

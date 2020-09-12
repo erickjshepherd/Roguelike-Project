@@ -15,6 +15,8 @@
 #include <conio.h>
 #include <Windows.h>
 #include "Console.h"
+#include "Floor.h"
+#include "Wall.h"
 
 
 Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
@@ -62,9 +64,9 @@ void Map::Map_Generate() {
 	Tunnel();
 	Clear_Special();
 	Close_Map();
-
 	Fill_Dead_Ends();
 	Fill_Dead_Ends();
+	convertToClasses();
 
 	Spawn_Enemies();
 
@@ -677,6 +679,25 @@ int Map::findExit(int start) {
 	visited.push_back(start);
 
 	return findExit_BFS(nodes, parent_nodes, visited, start);
+}
+
+void Map::convertToClasses() {
+	int y, border;
+	int Total_Size = size * size;
+
+	for (y = 0; y != Total_Size; y++) {
+		border = map[y]->border;
+		if (map[y]->icon == '#') {
+			delete map[y];
+			map[y] = new Wall();
+			map[y]->border = border;
+		}
+		else if (map[y]->icon == '.') {
+			delete map[y];
+			map[y] = new Floor();
+			map[y]->border = border;
+		}
+	}
 }
 
 Map::~Map(){

@@ -3,6 +3,17 @@
 #include <string>
 #include "SDLFuncs.h"
 
+#define NUMPATHS 5
+
+// paths to tile sets
+std::string tilePaths[NUMPATHS] = {
+	"Dawnlike Tiles/Objects/Tile.png",
+	"Dawnlike Tiles/Objects/Wall.png",
+	"Dawnlike Tiles/Characters/Player0.png",
+	"Dawnlike Tiles/Characters/Slime0.png",
+	"Dawnlike Tiles/Items/MedWep.png"
+};
+
 class Texture {
 public:
 	Texture();
@@ -18,3 +29,7 @@ private:
 	int width;
 	int height;
 };
+
+extern std::vector<Texture*> tileSets_g;
+
+void loadTileSets();
