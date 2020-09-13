@@ -26,6 +26,8 @@ public:
 	bool blocking;
 	bool border;
 	char icon;
+	// track what sprite should be used
+	int sprite;
 	std::string name;
 	std::string description;
 

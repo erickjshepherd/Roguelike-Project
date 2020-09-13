@@ -52,6 +52,7 @@ private:
 	void Spawn_Enemies();
 	void Spawn_Items();
 	void convertToClasses();
+	void setWallSprites();
 
 };
 

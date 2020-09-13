@@ -5,6 +5,7 @@
 Tile::Tile() {
 	blocking = 1;
 	border = 0;
+	sprite = -1;
 	icon = ' ';
 	under = nullptr;
 }
@@ -12,6 +13,7 @@ Tile::Tile() {
 Tile::Tile(char iconI, bool blockingI){
 	blocking = blockingI;
 	border = 0;
+	sprite = -1;
 	icon = iconI;
 	under = nullptr;
 }
