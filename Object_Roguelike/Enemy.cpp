@@ -559,3 +559,4 @@ void Enemy::flashChar(char flash) {
 		global_map->player->updateScreen(x, y, global_map->map[location]->icon);
 	}
 }
+

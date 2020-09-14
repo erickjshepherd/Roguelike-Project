@@ -3,16 +3,17 @@
 #include <string>
 #include "SDLFuncs.h"
 
-#define NUMPATHS 5
+#define NUMPATHS 7
+#define TILEPATH 0
+#define WALLPATH 1
+#define PLAYERPATH 2
+#define SLIMEPATH 3
+#define MEDWEPPATH 4
+#define SCROLLPATH 5
+#define SHORTWEPPATH 6
 
 // paths to tile sets
-std::string tilePaths[NUMPATHS] = {
-	"Dawnlike Tiles/Objects/Tile.png",
-	"Dawnlike Tiles/Objects/Wall.png",
-	"Dawnlike Tiles/Characters/Player0.png",
-	"Dawnlike Tiles/Characters/Slime0.png",
-	"Dawnlike Tiles/Items/MedWep.png"
-};
+extern std::string tilePaths[NUMPATHS];
 
 class Texture {
 public:

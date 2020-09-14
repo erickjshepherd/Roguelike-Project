@@ -20,6 +20,10 @@ dagger::dagger() {
 			damage[x][y] = damage_init[x][y];
 		}
 	}
+	// sprite
+	spritePath = SHORTWEPPATH;
+	spriteSheetW = 8;
+	spriteType = 0;
 }
 
 dagger::dagger(int location) {
@@ -39,6 +43,10 @@ dagger::dagger(int location) {
 			damage[x][y] = damage_init[x][y];
 		}
 	}
+	// sprite
+	spritePath = SHORTWEPPATH;
+	spriteSheetW = 8;
+	spriteType = 0;
 }
 
 dagger::~dagger() {
@@ -62,6 +70,10 @@ longsword::longsword() {
 			damage[x][y] = damage_init[x][y];
 		}
 	}
+	// sprite
+	spritePath = MEDWEPPATH;
+	spriteSheetW = 6;
+	spriteType = 0;
 }
 
 longsword::longsword(int location) {
@@ -80,6 +92,10 @@ longsword::longsword(int location) {
 			damage[x][y] = damage_init[x][y];
 		}
 	}
+	// sprite
+	spritePath = MEDWEPPATH;
+	spriteSheetW = 6;
+	spriteType = 0;
 }
 
 longsword::~longsword() {

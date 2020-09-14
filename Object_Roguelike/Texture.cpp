@@ -1,6 +1,15 @@
 
 #include "Texture.h"
 
+std::string tilePaths[NUMPATHS] = {
+	"Dawnlike Tiles/Objects/Tile.png",
+	"Dawnlike Tiles/Objects/Wall.png",
+	"Dawnlike Tiles/Characters/Player0.png",
+	"Dawnlike Tiles/Characters/Slime0.png",
+	"Dawnlike Tiles/Items/MedWep.png",
+	"Dawnlike Tiles/Items/Scroll.png",
+	"Dawnlike Tiles/Items/ShortWep.png"
+};
 std::vector<Texture*> tileSets_g;
 
 Texture::Texture() {

@@ -11,6 +11,11 @@ Freeze::Freeze() {
 	cd = 5;
 	cdCount = 0;
 	range = 2;
+
+	// sprite
+	spritePath = SCROLLPATH;
+	spriteSheetW = 8;
+	spriteType = 1;
 }
 
 Freeze::Freeze(int location) {
@@ -23,6 +28,11 @@ Freeze::Freeze(int location) {
 	cd = 5;
 	cdCount = 0;
 	range = 2;
+
+	// sprite
+	spritePath = SCROLLPATH;
+	spriteSheetW = 8;
+	spriteType = 1;
 }
 
 int Freeze::Cast() {

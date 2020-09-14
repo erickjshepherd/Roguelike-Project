@@ -58,6 +58,5 @@ public:
 
 	// flash a char
 	void flashChar(char flash);
-
 };
 

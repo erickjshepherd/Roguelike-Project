@@ -166,7 +166,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
-    <ClInclude Include="tileCoordDefs.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>

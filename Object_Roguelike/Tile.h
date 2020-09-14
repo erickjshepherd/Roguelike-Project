@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "Texture.h"
+
 class Tile{
 
 public:
@@ -26,8 +28,13 @@ public:
 	bool blocking;
 	bool border;
 	char icon;
+	
 	// track what sprite should be used
-	int sprite;
+	int sprite; // todo: refactor name to be wall specific
+	int spritePath;
+	int spriteType;
+	int spriteSheetW;
+	
 	std::string name;
 	std::string description;
 

@@ -33,6 +33,11 @@ Player::Player(){
 	health = 100;
 	strength = 10;
 	
+	// set player sprite info
+	spritePath = PLAYERPATH;
+	spriteSheetW = 8;
+	spriteType = 30;
+
 	// set initial map generation variables
 	size = 30;
 	totalRooms = 20;

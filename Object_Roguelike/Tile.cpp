@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Tile.h"
 #include "Global_Map.h"
+#include "Texture.h"
 
 Tile::Tile() {
 	blocking = 1;
@@ -40,5 +41,25 @@ int Tile::Player_Attack(int damage) {
 }
 
 void Tile::render(int x, int y) {
+	// get the sprite sheet
+	Texture* spriteSheet = tileSets_g[spritePath];
 
+	// get the location on the sheet
+	int clipX = 0;
+	int clipY = 0;
+	int typeXOffset = spriteType % spriteSheetW;
+	int typeYOffset = spriteType / spriteSheetW;
+	clipX += typeXOffset * 16;
+	clipY += typeYOffset * 16;
+
+	// set up the clip
+	SDL_Rect* clip = new SDL_Rect();
+	clip->x = clipX;
+	clip->y = clipY;
+	clip->w = 16;
+	clip->h = 16;
+
+	spriteSheet->render(x, y, clip);
+
+	delete clip;
 }

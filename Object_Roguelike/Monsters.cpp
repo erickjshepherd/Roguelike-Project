@@ -12,6 +12,9 @@ Slime::Slime() {
 	location = 0;
 	loot[0] = 0; // 1/10 to drop dagger
 	loot[1] = 1; // 1/10 to drop freeze
+	spritePath = SLIMEPATH;
+	spriteType = 24;
+	spriteSheetW = 6;
 }
 
 Slime::Slime(int location) {
@@ -24,6 +27,9 @@ Slime::Slime(int location) {
 	this->location = location;
 	loot[0] = 1;
 	loot[1] = 2;
+	spritePath = SLIMEPATH;
+	spriteType = 24;
+	spriteSheetW = 6;
 }
 
 // slime destructor
