@@ -31,7 +31,7 @@ int SDL_Init() {
 	}
 
 	//Initialize renderer color
-	SDL_SetRenderDrawColor(renderer_g, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(renderer_g, 0, 0, 0, 0);
 
 	//Initialize PNG loading
 	int imgFlags = IMG_INIT_PNG;
@@ -49,8 +49,8 @@ int SDL_Init() {
 		return 1;
 	}
 
-	// Fill the window with a white rectangle
-	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 255, 255, 255));
+	// Fill the window with a black rectangle
+	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 0, 0, 0));
 
 	// Update the window display
 	SDL_UpdateWindowSurface(window_g);

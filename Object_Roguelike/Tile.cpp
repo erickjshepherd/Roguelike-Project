@@ -41,6 +41,11 @@ int Tile::Player_Attack(int damage) {
 }
 
 void Tile::render(int x, int y) {
+
+	if (under != nullptr) {
+		under->render(x, y);
+	}
+
 	// get the sprite sheet
 	Texture* spriteSheet = tileSets_g[spritePath];
 

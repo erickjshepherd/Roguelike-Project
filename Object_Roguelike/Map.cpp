@@ -66,8 +66,8 @@ void Map::Map_Generate() {
 	Close_Map();
 	Fill_Dead_Ends();
 	Fill_Dead_Ends();
-	setWallSprites();
 	convertToClasses();
+	setWallSprites();
 
 	Spawn_Enemies();
 
@@ -736,14 +736,40 @@ void Map::setWallSprites() {
 			}
 			// top row
 			else if (t < size && t % size != 0 && t % size != (size - 1)) {
+				// horizontal line
 				if (map[t + size]->icon != '#') {
 					map[t]->sprite = 1;
+				}
+				// top T-section
+				else if (map[t + size + 1]->icon != '#' && map[(t + size) - 1]->icon != '#') {
+					map[t]->sprite = 4;
+				}
+				// top left corner
+				else if (map[t + size + 1]->icon != '#') {
+					map[t]->sprite = 0;
+				}
+				// top right corner
+				else if (map[(t + size) - 1]->icon != '#') {
+					map[t]->sprite = 2;
 				}
 			}
 			// bottom row
 			else if (t >= size * (size - 1) && t % size != 0 && t % size != (size - 1)) {
+				// horizontal line
 				if (map[t - size]->icon != '#') {
 					map[t]->sprite = 1;
+				}
+				// bottom T-section
+				else if (map[(t - size) + 1]->icon != '#' && map[(t - size) - 1]->icon != '#') {
+					map[t]->sprite = 16;
+				}
+				// bottom left corner
+				else if (map[(t - size) + 1]->icon != '#') {
+					map[t]->sprite = 12;
+				}
+				// bottom right corner
+				else if (map[(t - size) - 1]->icon != '#') {
+					map[t]->sprite = 14;
 				}
 			}
 			// left column
@@ -751,11 +777,35 @@ void Map::setWallSprites() {
 				if (map[t + 1]->icon != '#') {
 					map[t]->sprite = 6;
 				}
+				// left T-section
+				else if (map[t + 1 + size]->icon != '#' && map[(t + 1) - size]->icon != '#') {
+					map[t]->sprite = 9;
+				}
+				// bottom left corner
+				else if (map[(t + 1) - size]->icon != '#') {
+					map[t]->sprite = 12;
+				}
+				// top left corner
+				else if (map[(t + 1) + size]->icon != '#') {
+					map[t]->sprite = 0;
+				}
 			}
 			// right column
 			else if (t >= size && t % size == (size - 1) && t < size * (size - 1)) {
 				if (map[t - 1]->icon != '#') {
 					map[t]->sprite = 6;
+				}
+				// right T-section
+				else if (map[(t - 1) + size]->icon != '#' && map[(t - 1) - size]->icon != '#') {
+					map[t]->sprite = 11;
+				}
+				// bottom right corner
+				else if (map[(t - 1) - size]->icon != '#') {
+					map[t]->sprite = 14;
+				}
+				// top right corner
+				else if (map[(t - 1) + size]->icon != '#') {
+					map[t]->sprite = 2;
 				}
 			}
 		}
@@ -775,57 +825,83 @@ void Map::setWallSprites() {
 	}
 	// set tiles for remaining walls
 	for (t = 0; t < Total_Size; t++) {
+		if (map[t]->border == 1 || map[t]->sprite == -1) {
+			// already set
+		}
+		// center open
+		else if (map[t - 1]->sprite == -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite == -1) {
+			map[t]->sprite = 7;
+		}
 		// top left corner
-		if (map[t - 1]->sprite == -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
+		else if (map[t - 1]->sprite == -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
 			map[t]->sprite = 0;
 		}
 		// horizontal line
-		if (map[t - size]->sprite == -1 && map[t + size]->sprite == -1) {
+		else if (map[t - size]->sprite == -1 && map[t + size]->sprite == -1) {
 			if (map[t - 1]->sprite != -1 || map[t + 1]->sprite != -1) {
 				map[t]->sprite = 1;
 			}
 		}
 		// top right corner
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite != -1) {
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite != -1) {
 			map[t]->sprite = 2;
 		}
 		// top T-section
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
-			map[t]->sprite = 4;
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
+			if (map[(t + size) - 1]->sprite != -1 && map[(t + size) + 1]->sprite != -1) {
+				map[t]->sprite = 1;
+			}
+			else {
+				map[t]->sprite = 4;
+			}
 		}
 		// vertical line
-		if (map[t - 1]->sprite == -1 && map[t + 1]->sprite == -1) {
-			if (map[t - size]->sprite != -1 || map[t + size]->sprite != -1) {
+		else if (map[t - 1]->sprite == -1 && map[t + 1]->sprite == -1) {
+			if (map[t - size]->sprite != -1 && map[t + size]->sprite == -1) {
+				map[t]->sprite = 7;
+			}
+			else {
 				map[t]->sprite = 6;
 			}
 		}
-		// center open
-		if (map[t - 1]->sprite == -1 && map[t - size]->sprite == -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite == -1) {
-			map[t]->sprite = 7;
-		}
 		// left T-section
-		if (map[t - 1]->sprite == -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
-			map[t]->sprite = 9;
+		else if (map[t - 1]->sprite == -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
+			if (map[(t + 1) - size]->sprite != -1 && map[(t + 1) + size]->sprite != -1) {
+				map[t]->sprite = 6;
+			}
+			else {
+				map[t]->sprite = 9;
+			}
 		}
 		// center closed
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite != -1) {
 			map[t]->sprite = 10;
 		}
 		// right T-section
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite != -1) {
-			map[t]->sprite = 11;
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite != -1) {
+			if (map[(t - 1) - size]->sprite != -1 && map[(t - 1) + size]->sprite != -1) {
+				map[t]->sprite = 6;
+			}
+			else {
+				map[t]->sprite = 11;
+			}
 		}
 		// bottom left corner
-		if (map[t - 1]->sprite == -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite == -1) {
-			map[t]->sprite = 7;
+		else if (map[t - 1]->sprite == -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite == -1) {
+			map[t]->sprite = 12;
 		}
 		// bottom right corner
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite == -1) {
-			map[t]->sprite = 7;
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite == -1 && map[t + size]->sprite == -1) {
+			map[t]->sprite = 14;
 		}
 		// bottom T-section
-		if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite == -1) {
-			map[t]->sprite = 7;
+		else if (map[t - 1]->sprite != -1 && map[t - size]->sprite != -1 && map[t + 1]->sprite != -1 && map[t + size]->sprite == -1) {
+			if (map[(t - size) - 1]->sprite != -1 && map[(t - size) + 1]->sprite != -1) {
+				map[t]->sprite = 1;
+			}
+			else {
+				map[t]->sprite = 16;
+			}
 		}
 	}
 }

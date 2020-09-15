@@ -1,30 +1,7 @@
-﻿  Armour.cpp
-  Console.cpp
-  Enemy.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(378): warning C4101: 'is_viewed': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(378): warning C4101: 'was_viewed': unreferenced local variable
-  Floor.cpp
-  Items.cpp
-  Map.cpp
+﻿  Map.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(566): warning C4101: 'under': unreferenced local variable
 c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(564): warning C4101: 'location': unreferenced local variable
 c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(576): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(594): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
 c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(594): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
-  Monsters.cpp
-  ObjectRoguelike.cpp
-  Player.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(725): warning C4101: 'handle': unreferenced local variable
-  Spell.cpp
-  Spells.cpp
-  Texture.cpp
-  Tile.cpp
-c:\users\erick\documents\github\roguelike-project\object_roguelike\tile.cpp(26): warning C4101: 'e': unreferenced local variable
-  Wall.cpp
-  Weapon.cpp
-  Generating Code...
-c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.cpp(51): warning C4715: 'Texture::loadFromFile': not all control paths return a value
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(1027): warning C4715: 'Player::selectSpell': not all control paths return a value
-c:\users\erick\documents\github\roguelike-project\object_roguelike\monsters.cpp(45): warning C4715: 'Get_Enemy': not all control paths return a value
-c:\users\erick\documents\github\roguelike-project\object_roguelike\items.cpp(117): warning C4715: 'Get_Item': not all control paths return a value
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

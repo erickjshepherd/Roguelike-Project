@@ -336,6 +336,9 @@ void Player::Draw_Player_View() {
 
 	int x, y, xy;
 
+	// clear screen
+	SDL_RenderClear(renderer_g);
+
 	// get the width of the square to draw
 	int view_size = (view_distance * 2) + 1;
 
@@ -355,6 +358,9 @@ void Player::Draw_Player_View() {
 					std::cout << ' ';
 				}
 
+				// draw sprite
+				global_map->map[xy]->render(x * 16, y * 16);
+
 				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
 					break;
 				}
@@ -364,6 +370,9 @@ void Player::Draw_Player_View() {
 	}
 	drawStats(-1);
 	global_map->Draw_Events();
+
+	//Update screen
+	SDL_RenderPresent(renderer_g);
 }
 
 // create a new level

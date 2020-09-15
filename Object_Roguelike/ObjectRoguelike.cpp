@@ -17,13 +17,8 @@ int main(int argc, char* argv[]){
 
 	// initialize SDL
 	SDL_Init();
-
-	// test png drawing
-	SDL_Texture* testpng = NULL;
-	loadImage(testpng, "Dawnlike Tiles/Objects/Tile.png");
-	SDL_RenderClear(renderer_g);
-	SDL_RenderCopy(renderer_g, testpng, NULL, NULL);
-	SDL_RenderPresent(renderer_g);
+	// load sprite sheets
+	loadTileSets();
 
 	// create the player character
 	Player* PC = new Player();
