@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 #include <string>
 #include "Texture.h"
 
@@ -12,6 +13,7 @@ public:
 
 	// interact functions
 	virtual void Player_Interact();
+	virtual void Player_Step();
 	virtual void Spell_Interact(int damage, int effect, int intensity);
 
 	// todo: create a player_attack function.

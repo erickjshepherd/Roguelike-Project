@@ -4,7 +4,7 @@ Floor::Floor() {
 	blocking = 0;
 	icon = '.';
 	name = "floor";
-	description = "It's the floor";
+	description = "";
 
 	// sprite
 	spritePath = TILEPATH;

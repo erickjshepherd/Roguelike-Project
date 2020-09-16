@@ -166,34 +166,11 @@ void Player::turn() {
 			target = location + 1;
 		}
 		global_map->map[target]->Player_Interact();
-
-		// free memory of dead enemies
-		//while (global_map->Dead_Enemies.size() > 0) {
-			//Enemy* dead = global_map->Dead_Enemies.back();
-			//global_map->Dead_Enemies.pop_back();
-		//}
 	}
 	// Do post move actions
 	else {
-		
-		// Generate a new level when moving onto E
-		if (under->icon == 'E') {
-
-			Get_New_Level(global_map->level + 1);
-		}
-		if (under->description.length() > 0) {
-			underDescribed = 1;
-			drawUnderInfo();
-		}
-		else {
-			if (underDescribed == 1) {
-				// todo: make member function
-				underDescribed = 0;
-				short view_size = (short)(view_distance * 2) + 1;
-				short x = 2 * view_size;
-				COORD position = { x, INSPECT+1 };
-				ClearLine(position, 30);
-			}
+		if (global_map->map[location]->under != NULL) {
+			global_map->map[location]->under->Player_Step();
 		}
 	}
 }
@@ -278,6 +255,7 @@ void Player::updateScreen(int X, int Y, char out) {
 
 	short x = (short)X;
 	short y = (short)Y;
+	int realX = X / 2;
 
 	if (X >= view_size * 2 || X < 0) {
 		return;
@@ -285,6 +263,12 @@ void Player::updateScreen(int X, int Y, char out) {
 	if (Y >= view_size || Y < 0) {
 		return;
 	}
+
+	// update sprite
+	int loc = view_start;
+	loc += realX;
+	loc += y * global_map->size;
+	global_map->map[loc]->render(realX * 16, Y * 16);
 
 	// set console cursor
 	COORD position = { x, y };
@@ -370,9 +354,6 @@ void Player::Draw_Player_View() {
 	}
 	drawStats(-1);
 	global_map->Draw_Events();
-
-	//Update screen
-	SDL_RenderPresent(renderer_g);
 }
 
 // create a new level

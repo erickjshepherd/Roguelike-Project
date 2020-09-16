@@ -153,6 +153,7 @@
     <ClInclude Include="Armour.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Exit.h" />
     <ClInclude Include="Global_Map.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Items.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Armour.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="Map.cpp" />

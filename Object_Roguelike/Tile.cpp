@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "Global_Map.h"
 #include "Texture.h"
+#include "Console.h"
 
 Tile::Tile() {
 	blocking = 1;
@@ -30,6 +31,24 @@ Tile::~Tile(){
 
 void Tile::Player_Interact() {
 
+}
+
+# define INSPECT 14 // todo: fix this to pull from player in some way
+void Tile::Player_Step() {
+	if (description.length() > 0) {
+		global_map->player->underDescribed = 1;
+		global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
+	}
+	else {
+		if (global_map->player->underDescribed == 1) {
+			// todo: make member function
+			global_map->player->underDescribed = 0;
+			short view_size = (short)(global_map->player->view_distance * 2) + 1;
+			short x = 2 * view_size;
+			COORD position = { x, INSPECT + 1 };
+			ClearLine(position, 30);
+		}
+	}
 }
 
 void Tile::Spell_Interact(int damage, int effect, int intensity) {

@@ -27,7 +27,9 @@ int main(int argc, char* argv[]){
 	PC->Get_New_Level(1);
 
 	while (1) {
+		SDL_RenderPresent(renderer_g);
 		PC->turn();
+		SDL_RenderPresent(renderer_g);
 		global_map->Enemy_Turn();
 	}
 

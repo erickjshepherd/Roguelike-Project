@@ -17,6 +17,7 @@
 #include "Console.h"
 #include "Floor.h"
 #include "Wall.h"
+#include "Exit.h"
 
 
 Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
@@ -520,21 +521,19 @@ void Map::Set_Exit() {
 	bool found_start = false;
 
 	while (found_start == false) {
-
 		if (map[location]->icon == '.') {
 
 			found_start = true;
 		}
-
 		else {
 
 			location = rand() % total_size;
 		}
 	}
-	
-		map[location]->icon = 'E';
-		map[location]->blocking = 0;
 
+	Tile* under = map[location];
+	map[location] = new Exit();
+	map[location]->under = under;
 }
 
 // Spawn enemies on the map
