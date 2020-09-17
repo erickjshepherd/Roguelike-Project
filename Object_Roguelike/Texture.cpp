@@ -10,6 +10,7 @@ std::string tilePaths[NUMPATHS] = {
 	"Dawnlike Tiles/Items/Scroll.png",
 	"Dawnlike Tiles/Items/ShortWep.png"
 };
+// todo: free this
 std::vector<Texture*> tileSets_g;
 
 Texture::Texture() {

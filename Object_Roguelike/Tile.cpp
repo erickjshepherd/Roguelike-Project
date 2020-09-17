@@ -3,6 +3,8 @@
 #include "Global_Map.h"
 #include "Texture.h"
 #include "Console.h"
+#include <iostream>
+#include <conio.h>
 
 Tile::Tile() {
 	blocking = 1;
@@ -33,7 +35,6 @@ void Tile::Player_Interact() {
 
 }
 
-# define INSPECT 14 // todo: fix this to pull from player in some way
 void Tile::Player_Step() {
 	if (description.length() > 0) {
 		global_map->player->underDescribed = 1;
@@ -45,7 +46,7 @@ void Tile::Player_Step() {
 			global_map->player->underDescribed = 0;
 			short view_size = (short)(global_map->player->view_distance * 2) + 1;
 			short x = 2 * view_size;
-			COORD position = { x, INSPECT + 1 };
+			COORD position = { x, 14 + 1 };
 			ClearLine(position, 30);
 		}
 	}
@@ -86,4 +87,16 @@ void Tile::render(int x, int y) {
 	spriteSheet->render(x, y, clip);
 
 	delete clip;
+}
+
+void Tile::drawUnderInfo() {
+	short view_size = (short)(global_map->player->view_distance * 2) + 1;
+	short x = 2 * view_size;
+
+	global_map->player->clearStats(14 + 1);
+
+	COORD position = { x, 14 + 1 };
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
+	SetConsoleCursorPosition(handle, position);
+	std::cout << "  " << under->description;
 }

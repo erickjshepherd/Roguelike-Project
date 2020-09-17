@@ -1,2 +1,4 @@
-﻿  Exit.cpp
+﻿  Player.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(728): warning C4101: 'handle': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(1019): warning C4715: 'Player::selectSpell': not all control paths return a value
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

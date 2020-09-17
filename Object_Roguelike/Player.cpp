@@ -10,7 +10,6 @@
 #include "Console.h"
 #include <list>
 #include "Items.h"
-#include <SDL.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -22,8 +21,6 @@
 #define ENTER 13
 #define ESC 27
 
-#define INSPECT 14
-
 // player class
 Player::Player(){
 	
@@ -32,6 +29,8 @@ Player::Player(){
 	icon = '@';
 	health = 100;
 	strength = 10;
+	extraTurns = 0;
+	quit = 0;
 	
 	// set player sprite info
 	spritePath = PLAYERPATH;
@@ -71,12 +70,25 @@ void Player::turn() {
 	int direction = 0;
 	int nextLocation = 0;
 	int validKey = 0;
+	int eventValue;
 	int move_success, attack_success;
 
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
 		validKey = 1;
-
+		eventValue = handleEvents();
+		if (eventValue == -1) {
+			validKey = 0;
+		}
+		else if (eventValue == EVENT_QUIT) {
+			quit = 1;
+			return;
+		}
+		else {
+			std::cout << eventValue;
+			// handle events
+		}
+		/*
 		direction = _getch();
 		if (direction == 224) {
 			direction = _getch();
@@ -137,6 +149,7 @@ void Player::turn() {
 			validKey = 0;
 			direction = 0;
 		}
+		*/
 	}
 
 	// decrease spell cooldowns on each successful move
@@ -697,7 +710,7 @@ void Player::drawStats(int line) {
 				std::cout << "  Spell 3: none       ";
 			}
 		}
-		else if (y == INSPECT && (y == line || line == -1)) {
+		else if (y == 14 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
@@ -761,7 +774,7 @@ void Player::clearStats(int line) {
 			position = { x, y };
 			ClearLine(position, 30);
 		}
-		else if (y == INSPECT && (y == line || line == -1)) {
+		else if (y == 14 && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
 		}
@@ -944,17 +957,6 @@ int Player::getMinTunnelSize() {
 
 int Player::getRoomOverlap() {
 	return roomOverlap;
-}
-
-void Player::drawUnderInfo() {
-	short view_size = (short)(view_distance * 2) + 1;
-	short x = 2 * view_size;
-
-	COORD position = { x, INSPECT+1 };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
-
-	SetConsoleCursorPosition(handle, position);
-	std::cout << "  " << under->description;
 }
 
 void Player::flashChar(char flash) {

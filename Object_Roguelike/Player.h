@@ -21,6 +21,8 @@ public:
 	// player state variables
 	int health;
 	int strength;
+	int extraTurns;
+	int quit;
 
 	// player objects
 	Weapon* weapon;
@@ -52,7 +54,6 @@ public:
 	void Draw_Player_View();
 	void drawStats(int line);
 	void clearStats(int line);
-	void drawUnderInfo();
 	void takeDamage(int amount);
 	//void Draw_Town();
 	void Get_New_Level(int level);

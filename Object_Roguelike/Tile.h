@@ -23,8 +23,10 @@ public:
 	
 	// todo: add a function to fetch extra tile info like item stats 
 	//virtual std::string getExtraInfo();
-
 	virtual void render(int x, int y);
+
+	// other functions
+	void drawUnderInfo();
 
 	// properties
 	bool blocking;

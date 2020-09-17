@@ -82,27 +82,25 @@ void SDL_Close() {
 	SDL_Quit();
 }
 
-void handleEvents() {
+int handleEvents() {
 	/* Poll for events */
 	SDL_Event event;
-	int quit = 0;
 	while (SDL_PollEvent(&event)) {
-
-		switch (event.type) {
-			/* Keyboard event */
-			/* Pass the event data onto PrintKeyInfo() */
-		case SDL_KEYDOWN:
-		case SDL_KEYUP:
-			break;
-
-			/* SDL_QUIT event (window close) */
-		case SDL_QUIT:
-			quit = 1;
-			break;
-
-		default:
-			break;
+		if (event.type == SDL_QUIT) {
+			return EVENT_QUIT;
 		}
-
+		else if (event.type == SDL_KEYDOWN) {
+			switch (event.key.keysym.sym) {
+			case SDLK_LEFT:
+				return EVENT_KEY_LEFT;
+			case SDLK_RIGHT:
+				return EVENT_KEY_RIGHT;
+			case SDLK_UP:
+				return EVENT_KEY_UP;
+			case SDLK_DOWN:
+				return EVENT_KEY_DOWN;
+			}
+		}
 	}
+	return -1;
 }
