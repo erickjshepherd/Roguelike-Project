@@ -99,6 +99,16 @@ int handleEvents() {
 				return EVENT_KEY_UP;
 			case SDLK_DOWN:
 				return EVENT_KEY_DOWN;
+			case SDLK_1:
+				return EVENT_KEY_1;
+			case SDLK_2:
+				return EVENT_KEY_2;
+			case SDLK_3:
+				return EVENT_KEY_3;
+			case SDLK_RETURN:
+				return EVENT_KEY_ENTER;
+			case SDLK_ESCAPE:
+				return EVENT_KEY_ESC;
 			}
 		}
 	}

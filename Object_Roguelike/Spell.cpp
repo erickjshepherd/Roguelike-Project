@@ -192,26 +192,27 @@ void Spell::flashSpellsThread() {
 }
 
 void Spell::getDirection() {
-	int direction = 0;
+	int eventValue = 0;
 	int cancel = 0;
-	while (direction != ENTER && cancel == 0) {
-		direction = _getch();
-		if (direction == 224) {
-			direction = _getch();
+	while (eventValue != EVENT_KEY_ENTER && cancel == 0) {
+		eventValue = handleEvents();
+		if (eventValue == EVENT_QUIT) {
+			global_map->player->quit = 1;
+			return;
 		}
-		if (direction == KEY_UP) {
+		if (eventValue == EVENT_KEY_UP) {
 			currentDirection = 1;
 		}
-		else if (direction == KEY_DOWN) {
+		else if (eventValue == EVENT_KEY_DOWN) {
 			currentDirection = 2;
 		}
-		else if (direction == KEY_LEFT) {
+		else if (eventValue == EVENT_KEY_LEFT) {
 			currentDirection = 3;
 		}
-		else if (direction == KEY_RIGHT) {
+		else if (eventValue == EVENT_KEY_RIGHT) {
 			currentDirection = 4;
 		}
-		else if (direction == ESC) {
+		else if (eventValue == EVENT_KEY_ESC) {
 			cancel = 1;
 		}
 	}

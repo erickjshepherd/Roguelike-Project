@@ -67,7 +67,6 @@ Player::Player(){
 // reads key input and selects a direction to move
 void Player::turn() {
 
-	int direction = 0;
 	int nextLocation = 0;
 	int validKey = 0;
 	int eventValue;
@@ -78,37 +77,27 @@ void Player::turn() {
 		validKey = 1;
 		eventValue = handleEvents();
 		if (eventValue == -1) {
+			eventValue = 0;
 			validKey = 0;
 		}
 		else if (eventValue == EVENT_QUIT) {
 			quit = 1;
 			return;
 		}
-		else {
-			std::cout << eventValue;
-			// handle events
+		else if (eventValue == EVENT_KEY_UP) {
+			break;
 		}
-		/*
-		direction = _getch();
-		if (direction == 224) {
-			direction = _getch();
+		else if (eventValue == EVENT_KEY_DOWN) {
+			break;
 		}
-
-		// get the key input
-		if (direction == KEY_UP) {
-			direction = 1;
+		else if (eventValue == EVENT_KEY_LEFT) {
+			break;
 		}
-		else if (direction == KEY_DOWN) {
-			direction = 2;
+		else if (eventValue == EVENT_KEY_RIGHT) {
+			break;
 		}
-		else if (direction == KEY_LEFT) {
-			direction = 3;
-		}
-		else if (direction == KEY_RIGHT) {
-			direction = 4;
-		}
-		else if (direction == KEY_1) {
-			direction = 0;
+		else if (eventValue == EVENT_KEY_1) {
+			eventValue = 0;
 			if (spell1 != NULL) {
 				if (spell1->Cast() == 0) {
 					validKey = 0;
@@ -118,8 +107,8 @@ void Player::turn() {
 				validKey = 0;
 			}
 		}
-		else if (direction == KEY_2) {
-			direction = 0;
+		else if (eventValue == EVENT_KEY_2) {
+			eventValue = 0;
 			if (spell2 != NULL) {
 				if (spell2->Cast() == 0) {
 					validKey = 0;
@@ -129,8 +118,8 @@ void Player::turn() {
 				validKey = 0;
 			}
 		}
-		else if (direction == KEY_3) {
-			direction = 0;
+		else if (eventValue == EVENT_KEY_3) {
+			eventValue = 0;
 			if (spell3 != NULL) {
 				if (spell3->Cast() == 0) {
 					validKey = 0;
@@ -141,41 +130,40 @@ void Player::turn() {
 			}
 
 		}
-		else if (direction == ENTER) {
-			direction = 0;
+		else if (eventValue == EVENT_KEY_ENTER) {
+			eventValue = 0;
 			under->Player_Interact();
 		}
 		else {
 			validKey = 0;
-			direction = 0;
+			eventValue = 0;
 		}
-		*/
 	}
 
 	// decrease spell cooldowns on each successful move
 	decreaseSpellCD();
 
 	// try to attack and then try to move
-	attack_success = attack(direction);
+	attack_success = attack(eventValue);
 	if (attack_success == 0) {
-		move_success = Move(direction);
+		move_success = Move(eventValue);
 	}
 	
 	// Interact if can't attack or move
-	if (attack_success != 1 && move_success == -1 && direction != 0) {
+	if (attack_success != 1 && move_success == -1 && eventValue != 0) {
 
 		int target = -1;
 
-		if (direction == 1) {
+		if (eventValue == EVENT_KEY_UP) {
 			target = location - global_map->size;
 		}
-		else if (direction == 2) {
+		else if (eventValue == EVENT_KEY_DOWN) {
 			target = location + global_map->size;
 		}
-		else if (direction == 3) {
+		else if (eventValue == EVENT_KEY_LEFT) {
 			target = location - 1;
 		}
-		else if (direction == 4) {
+		else if (eventValue == EVENT_KEY_RIGHT) {
 			target = location + 1;
 		}
 		global_map->map[target]->Player_Interact();
@@ -415,7 +403,7 @@ int Player::Move(int direction) {
 	bool success = false;
 	
 	// get the input and move if able
-	if (direction == 1) {
+	if (direction == EVENT_KEY_UP) {
 
 		nextLocation = location - global_map->size;
 
@@ -457,7 +445,7 @@ int Player::Move(int direction) {
 
 		}
 	}
-	else if (direction == 2) {
+	else if (direction == EVENT_KEY_DOWN) {
 
 		nextLocation = location + global_map->size;
 
@@ -491,7 +479,7 @@ int Player::Move(int direction) {
 			success = true;
 		}
 	}
-	else if (direction == 3) {
+	else if (direction == EVENT_KEY_LEFT) {
 
 		nextLocation = location - 1;
 
@@ -525,7 +513,7 @@ int Player::Move(int direction) {
 			success = true;
 		}
 	}
-	else if (direction == 4) {
+	else if (direction == EVENT_KEY_RIGHT) {
 
 		nextLocation = location + 1;
 
@@ -785,7 +773,7 @@ bool Player::attack(int direction) {
 	int x, y, target, priority, success;
 	// up
 	success = 0;
-	if (direction == 1) {
+	if (direction == EVENT_KEY_UP) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - (3 * global_map->size) - 1;
 			for (x = 0; x < 3; x++) {
@@ -806,7 +794,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// down
-	else if (direction == 2) {
+	else if (direction == EVENT_KEY_DOWN) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + (3 * global_map->size) + 1;
 			for (x = 0; x < 3; x++) {
@@ -827,7 +815,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// left
-	else if (direction == 3) {
+	else if (direction == EVENT_KEY_LEFT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - 3 + global_map->size;
 			for (x = 0; x < 3; x++) {
@@ -848,7 +836,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// right
-	else if (direction == 4) {
+	else if (direction == EVENT_KEY_RIGHT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + 3 - global_map->size;
 			for (x = 0; x < 3; x++) {
@@ -989,27 +977,28 @@ void Player::decreaseSpellCD() {
 }
 
 int Player::selectSpell() {
-	int key = 0;
+	int eventValue = 0;
 	int validKey = 0;
 
 	while (validKey == 0) {
 		validKey = 1;
 
-		key = _getch();
-		if (key == 224) {
-			key = _getch();
-		}
+		eventValue = handleEvents();
 
-		if (key == KEY_1) {
+		if (eventValue == EVENT_QUIT) {
+			quit = 1;
+			return -1;
+		}
+		else if (eventValue == EVENT_KEY_1) {
 			return 1;
 		}
-		else if (key == KEY_2) {
+		else if (eventValue == EVENT_KEY_2) {
 			return 2;
 		}
-		else if (key == KEY_3) {
+		else if (eventValue == EVENT_KEY_3) {
 			return 3;
 		}
-		else if (key == ESC) {
+		else if (eventValue == EVENT_KEY_ESC) {
 			return -1;
 		}
 		else {
