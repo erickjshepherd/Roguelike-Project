@@ -14,10 +14,10 @@ Wall::~Wall() {
 
 }
 
-void Wall::render(int x, int y) {
+void Wall::render(int x, int y, int color) {
 	if (sprite != -1) {
 		// get the sprite sheet
-		Texture* spriteSheet = tileSets_g[WALLPATH];
+		Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + color];
 
 		// get the location on the sheet
 		int clipX = 0;

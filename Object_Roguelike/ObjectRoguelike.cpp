@@ -38,6 +38,9 @@ int main(int argc, char* argv[]){
 		}
 	}
 
+	freeTilesets();
+	SDL_Close();
+
 	return 0;
 }
 

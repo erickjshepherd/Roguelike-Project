@@ -10,7 +10,7 @@ std::string tilePaths[NUMPATHS] = {
 	"Dawnlike Tiles/Items/Scroll.png",
 	"Dawnlike Tiles/Items/ShortWep.png"
 };
-// todo: free this
+
 std::vector<Texture*> tileSets_g;
 
 Texture::Texture() {
@@ -51,6 +51,11 @@ bool Texture::loadFromFile(std::string path) {
 	}
 }
 
+void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue) {
+	//Modulate texture
+	SDL_SetTextureColorMod(texture, red, green, blue);
+}
+
 void Texture::render(int x, int y, SDL_Rect* clip = NULL) {
 	SDL_Rect renderQuad = { x, y, width, height };
 
@@ -71,11 +76,24 @@ int Texture::getHeight() {
 }
 
 void loadTileSets() {
-
 	int x;
 	for (x = 0; x < NUMPATHS; x++) {
+		// standard tiles
 		Texture* tileSet = new Texture();
 		tileSet->loadFromFile(tilePaths[x]);
 		tileSets_g.push_back(tileSet);
+
+		// cast preview tiles
+		Texture* tileSetCast = new Texture();
+		tileSetCast->loadFromFile(tilePaths[x]);
+		tileSetCast->setColor(CASTR, CASTG, CASTB);
+		tileSets_g.push_back(tileSetCast);
+	}
+}
+
+void freeTilesets() {
+	while (!tileSets_g.empty()) {
+		delete tileSets_g.back();
+		tileSets_g.pop_back();
 	}
 }

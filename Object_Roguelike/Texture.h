@@ -4,13 +4,26 @@
 #include "SDLFuncs.h"
 
 #define NUMPATHS 7
-#define TILEPATH 0
-#define WALLPATH 1
-#define PLAYERPATH 2
-#define SLIMEPATH 3
-#define MEDWEPPATH 4
-#define SCROLLPATH 5
-#define SHORTWEPPATH 6
+#define NUMCOLORS 2
+
+#define CASTR 255
+#define CASTG 153
+#define CASTB 153
+
+enum pathEnums {
+	TILEPATH,
+	WALLPATH,
+	PLAYERPATH,
+	SLIMEPATH,
+	MEDWEPPATH,
+	SCROLLPATH,
+	SHORTWEPPATH
+};
+
+enum colorEnums {
+	STANDARD,
+	CAST
+};
 
 // paths to tile sets
 extern std::string tilePaths[NUMPATHS];
@@ -20,6 +33,7 @@ public:
 	Texture();
 	~Texture();
 	bool loadFromFile(std::string path);
+	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 	void free();
 	void render(int x, int y, SDL_Rect* clip);
 	int getWidth();
@@ -34,3 +48,5 @@ private:
 extern std::vector<Texture*> tileSets_g;
 
 void loadTileSets();
+
+void freeTilesets();

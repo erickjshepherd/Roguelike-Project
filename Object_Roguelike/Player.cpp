@@ -11,16 +11,6 @@
 #include <list>
 #include "Items.h"
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-#define KEY_1 49
-#define KEY_2 50
-#define KEY_3 51
-#define ENTER 13
-#define ESC 27
-
 // player class
 Player::Player(){
 	
@@ -269,7 +259,7 @@ void Player::updateScreen(int X, int Y, char out) {
 	int loc = view_start;
 	loc += realX;
 	loc += y * global_map->size;
-	global_map->map[loc]->render(realX * 16, Y * 16);
+	global_map->map[loc]->render(realX * 16, Y * 16, STANDARD);
 
 	// set console cursor
 	COORD position = { x, y };
@@ -344,7 +334,7 @@ void Player::Draw_Player_View() {
 				}
 
 				// draw sprite
-				global_map->map[xy]->render(x * 16, y * 16);
+				global_map->map[xy]->render(x * 16, y * 16, STANDARD);
 
 				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
 					break;

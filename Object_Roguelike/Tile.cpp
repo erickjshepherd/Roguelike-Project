@@ -60,14 +60,14 @@ int Tile::Player_Attack(int damage) {
 	return 0;
 }
 
-void Tile::render(int x, int y) {
+void Tile::render(int x, int y, int color) {
 
 	if (under != nullptr) {
-		under->render(x, y);
+		under->render(x, y, color);
 	}
 
 	// get the sprite sheet
-	Texture* spriteSheet = tileSets_g[spritePath];
+	Texture* spriteSheet = tileSets_g[spritePath * NUMCOLORS + color];
 
 	// get the location on the sheet
 	int clipX = 0;
