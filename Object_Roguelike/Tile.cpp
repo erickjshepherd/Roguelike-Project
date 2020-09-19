@@ -60,14 +60,16 @@ int Tile::Player_Attack(int damage) {
 	return 0;
 }
 
-void Tile::render(int x, int y, int color) {
+void Tile::render(int x, int y, int colorIn) {
 
+	// render the under tile with the same color
+	// todo: add input for only applying color to top layer
 	if (under != nullptr) {
-		under->render(x, y, color);
+		under->render(x, y, colorIn);
 	}
 
 	// get the sprite sheet
-	Texture* spriteSheet = tileSets_g[spritePath * NUMCOLORS + color];
+	Texture* spriteSheet = tileSets_g[spritePath * NUMCOLORS + colorIn];
 
 	// get the location on the sheet
 	int clipX = 0;

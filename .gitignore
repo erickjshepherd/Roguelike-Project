@@ -3,3 +3,5 @@
 .vs/Object_Roguelike/v15/.suo
 .vs/Object_Roguelike/v15/Browse.VC.db
 *.ipch
+.vs/Object_Roguelike/v15/ipch/AutoPCH/1f81badf72f87566/SPELL.ipch
+*.ipch

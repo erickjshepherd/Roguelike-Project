@@ -38,6 +38,7 @@ public:
 	int spritePath;
 	int spriteType;
 	int spriteSheetW;
+	int color;
 	
 	std::string name;
 	std::string description;

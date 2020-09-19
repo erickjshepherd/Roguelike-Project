@@ -49,7 +49,7 @@ public:
 	int getStart(int type);
 	void turn();
 	bool inView();
-	void updateScreen(int X, int Y, char out);
+	void updateScreen(int X, int Y, char out, int color);
 	void setCoordinates();
 	void Draw_Player_View();
 	void drawStats(int line);

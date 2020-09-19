@@ -26,6 +26,7 @@ Player::Player(){
 	spritePath = PLAYERPATH;
 	spriteSheetW = 8;
 	spriteType = 30;
+	color = STANDARD;
 
 	// set initial map generation variables
 	size = 30;
@@ -240,7 +241,7 @@ bool Player::inView() {
 // update the screen at specific coordinates
 // inputs: X and Y are console coordinates, out is printed there
 // todo: does this belong in the player class?
-void Player::updateScreen(int X, int Y, char out) {
+void Player::updateScreen(int X, int Y, char out, int color) {
 
 	short view_size = (short)(view_distance * 2) + 1;
 
@@ -259,7 +260,7 @@ void Player::updateScreen(int X, int Y, char out) {
 	int loc = view_start;
 	loc += realX;
 	loc += y * global_map->size;
-	global_map->map[loc]->render(realX * 16, Y * 16, STANDARD);
+	global_map->map[loc]->render(realX * 16, Y * 16, color);
 
 	// set console cursor
 	COORD position = { x, y };
@@ -408,9 +409,9 @@ int Player::Move(int direction) {
 			location -= global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon);
+			updateScreen(consoleX, consoleY, under->icon, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon);
+			updateScreen(consoleX, consoleY, icon, color);
 
 			// set the new under tile
 			under = new_under;
@@ -448,9 +449,9 @@ int Player::Move(int direction) {
 			location += global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon);
+			updateScreen(consoleX, consoleY, under->icon, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon);
+			updateScreen(consoleX, consoleY, icon, color);
 
 			// set the under tile
 			under = new_under;
@@ -482,9 +483,9 @@ int Player::Move(int direction) {
 			location--;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon);
+			updateScreen(consoleX, consoleY, under->icon, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon);
+			updateScreen(consoleX, consoleY, icon, color);
 
 			// update the under tile
 			under = new_under;
@@ -516,9 +517,9 @@ int Player::Move(int direction) {
 			location++;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon);
+			updateScreen(consoleX, consoleY, under->icon, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon);
+			updateScreen(consoleX, consoleY, icon, color);
 
 			under = new_under;
 
@@ -939,9 +940,9 @@ int Player::getRoomOverlap() {
 
 void Player::flashChar(char flash) {
 	if (consoleX != -1 && consoleY != -1) {
-		global_map->player->updateScreen(consoleX, consoleY, flash);
+		global_map->player->updateScreen(consoleX, consoleY, flash, color);
 		Sleep(100);
-		global_map->player->updateScreen(consoleX, consoleY, global_map->map[location]->icon);
+		global_map->player->updateScreen(consoleX, consoleY, global_map->map[location]->icon, color);
 	}
 }
 

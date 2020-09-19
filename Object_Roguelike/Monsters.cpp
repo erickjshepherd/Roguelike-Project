@@ -15,6 +15,7 @@ Slime::Slime() {
 	spritePath = SLIMEPATH;
 	spriteType = 24;
 	spriteSheetW = 6;
+	color = STANDARD;
 }
 
 Slime::Slime(int location) {
@@ -30,6 +31,7 @@ Slime::Slime(int location) {
 	spritePath = SLIMEPATH;
 	spriteType = 24;
 	spriteSheetW = 6;
+	color = STANDARD;
 }
 
 // slime destructor

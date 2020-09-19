@@ -50,10 +50,10 @@ void Spell::Player_Interact() {
 			global_map->Add_Event(event);
 			global_map->Draw_Events();
 			selecting = 1;
-			std::thread flashThread(&Spell::flashSpellsThread, this);
+			//std::thread flashThread(&Spell::flashSpellsThread, this);
 			int spellNum = global_map->player->selectSpell();
 			selecting = 0;
-			flashThread.join();
+			//flashThread.join();
 			if (spellNum == 1) {
 				global_map->player->spell1 = NULL;
 			}
@@ -72,10 +72,6 @@ void Spell::Player_Interact() {
 
 int Spell::Cast() {
 	return 0;
-}
-
-void Spell::Flash()
-{
 }
 
 void Spell::dmgLine(int direction, int range, int damage, int effect, int intensity) {
@@ -110,17 +106,19 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY - x - 1;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar);
+				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 		for (int x = 0; x < range; x++) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY - x - 1;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon);
+				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 	}
 	else if (direction == 2) {
@@ -130,17 +128,19 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY + x + 1;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar);
+				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 		for (int x = 0; x < range; x++) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY + x + 1;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon);
+				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 	}
 	else if (direction == 3) {
@@ -150,17 +150,19 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX - 2 * x - 2;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar);
+				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 		for (int x = 0; x < range; x++) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX - 2 * x - 2;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon);
+				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 	}
 	else if (direction == 4) {
@@ -170,50 +172,57 @@ void Spell::flashLine(int direction, int range, char flashChar) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX + 2 * x + 2;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar);
+				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 		for (int x = 0; x < range; x++) {
 			int flashLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX + 2 * x + 2;
 			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon);
+				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
 			}
 		}
+		SDL_RenderPresent(renderer_g);
 		Sleep(sleepTime);
 	}
 }
 
-void Spell::flashSpellsThread() {
-	while (selecting == 1) {
-		global_map->player->flashSpells();
-	}
-}
-
-void Spell::getDirection() {
+int Spell::getDirection() {
 	int eventValue = 0;
-	int cancel = 0;
-	while (eventValue != EVENT_KEY_ENTER && cancel == 0) {
-		eventValue = handleEvents();
-		if (eventValue == EVENT_QUIT) {
-			global_map->player->quit = 1;
-			return;
-		}
-		if (eventValue == EVENT_KEY_UP) {
-			currentDirection = 1;
-		}
-		else if (eventValue == EVENT_KEY_DOWN) {
-			currentDirection = 2;
-		}
-		else if (eventValue == EVENT_KEY_LEFT) {
-			currentDirection = 3;
-		}
-		else if (eventValue == EVENT_KEY_RIGHT) {
-			currentDirection = 4;
-		}
-		else if (eventValue == EVENT_KEY_ESC) {
-			cancel = 1;
-		}
+
+	eventValue = handleEvents();
+	if (eventValue == EVENT_QUIT) {
+		selecting = 0;
+		global_map->player->quit = 1;
+		return -1;
+	}
+	if (eventValue == EVENT_KEY_UP) {
+		currentDirection = eventValue;
+		return eventValue;
+	}
+	else if (eventValue == EVENT_KEY_DOWN) {
+		currentDirection = eventValue;
+		return eventValue;
+	}
+	else if (eventValue == EVENT_KEY_LEFT) {
+		currentDirection = eventValue;
+		return eventValue;
+	}
+	else if (eventValue == EVENT_KEY_RIGHT) {
+		currentDirection = eventValue;
+		return eventValue;
+	}
+	else if (eventValue == EVENT_KEY_ESC) {
+		selecting = 0;
+		return eventValue;
+	}
+	else if (eventValue == EVENT_KEY_ENTER){
+		selecting = 0;
+		return eventValue;
+	}
+	else {
+		return -1;
 	}
 }

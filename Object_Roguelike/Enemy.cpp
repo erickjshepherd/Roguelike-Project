@@ -22,6 +22,7 @@ Enemy::Enemy(){
 	slowed = 0;
 	scared = 0;
 	allied = 0;
+	color = STANDARD;
 }
 
 Enemy::~Enemy(){
@@ -184,11 +185,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
 			}
 
 			return 1;
@@ -217,11 +218,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
 			}
 
 			return 1;
@@ -250,11 +251,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
 			}
 
 			return 1;
@@ -283,11 +284,11 @@ int Enemy::Move(int direction) {
 			
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon);
+				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
 			}
 
 			return 1;
@@ -354,7 +355,7 @@ void Enemy::takeDamage(int amount) {
 		global_map->map[location] = under;
 		// update the screen
 		if (x != -1) {
-			global_map->player->updateScreen(x, y, global_map->map[location]->icon);
+			global_map->player->updateScreen(x, y, global_map->map[location]->icon, color);
 		}
 		event.append(" and dies.");
 		under = nullptr;
@@ -554,9 +555,9 @@ void Enemy::flashChar(char flash) {
 
 	onScreen(&x, &y);
 	if (x != -1 && y != -1) {
-		global_map->player->updateScreen(x, y, flash);
+		global_map->player->updateScreen(x, y, flash, color);
 		Sleep(100);
-		global_map->player->updateScreen(x, y, global_map->map[location]->icon);
+		global_map->player->updateScreen(x, y, global_map->map[location]->icon, color);
 	}
 }
 
