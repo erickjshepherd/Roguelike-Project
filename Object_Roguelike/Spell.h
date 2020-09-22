@@ -21,6 +21,7 @@ public:
 	void Player_Interact();
 	virtual int Cast();
 	void dmgLine(int direction, int range, int damage, int effect, int intensity);
-	void flashLine(int direction, int range, char flashChar);
+	void renderLine(int direction, int range, char flashChar);
+	void updateLineColor(int direction, int range, int color);
 	int getDirection();
 };

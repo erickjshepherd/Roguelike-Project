@@ -1,7 +1,7 @@
-#include "Global_Map.h"
 #include <Windows.h>
 #include <thread>
 #include <conio.h>
+#include "Global_Map.h"
 #include "Spell.h"
 
 #define KEY_UP 72
@@ -94,98 +94,76 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int intens
 	}
 }
 
-// todo: don't flash over certain tile like walls
-void Spell::flashLine(int direction, int range, char flashChar) {
+void Spell::renderLine(int direction, int range, char flashChar) {
 	int increment = 0;
-	int sleepTime = 200;
 	int screenX, screenY;
 	if (direction == 1) {
 		increment = -global_map->size;
 		screenX = global_map->player->consoleX;
 		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
+			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY - x - 1;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
+			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
+				global_map->player->updateScreen(screenX, screenY, flashChar, color);
 			}
 		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
-		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
-			screenY = global_map->player->consoleY - x - 1;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
-			}
-		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
 	}
 	else if (direction == 2) {
-		increment = global_map->size;
+		increment = -global_map->size;
 		screenX = global_map->player->consoleX;
 		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
+			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY + x + 1;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
+			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
 				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
-		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
-			screenY = global_map->player->consoleY + x + 1;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
-			}
-		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
 	}
 	else if (direction == 3) {
 		increment = -1;
 		screenY = global_map->player->consoleY;
 		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
+			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX - 2 * x - 2;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
+			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
 				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
-		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
-			screenX = global_map->player->consoleX - 2 * x - 2;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
-			}
-		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
 	}
 	else if (direction == 4) {
 		increment = 1;
 		screenY = global_map->player->consoleY;
 		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
+			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX + 2 * x + 2;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
+			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
 				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
 			}
 		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
-		for (int x = 0; x < range; x++) {
-			int flashLocation = global_map->player->location + (x + 1) * increment;
-			screenX = global_map->player->consoleX + 2 * x + 2;
-			if (flashLocation >= 0 && flashLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, global_map->map[flashLocation]->icon, STANDARD);
-			}
-		}
-		SDL_RenderPresent(renderer_g);
-		Sleep(sleepTime);
+	}
+}
+
+// todo: don't render over certain tile like walls
+// Updates the color of the tiles in a line coming from the player
+// Inputs: direction of the line, range of the line, color of the line
+void Spell::updateLineColor(int direction, int range, int color) {
+	int increment = 0;
+	if (direction == 1) {
+		increment = -global_map->size;
+	}
+	else if (direction == 2) {
+		increment = global_map->size;
+	}
+	else if (direction == 3) {
+		increment = -1;
+	}
+	else if (direction == 4) {
+		increment = 1;
+	}
+	for (int x = 0; x < range; x++) {
+		int loc = global_map->player->location;
+		loc += (x + 1) * increment;
+		global_map->map[loc]->color = color;
 	}
 }
 

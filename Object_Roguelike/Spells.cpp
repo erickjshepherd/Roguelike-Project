@@ -1,4 +1,6 @@
+#include "Global_Map.h"
 #include "Spells.h"
+#include "Console.h"
 #include <thread>
 
 Freeze::Freeze() {
@@ -46,10 +48,14 @@ int Freeze::Cast() {
 		return 0;
 	}
 
+	std::thread flashThread(&Freeze::Flash, this);
 	while (selecting == 1) {
-		flashLine(currentDirection, range, 'o');
 		finalEvent = getDirection();
+		ClearScreen();
+		global_map->player->Draw_Player_View();
+		SDL_RenderPresent(renderer_g);
 	}
+	flashThread.join();
 
 	if (finalEvent == EVENT_KEY_ENTER) {
 		dmgLine(currentDirection, range, damage, effect, intensity);
@@ -60,4 +66,17 @@ int Freeze::Cast() {
 		success = 0;
 	}
 	return success;
+}
+
+void Freeze::Flash() {
+	while (selecting == 1) {
+		int direction = currentDirection;
+		updateLineColor(currentDirection, range, CAST);
+		Sleep(200);
+		if (currentDirection != direction) {
+			updateLineColor(direction, range, STANDARD);
+		}
+		updateLineColor(currentDirection, range, STANDARD);
+		Sleep(200);
+	}
 }

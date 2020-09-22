@@ -335,7 +335,7 @@ void Player::Draw_Player_View() {
 				}
 
 				// draw sprite
-				global_map->map[xy]->render(x * 16, y * 16, STANDARD);
+				global_map->map[xy]->render(x * 16, y * 16, global_map->map[xy]->color);
 
 				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
 					break;

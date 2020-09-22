@@ -8,4 +8,5 @@ class Freeze : public Spell {
 		Freeze();
 		Freeze(int location);
 		int Cast();
+		void Flash();
 };
