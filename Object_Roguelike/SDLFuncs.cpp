@@ -3,6 +3,7 @@
 SDL_Surface* winSurface_g;
 SDL_Window* window_g;
 SDL_Renderer* renderer_g;
+std::vector<TTF_Font*> fonts_g;
 
 int SDL_Init() {
 	
@@ -36,6 +37,12 @@ int SDL_Init() {
 	//Initialize PNG loading
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		return 1;
+	}
+
+	//Initialize SDL_ttf
+	if (TTF_Init() == -1)
 	{
 		return 1;
 	}
@@ -113,4 +120,9 @@ int handleEvents() {
 		}
 	}
 	return -1;
+}
+
+void loadFonts() {
+	TTF_Font* font = TTF_OpenFont("Dawnlike Tiles/GUI/SDS_8x8.ttf", 12);
+	fonts_g.push_back(font);
 }

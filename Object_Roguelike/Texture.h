@@ -33,6 +33,7 @@ public:
 	Texture();
 	~Texture();
 	bool loadFromFile(std::string path);
+	bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 	void free();
 	void render(int x, int y, SDL_Rect* clip);

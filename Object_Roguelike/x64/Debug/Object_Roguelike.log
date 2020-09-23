@@ -1,4 +1,64 @@
-﻿  Spells.cpp
+﻿  Armour.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Console.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Enemy.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(379): warning C4101: 'is_viewed': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\enemy.cpp(379): warning C4101: 'was_viewed': unreferenced local variable
+  Exit.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Floor.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Items.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Map.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(565): warning C4101: 'under': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(563): warning C4101: 'location': unreferenced local variable
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(575): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(593): warning C4838: conversion from 'unsigned __int64' to 'SHORT' requires a narrowing conversion
+c:\users\erick\documents\github\roguelike-project\object_roguelike\map.cpp(593): warning C4267: 'initializing': conversion from 'size_t' to 'SHORT', possible loss of data
+  Monsters.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  ObjectRoguelike.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Player.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(707): warning C4101: 'handle': unreferenced local variable
+  SDLFuncs.cpp
+  Spell.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Spells.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Texture.cpp
+  Tile.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+c:\users\erick\documents\github\roguelike-project\object_roguelike\tile.cpp(29): warning C4101: 'e': unreferenced local variable
+  Wall.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Weapon.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Generating Code...
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.cpp(52): warning C4715: 'Texture::loadFromFile': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(64): warning C4715: 'SDL_Init': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(78): warning C4715: 'loadImage': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(999): warning C4715: 'Player::selectSpell': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\monsters.cpp(47): warning C4715: 'Get_Enemy': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\items.cpp(117): warning C4715: 'Get_Item': not all control paths return a value
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

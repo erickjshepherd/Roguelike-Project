@@ -56,6 +56,9 @@ int Freeze::Cast() {
 		SDL_RenderPresent(renderer_g);
 	}
 	flashThread.join();
+	ClearScreen();
+	global_map->player->Draw_Player_View();
+	SDL_RenderPresent(renderer_g);
 
 	if (finalEvent == EVENT_KEY_ENTER) {
 		dmgLine(currentDirection, range, damage, effect, intensity);
