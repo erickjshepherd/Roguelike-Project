@@ -4,6 +4,10 @@ SDL_Surface* winSurface_g;
 SDL_Window* window_g;
 SDL_Renderer* renderer_g;
 std::vector<TTF_Font*> fonts_g;
+SDL_Rect mapView_g;
+SDL_Rect statsView_g;
+SDL_Rect infoView_g;
+SDL_Color textColor_g;
 
 int SDL_Init() {
 	
@@ -55,6 +59,25 @@ int SDL_Init() {
 		system("pause");
 		return 1;
 	}
+
+	// set up viewports
+	mapView_g.x = 0;
+	mapView_g.y = 0;
+	mapView_g.w = SCREEN_WIDTH / 2;
+	mapView_g.h = SCREEN_HEIGHT / 2;
+	statsView_g.x = SCREEN_WIDTH / 2;;
+	statsView_g.y = 0;
+	statsView_g.w = SCREEN_WIDTH / 2;
+	statsView_g.h = SCREEN_HEIGHT / 2;
+	infoView_g.x = 0;
+	infoView_g.y = SCREEN_HEIGHT / 2;
+	infoView_g.w = SCREEN_WIDTH / 2;
+	infoView_g.h = SCREEN_HEIGHT / 2;
+
+	// set up the text color
+	textColor_g.r = 255;
+	textColor_g.g = 255;
+	textColor_g.b = 255;
 
 	// Fill the window with a black rectangle
 	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 0, 0, 0));

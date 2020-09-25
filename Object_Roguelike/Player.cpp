@@ -243,6 +243,8 @@ bool Player::inView() {
 // todo: does this belong in the player class?
 void Player::updateScreen(int X, int Y, char out, int color) {
 
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+
 	short view_size = (short)(view_distance * 2) + 1;
 
 	short x = (short)X;
@@ -312,6 +314,9 @@ void Player::Draw_Player_View() {
 
 	int x, y, xy;
 
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+
 	// clear screen
 	SDL_RenderClear(renderer_g);
 
@@ -335,7 +340,7 @@ void Player::Draw_Player_View() {
 				}
 
 				// draw sprite
-				global_map->map[xy]->render(x * 16, y * 16, global_map->map[xy]->color);
+				global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, global_map->map[xy]->color);
 
 				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
 					break;
@@ -393,6 +398,9 @@ int Player::Move(int direction) {
 	int nextLocation;
 	bool success = false;
 	
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+
 	// get the input and move if able
 	if (direction == EVENT_KEY_UP) {
 
@@ -585,6 +593,9 @@ void Player::drawStats(int line) {
 	COORD position;
 	HANDLE handle;
 
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &statsView_g);
+
 	// y is the line number for each stat
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
@@ -593,35 +604,61 @@ void Player::drawStats(int line) {
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Health: " << health << "   ";
+			std::string healthStr("Health: " + std::to_string(health));
+			Texture text;
+			text.loadFromRenderedText(healthStr, textColor_g);
+			text.render(0, 16, NULL);
 		}
 		else if (y == 1 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Strength: " << strength << "  ";
+			std::cout << "  Strength: " << strength << "   ";
+			std::string strengthStr("Strength: " + std::to_string(strength));
+			Texture text;
+			text.loadFromRenderedText(strengthStr, textColor_g);
+			text.render(0, 32, NULL);
 		}
 		else if (y == 2 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Floor: " << global_map->level << "   ";
+			std::string floorStr("Floor: " + std::to_string(global_map->level));
+			std::cout << floorStr;
+			Texture text;
+			text.loadFromRenderedText(floorStr, textColor_g);
+			text.render(0, 48, NULL);
 		}
 		else if (y == 3 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
+			std::string roomStr("Rooms: " + std::to_string(global_map->actual_total_rooms));
+			std::cout << roomStr;
+			Texture text;
+			text.loadFromRenderedText(roomStr, textColor_g);
+			text.render(0, 64, NULL);
 		}
 		else if (y == 5 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string weaponName;
 			if (weapon != NULL) {
 				std::cout << "  Weapon: " << weapon->name << "   ";
+				weaponName.append(weapon->name);
 			}
 			else {
 				std::cout << "  Weapon: none   ";
+				weaponName.append("none");
 			}
+			std::string weaponStr("Weapon: " + weaponName);
+			std::cout << weaponStr;
+			Texture text;
+			text.loadFromRenderedText(weaponStr, textColor_g);
+			text.render(0, 80, NULL);
 		}
 		else if (y == 6 && (y == line || line == -1)) {
 			position = { x, y };

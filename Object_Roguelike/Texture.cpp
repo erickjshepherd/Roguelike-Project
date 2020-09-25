@@ -93,9 +93,11 @@ void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue) {
 void Texture::render(int x, int y, SDL_Rect* clip = NULL) {
 	SDL_Rect renderQuad = { x, y, width, height };
 
+	int imageScale = TILE_SIZE / 16;
+
 	if (clip != NULL) {
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
+		renderQuad.w = clip->w * imageScale;
+		renderQuad.h = clip->h * imageScale;
 	}
 
 	SDL_RenderCopy(renderer_g, texture, clip, &renderQuad);

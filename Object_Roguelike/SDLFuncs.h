@@ -7,6 +7,7 @@
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
+#define TILE_SIZE 16
 
 enum eventEnums {
 	EVENT_QUIT,
@@ -25,10 +26,20 @@ enum fontEnums {
 	FONT_12
 };
 
+enum viewEnums {
+	MAP,
+	STATS,
+	INFO
+};
+
 extern SDL_Surface* winSurface_g;
 extern SDL_Window* window_g;
 extern SDL_Renderer* renderer_g;
 extern std::vector<TTF_Font*> fonts_g;
+extern SDL_Rect mapView_g;
+extern SDL_Rect statsView_g;
+extern SDL_Rect infoView_g;
+extern SDL_Color textColor_g;
 
 int SDL_Init();
 void SDL_Close();
