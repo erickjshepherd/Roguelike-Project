@@ -32,6 +32,25 @@ enum viewEnums {
 	INFO
 };
 
+#define TEXTSPACE 16
+enum statEnums {
+		BLANK1,
+		HEALTH,
+		STRENGTH,
+		FLOOR,
+		ROOMS,
+		WEAPON,
+		HEAD,
+		CHEST,
+		LEGS,
+		SPELL1,
+		SPELL2,
+		SPELL3,
+		BLANK2,
+		INSPECT,
+		INSPECTINFO
+};
+
 extern SDL_Surface* winSurface_g;
 extern SDL_Window* window_g;
 extern SDL_Renderer* renderer_g;

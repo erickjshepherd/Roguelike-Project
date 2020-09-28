@@ -36,20 +36,7 @@ void Tile::Player_Interact() {
 }
 
 void Tile::Player_Step() {
-	if (description.length() > 0) {
-		global_map->player->underDescribed = 1;
-		global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
-	}
-	else {
-		if (global_map->player->underDescribed == 1) {
-			// todo: make member function
-			global_map->player->underDescribed = 0;
-			short view_size = (short)(global_map->player->view_distance * 2) + 1;
-			short x = 2 * view_size;
-			COORD position = { x, 14 + 1 };
-			ClearLine(position, 30);
-		}
-	}
+	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
 }
 
 void Tile::Spell_Interact(int damage, int effect, int intensity) {
@@ -61,6 +48,9 @@ int Tile::Player_Attack(int damage) {
 }
 
 void Tile::render(int x, int y, int colorIn) {
+
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
 
 	// render the under tile with the same color
 	// todo: add input for only applying color to top layer
@@ -95,10 +85,20 @@ void Tile::drawUnderInfo() {
 	short view_size = (short)(global_map->player->view_distance * 2) + 1;
 	short x = 2 * view_size;
 
-	global_map->player->clearStats(14 + 1);
+	global_map->player->clearStats(INSPECTINFO);
 
 	COORD position = { x, 14 + 1 };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
 	SetConsoleCursorPosition(handle, position);
 	std::cout << "  " << under->description;
+
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &statsView_g);
+
+	// todo: move to draw_stats
+	std::string infoStr;
+	infoStr.append(under->description);
+	Texture text;
+	text.loadFromRenderedText(infoStr, textColor_g);
+	text.render(0, INSPECTINFO * TEXTSPACE, NULL);
 }

@@ -581,7 +581,7 @@ void Player::takeDamage(int amount) {
 		health = health - amount;
 	}
 
-	drawStats(0);
+	drawStats(HEALTH);
 }
 
 // input: The line number that corrosponds to the stat. -1 draws all
@@ -593,13 +593,14 @@ void Player::drawStats(int line) {
 	COORD position;
 	HANDLE handle;
 
-	// set the view port
+	// set and clear the view port
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
+	clearStats(line);
 
 	// y is the line number for each stat
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
-		if (y == 0 && (y == line || line == -1)) {
+		if (y == HEALTH && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
@@ -607,9 +608,9 @@ void Player::drawStats(int line) {
 			std::string healthStr("Health: " + std::to_string(health));
 			Texture text;
 			text.loadFromRenderedText(healthStr, textColor_g);
-			text.render(0, 16, NULL);
+			text.render(0, HEALTH * TEXTSPACE, NULL);
 		}
-		else if (y == 1 && (y == line || line == -1)) {
+		else if (y == STRENGTH && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
@@ -617,31 +618,29 @@ void Player::drawStats(int line) {
 			std::string strengthStr("Strength: " + std::to_string(strength));
 			Texture text;
 			text.loadFromRenderedText(strengthStr, textColor_g);
-			text.render(0, 32, NULL);
+			text.render(0, STRENGTH * TEXTSPACE, NULL);
 		}
-		else if (y == 2 && (y == line || line == -1)) {
+		else if (y == FLOOR && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Floor: " << global_map->level << "   ";
 			std::string floorStr("Floor: " + std::to_string(global_map->level));
-			std::cout << floorStr;
 			Texture text;
 			text.loadFromRenderedText(floorStr, textColor_g);
-			text.render(0, 48, NULL);
+			text.render(0, FLOOR * TEXTSPACE, NULL);
 		}
-		else if (y == 3 && (y == line || line == -1)) {
+		else if (y == ROOMS && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
 			std::string roomStr("Rooms: " + std::to_string(global_map->actual_total_rooms));
-			std::cout << roomStr;
 			Texture text;
 			text.loadFromRenderedText(roomStr, textColor_g);
-			text.render(0, 64, NULL);
+			text.render(0, ROOMS * TEXTSPACE, NULL);
 		}
-		else if (y == 5 && (y == line || line == -1)) {
+		else if (y == WEAPON && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
@@ -655,82 +654,125 @@ void Player::drawStats(int line) {
 				weaponName.append("none");
 			}
 			std::string weaponStr("Weapon: " + weaponName);
-			std::cout << weaponStr;
 			Texture text;
 			text.loadFromRenderedText(weaponStr, textColor_g);
-			text.render(0, 80, NULL);
+			text.render(0, WEAPON * TEXTSPACE, NULL);
 		}
-		else if (y == 6 && (y == line || line == -1)) {
+		else if (y == HEAD && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string headName;
 			if (head != NULL) {
 				std::cout << "  Head: " << head->name << "   ";
+				headName.append(head->name);
 			}
 			else {
 				std::cout << "  Head: none   ";
+				headName.append("none");
 			}
+			std::string headStr("Head: " + headName);
+			Texture text;
+			text.loadFromRenderedText(headStr, textColor_g);
+			text.render(0, HEAD * TEXTSPACE, NULL);
 		}
-		else if (y == 7 && (y == line || line == -1)) {
+		else if (y == CHEST && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string chestName;
 			if (chest != NULL) {
 				std::cout << "  Chest: " << chest->name << "   ";
+				chestName.append(chest->name);
 			}
 			else {
 				std::cout << "  Chest: none   ";
+				chestName.append("none");
 			}
+			std::string chestStr("Chest: " + chestName);
+			Texture text;
+			text.loadFromRenderedText(chestStr, textColor_g);
+			text.render(0, CHEST * TEXTSPACE, NULL);
 		}
-		else if (y == 8 && (y == line || line == -1)) {
+		else if (y == LEGS && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string legName;
 			if (legs != NULL) {
 				std::cout << "  Legs: " << legs->name << "   ";
+				legName.append(legs->name);
 			}
 			else {
 				std::cout << "  Legs: none   ";
+				legName.append("none");
 			}
+			std::string legStr("Legs: " + legName);
+			Texture text;
+			text.loadFromRenderedText(legStr, textColor_g);
+			text.render(0, LEGS * TEXTSPACE, NULL);
 		}
-		else if (y == 10 && (y == line || line == -1)) {
+		else if (y == SPELL1 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string spellName;
 			if (spell1 != NULL) {
 				std::cout << "  Spell 1 (" << spell1->cdCount << "): " << spell1->name << "   ";
+				spellName.append("Spell 1 (" + std::to_string(spell1->cdCount) + "): " + spell1->name);
 			}
 			else {
 				std::cout << "  Spell 1: none       ";
+				spellName.append("Spell 1: none");
 			}
+			Texture text;
+			text.loadFromRenderedText(spellName, textColor_g);
+			text.render(0, SPELL1 * TEXTSPACE, NULL);
 		}
-		else if (y == 11 && (y == line || line == -1)) {
+		else if (y == SPELL2 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string spellName;
 			if (spell2 != NULL) {
 				std::cout << "  Spell 2 (" << spell2->cdCount << "): " << spell2->name << "   ";
+				spellName.append("Spell 2 (" + std::to_string(spell2->cdCount) + "): " + spell2->name);
 			}
 			else {
 				std::cout << "  Spell 2: none       ";
+				spellName.append("Spell 2: none");
 			}
+			Texture text;
+			text.loadFromRenderedText(spellName, textColor_g);
+			text.render(0, SPELL2 * TEXTSPACE, NULL);
 		}
-		else if (y == 12 && (y == line || line == -1)) {
+		else if (y == SPELL3 && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
+			std::string spellName;
 			if (spell3 != NULL) {
 				std::cout << "  Spell 3 (" << spell3->cdCount << "): " << spell3->name << "   ";
+				spellName.append("Spell 3 (" + std::to_string(spell3->cdCount) + "): " + spell3->name);
 			}
 			else {
 				std::cout << "  Spell 3: none       ";
+				spellName.append("Spell 3: none");
 			}
+			Texture text;
+			text.loadFromRenderedText(spellName, textColor_g);
+			text.render(0, SPELL3 * TEXTSPACE, NULL);
 		}
-		else if (y == 14 && (y == line || line == -1)) {
+		else if (y == INSPECT && (y == line || line == -1)) {
 			position = { x, y };
 			handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(handle, position);
 			std::cout << "  Inspection:";
+			std::string inspectStr;
+			inspectStr.append("Inspection:");
+			Texture text;
+			text.loadFromRenderedText(inspectStr, textColor_g);
+			text.render(0, INSPECT * TEXTSPACE, NULL);
 		}
 	}
 }
@@ -743,58 +785,108 @@ void Player::clearStats(int line) {
 	COORD position;
 	HANDLE handle;
 
+	SDL_Rect rect;
+	rect.x = statsView_g.x;
+	rect.h = 16;
+	rect.w = statsView_g.w;
+
 	// y is the line number for each stat
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
-		if (y == 0 && (y == line || line == -1)) {
-			position = { x, y };
+		if (y == HEALTH && (y == line || line == -1)) {
+			position = { x, HEALTH };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * HEALTH;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 1 && (y == line || line == -1)) {
+		else if (y == STRENGTH && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * STRENGTH;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 2 && (y == line || line == -1)) {
+		else if (y == FLOOR && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * FLOOR;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 3 && (y == line || line == -1)) {
+		else if (y == ROOMS && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * ROOMS;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 5 && (y == line || line == -1)) {
+		else if (y == WEAPON && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * WEAPON;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 6 && (y == line || line == -1)) {
+		else if (y == HEAD && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * HEAD;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 7 && (y == line || line == -1)) {
+		else if (y == CHEST && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * CHEST;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 8 && (y == line || line == -1)) {
+		else if (y == LEGS && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * LEGS;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 10 && (y == line || line == -1)) {
+		else if (y == SPELL1 && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * SPELL1;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 11 && (y == line || line == -1)) {
+		else if (y == SPELL2 && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * SPELL2;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 12 && (y == line || line == -1)) {
+		else if (y == SPELL3 && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * SPELL3;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
-		else if (y == 14 && (y == line || line == -1)) {
+		else if (y == INSPECT && (y == line || line == -1)) {
 			position = { x, y };
 			ClearLine(position, 30);
+			rect.y = TEXTSPACE * INSPECT;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
+		}
+		else if (y == INSPECTINFO && (y == line || line == -1)) {
+			position = { x, y };
+			ClearLine(position, 30);
+			rect.y = TEXTSPACE * INSPECTINFO;
+			SDL_RenderSetViewport(renderer_g, &rect);
+			SDL_RenderFillRect(renderer_g, NULL);
 		}
 	}
+
+	SDL_RenderSetViewport(renderer_g, &statsView_g);
 }
 
 bool Player::attack(int direction) {
@@ -987,19 +1079,19 @@ void Player::decreaseSpellCD() {
 	if (spell1 != NULL) {
 		if (spell1->cdCount > 0) {
 			spell1->cdCount--;
-			drawStats(10);
+			drawStats(SPELL1);
 		}
 	}
 	if (spell2 != NULL) {
 		if (spell2->cdCount > 0) {
 			spell2->cdCount--;
-			drawStats(11);
+			drawStats(SPELL2);
 		}
 	}
 	if (spell3 != NULL) {
 		if (spell3->cdCount > 0) {
 			spell3->cdCount--;
-			drawStats(12);
+			drawStats(SPELL3);
 		}
 	}
 }
@@ -1037,13 +1129,13 @@ int Player::selectSpell() {
 
 void Player::flashSpells() {
 	int sleepTime = 200;
-	clearStats(10);
-	clearStats(11);
-	clearStats(12);
+	clearStats(SPELL1);
+	clearStats(SPELL2);
+	clearStats(SPELL3);
 	Sleep(sleepTime);
-	drawStats(10);
-	drawStats(11);
-	drawStats(12);
+	drawStats(SPELL1);
+	drawStats(SPELL2);
+	drawStats(SPELL3);
 	Sleep(sleepTime);
 }
 

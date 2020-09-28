@@ -1,6 +1,5 @@
-﻿  Player.cpp
+﻿  Tile.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(744): warning C4101: 'handle': unreferenced local variable
-c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(1036): warning C4715: 'Player::selectSpell': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\tile.cpp(29): warning C4101: 'e': unreferenced local variable
   Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

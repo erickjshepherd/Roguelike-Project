@@ -101,6 +101,10 @@ bool loadImage(SDL_Texture* &image, std::string path) {
 }
 
 void SDL_Close() {
+	while (!fonts_g.empty()) {
+		delete fonts_g.back();
+	}
+	fonts_g.pop_back();
 	SDL_FreeSurface(winSurface_g);
 	winSurface_g = NULL;
 	SDL_DestroyRenderer(renderer_g);
@@ -108,6 +112,7 @@ void SDL_Close() {
 	SDL_DestroyWindow(window_g);
 	window_g = NULL;
 
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
