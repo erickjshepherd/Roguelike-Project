@@ -6,6 +6,8 @@
 #include <string>
 #include "Enemy.h"
 
+#define NUM_EVENTS 5
+
 class Map{
 
 public:
@@ -53,6 +55,7 @@ private:
 	void Spawn_Items();
 	void convertToClasses();
 	void setWallSprites();
+	void clearEvents();
 
 };
 

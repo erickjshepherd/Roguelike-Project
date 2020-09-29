@@ -47,9 +47,6 @@ public:
 	// take damage
 	void takeDamage(int amount);
 
-	// get screen coordinates
-	void onScreen(int* X, int* Y);
-
 	// player interaction
 	int Player_Attack(int damage);
 

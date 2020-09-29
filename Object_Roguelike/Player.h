@@ -23,6 +23,7 @@ public:
 	int strength;
 	int extraTurns;
 	int quit;
+	int damaged; // damaged this turn
 
 	// player objects
 	Weapon* weapon;
@@ -63,7 +64,6 @@ public:
 	void flashChar(char flash);
 	void decreaseSpellCD();
 	int selectSpell();
-	void flashSpells();
 
 	int getMapSize();
 	int getTotalRooms();

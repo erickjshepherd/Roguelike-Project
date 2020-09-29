@@ -23,6 +23,7 @@ Spell::~Spell() {
 
 // todo: create proper setters for the spells
 void Spell::Player_Interact() {
+	int spellNum;
 	int resolved = 0;
 	while (resolved == 0) {
 		resolved = 1;
@@ -30,41 +31,71 @@ void Spell::Player_Interact() {
 			global_map->player->under = this->under;
 			this->under = NULL;
 			global_map->player->spell1 = this;
-			global_map->player->drawStats(10);
+			global_map->player->drawStats(SPELL1);
 		}
 		else if (global_map->player->spell2 == NULL) {
 			global_map->player->under = this->under;
 			this->under = NULL;
 			global_map->player->spell2 = this;
-			global_map->player->drawStats(11);
+			global_map->player->drawStats(SPELL2);
 		}
 		else if (global_map->player->spell3 == NULL) {
 			global_map->player->under = this->under;
 			this->under = NULL;
 			global_map->player->spell3 = this;
-			global_map->player->drawStats(12);
+			global_map->player->drawStats(SPELL3);
 		}
 		else {
 			resolved = 0;
 			std::string event("No more spells can be learned. Select a spell to forget.");
 			global_map->Add_Event(event);
 			global_map->Draw_Events();
+
 			selecting = 1;
-			//std::thread flashThread(&Spell::flashSpellsThread, this);
-			int spellNum = global_map->player->selectSpell();
-			selecting = 0;
-			//flashThread.join();
-			if (spellNum == 1) {
-				global_map->player->spell1 = NULL;
+			int visible = 1;
+			while (selecting == 1) {
+				if (visible == 0) {
+					global_map->player->drawStats(SPELL1);
+					global_map->player->drawStats(SPELL2);
+					global_map->player->drawStats(SPELL3);
+					visible = 1;
+				}
+				else {
+					global_map->player->clearStats(SPELL1);
+					global_map->player->clearStats(SPELL2);
+					global_map->player->clearStats(SPELL3);
+					visible = 0;
+				}
+				spellNum = handleEvents();
+				if (spellNum == EVENT_KEY_1 || spellNum == EVENT_KEY_2 || spellNum == EVENT_KEY_3 || spellNum == EVENT_KEY_ESC) {
+					selecting = 0;
+					resolved = 1;
+				}
+				SDL_RenderPresent(renderer_g);
+				Sleep(200);
 			}
-			else if (spellNum == 2) {
-				global_map->player->spell2 = NULL;
+			global_map->player->drawStats(SPELL1);
+			global_map->player->drawStats(SPELL2);
+			global_map->player->drawStats(SPELL3);
+			SDL_RenderPresent(renderer_g);
+
+			if (spellNum == EVENT_KEY_1) {
+				global_map->player->under = global_map->player->spell1;
+				global_map->player->under->under = this->under;
+				global_map->player->spell1 = this;
+				global_map->player->drawStats(SPELL1);
 			}
-			else if (spellNum == 3) {
-				global_map->player->spell3 = NULL;
+			else if (spellNum == EVENT_KEY_2) {
+				global_map->player->under = global_map->player->spell2;
+				global_map->player->under->under = this->under;
+				global_map->player->spell2 = this;
+				global_map->player->drawStats(SPELL2);
 			}
-			else {
-				resolved = 1;
+			else if (spellNum == EVENT_KEY_3) {
+				global_map->player->under = global_map->player->spell2;
+				global_map->player->under->under = this->under;
+				global_map->player->spell2 = this;
+				global_map->player->drawStats(SPELL2);
 			}
 		}
 	}

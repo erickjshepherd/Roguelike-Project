@@ -580,7 +580,7 @@ void Map::Enemy_Turn() {
 
 void Map::Add_Event(std::string event) {
 	this->events.push_back(event);
-	if (this->events.size() > 5) {
+	if (this->events.size() > NUM_EVENTS) {
 		this->events.pop_front();
 	}
 }
@@ -590,18 +590,30 @@ void Map::Draw_Events() {
 	short view_size = (short)(this->player->view_distance * 2) + 1;
 	
 	// set console cursor
-	COORD position = {0, view_size + 1 + (5-this->events.size())};
+	COORD position = {0, view_size + 1 + (NUM_EVENTS-this->events.size())};
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(handle, position);
 
+	clearEvents();
+
+	int eventY = TEXTSPACE;
 	for (current = this->events.begin(); current != this->events.end(); current++) {
 		std::cout << *current << "                                     " << std::endl;
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g);
+		text.render(0, eventY, NULL);
+		eventY += TEXTSPACE;
 	}
 
 	// set console cursor
 	position = { view_size, view_size };
 	handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(handle, position);
+}
+
+void Map::clearEvents() {
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	SDL_RenderFillRect(renderer_g, NULL);
 }
 
 int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {

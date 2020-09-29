@@ -57,7 +57,7 @@ extern SDL_Renderer* renderer_g;
 extern std::vector<TTF_Font*> fonts_g;
 extern SDL_Rect mapView_g;
 extern SDL_Rect statsView_g;
-extern SDL_Rect infoView_g;
+extern SDL_Rect eventsView_g;
 extern SDL_Color textColor_g;
 
 int SDL_Init();

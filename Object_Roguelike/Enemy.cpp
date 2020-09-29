@@ -317,8 +317,8 @@ void Enemy::attackPlayer() {
 }
 
 void Enemy::takeDamage(int amount) {
-	// draw the attack symbol on the enemy
-	flashChar(global_map->player->attack_char);
+	// flash the enemy sprite
+	flash(RED, 100);
 
 	// update health
 	health = health - amount;
@@ -446,42 +446,6 @@ void Enemy::enemyTurn() {
 		if (moveResult == -1) {
 		}
 	}
-}
-
-// returns coordinates if the enemy is on the screen
-void Enemy::onScreen(int* X, int* Y) {
-	
-	int view_start = global_map->player->view_start;
-	int view_distance = global_map->player->view_distance;
-	int size = global_map->size;
-	int x, y, xy;
-
-	// get the width of the square to draw
-	int view_size = (view_distance * 2) + 1;
-
-	for (y = 0; y < view_size; y++) {
-
-		for (x = 0; x < view_size; x++) {
-
-			xy = view_start;
-			xy += y * size;
-			xy += x;
-
-			if (xy >= 0 && xy < (size * size)) {
-
-				if (global_map->map[xy] == this) {
-
-					*X = x * 2;
-					*Y = y;
-					return;
-				}
-			}
-		}
-	}
-
-	*X = -1;
-	*Y = -1;
-	return;
 }
 
 int Enemy::Player_Attack(int damage) {

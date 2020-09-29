@@ -27,6 +27,9 @@ public:
 
 	// other functions
 	void drawUnderInfo();
+	void flash(int colorIn, int delay);
+	// get screen coordinates
+	void onScreen(int* X, int* Y);
 
 	// properties
 	bool blocking;

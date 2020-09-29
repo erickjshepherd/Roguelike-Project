@@ -124,6 +124,12 @@ void loadTileSets() {
 		tileSetCast->loadFromFile(tilePaths[x]);
 		tileSetCast->setColor(CASTR, CASTG, CASTB);
 		tileSets_g.push_back(tileSetCast);
+
+		// red tiles
+		Texture* tileSetRed = new Texture();
+		tileSetRed->loadFromFile(tilePaths[x]);
+		tileSetRed->setColor(255, 0, 0);
+		tileSets_g.push_back(tileSetRed);
 	}
 }
 

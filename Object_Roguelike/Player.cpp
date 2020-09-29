@@ -58,6 +58,7 @@ Player::Player(){
 // reads key input and selects a direction to move
 void Player::turn() {
 
+	damaged = 0;
 	int nextLocation = 0;
 	int validKey = 0;
 	int eventValue;
@@ -249,9 +250,8 @@ void Player::updateScreen(int X, int Y, char out, int color) {
 
 	short x = (short)X;
 	short y = (short)Y;
-	int realX = X / 2;
 
-	if (X >= view_size * 2 || X < 0) {
+	if (X >= view_size || X < 0) {
 		return;
 	}
 	if (Y >= view_size || Y < 0) {
@@ -260,12 +260,12 @@ void Player::updateScreen(int X, int Y, char out, int color) {
 
 	// update sprite
 	int loc = view_start;
-	loc += realX;
+	loc += X;
 	loc += y * global_map->size;
-	global_map->map[loc]->render(realX * 16, Y * 16, color);
+	global_map->map[loc]->render(X * 16, Y * 16, color);
 
 	// set console cursor
-	COORD position = { x, y };
+	COORD position = { x * 2, y };
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(handle, position);
 
@@ -300,7 +300,7 @@ void Player::setCoordinates() {
 				
 				if (global_map->map[xy] == this) {
 
-					consoleX = 2 * x;
+					consoleX = x;
 					consoleY = y;
 				}
 			}
@@ -572,7 +572,11 @@ int Player::getDamage(int x, int y){
 // handles logic for the player taking damage
 // input: the amount of damage to take
 void Player::takeDamage(int amount) {
-	flashChar(attack_char);
+	// only flash once per turn
+	if (damaged != 1) {
+		flash(RED, 100);
+		damaged = 1;
+	}
 	if (health < amount) {
 		health = 0;
 		// player is dead
@@ -580,7 +584,6 @@ void Player::takeDamage(int amount) {
 	else {
 		health = health - amount;
 	}
-
 	drawStats(HEALTH);
 }
 
@@ -1125,18 +1128,6 @@ int Player::selectSpell() {
 			validKey = 0;
 		}
 	}
-}
-
-void Player::flashSpells() {
-	int sleepTime = 200;
-	clearStats(SPELL1);
-	clearStats(SPELL2);
-	clearStats(SPELL3);
-	Sleep(sleepTime);
-	drawStats(SPELL1);
-	drawStats(SPELL2);
-	drawStats(SPELL3);
-	Sleep(sleepTime);
 }
 
 // destructor

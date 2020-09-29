@@ -12,6 +12,7 @@ Slime::Slime() {
 	location = 0;
 	loot[0] = 0; // 1/10 to drop dagger
 	loot[1] = 1; // 1/10 to drop freeze
+	loot[2] = 1; // 1/10 to drop freeze
 	spritePath = SLIMEPATH;
 	spriteType = 24;
 	spriteSheetW = 6;
