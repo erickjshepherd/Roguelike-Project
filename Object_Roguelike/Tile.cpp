@@ -35,6 +35,9 @@ void Tile::Player_Interact() {
 }
 
 void Tile::Player_Step() {
+	if (under != NULL) {
+		under->Player_Step();
+	}
 	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
 }
 

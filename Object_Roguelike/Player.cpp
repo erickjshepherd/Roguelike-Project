@@ -42,14 +42,7 @@ Player::Player(){
 	// set map and location variables
 	underDescribed = 0;
 	view_distance = 10;
-	consoleX = view_distance * 2;
-	consoleY = view_distance;
-	view_start = location - view_distance;
-	view_start = view_start - (size * view_distance);
-	while ((view_start % size) > (location % size) || view_start < 0) {
-		view_start++;
-	}
-
+	
 	weapon = new dagger();
 }
 
@@ -62,6 +55,9 @@ void Player::turn() {
 	int validKey = 0;
 	int eventValue;
 	int move_success, attack_success;
+
+	// keep screen coordinates up to date
+	setCoordinates();
 
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
@@ -350,7 +346,10 @@ void Player::Get_New_Level(int level) {
 		consoleY = view_distance;
 		view_start = location - view_distance;
 		view_start = view_start - (global_map->size * view_distance);
-		while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
+		while (view_start < 0) {
+			view_start += global_map->size;
+		}
+		while ((view_start % global_map->size) > (location % global_map->size)) {
 			view_start++;
 		}
 
@@ -391,15 +390,13 @@ int Player::Move(int direction) {
 			// update map
 			global_map->map[location - global_map->size] = this;
 			global_map->map[location] = under;
+			under = new_under;
 			location -= global_map->size;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
 			updateScreen(consoleX, consoleY, color);
-
-			// set the new under tile
-			under = new_under;
 
 			// update camera position and redraw screen
 			if (inView() == false) {
@@ -429,15 +426,13 @@ int Player::Move(int direction) {
 
 			global_map->map[location + global_map->size] = this;
 			global_map->map[location] = under;
+			under = new_under;
 			location += global_map->size;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
 			updateScreen(consoleX, consoleY, color);
-
-			// set the under tile
-			under = new_under;
 
 			if (inView() == false) {
 
@@ -462,15 +457,13 @@ int Player::Move(int direction) {
 
 			global_map->map[location - 1] = this;
 			global_map->map[location] = under;
+			under = new_under;
 			location--;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
 			updateScreen(consoleX, consoleY, color);
-
-			// update the under tile
-			under = new_under;
 
 			if (inView() == false) {
 
@@ -495,14 +488,13 @@ int Player::Move(int direction) {
 
 			global_map->map[location + 1] = this;
 			global_map->map[location] = under;
+			under = new_under;
 			location++;
 
 			// update console and console coordinates
 			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
 			updateScreen(consoleX, consoleY, color);
-
-			under = new_under;
 
 			if (inView() == false) {
 
