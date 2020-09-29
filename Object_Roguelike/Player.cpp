@@ -7,7 +7,6 @@
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
-#include "Console.h"
 #include <list>
 #include "Items.h"
 
@@ -242,7 +241,7 @@ bool Player::inView() {
 // update the screen at specific coordinates
 // inputs: X and Y are console coordinates, out is printed there
 // todo: does this belong in the player class?
-void Player::updateScreen(int X, int Y, char out, int color) {
+void Player::updateScreen(int X, int Y, int color) {
 
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
 
@@ -263,20 +262,6 @@ void Player::updateScreen(int X, int Y, char out, int color) {
 	loc += X;
 	loc += y * global_map->size;
 	global_map->map[loc]->render(X * 16, Y * 16, color);
-
-	// set console cursor
-	COORD position = { x * 2, y };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
-
-	// print the character
-	std::cout << out;
-
-	// set console cursor
-	position = { view_size, view_size };
-	handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
-
 }
 
 // set the player screen coordinates
@@ -333,12 +318,6 @@ void Player::Draw_Player_View() {
 
 			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 
-				if (Acceptable(global_map->map[xy]->icon)) {
-
-					std::cout << global_map->map[xy]->icon;
-					std::cout << ' ';
-				}
-
 				// draw sprite
 				global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, global_map->map[xy]->color);
 
@@ -347,7 +326,6 @@ void Player::Draw_Player_View() {
 				}
 			}
 		}
-		std::cout << std::endl;
 	}
 	drawStats(-1);
 	global_map->Draw_Events();
@@ -387,7 +365,6 @@ void Player::Get_New_Level(int level) {
 	}
 
 	// update the screen
-	ClearScreen();
 	Draw_Player_View();
 }
 
@@ -417,9 +394,9 @@ int Player::Move(int direction) {
 			location -= global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon, color);
+			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon, color);
+			updateScreen(consoleX, consoleY, color);
 
 			// set the new under tile
 			under = new_under;
@@ -434,8 +411,6 @@ int Player::Move(int direction) {
 				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
 					view_start++;
 				}
-
-				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
 			}
@@ -457,9 +432,9 @@ int Player::Move(int direction) {
 			location += global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon, color);
+			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon, color);
+			updateScreen(consoleX, consoleY, color);
 
 			// set the under tile
 			under = new_under;
@@ -470,7 +445,6 @@ int Player::Move(int direction) {
 				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
 					view_start++;
 				}
-				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
 			}
@@ -491,9 +465,9 @@ int Player::Move(int direction) {
 			location--;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon, color);
+			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon, color);
+			updateScreen(consoleX, consoleY, color);
 
 			// update the under tile
 			under = new_under;
@@ -504,7 +478,6 @@ int Player::Move(int direction) {
 				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
 					view_start++;
 				}
-				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
 			}
@@ -525,9 +498,9 @@ int Player::Move(int direction) {
 			location++;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, under->icon, color);
+			updateScreen(consoleX, consoleY, color);
 			setCoordinates();
-			updateScreen(consoleX, consoleY, icon, color);
+			updateScreen(consoleX, consoleY, color);
 
 			under = new_under;
 
@@ -537,7 +510,6 @@ int Player::Move(int direction) {
 				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
 					view_start++;
 				}
-				ClearScreen();
 				Draw_Player_View();
 				setCoordinates();
 			}
@@ -593,9 +565,6 @@ void Player::drawStats(int line) {
 	short x = 2 * view_size;
 	short y;
 
-	COORD position;
-	HANDLE handle;
-
 	// set and clear the view port
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
 	clearStats(line);
@@ -604,56 +573,35 @@ void Player::drawStats(int line) {
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
 		if (y == HEALTH && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Health: " << health << "   ";
 			std::string healthStr("Health: " + std::to_string(health));
 			Texture text;
 			text.loadFromRenderedText(healthStr, textColor_g);
 			text.render(0, HEALTH * TEXTSPACE, NULL);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Strength: " << strength << "   ";
 			std::string strengthStr("Strength: " + std::to_string(strength));
 			Texture text;
 			text.loadFromRenderedText(strengthStr, textColor_g);
 			text.render(0, STRENGTH * TEXTSPACE, NULL);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Floor: " << global_map->level << "   ";
 			std::string floorStr("Floor: " + std::to_string(global_map->level));
 			Texture text;
 			text.loadFromRenderedText(floorStr, textColor_g);
 			text.render(0, FLOOR * TEXTSPACE, NULL);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Rooms: " << global_map->actual_total_rooms << "   ";
 			std::string roomStr("Rooms: " + std::to_string(global_map->actual_total_rooms));
 			Texture text;
 			text.loadFromRenderedText(roomStr, textColor_g);
 			text.render(0, ROOMS * TEXTSPACE, NULL);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string weaponName;
 			if (weapon != NULL) {
-				std::cout << "  Weapon: " << weapon->name << "   ";
 				weaponName.append(weapon->name);
 			}
 			else {
-				std::cout << "  Weapon: none   ";
 				weaponName.append("none");
 			}
 			std::string weaponStr("Weapon: " + weaponName);
@@ -662,16 +610,11 @@ void Player::drawStats(int line) {
 			text.render(0, WEAPON * TEXTSPACE, NULL);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string headName;
 			if (head != NULL) {
-				std::cout << "  Head: " << head->name << "   ";
 				headName.append(head->name);
 			}
 			else {
-				std::cout << "  Head: none   ";
 				headName.append("none");
 			}
 			std::string headStr("Head: " + headName);
@@ -680,16 +623,11 @@ void Player::drawStats(int line) {
 			text.render(0, HEAD * TEXTSPACE, NULL);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string chestName;
 			if (chest != NULL) {
-				std::cout << "  Chest: " << chest->name << "   ";
 				chestName.append(chest->name);
 			}
 			else {
-				std::cout << "  Chest: none   ";
 				chestName.append("none");
 			}
 			std::string chestStr("Chest: " + chestName);
@@ -698,16 +636,11 @@ void Player::drawStats(int line) {
 			text.render(0, CHEST * TEXTSPACE, NULL);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string legName;
 			if (legs != NULL) {
-				std::cout << "  Legs: " << legs->name << "   ";
 				legName.append(legs->name);
 			}
 			else {
-				std::cout << "  Legs: none   ";
 				legName.append("none");
 			}
 			std::string legStr("Legs: " + legName);
@@ -716,16 +649,11 @@ void Player::drawStats(int line) {
 			text.render(0, LEGS * TEXTSPACE, NULL);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string spellName;
 			if (spell1 != NULL) {
-				std::cout << "  Spell 1 (" << spell1->cdCount << "): " << spell1->name << "   ";
 				spellName.append("Spell 1 (" + std::to_string(spell1->cdCount) + "): " + spell1->name);
 			}
 			else {
-				std::cout << "  Spell 1: none       ";
 				spellName.append("Spell 1: none");
 			}
 			Texture text;
@@ -733,16 +661,11 @@ void Player::drawStats(int line) {
 			text.render(0, SPELL1 * TEXTSPACE, NULL);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string spellName;
 			if (spell2 != NULL) {
-				std::cout << "  Spell 2 (" << spell2->cdCount << "): " << spell2->name << "   ";
 				spellName.append("Spell 2 (" + std::to_string(spell2->cdCount) + "): " + spell2->name);
 			}
 			else {
-				std::cout << "  Spell 2: none       ";
 				spellName.append("Spell 2: none");
 			}
 			Texture text;
@@ -750,16 +673,11 @@ void Player::drawStats(int line) {
 			text.render(0, SPELL2 * TEXTSPACE, NULL);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
 			std::string spellName;
 			if (spell3 != NULL) {
-				std::cout << "  Spell 3 (" << spell3->cdCount << "): " << spell3->name << "   ";
 				spellName.append("Spell 3 (" + std::to_string(spell3->cdCount) + "): " + spell3->name);
 			}
 			else {
-				std::cout << "  Spell 3: none       ";
 				spellName.append("Spell 3: none");
 			}
 			Texture text;
@@ -767,10 +685,6 @@ void Player::drawStats(int line) {
 			text.render(0, SPELL3 * TEXTSPACE, NULL);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
-			position = { x, y };
-			handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleCursorPosition(handle, position);
-			std::cout << "  Inspection:";
 			std::string inspectStr;
 			inspectStr.append("Inspection:");
 			Texture text;
@@ -797,92 +711,66 @@ void Player::clearStats(int line) {
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
 		if (y == HEALTH && (y == line || line == -1)) {
-			position = { x, HEALTH };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * HEALTH;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * STRENGTH;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * FLOOR;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * ROOMS;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * WEAPON;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * HEAD;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * CHEST;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * LEGS;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * SPELL1;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * SPELL2;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * SPELL3;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * INSPECT;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == INSPECTINFO && (y == line || line == -1)) {
-			position = { x, y };
-			ClearLine(position, 30);
 			rect.y = TEXTSPACE * INSPECTINFO;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
@@ -1068,14 +956,6 @@ int Player::getMinTunnelSize() {
 
 int Player::getRoomOverlap() {
 	return roomOverlap;
-}
-
-void Player::flashChar(char flash) {
-	if (consoleX != -1 && consoleY != -1) {
-		global_map->player->updateScreen(consoleX, consoleY, flash, color);
-		Sleep(100);
-		global_map->player->updateScreen(consoleX, consoleY, global_map->map[location]->icon, color);
-	}
 }
 
 void Player::decreaseSpellCD() {

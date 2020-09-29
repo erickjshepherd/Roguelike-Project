@@ -2,7 +2,6 @@
 #include "Tile.h"
 #include "Global_Map.h"
 #include "Texture.h"
-#include "Console.h"
 #include <iostream>
 #include <conio.h>
 
@@ -162,15 +161,11 @@ void Tile::onScreen(int* X, int* Y) {
 }
 
 void Tile::drawUnderInfo() {
-	short view_size = (short)(global_map->player->view_distance * 2) + 1;
-	short x = 2 * view_size;
-
 	global_map->player->clearStats(INSPECTINFO);
 
-	COORD position = { x, 14 + 1 };
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);;
-	SetConsoleCursorPosition(handle, position);
-	std::cout << "  " << under->description;
+	if (under->description.length() <= 0) {
+		return;
+	}
 
 	// set the view port
 	SDL_RenderSetViewport(renderer_g, &statsView_g);

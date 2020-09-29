@@ -14,7 +14,6 @@
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
-#include "Console.h"
 #include "Floor.h"
 #include "Wall.h"
 #include "Exit.h"
@@ -587,28 +586,15 @@ void Map::Add_Event(std::string event) {
 
 void Map::Draw_Events() {
 	std::list<std::string>::iterator current;
-	short view_size = (short)(this->player->view_distance * 2) + 1;
-	
-	// set console cursor
-	COORD position = {0, view_size + 1 + (NUM_EVENTS-this->events.size())};
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
 
 	clearEvents();
-
 	int eventY = TEXTSPACE;
 	for (current = this->events.begin(); current != this->events.end(); current++) {
-		std::cout << *current << "                                     " << std::endl;
 		Texture text;
 		text.loadFromRenderedText(*current, textColor_g);
 		text.render(0, eventY, NULL);
 		eventY += TEXTSPACE;
 	}
-
-	// set console cursor
-	position = { view_size, view_size };
-	handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(handle, position);
 }
 
 void Map::clearEvents() {

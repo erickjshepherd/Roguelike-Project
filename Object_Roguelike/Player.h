@@ -50,7 +50,7 @@ public:
 	int getStart(int type);
 	void turn();
 	bool inView();
-	void updateScreen(int X, int Y, char out, int color);
+	void updateScreen(int X, int Y, int color);
 	void setCoordinates();
 	void Draw_Player_View();
 	void drawStats(int line);
@@ -61,7 +61,6 @@ public:
 	int Move(int direction);
 	int getDamage(int x, int y);
 	bool attack(int direction);
-	void flashChar(char flash);
 	void decreaseSpellCD();
 	int selectSpell();
 

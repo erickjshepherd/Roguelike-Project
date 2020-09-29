@@ -52,8 +52,5 @@ public:
 
 	// spell interaction
 	void Spell_Interact(int damage, int effect, int intensity);
-
-	// flash a char
-	void flashChar(char flash);
 };
 

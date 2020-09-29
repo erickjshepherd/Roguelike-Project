@@ -7,7 +7,6 @@
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
-#include "Console.h"
 #include <queue>
 #include <vector>
 #include "Monsters.h"
@@ -185,11 +184,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 
 			return 1;
@@ -218,11 +217,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 
 			return 1;
@@ -251,11 +250,11 @@ int Enemy::Move(int direction) {
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 
 			return 1;
@@ -284,11 +283,11 @@ int Enemy::Move(int direction) {
 			
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[lastLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, global_map->map[nextLocation]->icon, color);
+				global_map->player->updateScreen(x, y, color);
 			}
 
 			return 1;
@@ -355,7 +354,7 @@ void Enemy::takeDamage(int amount) {
 		global_map->map[location] = under;
 		// update the screen
 		if (x != -1) {
-			global_map->player->updateScreen(x, y, global_map->map[location]->icon, color);
+			global_map->player->updateScreen(x, y, color);
 		}
 		event.append(" and dies.");
 		under = nullptr;
@@ -376,7 +375,6 @@ void Enemy::takeDamage(int amount) {
 void Enemy::enemyTurn() {
 	
 	int moveResult;
-	int was_viewed, is_viewed;
 
 	// Handle frozen + burn
 	if (frozenLength > 0 && burnedLength > 0) {
@@ -455,9 +453,7 @@ int Enemy::Player_Attack(int damage) {
 
 void Enemy::Spell_Interact(int damage, int effect, int length) {
 	
-	if (effect == 0) {
-		takeDamage(damage);
-	}
+	takeDamage(damage);
 
 	if (effect == 1) {
 		std::string event("A ");
@@ -512,16 +508,3 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 		allied = length;
 	}
 }
-
-// draws the input char and then redraws the original char
-void Enemy::flashChar(char flash) {
-	int x, y;
-
-	onScreen(&x, &y);
-	if (x != -1 && y != -1) {
-		global_map->player->updateScreen(x, y, flash, color);
-		Sleep(100);
-		global_map->player->updateScreen(x, y, global_map->map[location]->icon, color);
-	}
-}
-

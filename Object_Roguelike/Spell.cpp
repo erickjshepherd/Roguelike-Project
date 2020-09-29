@@ -135,7 +135,7 @@ void Spell::renderLine(int direction, int range, char flashChar) {
 			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY - x - 1;
 			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar, color);
+				global_map->player->updateScreen(screenX, screenY, color);
 			}
 		}
 	}
@@ -146,7 +146,7 @@ void Spell::renderLine(int direction, int range, char flashChar) {
 			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenY = global_map->player->consoleY + x + 1;
 			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
+				global_map->player->updateScreen(screenX, screenY, CAST);
 			}
 		}
 	}
@@ -157,7 +157,7 @@ void Spell::renderLine(int direction, int range, char flashChar) {
 			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX - 2 * x - 2;
 			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
+				global_map->player->updateScreen(screenX, screenY, CAST);
 			}
 		}
 	}
@@ -168,7 +168,7 @@ void Spell::renderLine(int direction, int range, char flashChar) {
 			int renderLocation = global_map->player->location + (x + 1) * increment;
 			screenX = global_map->player->consoleX + 2 * x + 2;
 			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, flashChar, CAST);
+				global_map->player->updateScreen(screenX, screenY, CAST);
 			}
 		}
 	}

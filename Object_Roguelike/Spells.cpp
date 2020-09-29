@@ -1,6 +1,5 @@
 #include "Global_Map.h"
 #include "Spells.h"
-#include "Console.h"
 #include <thread>
 
 Freeze::Freeze() {
@@ -51,12 +50,10 @@ int Freeze::Cast() {
 	std::thread flashThread(&Freeze::Flash, this);
 	while (selecting == 1) {
 		finalEvent = getDirection();
-		ClearScreen();
 		global_map->player->Draw_Player_View();
 		SDL_RenderPresent(renderer_g);
 	}
 	flashThread.join();
-	ClearScreen();
 	global_map->player->Draw_Player_View();
 	SDL_RenderPresent(renderer_g);
 
