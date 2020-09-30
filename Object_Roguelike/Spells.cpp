@@ -37,11 +37,11 @@ Freeze::Freeze(int location) {
 }
 
 int Freeze::Cast() {
-	int direction = 0;
 	int finalEvent = 0;
+	int prevDir;
 	int success = 0;
 	selecting = 1;
-	currentDirection = 1;
+	currentDirection = UP;
 	
 	if (cdCount != 0) {
 		return 0;
@@ -49,12 +49,18 @@ int Freeze::Cast() {
 
 	std::thread flashThread(&Freeze::Flash, this);
 	while (selecting == 1) {
+		prevDir = currentDirection;
 		finalEvent = getDirection();
-		global_map->player->Draw_Player_View();
+		// immediately flash in the new direction. Let the flash thread catch up
+		if (prevDir != currentDirection) {
+			updateLineColor(prevDir, range, STANDARD);
+			updateLineColor(currentDirection, range, CAST);
+		}
+		global_map->player->drawPlayerView();
 		SDL_RenderPresent(renderer_g);
 	}
 	flashThread.join();
-	global_map->player->Draw_Player_View();
+	global_map->player->drawPlayerView();
 	SDL_RenderPresent(renderer_g);
 
 	if (finalEvent == EVENT_KEY_ENTER) {

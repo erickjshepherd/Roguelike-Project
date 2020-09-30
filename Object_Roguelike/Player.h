@@ -11,12 +11,82 @@ public:
 	Player();
 	~Player();
 
+	// functions
+	int getStart(int type);
+	void turn();
+	bool inView();
+	void updateScreen(int X, int Y, int color);
+	void setCoordinates();
+	void drawPlayerView();
+	void drawStats(int line);
+	void clearStats(int line);
+	void takeDamage(int amount);
+	void getNewLevel(int level);
+	int Move(int direction);
+	int getDamage(int x, int y);
+	bool attack(int direction);
+	void decreaseSpellCD();
+	int selectSpell();
+
+	// setters
+	void setLocation(int loc);
+	void setConsoleX(int x);
+	void setConsoleY(int y);
+	void setViewDistance(int vd);
+	void setViewStart(int vs);
+	void setHealth(int h);
+	void setStrength(int s);
+	void setExtraTurns(int et);
+	void setQuit(int q);
+	void setDamaged(int d);
+	void setWeapon(Weapon* w);
+	void setHead(Armour* h);
+	void setChest(Armour* c);
+	void setLegs(Armour* l);
+	void setSpell1(Spell* s);
+	void setSpell2(Spell* s);
+	void setSpell3(Spell* s);
+	void setMapSize(int ms);
+	void setTotalRooms(int tr);
+	void setMaxRoomSize(int mrs);
+	void setMinRoomSize(int mrs);
+	void setMaxTunnelSize(int mts);
+	void setMinTunnelSize(int mts);
+	void setRoomOverlap(int ro);
+
+
+	// getters
+	int getLocation();
+	int getConsoleX();
+	int getConsoleY();
+	int getViewDistance();
+	int getViewStart();
+	int getHealth();
+	int getStrength();
+	int getExtraTurns();
+	int getQuit();
+	int getDamaged();
+	Weapon* getWeapon();
+	Armour* getHead();
+	Armour* getChest();
+	Armour* getLegs();
+	Spell* getSpell1();
+	Spell* getSpell2();
+	Spell* getSpell3();
+	int getMapSize();
+	int getTotalRooms();
+	int getMaxRoomSize();
+	int getMinRoomSize();
+	int getMaxTunnelSize();
+	int getMinTunnelSize();
+	int getRoomOverlap();
+
+private:
 	// location and screen variables
 	int location;
 	int consoleX, consoleY;
-	int view_distance;
-	int view_start;
-	int underDescribed;
+	int viewDistance;
+	int viewStart;
 
 	// player state variables
 	int health;
@@ -34,10 +104,6 @@ public:
 	Spell* spell2;
 	Spell* spell3;
 
-	// misc variables
-	// todo: pull this from weapon/spell
-	char attack_char;
-
 	// map variables
 	int size;
 	int totalRooms;
@@ -46,30 +112,5 @@ public:
 	int maxTunnelSize;
 	int minTunnelSize;
 	int roomOverlap;
-
-	int getStart(int type);
-	void turn();
-	bool inView();
-	void updateScreen(int X, int Y, int color);
-	void setCoordinates();
-	void Draw_Player_View();
-	void drawStats(int line);
-	void clearStats(int line);
-	void takeDamage(int amount);
-	//void Draw_Town();
-	void Get_New_Level(int level);
-	int Move(int direction);
-	int getDamage(int x, int y);
-	bool attack(int direction);
-	void decreaseSpellCD();
-	int selectSpell();
-
-	int getMapSize();
-	int getTotalRooms();
-	int getMaxRoomSize();
-	int getMinRoomSize();
-	int getMaxTunnelSize();
-	int getMinTunnelSize();
-	int getRoomOverlap();
 };
 

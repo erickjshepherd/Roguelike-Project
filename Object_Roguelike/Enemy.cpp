@@ -361,7 +361,8 @@ void Enemy::takeDamage(int amount) {
 		global_map->Dead_Enemies.push_back(this);
 
 		// test
-		global_map->player->size--;
+		int playerSize = global_map->player->getMapSize();
+		global_map->player->setMapSize(playerSize--);
 	}
 	else {
 		event.append(". It has ");

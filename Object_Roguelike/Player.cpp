@@ -36,12 +36,8 @@ Player::Player(){
 	minTunnelSize = 4;
 	roomOverlap = 0;
 
-	// set attack character
-	attack_char = 'x';
-
 	// set map and location variables
-	underDescribed = 0;
-	view_distance = 10;
+	viewDistance = 10;
 	
 	weapon = new dagger();
 }
@@ -205,7 +201,7 @@ bool Player::inView() {
 	bool present = false;
 
 	// get the width of the square to draw
-	int view_size = (view_distance * 2) + 1;
+	int view_size = (viewDistance * 2) + 1;
 	view_size -= 2;
 
 	for (y = 0; y < view_size; y++) {
@@ -213,7 +209,7 @@ bool Player::inView() {
 		for (x = 0; x < view_size; x++) {
 
 			// set start to one square diagonally down/right from view_start
-			xy = view_start;
+			xy = viewStart;
 			xy += global_map->size;
 			xy++;
 
@@ -241,7 +237,7 @@ void Player::updateScreen(int X, int Y, int color) {
 
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
 
-	short view_size = (short)(view_distance * 2) + 1;
+	short view_size = (short)(viewDistance * 2) + 1;
 
 	short x = (short)X;
 	short y = (short)Y;
@@ -254,7 +250,7 @@ void Player::updateScreen(int X, int Y, int color) {
 	}
 
 	// update sprite
-	int loc = view_start;
+	int loc = viewStart;
 	loc += X;
 	loc += y * global_map->size;
 	global_map->map[loc]->render(X * 16, Y * 16, color);
@@ -267,13 +263,13 @@ void Player::setCoordinates() {
 	int x, y, xy;
 
 	// get the width of the square to draw
-	int view_size = (view_distance * 2) + 1;
+	int view_size = (viewDistance * 2) + 1;
 
 	for (y = 0; y < view_size; y++) {
 
 		for (x = 0; x < view_size; x++) {
 
-			xy = view_start;
+			xy = viewStart;
 			xy += y * global_map->size;
 			xy += x;
 
@@ -291,7 +287,7 @@ void Player::setCoordinates() {
 
 // draw the players view
 // output: the area around the player is drawn to the console
-void Player::Draw_Player_View() {
+void Player::drawPlayerView() {
 
 	int x, y, xy;
 
@@ -302,13 +298,13 @@ void Player::Draw_Player_View() {
 	SDL_RenderClear(renderer_g);
 
 	// get the width of the square to draw
-	int view_size = (view_distance * 2) + 1;
+	int view_size = (viewDistance * 2) + 1;
 
 	for (y = 0; y < view_size; y++) {
 
 		for (x = 0; x < view_size; x++) {
 
-			xy = view_start;
+			xy = viewStart;
 			xy += y * global_map->size;
 			xy += x;
 
@@ -329,7 +325,7 @@ void Player::Draw_Player_View() {
 
 // create a new level
 // input: 0 if random, 1 if town
-void Player::Get_New_Level(int level) {
+void Player::getNewLevel(int level) {
 
 	while (1) {
 		Map* next = new Map(getMapSize(), getTotalRooms(), getMaxRoomSize(), getMinRoomSize(),getRoomOverlap(), 0, level, getMaxTunnelSize(), getMinTunnelSize());
@@ -341,16 +337,16 @@ void Player::Get_New_Level(int level) {
 		// set up the new map and location
 		global_map = next;
 		location = getStart(global_map->type);
-		view_distance = 10;
-		consoleX = view_distance * 2;
-		consoleY = view_distance;
-		view_start = location - view_distance;
-		view_start = view_start - (global_map->size * view_distance);
-		while (view_start < 0) {
-			view_start += global_map->size;
+		viewDistance = 10;
+		consoleX = viewDistance * 2;
+		consoleY = viewDistance;
+		viewStart = location - viewDistance;
+		viewStart = viewStart - (global_map->size * viewDistance);
+		while (viewStart < 0) {
+			viewStart += global_map->size;
 		}
-		while ((view_start % global_map->size) > (location % global_map->size)) {
-			view_start++;
+		while ((viewStart % global_map->size) > (location % global_map->size)) {
+			viewStart++;
 		}
 
 		// set the player in the map
@@ -364,7 +360,7 @@ void Player::Get_New_Level(int level) {
 	}
 
 	// update the screen
-	Draw_Player_View();
+	drawPlayerView();
 }
 
 // move the player in one of four directions
@@ -401,14 +397,14 @@ int Player::Move(int direction) {
 			// update camera position and redraw screen
 			if (inView() == false) {
 
-				view_start -= global_map->size * view_distance;
-				while (view_start < 0) {
-					view_start += global_map->size;
+				viewStart -= global_map->size * viewDistance;
+				while (viewStart < 0) {
+					viewStart += global_map->size;
 				}
-				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
-					view_start++;
+				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
+					viewStart++;
 				}
-				Draw_Player_View();
+				drawPlayerView();
 				setCoordinates();
 			}
 
@@ -436,11 +432,11 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				view_start += global_map->size * view_distance;
-				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
-					view_start++;
+				viewStart += global_map->size * viewDistance;
+				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
+					viewStart++;
 				}
-				Draw_Player_View();
+				drawPlayerView();
 				setCoordinates();
 			}
 
@@ -467,11 +463,11 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				view_start -= view_distance;
-				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
-					view_start++;
+				viewStart -= viewDistance;
+				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
+					viewStart++;
 				}
-				Draw_Player_View();
+				drawPlayerView();
 				setCoordinates();
 			}
 
@@ -498,11 +494,11 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				view_start += view_distance;
-				while ((view_start % global_map->size) > (location % global_map->size) || view_start < 0) {
-					view_start++;
+				viewStart += viewDistance;
+				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
+					viewStart++;
 				}
-				Draw_Player_View();
+				drawPlayerView();
 				setCoordinates();
 			}
 
@@ -553,7 +549,7 @@ void Player::takeDamage(int amount) {
 
 // input: The line number that corrosponds to the stat. -1 draws all
 void Player::drawStats(int line) {
-	short view_size = (short)(view_distance * 2) + 1;
+	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
 
@@ -686,8 +682,9 @@ void Player::drawStats(int line) {
 	}
 }
 
+// input: line number to clear. -1 clears all
 void Player::clearStats(int line) {
-	short view_size = (short)(view_distance * 2) + 1;
+	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
 
@@ -772,6 +769,8 @@ void Player::clearStats(int line) {
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
 }
 
+// input: direction to attack
+// output: if the attack worked
 bool Player::attack(int direction) {
 	int x, y, target, priority, success;
 	// up
@@ -862,94 +861,7 @@ bool Player::attack(int direction) {
 	return success;
 }
 
-int Player::getMapSize() {
-	int total = size;
-	if (head != NULL) {
-		total += head->totalSize;
-	}
-	if (chest != NULL) {
-		total += chest->totalSize;
-	}
-	if (legs != NULL) {
-		total += legs->totalSize;
-	}
-	return total;
-}
-
-int Player::getTotalRooms() {
-	int total = totalRooms;
-	if (head != NULL) {
-		total += head->totalRooms;
-	}
-	if (chest != NULL) {
-		total += chest->totalRooms;
-	}
-	if (legs != NULL) {
-		total += legs->totalRooms;
-	}
-	return total;
-}
-
-int Player::getMaxRoomSize() {
-	int total = maxRoomSize;
-	if (head != NULL) {
-		total += head->maxRoomSize;
-	}
-	if (chest != NULL) {
-		total += chest->maxRoomSize;
-	}
-	if (legs != NULL) {
-		total += legs->maxRoomSize;
-	}
-	return total;
-}
-
-int Player::getMinRoomSize() {
-	int total = minRoomSize;
-	if (head != NULL) {
-		total += head->minRoomSize;
-	}
-	if (chest != NULL) {
-		total += chest->minRoomSize;
-	}
-	if (legs != NULL) {
-		total += legs->minRoomSize;
-	}
-	return total;
-}
-
-int Player::getMaxTunnelSize() {
-	int total = maxTunnelSize;
-	if (head != NULL) {
-		total += head->maxTunnelSize;
-	}
-	if (chest != NULL) {
-		total += chest->maxTunnelSize;
-	}
-	if (legs != NULL) {
-		total += legs->maxTunnelSize;
-	}
-	return total;
-}
-
-int Player::getMinTunnelSize() {
-	int total = minTunnelSize;
-	if (head != NULL) {
-		total += head->minTunnelSize;
-	}
-	if (chest != NULL) {
-		total += chest->minTunnelSize;
-	}
-	if (legs != NULL) {
-		total += legs->minTunnelSize;
-	}
-	return total;
-}
-
-int Player::getRoomOverlap() {
-	return roomOverlap;
-}
-
+// decreases the cooldown on all spells
 void Player::decreaseSpellCD() {
 	if (spell1 != NULL) {
 		if (spell1->cdCount > 0) {
@@ -971,6 +883,8 @@ void Player::decreaseSpellCD() {
 	}
 }
 
+// reads player input to select a spell
+// output: spell number. -1 if the operation was cancelled
 int Player::selectSpell() {
 	int eventValue = 0;
 	int validKey = 0;
@@ -1000,6 +914,214 @@ int Player::selectSpell() {
 			validKey = 0;
 		}
 	}
+}
+
+// setters
+void Player::setLocation(int loc) {
+	location = loc;
+}
+void Player::setConsoleX(int x) {
+	consoleX = x;
+}
+void Player::setConsoleY(int y) {
+	consoleY = y;
+}
+void Player::setViewDistance(int vd) {
+	viewDistance = vd;
+}
+void Player::setViewStart(int vs) {
+	viewStart = vs;
+}
+void Player::setHealth(int h) {
+	health = h;
+}
+void Player::setStrength(int s) {
+	strength = s;
+}
+void Player::setExtraTurns(int et) {
+	extraTurns = et;
+}
+void Player::setQuit(int q) {
+	quit = q;
+}
+void Player::setDamaged(int d) {
+	damaged = d;
+}
+void Player::setWeapon(Weapon* w) {
+	weapon = w;
+}
+void Player::setHead(Armour* h) {
+	head = h;
+}
+void Player::setChest(Armour* c) {
+	chest = c;
+}
+void Player::setLegs(Armour* l) {
+	legs = l;
+}
+void Player::setSpell1(Spell* s) {
+	spell1 = s;
+}
+void Player::setSpell2(Spell* s) {
+	spell2 = s;
+}
+void Player::setSpell3(Spell* s) {
+	spell3 = s;
+}
+void Player::setMapSize(int ms) {
+	size = ms;
+}
+void Player::setTotalRooms(int tr) {
+	totalRooms = tr;
+}
+void Player::setMaxRoomSize(int mrs) {
+	maxRoomSize = mrs;
+}
+void Player::setMinRoomSize(int mrs) {
+	minRoomSize = mrs;
+}
+void Player::setMaxTunnelSize(int mts) {
+	maxTunnelSize = mts;
+}
+void Player::setMinTunnelSize(int mts) {
+	minTunnelSize = mts;
+}
+void Player::setRoomOverlap(int ro) {
+	roomOverlap = ro;
+}
+
+//getters
+int Player::getLocation() {
+	return location;
+}
+int Player::getConsoleX() {
+	return consoleX;
+}
+int Player::getConsoleY() {
+	return consoleY;
+}
+int Player::getViewDistance() {
+	return viewDistance;
+}
+int Player::getViewStart() {
+	return viewStart;
+}
+int Player::getHealth() {
+	return health;
+}
+int Player::getStrength() {
+	return strength;
+}
+int Player::getExtraTurns() {
+	return extraTurns;
+}
+int Player::getQuit() {
+	return quit;
+}
+int Player::getDamaged() {
+	return damaged;
+}
+Weapon* Player::getWeapon() {
+	return weapon;
+}
+Armour* Player::getHead() {
+	return head;
+}
+Armour* Player::getChest() {
+	return chest;
+}
+Armour* Player::getLegs() {
+	return legs;
+}
+Spell* Player::getSpell1() {
+	return spell1;
+}
+Spell* Player::getSpell2() {
+	return spell2;
+}
+Spell* Player::getSpell3() {
+	return spell3;
+}
+int Player::getMapSize() {
+	int total = size;
+	if (head != NULL) {
+		total += head->totalSize;
+	}
+	if (chest != NULL) {
+		total += chest->totalSize;
+	}
+	if (legs != NULL) {
+		total += legs->totalSize;
+	}
+	return total;
+}
+int Player::getTotalRooms() {
+	int total = totalRooms;
+	if (head != NULL) {
+		total += head->totalRooms;
+	}
+	if (chest != NULL) {
+		total += chest->totalRooms;
+	}
+	if (legs != NULL) {
+		total += legs->totalRooms;
+	}
+	return total;
+}
+int Player::getMaxRoomSize() {
+	int total = maxRoomSize;
+	if (head != NULL) {
+		total += head->maxRoomSize;
+	}
+	if (chest != NULL) {
+		total += chest->maxRoomSize;
+	}
+	if (legs != NULL) {
+		total += legs->maxRoomSize;
+	}
+	return total;
+}
+int Player::getMinRoomSize() {
+	int total = minRoomSize;
+	if (head != NULL) {
+		total += head->minRoomSize;
+	}
+	if (chest != NULL) {
+		total += chest->minRoomSize;
+	}
+	if (legs != NULL) {
+		total += legs->minRoomSize;
+	}
+	return total;
+}
+int Player::getMaxTunnelSize() {
+	int total = maxTunnelSize;
+	if (head != NULL) {
+		total += head->maxTunnelSize;
+	}
+	if (chest != NULL) {
+		total += chest->maxTunnelSize;
+	}
+	if (legs != NULL) {
+		total += legs->maxTunnelSize;
+	}
+	return total;
+}
+int Player::getMinTunnelSize() {
+	int total = minTunnelSize;
+	if (head != NULL) {
+		total += head->minTunnelSize;
+	}
+	if (chest != NULL) {
+		total += chest->minTunnelSize;
+	}
+	if (legs != NULL) {
+		total += legs->minTunnelSize;
+	}
+	return total;
+}
+int Player::getRoomOverlap() {
+	return roomOverlap;
 }
 
 // destructor

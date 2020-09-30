@@ -15,6 +15,6 @@ Exit::~Exit() {
 }
 
 void Exit::Player_Step() {
-	global_map->player->extraTurns = 1;
-	global_map->player->Get_New_Level(global_map->level + 1);
+	global_map->player->setExtraTurns(1);
+	global_map->player->getNewLevel(global_map->level + 1);
 }

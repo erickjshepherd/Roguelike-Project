@@ -3,6 +3,7 @@
 #include <conio.h>
 #include "Global_Map.h"
 #include "Spell.h"
+#include <mutex>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -27,22 +28,22 @@ void Spell::Player_Interact() {
 	int resolved = 0;
 	while (resolved == 0) {
 		resolved = 1;
-		if (global_map->player->spell1 == NULL) {
+		if (global_map->player->getSpell1() == NULL) {
 			global_map->player->under = this->under;
 			this->under = NULL;
-			global_map->player->spell1 = this;
+			global_map->player->setSpell1(this);
 			global_map->player->drawStats(SPELL1);
 		}
-		else if (global_map->player->spell2 == NULL) {
+		else if (global_map->player->getSpell2() == NULL) {
 			global_map->player->under = this->under;
 			this->under = NULL;
-			global_map->player->spell2 = this;
+			global_map->player->setSpell2(this);
 			global_map->player->drawStats(SPELL2);
 		}
-		else if (global_map->player->spell3 == NULL) {
+		else if (global_map->player->getSpell3() == NULL) {
 			global_map->player->under = this->under;
 			this->under = NULL;
-			global_map->player->spell3 = this;
+			global_map->player->setSpell3(this);
 			global_map->player->drawStats(SPELL3);
 		}
 		else {
@@ -80,22 +81,22 @@ void Spell::Player_Interact() {
 			SDL_RenderPresent(renderer_g);
 
 			if (spellNum == EVENT_KEY_1) {
-				global_map->player->under = global_map->player->spell1;
+				global_map->player->under = global_map->player->getSpell1();
 				global_map->player->under->under = this->under;
-				global_map->player->spell1 = this;
+				global_map->player->setSpell1(this);
 				global_map->player->drawStats(SPELL1);
 			}
 			else if (spellNum == EVENT_KEY_2) {
-				global_map->player->under = global_map->player->spell2;
+				global_map->player->under = global_map->player->getSpell2();
 				global_map->player->under->under = this->under;
-				global_map->player->spell2 = this;
+				global_map->player->setSpell2(this);
 				global_map->player->drawStats(SPELL2);
 			}
 			else if (spellNum == EVENT_KEY_3) {
-				global_map->player->under = global_map->player->spell2;
+				global_map->player->under = global_map->player->getSpell3();
 				global_map->player->under->under = this->under;
-				global_map->player->spell2 = this;
-				global_map->player->drawStats(SPELL2);
+				global_map->player->setSpell3(this);
+				global_map->player->drawStats(SPELL3);
 			}
 		}
 	}
@@ -107,120 +108,72 @@ int Spell::Cast() {
 
 void Spell::dmgLine(int direction, int range, int damage, int effect, int intensity) {
 	int increment = 0;
-	if (direction == 1) {
+	if (direction == UP) {
 		increment = -global_map->size;
 	}
-	else if (direction == 2) {
+	else if (direction == DOWN) {
 		increment = global_map->size;
 	}
-	else if (direction == 3) {
+	else if (direction == LEFT) {
 		increment = -1;
 	}
-	else if (direction == 4) {
+	else if (direction == RIGHT) {
 		increment = 1;
 	}
 	for (int x = 0; x < range; x++) {
-		int hitLocation = global_map->player->location + (x + 1) * increment;
+		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
 		global_map->map[hitLocation]->Spell_Interact(damage, effect, intensity);
 	}
 }
 
-void Spell::renderLine(int direction, int range, char flashChar) {
-	int increment = 0;
-	int screenX, screenY;
-	if (direction == 1) {
-		increment = -global_map->size;
-		screenX = global_map->player->consoleX;
-		for (int x = 0; x < range; x++) {
-			int renderLocation = global_map->player->location + (x + 1) * increment;
-			screenY = global_map->player->consoleY - x - 1;
-			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, color);
-			}
-		}
-	}
-	else if (direction == 2) {
-		increment = -global_map->size;
-		screenX = global_map->player->consoleX;
-		for (int x = 0; x < range; x++) {
-			int renderLocation = global_map->player->location + (x + 1) * increment;
-			screenY = global_map->player->consoleY + x + 1;
-			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, CAST);
-			}
-		}
-	}
-	else if (direction == 3) {
-		increment = -1;
-		screenY = global_map->player->consoleY;
-		for (int x = 0; x < range; x++) {
-			int renderLocation = global_map->player->location + (x + 1) * increment;
-			screenX = global_map->player->consoleX - 2 * x - 2;
-			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, CAST);
-			}
-		}
-	}
-	else if (direction == 4) {
-		increment = 1;
-		screenY = global_map->player->consoleY;
-		for (int x = 0; x < range; x++) {
-			int renderLocation = global_map->player->location + (x + 1) * increment;
-			screenX = global_map->player->consoleX + 2 * x + 2;
-			if (renderLocation >= 0 && renderLocation < (global_map->size * global_map->size)) {
-				global_map->player->updateScreen(screenX, screenY, CAST);
-			}
-		}
-	}
-}
-
-// todo: don't render over certain tile like walls
 // Updates the color of the tiles in a line coming from the player
 // Inputs: direction of the line, range of the line, color of the line
+std::mutex spellMtx;
 void Spell::updateLineColor(int direction, int range, int color) {
+	spellMtx.lock();
 	int increment = 0;
-	if (direction == 1) {
+	if (direction == UP) {
 		increment = -global_map->size;
 	}
-	else if (direction == 2) {
+	else if (direction == DOWN) {
 		increment = global_map->size;
 	}
-	else if (direction == 3) {
+	else if (direction == LEFT) {
 		increment = -1;
 	}
-	else if (direction == 4) {
+	else if (direction == RIGHT) {
 		increment = 1;
 	}
 	for (int x = 0; x < range; x++) {
-		int loc = global_map->player->location;
+		int loc = global_map->player->getLocation();
 		loc += (x + 1) * increment;
 		global_map->map[loc]->color = color;
 	}
+	spellMtx.unlock();
 }
 
 int Spell::getDirection() {
-	int eventValue = 0;
-
-	eventValue = handleEvents();
+	int eventValue = handleEvents();
+	
 	if (eventValue == EVENT_QUIT) {
 		selecting = 0;
-		global_map->player->quit = 1;
+		global_map->player->setQuit(1);
 		return -1;
 	}
 	if (eventValue == EVENT_KEY_UP) {
-		currentDirection = eventValue;
+		currentDirection = UP;
 		return eventValue;
 	}
 	else if (eventValue == EVENT_KEY_DOWN) {
-		currentDirection = eventValue;
+		currentDirection = DOWN;
 		return eventValue;
 	}
 	else if (eventValue == EVENT_KEY_LEFT) {
-		currentDirection = eventValue;
+		currentDirection = LEFT;
 		return eventValue;
 	}
 	else if (eventValue == EVENT_KEY_RIGHT) {
-		currentDirection = eventValue;
+		currentDirection = RIGHT;
 		return eventValue;
 	}
 	else if (eventValue == EVENT_KEY_ESC) {

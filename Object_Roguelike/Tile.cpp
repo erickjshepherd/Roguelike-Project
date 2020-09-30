@@ -130,8 +130,8 @@ void Tile::flash(int colorIn, int delay) {
 // returns coordinates if the enemy is on the screen
 void Tile::onScreen(int* X, int* Y) {
 
-	int view_start = global_map->player->view_start;
-	int view_distance = global_map->player->view_distance;
+	int view_start = global_map->player->getViewStart();
+	int view_distance = global_map->player->getViewDistance();
 	int size = global_map->size;
 	int x, y, xy;
 

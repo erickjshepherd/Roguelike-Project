@@ -26,17 +26,18 @@ int main(int argc, char* argv[]){
 	Player* PC = new Player();
 
 	// get a new level
-	PC->Get_New_Level(1);
+	PC->getNewLevel(1);
 
-	while (PC->quit == 0) {
+	while (PC->getQuit() == 0) {
 		SDL_RenderPresent(renderer_g);
 		PC->turn();
 		SDL_RenderPresent(renderer_g);
-		if (PC->extraTurns == 0) {
+		if (PC->getExtraTurns() == 0) {
 			global_map->Enemy_Turn();
 		}
 		else {
-			PC->extraTurns--;
+			int playerET = PC->getExtraTurns();
+			PC->setExtraTurns(playerET--);
 		}
 	}
 

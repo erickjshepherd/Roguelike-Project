@@ -22,6 +22,13 @@ enum eventEnums {
 	EVENT_KEY_ESC
 };
 
+enum dirEnums {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 enum fontEnums {
 	FONT_12
 };
