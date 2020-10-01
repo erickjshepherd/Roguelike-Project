@@ -55,7 +55,6 @@ void Tile::render(int x, int y, int colorIn) {
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
 
 	// render the under tile with the same color
-	// todo: add input for only applying color to top layer
 	if (under != nullptr) {
 		under->render(x, y, colorIn);
 	}
@@ -121,7 +120,7 @@ void Tile::flash(int colorIn, int delay) {
 	spriteSheet->render(x, y, clip);
 	SDL_RenderPresent(renderer_g);
 	Sleep(delay);
-	render(x, y, color);
+	render(x, y, -1);
 	SDL_RenderPresent(renderer_g);
 
 	delete clip;

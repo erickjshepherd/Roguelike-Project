@@ -8,7 +8,7 @@ Freeze::Freeze() {
 	damage = 1;
 	location = 0;
 	effect = 1;
-	intensity = 2;
+	intensity = 3;
 	cd = 5;
 	cdCount = 0;
 	range = 2;
@@ -25,7 +25,7 @@ Freeze::Freeze(int location) {
 	damage = 1;
 	this->location = location;
 	effect = 1;
-	intensity = 2;
+	intensity = 3;
 	cd = 5;
 	cdCount = 0;
 	range = 2;

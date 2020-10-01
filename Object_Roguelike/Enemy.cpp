@@ -392,6 +392,7 @@ void Enemy::enemyTurn() {
 			takeDamage(frozenDamage);
 			frozenDamage = 0;
 		}
+		updateColor();
 		return;
 	}
 	// Handle burn status
@@ -409,6 +410,7 @@ void Enemy::enemyTurn() {
 	if (slowed > 0) {
 		slowed--;
 		if (slowed % 2 == 1) {
+			updateColor();
 			return;
 		}
 	}
@@ -430,6 +432,7 @@ void Enemy::enemyTurn() {
 		// check if currently in view
 
 		moveResult = this->Move(direction);
+		onScreen(&consoleX, &consoleY);
 		
 		// update the screen if in view
 		if (moveResult == 1) {
@@ -445,6 +448,8 @@ void Enemy::enemyTurn() {
 		if (moveResult == -1) {
 		}
 	}
+
+	updateColor();
 }
 
 int Enemy::Player_Attack(int damage) {
@@ -507,5 +512,33 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 		global_map->Add_Event(event);
 		global_map->Draw_Events();
 		allied = length;
+	}
+}
+
+void Enemy::updateColor() {
+	int oldColor = color;
+
+	// listed in order of priority
+	if (frozenLength > 0) {
+		color = CYAN;
+	}
+	else if (burnedLength > 0) {
+		
+	}
+	else if (allied > 0) {
+		
+	}
+	else if (scared > 0) {
+	
+	}
+	else if (slowed > 0) {
+	
+	}
+	else {
+		color = STANDARD;
+	}
+
+	if (oldColor != color) {
+		render(consoleX * TILE_SIZE, consoleY * TILE_SIZE, -1);
 	}
 }

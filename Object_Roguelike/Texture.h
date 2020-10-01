@@ -4,7 +4,7 @@
 #include "SDLFuncs.h"
 
 #define NUMPATHS 7
-#define NUMCOLORS 3
+#define NUMCOLORS 4
 
 #define CASTR 255
 #define CASTG 153
@@ -23,7 +23,8 @@ enum pathEnums {
 enum colorEnums {
 	STANDARD,
 	CAST,
-	RED
+	RED,
+	CYAN
 };
 
 // paths to tile sets

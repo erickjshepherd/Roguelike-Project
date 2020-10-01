@@ -52,5 +52,8 @@ public:
 
 	// spell interaction
 	void Spell_Interact(int damage, int effect, int intensity);
+
+	// sets the color based on status conditions
+	void updateColor();
 };
 

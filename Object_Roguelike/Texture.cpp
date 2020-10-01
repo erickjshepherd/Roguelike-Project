@@ -130,6 +130,12 @@ void loadTileSets() {
 		tileSetRed->loadFromFile(tilePaths[x]);
 		tileSetRed->setColor(255, 0, 0);
 		tileSets_g.push_back(tileSetRed);
+
+		// cyan tiles
+		Texture* tileSetCyan = new Texture();
+		tileSetCyan->loadFromFile(tilePaths[x]);
+		tileSetCyan->setColor(102, 255, 255);
+		tileSets_g.push_back(tileSetCyan);
 	}
 }
 
