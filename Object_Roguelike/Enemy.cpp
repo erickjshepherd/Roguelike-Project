@@ -30,7 +30,7 @@ Enemy::~Enemy(){
 
 // checks if the player is visible to the enemy
 // BFS
-int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {
+int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking) {
 
 	if (nodes.size() == 0) {
 		return -1;
@@ -69,8 +69,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		}
 
 		// add unvisited, non-blocking nodes to the search list
-		// throws error
-		if (global_map->map[next_node]->blocking == 0 || (global_map->map[next_node]->icon == '@')){ //|| global_map->map[next_node]->icon == global_map->player->icon) {
+		if ((global_map->map[next_node]->icon != '#' && searchBlocking == 1) || global_map->map[next_node]->blocking == 0 || global_map->map[next_node]->icon == '@'){
 			int isVisited, y;
 			isVisited = 0;
 			for (y = 0; y < visited.size(); y++) {
@@ -89,7 +88,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 
 	// recursively call function, return the next parent in the chain
 	int new_distance = distance - 1;
-	int result = sensePlayer_BFS(new_distance, nodes, parent_nodes, visited, start);
+	int result = sensePlayer_BFS(new_distance, nodes, parent_nodes, visited, start, searchBlocking);
 	if (result == current_node) {
 		if (previous_node == start) {
 			return result;
@@ -106,22 +105,6 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 // returns the direction the enemy should move, 0 if no movement
 int Enemy::sensePlayer() {
 
-	std::queue<int> nodes;
-	std::queue<int> parent_nodes;
-	std::vector<int> visited;
-	int moveTo;
-	// add the current location to the node queue and visited array 
-	nodes.push(this->location);
-	parent_nodes.push(-1);
-	visited.push_back(this->location);
-
-	// distance should be square of view distance
-	int distance = this->viewDistance;
-	distance = distance * distance;
-
-	// call the BFS recursive function with these data structures
-	moveTo = sensePlayer_BFS(distance, nodes, parent_nodes, visited, this->location);
-
 	// move if the player is adjacent
 	if (global_map->map[location - global_map->size]->icon == '@') {
 		return 1;
@@ -134,6 +117,32 @@ int Enemy::sensePlayer() {
 	}
 	else if (global_map->map[location + 1]->icon == '@') {
 		return 4;
+	}
+
+
+	// search for the player
+	std::queue<int> nodes, nodesSecond;
+	std::queue<int> parent_nodes, pNodesSecond;
+	std::vector<int> visited, visitedSecond;
+	int moveTo;
+	// add the current location to the node queue and visited array 
+	nodes.push(this->location);
+	parent_nodes.push(-1);
+	visited.push_back(this->location);
+
+	// distance should be square of view distance
+	int distance = this->viewDistance;
+	distance = distance * distance;
+
+	// call the BFS recursive function with these data structures
+	// search once ignoring blocking tiles
+	// If the player is not found include blocking tiles for the next best path
+	moveTo = sensePlayer_BFS(distance, nodes, parent_nodes, visited, this->location, 0);
+	if (moveTo == -1) {
+		nodesSecond.push(this->location);
+		pNodesSecond.push(-1);
+		visitedSecond.push_back(this->location);
+		moveTo = sensePlayer_BFS(distance, nodesSecond, pNodesSecond, visitedSecond, this->location, 1);
 	}
 
 	// return the direction to be moved

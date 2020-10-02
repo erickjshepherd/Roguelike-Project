@@ -38,7 +38,7 @@ public:
 
 	// movement
 	int sensePlayer();
-	int sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
+	int sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking);
 	int Move(int direction);
 
 	// attack
