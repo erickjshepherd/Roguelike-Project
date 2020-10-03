@@ -12,39 +12,57 @@ public:
 	~Tile();
 
 	// interact functions
-	virtual void Player_Interact();
-	virtual void Player_Step();
-	virtual void Spell_Interact(int damage, int effect, int intensity);
-
-	// todo: create a player_attack function.
-	// this should be called on the 3x3 attack grid when the player tries to move
-	// will do nothing for most tiles but will be an attack for the enemy class
-	virtual int Player_Attack(int damage);
-	
-	// todo: add a function to fetch extra tile info like item stats 
-	//virtual std::string getExtraInfo();
-	virtual void render(int x, int y, int color);
+	virtual void playerInteract();
+	virtual void playerStep();
+	virtual void spellInteract(int damage, int effect, int intensity);
+	virtual int playerAttack(int damage);
 
 	// other functions
 	void drawUnderInfo();
 	void flash(int colorIn, int delay);
-	// get screen coordinates
 	void onScreen(int* X, int* Y);
+	virtual void render(int x, int y, int color);
 
+	// setters
+	void setBlocking(bool b);
+	void setBorder(bool b);
+	void setIcon(char i);
+	void setName(std::string n);
+	void setDescription(std::string d);
+	void setSpriteVersion(int sv);
+	void setSpritePath(int sp);
+	void setSprite(int s);
+	void setSpriteSheetW(int w);
+	void setColor(int c);
+	void setUnder(Tile* u);
+
+	// getters
+	bool getBlocking();
+	bool getBorder();
+	char getIcon();
+	std::string getName();
+	std::string getDescription();
+	int getSpriteVersion();
+	int getSpritePath();
+	int getSprite();
+	int getSpriteSheetW();
+	int getColor();
+	Tile* getUnder();
+
+private:
 	// properties
 	bool blocking;
 	bool border;
 	char icon;
-	
-	// track what sprite should be used
-	int spriteVersion;
-	int spritePath;
-	int sprite;
-	int spriteSheetW;
-	int color;
-	
 	std::string name;
 	std::string description;
+
+	// sprite properties
+	int spriteVersion;	// some objects have multiple sprites. This selects which to use and replaces the sprite variable. ex: walls and floors
+	int spritePath;		// path to the sprite sheet file
+	int sprite;			// location on the spritesheet
+	int spriteSheetW;	// width of the sprite sheet
+	int color;			// color of the sprite
 
 	// Tile under this one
 	Tile* under;

@@ -8,9 +8,9 @@ dagger::dagger() {
 	defense = 0;
 	magic = 0;
 	type = 1;
-	icon = 'W';
-	name = std::string("dagger");
-	description = std::string("A simple dagger");
+	setIcon('W');
+	setName("dagger");
+	setDescription("A simple dagger");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;
@@ -21,9 +21,9 @@ dagger::dagger() {
 		}
 	}
 	// sprite
-	spritePath = SHORTWEPPATH;
-	spriteSheetW = 8;
-	sprite = 0;
+	setSpritePath(SHORTWEPPATH);
+	setSpriteSheetW(8);
+	setSprite(0);
 }
 
 dagger::dagger(int location) {
@@ -31,9 +31,9 @@ dagger::dagger(int location) {
 	magic = 0;
 	type = 1;
 	this->location = location;
-	icon = 'W';
-	name = std::string("dagger");
-	description = std::string("A simple dagger");
+	setIcon('W');
+	setName("dagger");
+	setDescription("A simple dagger");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;
@@ -44,9 +44,9 @@ dagger::dagger(int location) {
 		}
 	}
 	// sprite
-	spritePath = SHORTWEPPATH;
-	spriteSheetW = 8;
-	sprite = 0;
+	setSpritePath(SHORTWEPPATH);
+	setSpriteSheetW(8);
+	setSprite(0);
 }
 
 dagger::~dagger() {
@@ -58,9 +58,9 @@ longsword::longsword() {
 	defense = 0;
 	magic = 0;
 	type = 1; // ?
-	icon = 'W';
-	name = std::string("longsword");
-	description = std::string("A long sword");
+	setIcon('W');
+	setName("longsword");
+	setDescription("A long sword");
 	int hit_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int x, y;
@@ -71,18 +71,18 @@ longsword::longsword() {
 		}
 	}
 	// sprite
-	spritePath = MEDWEPPATH;
-	spriteSheetW = 6;
-	sprite = 0;
+	setSpritePath(MEDWEPPATH);
+	setSpriteSheetW(6);
+	setSprite(0);
 }
 
 longsword::longsword(int location) {
 	defense = 0;
 	magic = 0;
 	type = 1; // ?
-	icon = 'W';
-	name = std::string("longsword");
-	description = std::string("A long sword");
+	setIcon('W');
+	setName("longsword");
+	setDescription("A long sword");
 	int hit_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int x, y;
@@ -93,9 +93,9 @@ longsword::longsword(int location) {
 		}
 	}
 	// sprite
-	spritePath = MEDWEPPATH;
-	spriteSheetW = 6;
-	sprite = 0;
+	setSpritePath(MEDWEPPATH);
+	setSpriteSheetW(6);
+	setSprite(0);
 }
 
 longsword::~longsword() {

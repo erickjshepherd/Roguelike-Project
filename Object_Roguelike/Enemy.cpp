@@ -13,7 +13,7 @@
 #include "Items.h"
 
 Enemy::Enemy(){
-	blocking = 1;
+	setBlocking(1);
 	frozenLength = 0;
 	frozenDamage = 0;
 	burnedLength = 0;
@@ -21,7 +21,7 @@ Enemy::Enemy(){
 	slowed = 0;
 	scared = 0;
 	allied = 0;
-	color = STANDARD;
+	setColor(STANDARD);
 }
 
 Enemy::~Enemy(){
@@ -47,7 +47,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		return -1;
 	}
 
-	if (global_map->map[current_node]->icon == global_map->player->icon) {
+	if (global_map->map[current_node]->getIcon() == global_map->player->getIcon()) {
 		// return the parent node
 		return previous_node;
 	}
@@ -69,7 +69,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		}
 
 		// add unvisited, non-blocking nodes to the search list
-		if ((global_map->map[next_node]->icon != '#' && searchBlocking == 1) || global_map->map[next_node]->blocking == 0 || global_map->map[next_node]->icon == '@'){
+		if ((global_map->map[next_node]->getIcon() != '#' && searchBlocking == 1) || global_map->map[next_node]->getBlocking() == 0 || global_map->map[next_node]->getIcon() == '@'){
 			int isVisited, y;
 			isVisited = 0;
 			for (y = 0; y < visited.size(); y++) {
@@ -106,16 +106,16 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 int Enemy::sensePlayer() {
 
 	// move if the player is adjacent
-	if (global_map->map[location - global_map->size]->icon == '@') {
+	if (global_map->map[location - global_map->size]->getIcon() == '@') {
 		return 1;
 	}
-	else if (global_map->map[location + global_map->size]->icon == '@') {
+	else if (global_map->map[location + global_map->size]->getIcon() == '@') {
 		return 2;
 	}
-	else if (global_map->map[location - 1]->icon == '@') {
+	else if (global_map->map[location - 1]->getIcon() == '@') {
 		return 3;
 	}
-	else if (global_map->map[location + 1]->icon == '@') {
+	else if (global_map->map[location + 1]->getIcon() == '@') {
 		return 4;
 	}
 
@@ -178,26 +178,26 @@ int Enemy::Move(int direction) {
 		
 		nextLocation = location - size;
 
-		if (global_map->map[nextLocation]->blocking == 0) {
+		if (global_map->map[nextLocation]->getBlocking() == 0) {
 			
 			Tile* new_under = global_map->map[nextLocation];
 
 			// update map
 			global_map->map[nextLocation] = this;
-			global_map->map[location] = under;
+			global_map->map[location] = getUnder();
 			lastLocation = location;
 			location = nextLocation;
 
 			// set the new under tile
-			under = new_under;
+			setUnder(new_under);
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 
 			return 1;
@@ -211,26 +211,26 @@ int Enemy::Move(int direction) {
 		
 		nextLocation = location + size;
 
-		if (global_map->map[nextLocation]->blocking == 0) {
+		if (global_map->map[nextLocation]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[nextLocation];
 
 			// update map
 			global_map->map[nextLocation] = this;
-			global_map->map[location] = under;
+			global_map->map[location] = getUnder();
 			lastLocation = location;
 			location = nextLocation;
 
 			// set the new under tile
-			under = new_under;
+			setUnder(new_under);
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 
 			return 1;
@@ -244,26 +244,26 @@ int Enemy::Move(int direction) {
 		
 		nextLocation = location - 1;
 
-		if (global_map->map[nextLocation]->blocking == 0) {
+		if (global_map->map[nextLocation]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[nextLocation];
 
 			// update map
 			global_map->map[nextLocation] = this;
-			global_map->map[location] = under;
+			global_map->map[location] = getUnder();
 			lastLocation = location;
 			location = nextLocation;
 
 			// set the new under tile
-			under = new_under;
+			setUnder(new_under);
 
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 
 			return 1;
@@ -277,26 +277,26 @@ int Enemy::Move(int direction) {
 		
 		nextLocation = location + 1;
 
-		if (global_map->map[nextLocation]->blocking == 0) {
+		if (global_map->map[nextLocation]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[nextLocation];
 
 			// update map
 			global_map->map[nextLocation] = this;
-			global_map->map[location] = under;
+			global_map->map[location] = getUnder();
 			lastLocation = location;
 			location = nextLocation;
 
 			// set the new under tile
-			under = new_under;
+			setUnder(new_under);
 			
 			// if enemy was on screen update the old and new tile
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 			onScreen(&x, &y);
 			if (x != -1) {
-				global_map->player->updateScreen(x, y, color);
+				global_map->player->updateScreen(x, y, getColor());
 			}
 
 			return 1;
@@ -316,7 +316,7 @@ void Enemy::attackPlayer() {
 
 	// create the event message
 	std::string event("A ");
-	event.append(this->name);
+	event.append(getName());
 	event.append(" hits you for ");
 	event.append(std::to_string(strength));
 	event.append(" damage.");
@@ -333,7 +333,7 @@ void Enemy::takeDamage(int amount) {
 	
 	// create damage event
 	std::string event("A ");
-	event.append(this->name);
+	event.append(getName());
 	event.append(" takes ");
 	event.append(std::to_string(amount));
 	event.append(" damage");
@@ -356,17 +356,17 @@ void Enemy::takeDamage(int amount) {
 		if (loot[loot_index] != -1) {
 			delete dropped_loot;
 			dropped_loot = Get_Item(location, loot[loot_index]);
-			dropped_loot->under = under;
-			under = dropped_loot;
+			dropped_loot->setUnder(getUnder());
+			setUnder(dropped_loot);
 		}
 		global_map->Enemy_List.erase(global_map->Enemy_List.begin() + i);
-		global_map->map[location] = under;
+		global_map->map[location] = getUnder();
 		// update the screen
 		if (x != -1) {
-			global_map->player->updateScreen(x, y, color);
+			global_map->player->updateScreen(x, y, getColor());
 		}
 		event.append(" and dies.");
-		under = nullptr;
+		setUnder(nullptr);
 		global_map->Dead_Enemies.push_back(this);
 
 		// test
@@ -406,10 +406,10 @@ void Enemy::enemyTurn() {
 	}
 	// Handle burn status
 	if (burnedLength > 0) {
-		global_map->map[location - global_map->size]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
-		global_map->map[location + global_map->size]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
-		global_map->map[location - 1]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
-		global_map->map[location + 1]->Spell_Interact(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location - global_map->size]->spellInteract(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location + global_map->size]->spellInteract(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location - 1]->spellInteract(burnedDamage, 2, burnedLength / 2);
+		global_map->map[location + 1]->spellInteract(burnedDamage, 2, burnedLength / 2);
 		takeDamage(burnedDamage);
 		burnedLength--;
 		if (burnedLength == 0) {
@@ -461,18 +461,18 @@ void Enemy::enemyTurn() {
 	updateColor();
 }
 
-int Enemy::Player_Attack(int damage) {
+int Enemy::playerAttack(int damage) {
 	takeDamage(damage);
 	return 1;
 }
 
-void Enemy::Spell_Interact(int damage, int effect, int length) {
+void Enemy::spellInteract(int damage, int effect, int length) {
 	
 	takeDamage(damage);
 
 	if (effect == 1) {
 		std::string event("A ");
-		event.append(this->name);
+		event.append(getName());
 		event.append(" has been frozen for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
@@ -483,7 +483,7 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 	}
 	if (effect == 2) {
 		std::string event("A ");
-		event.append(this->name);
+		event.append(getName());
 		event.append(" has been burned (");
 		event.append(std::to_string(length));
 		event.append(")");
@@ -494,7 +494,7 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 	}
 	if (effect == 3) {
 		std::string event("A ");
-		event.append(this->name);
+		event.append(getName());
 		event.append(" has been slowed for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
@@ -504,7 +504,7 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 	}
 	if (effect == 4) {
 		std::string event("A ");
-		event.append(this->name);
+		event.append(getName());
 		event.append(" has been scared for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
@@ -514,7 +514,7 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 	}
 	if (effect == 5) {
 		std::string event("A ");
-		event.append(this->name);
+		event.append(getName());
 		event.append(" has been charmed for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
@@ -525,11 +525,11 @@ void Enemy::Spell_Interact(int damage, int effect, int length) {
 }
 
 void Enemy::updateColor() {
-	int oldColor = color;
+	int oldColor = getColor();
 
 	// listed in order of priority
 	if (frozenLength > 0) {
-		color = CYAN;
+		setColor(CYAN);
 	}
 	else if (burnedLength > 0) {
 		
@@ -544,10 +544,10 @@ void Enemy::updateColor() {
 	
 	}
 	else {
-		color = STANDARD;
+		setColor(STANDARD);
 	}
 
-	if (oldColor != color) {
+	if (oldColor != getColor()) {
 		render(consoleX * TILE_SIZE, consoleY * TILE_SIZE, -1);
 	}
 }

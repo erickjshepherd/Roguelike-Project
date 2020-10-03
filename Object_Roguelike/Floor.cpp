@@ -1,10 +1,10 @@
 #include "Floor.h"
 
 Floor::Floor() {
-	blocking = 0;
-	icon = '.';
-	name = "floor";
-	description = "";
+	setBlocking(0);
+	setIcon('.');
+	setName("floor");
+	setDescription("");
 
 	// sprite
 	spriteType = BRICK3_F;
@@ -15,7 +15,7 @@ Floor::~Floor() {
 }
 
 void Floor::render(int x, int y, int color) {
-	if (spriteVersion != -1) {
+	if (getSpriteVersion() != -1) {
 		// get the sprite sheet
 		Texture* spriteSheet = tileSets_g[FLOORPATH * NUMCOLORS + color];
 
@@ -23,8 +23,8 @@ void Floor::render(int x, int y, int color) {
 		int clipX = 0;
 		int clipY = 48;
 		// wall sprites are in rows of 7
-		int xOffset = spriteVersion % 7;
-		int yOffset = spriteVersion / 7;
+		int xOffset = getSpriteVersion() % 7;
+		int yOffset = getSpriteVersion() / 7;
 		// wall sets are in columns of 12
 		int typeXOffset = spriteType / 12;
 		int typeYOffset = spriteType % 12;

@@ -1,20 +1,20 @@
 #include "Exit.h"
 
 Exit::Exit() {
-	blocking = 0;
-	icon = 'E';
-	name = "exit";
-	description = "The exit!";
-	spritePath = TILEPATH;
-	spriteSheetW = 8;
-	sprite = 30;
+	setBlocking(0);
+	setIcon('E');
+	setName("exit");
+	setDescription("The exit!");
+	setSpritePath(TILEPATH);
+	setSpriteSheetW(8);
+	setSprite(30);
 }
 
 Exit::~Exit() {
 
 }
 
-void Exit::Player_Step() {
+void Exit::playerStep() {
 	global_map->player->setExtraTurns(1);
 	global_map->player->getNewLevel(global_map->level + 1);
 }

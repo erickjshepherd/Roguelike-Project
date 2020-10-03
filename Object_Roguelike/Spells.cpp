@@ -3,8 +3,8 @@
 #include <thread>
 
 Freeze::Freeze() {
-	name = std::string("Freeze");
-	description = std::string("A close range freeze spell");
+	setName("Freeze");
+	setDescription("A close range freeze spell");
 	damage = 1;
 	location = 0;
 	effect = 1;
@@ -14,14 +14,14 @@ Freeze::Freeze() {
 	range = 2;
 
 	// sprite
-	spritePath = SCROLLPATH;
-	spriteSheetW = 8;
-	sprite = 1;
+	setSpritePath(SCROLLPATH);
+	setSpriteSheetW(8);
+	setSprite(1);
 }
 
 Freeze::Freeze(int location) {
-	name = std::string("Freeze");
-	description = std::string("A close range freeze spell");
+	setName("Freeze");
+	setDescription("A close range freeze spell");
 	damage = 1;
 	this->location = location;
 	effect = 1;
@@ -31,9 +31,9 @@ Freeze::Freeze(int location) {
 	range = 2;
 
 	// sprite
-	spritePath = SCROLLPATH;
-	spriteSheetW = 8;
-	sprite = 1;
+	setSpritePath(SCROLLPATH);
+	setSpriteSheetW(8);
+	setSprite(1);
 }
 
 int Freeze::Cast() {

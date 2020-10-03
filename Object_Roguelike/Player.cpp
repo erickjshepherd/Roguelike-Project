@@ -14,18 +14,18 @@
 Player::Player(){
 	
 	// set player state
-	blocking = 1;
-	icon = '@';
+	setBlocking(1);
+	setIcon('@');
 	health = 100;
 	strength = 10;
 	extraTurns = 0;
 	quit = 0;
 	
 	// set player sprite info
-	spritePath = PLAYERPATH;
-	spriteSheetW = 8;
-	sprite = 30;
-	color = STANDARD;
+	setSpritePath(PLAYERPATH);
+	setSpriteSheetW(8);
+	setSprite(30);
+	setColor(STANDARD);
 
 	// set initial map generation variables
 	size = 30;
@@ -115,7 +115,7 @@ void Player::turn() {
 		}
 		else if (eventValue == EVENT_KEY_ENTER) {
 			eventValue = 0;
-			under->Player_Interact();
+			getUnder()->playerInteract();
 		}
 		else {
 			validKey = 0;
@@ -149,12 +149,12 @@ void Player::turn() {
 		else if (eventValue == EVENT_KEY_RIGHT) {
 			target = location + 1;
 		}
-		global_map->map[target]->Player_Interact();
+		global_map->map[target]->playerInteract();
 	}
 	// Do post move actions
 	else {
-		if (global_map->map[location]->under != NULL) {
-			global_map->map[location]->under->Player_Step();
+		if (global_map->map[location]->getUnder() != NULL) {
+			global_map->map[location]->getUnder()->playerStep();
 		}
 	}
 }
@@ -177,7 +177,7 @@ int Player::getStart(int type) {
 
 		while (found_start == false) {
 
-			if (global_map->map[location]->icon == '.') {
+			if (global_map->map[location]->getIcon() == '.') {
 
 				found_start = true;
 			}
@@ -311,9 +311,9 @@ void Player::drawPlayerView() {
 			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 
 				// draw sprite
-				global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, global_map->map[xy]->color);
+				global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, global_map->map[xy]->getColor());
 
-				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
+				if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
 					break;
 				}
 			}
@@ -350,7 +350,7 @@ void Player::getNewLevel(int level) {
 		}
 
 		// set the player in the map
-		under = global_map->map[location];
+		setUnder(global_map->map[location]);
 		global_map->map[location] = this;
 
 		// check that the exit can be reached
@@ -378,21 +378,21 @@ int Player::Move(int direction) {
 
 		nextLocation = location - global_map->size;
 
-		if (global_map->map[location - global_map->size]->blocking == 0) {
+		if (global_map->map[location - global_map->size]->getBlocking() == 0) {
 
 			// get the new under tile
 			Tile* new_under = global_map->map[location - global_map->size];
 
 			// update map
 			global_map->map[location - global_map->size] = this;
-			global_map->map[location] = under;
-			under = new_under;
+			global_map->map[location] = getUnder();
+			setUnder(new_under);
 			location -= global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 			setCoordinates();
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 
 			// update camera position and redraw screen
 			if (inView() == false) {
@@ -416,19 +416,19 @@ int Player::Move(int direction) {
 
 		nextLocation = location + global_map->size;
 
-		if (global_map->map[location + global_map->size]->blocking == 0) {
+		if (global_map->map[location + global_map->size]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[location + global_map->size];
 
 			global_map->map[location + global_map->size] = this;
-			global_map->map[location] = under;
-			under = new_under;
+			global_map->map[location] = getUnder();
+			setUnder(new_under);
 			location += global_map->size;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 			setCoordinates();
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 
 			if (inView() == false) {
 
@@ -447,19 +447,19 @@ int Player::Move(int direction) {
 
 		nextLocation = location - 1;
 
-		if (global_map->map[location - 1]->blocking == 0) {
+		if (global_map->map[location - 1]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[location - 1];
 
 			global_map->map[location - 1] = this;
-			global_map->map[location] = under;
-			under = new_under;
+			global_map->map[location] = getUnder();
+			setUnder(new_under);
 			location--;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 			setCoordinates();
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 
 			if (inView() == false) {
 
@@ -478,19 +478,19 @@ int Player::Move(int direction) {
 
 		nextLocation = location + 1;
 
-		if (global_map->map[location + 1]->blocking == 0) {
+		if (global_map->map[location + 1]->getBlocking() == 0) {
 
 			Tile* new_under = global_map->map[location + 1];
 
 			global_map->map[location + 1] = this;
-			global_map->map[location] = under;
-			under = new_under;
+			global_map->map[location] = getUnder();
+			setUnder(new_under);
 			location++;
 
 			// update console and console coordinates
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 			setCoordinates();
-			updateScreen(consoleX, consoleY, color);
+			updateScreen(consoleX, consoleY, getColor());
 
 			if (inView() == false) {
 
@@ -522,7 +522,7 @@ int Player::Move(int direction) {
 
 // output: the damage the player deals with an attack
 int Player::getDamage(int x, int y){
-	int damage = this->strength;
+	int damage = strength;
 	if (this->weapon != NULL) {
 		damage += this->weapon->damage[x][y];
 	}
@@ -587,7 +587,7 @@ void Player::drawStats(int line) {
 		else if (y == WEAPON && (y == line || line == -1)) {
 			std::string weaponName;
 			if (weapon != NULL) {
-				weaponName.append(weapon->name);
+				weaponName.append(weapon->getName());
 			}
 			else {
 				weaponName.append("none");
@@ -600,7 +600,7 @@ void Player::drawStats(int line) {
 		else if (y == HEAD && (y == line || line == -1)) {
 			std::string headName;
 			if (head != NULL) {
-				headName.append(head->name);
+				headName.append(head->getName());
 			}
 			else {
 				headName.append("none");
@@ -613,7 +613,7 @@ void Player::drawStats(int line) {
 		else if (y == CHEST && (y == line || line == -1)) {
 			std::string chestName;
 			if (chest != NULL) {
-				chestName.append(chest->name);
+				chestName.append(chest->getName());
 			}
 			else {
 				chestName.append("none");
@@ -626,7 +626,7 @@ void Player::drawStats(int line) {
 		else if (y == LEGS && (y == line || line == -1)) {
 			std::string legName;
 			if (legs != NULL) {
-				legName.append(legs->name);
+				legName.append(legs->getName());
 			}
 			else {
 				legName.append("none");
@@ -639,7 +639,7 @@ void Player::drawStats(int line) {
 		else if (y == SPELL1 && (y == line || line == -1)) {
 			std::string spellName;
 			if (spell1 != NULL) {
-				spellName.append("Spell 1 (" + std::to_string(spell1->cdCount) + "): " + spell1->name);
+				spellName.append("Spell 1 (" + std::to_string(spell1->cdCount) + "): " + spell1->getName());
 			}
 			else {
 				spellName.append("Spell 1: none");
@@ -651,7 +651,7 @@ void Player::drawStats(int line) {
 		else if (y == SPELL2 && (y == line || line == -1)) {
 			std::string spellName;
 			if (spell2 != NULL) {
-				spellName.append("Spell 2 (" + std::to_string(spell2->cdCount) + "): " + spell2->name);
+				spellName.append("Spell 2 (" + std::to_string(spell2->cdCount) + "): " + spell2->getName());
 			}
 			else {
 				spellName.append("Spell 2: none");
@@ -663,7 +663,7 @@ void Player::drawStats(int line) {
 		else if (y == SPELL3 && (y == line || line == -1)) {
 			std::string spellName;
 			if (spell3 != NULL) {
-				spellName.append("Spell 3 (" + std::to_string(spell3->cdCount) + "): " + spell3->name);
+				spellName.append("Spell 3 (" + std::to_string(spell3->cdCount) + "): " + spell3->getName());
 			}
 			else {
 				spellName.append("Spell 3: none");
@@ -782,7 +782,7 @@ bool Player::attack(int direction) {
 				target += x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
@@ -803,7 +803,7 @@ bool Player::attack(int direction) {
 				target -= x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
@@ -824,7 +824,7 @@ bool Player::attack(int direction) {
 				target += x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
 							success = 1;
 						}
 					}
@@ -845,7 +845,7 @@ bool Player::attack(int direction) {
 				target -= x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->Player_Attack(getDamage(x, y))) {
+						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
 							success = 1;
 						}
 					}

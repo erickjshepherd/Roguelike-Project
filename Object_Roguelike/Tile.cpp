@@ -30,22 +30,22 @@ Tile::~Tile(){
 	}
 }
 
-void Tile::Player_Interact() {
+void Tile::playerInteract() {
 
 }
 
-void Tile::Player_Step() {
+void Tile::playerStep() {
 	if (under != NULL) {
-		under->Player_Step();
+		under->playerStep();
 	}
 	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
 }
 
-void Tile::Spell_Interact(int damage, int effect, int intensity) {
+void Tile::spellInteract(int damage, int effect, int intensity) {
 
 }
 
-int Tile::Player_Attack(int damage) {
+int Tile::playerAttack(int damage) {
 	return 0;
 }
 
@@ -178,4 +178,74 @@ void Tile::drawUnderInfo() {
 	Texture text;
 	text.loadFromRenderedText(infoStr, textColor_g);
 	text.render(0, INSPECTINFO * TEXTSPACE, NULL);
+}
+
+// setters
+void Tile::setBlocking(bool b) {
+	blocking = b;
+}
+void Tile::setBorder(bool b) {
+	border = b;
+}
+void Tile::setIcon(char i) {
+	icon = i;
+}
+void Tile::setName(std::string n) {
+	name = n;
+}
+void Tile::setDescription(std::string d) {
+	description = d;
+}
+void Tile::setSpriteVersion(int sv) {
+	spriteVersion = sv;
+}
+void Tile::setSpritePath(int sp) {
+	spritePath = sp;
+}
+void Tile::setSprite(int s) {
+	sprite = s;
+}
+void Tile::setSpriteSheetW(int w) {
+	spriteSheetW = w;
+}
+void Tile::setColor(int c) {
+	color = c;
+}
+void Tile::setUnder(Tile* u) {
+	under = u;
+}
+
+// getters
+bool Tile::getBlocking() {
+	return blocking;
+}
+bool Tile::getBorder() {
+	return border;
+}
+char Tile::getIcon() {
+	return icon;
+}
+std::string Tile::getName() {
+	return name;
+}
+std::string Tile::getDescription() {
+	return description;
+}
+int Tile::getSpriteVersion() {
+	return spriteVersion;
+}
+int Tile::getSpritePath() {
+	return spritePath;
+}
+int Tile::getSprite() {
+	return sprite;
+}
+int Tile::getSpriteSheetW() {
+	return spriteSheetW;
+}
+int Tile::getColor() {
+	return color;
+}
+Tile* Tile::getUnder() {
+	return under;
 }

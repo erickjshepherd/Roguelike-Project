@@ -48,10 +48,10 @@ public:
 	void takeDamage(int amount);
 
 	// player interaction
-	int Player_Attack(int damage);
+	int playerAttack(int damage);
 
 	// spell interaction
-	void Spell_Interact(int damage, int effect, int intensity);
+	void spellInteract(int damage, int effect, int intensity);
 
 	// sets the color based on status conditions
 	void updateColor();

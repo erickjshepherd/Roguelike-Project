@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
 		}
 		else {
 			int playerET = PC->getExtraTurns();
-			PC->setExtraTurns(playerET--);
+			PC->setExtraTurns(playerET - 1);
 		}
 	}
 

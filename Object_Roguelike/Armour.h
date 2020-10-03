@@ -17,5 +17,5 @@ public:
 	int minTunnelSize;
 	int totalSize;
 
-	void Player_Interact();
+	void playerInteract();
 };

@@ -13,9 +13,9 @@
 #define ESC 27
 
 Spell::Spell() {
-	blocking = 0;
+	setBlocking(0);
 	cdCount = 0;
-	icon = '$';
+	setIcon('$');
 }
 
 Spell::~Spell() {
@@ -23,26 +23,26 @@ Spell::~Spell() {
 }
 
 // todo: create proper setters for the spells
-void Spell::Player_Interact() {
+void Spell::playerInteract() {
 	int spellNum;
 	int resolved = 0;
 	while (resolved == 0) {
 		resolved = 1;
 		if (global_map->player->getSpell1() == NULL) {
-			global_map->player->under = this->under;
-			this->under = NULL;
+			global_map->player->setUnder(getUnder());
+			setUnder(NULL);
 			global_map->player->setSpell1(this);
 			global_map->player->drawStats(SPELL1);
 		}
 		else if (global_map->player->getSpell2() == NULL) {
-			global_map->player->under = this->under;
-			this->under = NULL;
+			global_map->player->setUnder(getUnder());
+			setUnder(NULL);
 			global_map->player->setSpell2(this);
 			global_map->player->drawStats(SPELL2);
 		}
 		else if (global_map->player->getSpell3() == NULL) {
-			global_map->player->under = this->under;
-			this->under = NULL;
+			global_map->player->setUnder(getUnder());
+			setUnder(NULL);
 			global_map->player->setSpell3(this);
 			global_map->player->drawStats(SPELL3);
 		}
@@ -81,20 +81,20 @@ void Spell::Player_Interact() {
 			SDL_RenderPresent(renderer_g);
 
 			if (spellNum == EVENT_KEY_1) {
-				global_map->player->under = global_map->player->getSpell1();
-				global_map->player->under->under = this->under;
+				global_map->player->setUnder(global_map->player->getSpell1());
+				global_map->player->getUnder()->setUnder(getUnder());
 				global_map->player->setSpell1(this);
 				global_map->player->drawStats(SPELL1);
 			}
 			else if (spellNum == EVENT_KEY_2) {
-				global_map->player->under = global_map->player->getSpell2();
-				global_map->player->under->under = this->under;
+				global_map->player->setUnder(global_map->player->getSpell2());
+				global_map->player->getUnder()->setUnder(getUnder());
 				global_map->player->setSpell2(this);
 				global_map->player->drawStats(SPELL2);
 			}
 			else if (spellNum == EVENT_KEY_3) {
-				global_map->player->under = global_map->player->getSpell3();
-				global_map->player->under->under = this->under;
+				global_map->player->setUnder(global_map->player->getSpell3());
+				global_map->player->getUnder()->setUnder(getUnder());
 				global_map->player->setSpell3(this);
 				global_map->player->drawStats(SPELL3);
 			}
@@ -122,7 +122,7 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int intens
 	}
 	for (int x = 0; x < range; x++) {
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
-		global_map->map[hitLocation]->Spell_Interact(damage, effect, intensity);
+		global_map->map[hitLocation]->spellInteract(damage, effect, intensity);
 	}
 }
 
@@ -147,7 +147,7 @@ void Spell::updateLineColor(int direction, int range, int color) {
 	for (int x = 0; x < range; x++) {
 		int loc = global_map->player->getLocation();
 		loc += (x + 1) * increment;
-		global_map->map[loc]->color = color;
+		global_map->map[loc]->setColor(color);
 	}
 	spellMtx.unlock();
 }

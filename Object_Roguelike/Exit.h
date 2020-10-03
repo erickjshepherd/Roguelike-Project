@@ -6,5 +6,5 @@ class Exit : public Tile {
 public:
 	Exit();
 	~Exit();
-	void Player_Step();
+	void playerStep();
 };

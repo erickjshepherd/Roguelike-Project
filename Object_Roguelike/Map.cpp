@@ -134,12 +134,12 @@ void Map::Make_Rooms() {
 				// only read map if in bounds
 				else {
 
-					if (map[xy]->icon == '.') {
+					if (map[xy]->getIcon() == '.') {
 						empty = 0;
 					}
 
 					// do not generate rooms on map borders
-					if (map[xy]->border) {
+					if (map[xy]->getBorder()) {
 						outofBounds = 1;
 					}
 				}
@@ -162,12 +162,12 @@ void Map::Make_Rooms() {
 					xy += y * size;
 					xy += x;
 
-					map[xy]->icon = '.';
-					map[xy]->blocking = 0;
+					map[xy]->setIcon('.');
+					map[xy]->setBlocking(0);
 				}
 			}
 
-			map[xy]->icon = 'T'; // mark tiles for future tunnels
+			map[xy]->setIcon('T'); // mark tiles for future tunnels
 			actual_total_rooms++;
 		}
 	}
@@ -204,11 +204,11 @@ void Map::Make_Special_Tunnel() {
 
 				if (Location >= 0 && Location < size*size) {
 					Location += size;
-					if (map[Location]->border) {
+					if (map[Location]->getBorder()) {
 						Location -= size;
 						break;
 					}
-					map[Location]->icon = 'o';
+					map[Location]->setIcon('o');
 				}
 			}
 
@@ -217,12 +217,12 @@ void Map::Make_Special_Tunnel() {
 
 				if (Location >= 0 && Location < size*size) {
 					Location++;
-					if (map[Location]->border) {
+					if (map[Location]->getBorder()) {
 						Location--;
 						break;
 					}
 					specialTunnelY.push_back(Location / size);
-					map[Location]->icon = 'o';
+					map[Location]->setIcon('o');
 				}
 			}
 		}
@@ -237,11 +237,11 @@ void Map::Close_Special() {
 
 	for (x = 0; x < size; x++) {
 
-		map[x]->icon = 'o';
+		map[x]->setIcon('o');
 
 		Bottom_Row = size*size;
 		Bottom_Row -= size;
-		map[Bottom_Row + x]->icon = 'o';
+		map[Bottom_Row + x]->setIcon('o');
 	}
 }
 
@@ -262,13 +262,13 @@ void Map::Tunnel() {
 	while (x < Total_Size) {
 
 		// start digging at marked tiles
-		if (map[x]->icon == 'T') {
+		if (map[x]->getIcon() == 'T') {
 
 			location = x;
 
 			// place a floor tile
-			map[location]->icon = '.';
-			map[location]->blocking = 0;
+			map[location]->setIcon('.');
+			map[location]->setBlocking(0);
 
 			// top half will dig down
 			if ((location / size) < specialTunnelY[location % size]) {
@@ -283,7 +283,7 @@ void Map::Tunnel() {
 			}
 
 			// tunnel until you find 'o'
-			while (map[location]->icon != 'o' && location < size*size && location >= 0) {
+			while (map[location]->getIcon() != 'o' && location < size*size && location >= 0) {
 
 				// choose a new direction and amount 
 				direction = rand();
@@ -313,57 +313,57 @@ void Map::Tunnel() {
 					// up
 					if (direction == 0) {
 						location -= size;
-						if (map[location]->border) {
+						if (map[location]->getBorder()) {
 							location += size;
 							break;
 						}
-						if (map[location]->icon == 'o') {
+						if (map[location]->getIcon() == 'o') {
 							break;
 						}
-						map[location]->icon = '.';
-						map[location]->blocking = 0;
+						map[location]->setIcon('.');
+						map[location]->setBlocking(0);
 					}
 
 					// right
 					else if (direction == 1) {
 						location++;
-						if (map[location]->border) {
+						if (map[location]->getBorder()) {
 							location--;
 							break;
 						}
-						if (map[location]->icon == 'o') {
+						if (map[location]->getIcon() == 'o') {
 							break;
 						}
-						map[location]->icon = '.';
-						map[location]->blocking = 0;
+						map[location]->setIcon('.');
+						map[location]->setBlocking(0);
 					}
 
 					// left
 					else if (direction == 2) {
 						location--;
-						if (map[location]->border) {
+						if (map[location]->getBorder()) {
 							location++;
 							break;
 						}
-						if (map[location]->icon == 'o') {
+						if (map[location]->getIcon() == 'o') {
 							break;
 						}
-						map[location]->icon = '.';
-						map[location]->blocking = 0;
+						map[location]->setIcon('.');
+						map[location]->setBlocking(0);
 					}
 
 					// down
 					else {
 						location += size;
-						if (map[location]->border) {
+						if (map[location]->getBorder()) {
 							location -= size;
 							break;
 						}
-						if (map[location]->icon == 'o') {
+						if (map[location]->getIcon() == 'o') {
 							break;
 						}
-						map[location]->icon = '.';
-						map[location]->blocking = 0;
+						map[location]->setIcon('.');
+						map[location]->setBlocking(0);
 					}
 				}
 			}
@@ -380,10 +380,10 @@ void Map::Clear_Special() {
 
 	for (x = 0; x < size*size; x++) {
 
-		if (map[x]->icon == 'o') {
+		if (map[x]->getIcon() == 'o') {
 
-			map[x]->icon = '.';
-			map[x]->blocking = 0;
+			map[x]->setIcon('.');
+			map[x]->setBlocking(0);
 		}
 	}
 }
@@ -400,9 +400,9 @@ void Map::Close_Map() {
 	for (x = 0; x < size; x++) {
 
 		// top	
-		map[x]->icon = '#';
-		map[x]->blocking = 1;
-		map[x]->border = 1;
+		map[x]->setIcon('#');
+		map[x]->setBlocking(1);
+		map[x]->setBorder(1);
 
 		// bottom
 		Bottom_Row = size*size;
@@ -410,25 +410,25 @@ void Map::Close_Map() {
 		current_b = Bottom_Row + x;
 		if (current_b >= 0 && current_b < size*size) {
 			
-			map[current_b]->icon = '#';
-			map[current_b]->blocking = 1;
-			map[current_b]->border = 1;
+			map[current_b]->setIcon('#');
+			map[current_b]->setBlocking(1);
+			map[current_b]->setBorder(1);
 		}
 
 		// left
 		current_l = x * size;
 		if (current_l >= 0 && current_l < size*size) {
-			map[current_l]->icon = '#';
-			map[current_l]->blocking = 1;
-			map[current_l]->border = 1;
+			map[current_l]->setIcon('#');
+			map[current_l]->setBlocking(1);
+			map[current_l]->setBorder(1);
 		}
 
 		// right
 		current_r = (x + 1) * size - 1;
 		if (current_r >= 0 && current_r < size*size) {
-			map[current_r]->icon = '#';
-			map[current_r]->blocking = 1;
-			map[current_r]->border = 1;
+			map[current_r]->setIcon('#');
+			map[current_r]->setBlocking(1);
+			map[current_r]->setBorder(1);
 		}
 	}
 }
@@ -448,30 +448,30 @@ void Map::Fill_Dead_Ends() {
 		count = 0;
 		if (x - size >= 0 && x + size < size * size) {
 			
-			if (map[x - size]->icon == '#') { // up
+			if (map[x - size]->getIcon() == '#') { // up
 
 				count++;
 			}
 
-			if (map[x + 1]->icon == '#') { // right
+			if (map[x + 1]->getIcon() == '#') { // right
 
 				count++;
 			}
 
-			if (map[x + size]->icon == '#') { // down
+			if (map[x + size]->getIcon() == '#') { // down
 
 				count++;
 			}
 
-			if (map[x - 1]->icon == '#') { // left
+			if (map[x - 1]->getIcon() == '#') { // left
 
 				count++;
 			}
 
 			if (count == 3 || count == 4) { // If the tile is surrounded by 3 '#' it becomes '#'
 
-				map[x]->icon = '#';
-				map[x]->blocking = 1;
+				map[x]->setIcon('#');
+				map[x]->setBlocking(1);
 			}
 		}
 
@@ -483,30 +483,30 @@ void Map::Fill_Dead_Ends() {
 		
 		if (x - size >= 0 && x + size < size * size) {
 			
-			if (map[x - size]->icon == '#') { // up
+			if (map[x - size]->getIcon() == '#') { // up
 
 				count++;
 			}
 
-			if (map[x + 1]->icon == '#') { // right
+			if (map[x + 1]->getIcon() == '#') { // right
 
 				count++;
 			}
 
-			if (map[x + size]->icon == '#') { // down
+			if (map[x + size]->getIcon() == '#') { // down
 
 				count++;
 			}
 
-			if (map[x - 1]->icon == '#') { // left
+			if (map[x - 1]->getIcon() == '#') { // left
 
 				count++;
 			}
 
 			if (count == 3 || count == 4) { // If the tile is surrounded by 3 '#' it bacomes '#'
 
-				map[x]->icon = '#';
-				map[x]->blocking = 1;
+				map[x]->setIcon('#');
+				map[x]->setBlocking(1);
 			}
 		}
 
@@ -521,7 +521,7 @@ void Map::Set_Exit() {
 	bool found_start = false;
 
 	while (found_start == false) {
-		if (map[location]->icon == '.') {
+		if (map[location]->getIcon() == '.') {
 
 			found_start = true;
 		}
@@ -533,7 +533,7 @@ void Map::Set_Exit() {
 
 	Tile* under = map[location];
 	map[location] = new Exit();
-	map[location]->under = under;
+	map[location]->setUnder(under);
 }
 
 // Spawn enemies on the map
@@ -546,7 +546,7 @@ void Map::Spawn_Enemies() {
 	for (x = 0; x < size; x++) {
 		location = rand();
 		location %= Total_Size;
-		while (this->map[location]->icon != '.') {
+		while (this->map[location]->getIcon() != '.') {
 			location = rand();
 			location %= Total_Size;
 		}
@@ -554,7 +554,7 @@ void Map::Spawn_Enemies() {
 		index = rand() % NUM_MONSTERS;
 		Enemy* enemy = Get_Enemy(location, index);
 		this->map[location] = enemy;
-		this->map[location]->under = under;
+		this->map[location]->setUnder(under);
 		this->Enemy_List.push_back(enemy);
 	}
 }
@@ -614,7 +614,7 @@ int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std
 	int previous_node = parent_nodes.front();
 	parent_nodes.pop();
 
-	if (map[current_node]->icon == 'E') {
+	if (map[current_node]->getIcon() == 'E') {
 		return previous_node;
 	}
 
@@ -636,7 +636,7 @@ int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std
 
 		// add unvisited, non-blocking nodes to the search list
 		// throws error
-		if (map[next_node]->blocking == 0 || (map[next_node]->icon == 'E')) {
+		if (map[next_node]->getBlocking() == 0 || (map[next_node]->getIcon() == 'E')) {
 			int isVisited, y;
 			isVisited = 0;
 			for (y = 0; y < visited.size(); y++) {
@@ -685,16 +685,16 @@ void Map::convertToClasses() {
 	int Total_Size = size * size;
 
 	for (y = 0; y != Total_Size; y++) {
-		border = map[y]->border;
-		if (map[y]->icon == '#') {
+		border = map[y]->getBorder();
+		if (map[y]->getIcon() == '#') {
 			delete map[y];
 			map[y] = new Wall();
-			map[y]->border = border;
+			map[y]->setBorder(border);
 		}
-		else if (map[y]->icon == '.') {
+		else if (map[y]->getIcon() == '.') {
 			delete map[y];
 			map[y] = new Floor();
-			map[y]->border = border;
+			map[y]->setBorder(border);
 		}
 	}
 }
@@ -705,106 +705,106 @@ void Map::setWallSprites() {
 
 	// set surrounded walls to have no sprite (-1)
 	for (t = 0; t < Total_Size; t++) {
-		if (map[t]->icon == '#') {
+		if (map[t]->getIcon() == '#') {
 			// set border tile sprites
-			if (map[t]->border == 1) {
-				map[t]->spriteVersion = -1;
+			if (map[t]->getBorder() == 1) {
+				map[t]->setSpriteVersion(-1);
 				// top left
 				if (t == 0) {
-					if (map[size + 1]->icon != '#') {
-						map[t]->spriteVersion = 0;
+					if (map[size + 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(0);
 					}
 				}
 				// top right
 				else if (t == size - 1) {
-					if (map[(t + size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 2;
+					if (map[(t + size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(2);
 					}
 				}
 				// bottom left
 				else if (t == size * (size - 1)) {
-					if (map[(t - size) + 1]->icon != '#') {
-						map[t]->spriteVersion = 12;
+					if (map[(t - size) + 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(12);
 					}
 				}
 				// bottom right
 				else if (t == (size * size) - 1) {
-					if (map[(t - size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 14;
+					if (map[(t - size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(14);
 					}
 				}
 				// top row
 				else if (t < size && t % size != 0 && t % size != (size - 1)) {
 					// horizontal line
-					if (map[t + size]->icon != '#') {
-						map[t]->spriteVersion = 1;
+					if (map[t + size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(1);
 					}
 					// top T-section
-					else if (map[t + size + 1]->icon != '#' && map[(t + size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 4;
+					else if (map[t + size + 1]->getIcon() != '#' && map[(t + size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(4);
 					}
 					// top left corner
-					else if (map[t + size + 1]->icon != '#') {
-						map[t]->spriteVersion = 0;
+					else if (map[t + size + 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(0);
 					}
 					// top right corner
-					else if (map[(t + size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 2;
+					else if (map[(t + size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(2);
 					}
 				}
 				// bottom row
 				else if (t >= size * (size - 1) && t % size != 0 && t % size != (size - 1)) {
 					// horizontal line
-					if (map[t - size]->icon != '#') {
-						map[t]->spriteVersion = 1;
+					if (map[t - size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(1);
 					}
 					// bottom T-section
-					else if (map[(t - size) + 1]->icon != '#' && map[(t - size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 16;
+					else if (map[(t - size) + 1]->getIcon() != '#' && map[(t - size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(16);
 					}
 					// bottom left corner
-					else if (map[(t - size) + 1]->icon != '#') {
-						map[t]->spriteVersion = 12;
+					else if (map[(t - size) + 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(12);
 					}
 					// bottom right corner
-					else if (map[(t - size) - 1]->icon != '#') {
-						map[t]->spriteVersion = 14;
+					else if (map[(t - size) - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(14);
 					}
 				}
 				// left column
 				else if (t >= size && t % size == 0 && t < size * (size - 1)) {
-					if (map[t + 1]->icon != '#') {
-						map[t]->spriteVersion = 6;
+					if (map[t + 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(6);
 					}
 					// left T-section
-					else if (map[t + 1 + size]->icon != '#' && map[(t + 1) - size]->icon != '#') {
-						map[t]->spriteVersion = 9;
+					else if (map[t + 1 + size]->getIcon() != '#' && map[(t + 1) - size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(9);
 					}
 					// bottom left corner
-					else if (map[(t + 1) - size]->icon != '#') {
-						map[t]->spriteVersion = 12;
+					else if (map[(t + 1) - size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(12);
 					}
 					// top left corner
-					else if (map[(t + 1) + size]->icon != '#') {
-						map[t]->spriteVersion = 0;
+					else if (map[(t + 1) + size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(0);
 					}
 				}
 				// right column
 				else if (t >= size && t % size == (size - 1) && t < size * (size - 1)) {
-					if (map[t - 1]->icon != '#') {
-						map[t]->spriteVersion = 6;
+					if (map[t - 1]->getIcon() != '#') {
+						map[t]->setSpriteVersion(6);
 					}
 					// right T-section
-					else if (map[(t - 1) + size]->icon != '#' && map[(t - 1) - size]->icon != '#') {
-						map[t]->spriteVersion = 11;
+					else if (map[(t - 1) + size]->getIcon() != '#' && map[(t - 1) - size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(11);
 					}
 					// bottom right corner
-					else if (map[(t - 1) - size]->icon != '#') {
-						map[t]->spriteVersion = 14;
+					else if (map[(t - 1) - size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(14);
 					}
 					// top right corner
-					else if (map[(t - 1) + size]->icon != '#') {
-						map[t]->spriteVersion = 2;
+					else if (map[(t - 1) + size]->getIcon() != '#') {
+						map[t]->setSpriteVersion(2);
 					}
 				}
 			}
@@ -815,8 +815,8 @@ void Map::setWallSprites() {
 					for (x = 0; x < 3; x++) {
 						checkPos = (t - size) - 1;
 						checkPos += (y * size) + x;
-						if (map[checkPos]->icon != '#') {
-							map[t]->spriteVersion = 0;
+						if (map[checkPos]->getIcon() != '#') {
+							map[t]->setSpriteVersion(0);
 						}
 					}
 				}
@@ -825,83 +825,83 @@ void Map::setWallSprites() {
 	}
 	// set tiles for remaining walls
 	for (t = 0; t < Total_Size; t++) {
-		if (map[t]->icon == '#') {
-			if (map[t]->border == 1 || map[t]->spriteVersion == -1) {
+		if (map[t]->getIcon() == '#') {
+			if (map[t]->getBorder() == 1 || map[t]->getSpriteVersion() == -1) {
 				// already set
 			}
 			// center open
-			else if (map[t - 1]->spriteVersion == -1 && map[t - size]->spriteVersion == -1 && map[t + 1]->spriteVersion == -1 && map[t + size]->spriteVersion == -1) {
-				map[t]->spriteVersion = 7;
+			else if (map[t - 1]->getSpriteVersion() == -1 && map[t - size]->getSpriteVersion() == -1 && map[t + 1]->getSpriteVersion() == -1 && map[t + size]->getSpriteVersion() == -1) {
+				map[t]->setSpriteVersion(7);
 			}
 			// top left corner
-			else if (map[t - 1]->spriteVersion == -1 && map[t - size]->spriteVersion == -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion != -1) {
-				map[t]->spriteVersion = 0;
+			else if (map[t - 1]->getSpriteVersion() == -1 && map[t - size]->getSpriteVersion() == -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() != -1) {
+				map[t]->setSpriteVersion(0);
 			}
 			// horizontal line
-			else if (map[t - size]->spriteVersion == -1 && map[t + size]->spriteVersion == -1) {
-				if (map[t - 1]->spriteVersion != -1 || map[t + 1]->spriteVersion != -1) {
-					map[t]->spriteVersion = 1;
+			else if (map[t - size]->getSpriteVersion() == -1 && map[t + size]->getSpriteVersion() == -1) {
+				if (map[t - 1]->getSpriteVersion() != -1 || map[t + 1]->getSpriteVersion() != -1) {
+					map[t]->setSpriteVersion(1);
 				}
 			}
 			// top right corner
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion == -1 && map[t + 1]->spriteVersion == -1 && map[t + size]->spriteVersion != -1) {
-				map[t]->spriteVersion = 2;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() == -1 && map[t + 1]->getSpriteVersion() == -1 && map[t + size]->getSpriteVersion() != -1) {
+				map[t]->setSpriteVersion(2);
 			}
 			// top T-section
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion == -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion != -1) {
-				if (map[(t + size) - 1]->spriteVersion != -1 && map[(t + size) + 1]->spriteVersion != -1) {
-					map[t]->spriteVersion = 1;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() == -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() != -1) {
+				if (map[(t + size) - 1]->getSpriteVersion() != -1 && map[(t + size) + 1]->getSpriteVersion() != -1) {
+					map[t]->setSpriteVersion(1);
 				}
 				else {
-					map[t]->spriteVersion = 4;
+					map[t]->setSpriteVersion(4);
 				}
 			}
 			// vertical line
-			else if (map[t - 1]->spriteVersion == -1 && map[t + 1]->spriteVersion == -1) {
-				if (map[t - size]->spriteVersion != -1 && map[t + size]->spriteVersion == -1) {
-					map[t]->spriteVersion = 7;
+			else if (map[t - 1]->getSpriteVersion() == -1 && map[t + 1]->getSpriteVersion() == -1) {
+				if (map[t - size]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() == -1) {
+					map[t]->setSpriteVersion(7);
 				}
 				else {
-					map[t]->spriteVersion = 6;
+					map[t]->setSpriteVersion(6);
 				}
 			}
 			// left T-section
-			else if (map[t - 1]->spriteVersion == -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion != -1) {
-				if (map[(t + 1) - size]->spriteVersion != -1 && map[(t + 1) + size]->spriteVersion != -1) {
-					map[t]->spriteVersion = 6;
+			else if (map[t - 1]->getSpriteVersion() == -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() != -1) {
+				if (map[(t + 1) - size]->getSpriteVersion() != -1 && map[(t + 1) + size]->getSpriteVersion() != -1) {
+					map[t]->setSpriteVersion(6);
 				}
 				else {
-					map[t]->spriteVersion = 9;
+					map[t]->setSpriteVersion(9);
 				}
 			}
 			// center closed
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion != -1) {
-				map[t]->spriteVersion = 10;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() != -1) {
+				map[t]->setSpriteVersion(10);
 			}
 			// right T-section
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion == -1 && map[t + size]->spriteVersion != -1) {
-				if (map[(t - 1) - size]->spriteVersion != -1 && map[(t - 1) + size]->spriteVersion != -1) {
-					map[t]->spriteVersion = 6;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() == -1 && map[t + size]->getSpriteVersion() != -1) {
+				if (map[(t - 1) - size]->getSpriteVersion() != -1 && map[(t - 1) + size]->getSpriteVersion() != -1) {
+					map[t]->setSpriteVersion(6);
 				}
 				else {
-					map[t]->spriteVersion = 11;
+					map[t]->setSpriteVersion(11);
 				}
 			}
 			// bottom left corner
-			else if (map[t - 1]->spriteVersion == -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion == -1) {
-				map[t]->spriteVersion = 12;
+			else if (map[t - 1]->getSpriteVersion() == -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() == -1) {
+				map[t]->setSpriteVersion(12);
 			}
 			// bottom right corner
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion == -1 && map[t + size]->spriteVersion == -1) {
-				map[t]->spriteVersion = 14;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() == -1 && map[t + size]->getSpriteVersion() == -1) {
+				map[t]->setSpriteVersion(14);
 			}
 			// bottom T-section
-			else if (map[t - 1]->spriteVersion != -1 && map[t - size]->spriteVersion != -1 && map[t + 1]->spriteVersion != -1 && map[t + size]->spriteVersion == -1) {
-				if (map[(t - size) - 1]->spriteVersion != -1 && map[(t - size) + 1]->spriteVersion != -1) {
-					map[t]->spriteVersion = 1;
+			else if (map[t - 1]->getSpriteVersion() != -1 && map[t - size]->getSpriteVersion() != -1 && map[t + 1]->getSpriteVersion() != -1 && map[t + size]->getSpriteVersion() == -1) {
+				if (map[(t - size) - 1]->getSpriteVersion() != -1 && map[(t - size) + 1]->getSpriteVersion() != -1) {
+					map[t]->setSpriteVersion(1);
 				}
 				else {
-					map[t]->spriteVersion = 16;
+					map[t]->setSpriteVersion(16);
 				}
 			}
 		}
@@ -913,77 +913,77 @@ void Map::setFloorSprites() {
 	int Total_Size = size * size;
 
 	for (t = 0; t < Total_Size; t++) {
-		if (map[t]->icon == '.') {
+		if (map[t]->getIcon() == '.') {
 			// fully enclosed
-			if (map[t - size]->icon == '#' && map[t + size]->icon == '#' && map[t - 1]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 5;
+			if (map[t - size]->getIcon() == '#' && map[t + size]->getIcon() == '#' && map[t - 1]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(5);
 			}
 			// top end
-			else if (map[t - size]->icon == '#' && map[t - 1]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 3;
+			else if (map[t - size]->getIcon() == '#' && map[t - 1]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(3);
 			}
 			// left end
-			else if (map[t - size]->icon == '#' && map[t + size]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 11;
+			else if (map[t - size]->getIcon() == '#' && map[t + size]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(11);
 			}
 			// right end
-			else if (map[t - size]->icon == '#' && map[t + size]->icon == '#' && map[t - 1]->icon == '#') {
-				map[t]->spriteVersion = 13;
+			else if (map[t - size]->getIcon() == '#' && map[t + size]->getIcon() == '#' && map[t - 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(13);
 			}
 			// bottom end
-			else if (map[t + size]->icon == '#' && map[t - 1]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 17;
+			else if (map[t + size]->getIcon() == '#' && map[t - 1]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(17);
 			}
 			// top left corner
-			else if (map[t - size]->icon == '#' && map[t - 1]->icon == '#') {
-				map[t]->spriteVersion = 0;
+			else if (map[t - size]->getIcon() == '#' && map[t - 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(0);
 			}
 			// top right corner
-			else if (map[t - size]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 2;
+			else if (map[t - size]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(2);
 			}
 			// vertical tunnel
-			else if (map[t - 1]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 10;
+			else if (map[t - 1]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(10);
 			}
 			// horizontal tunnel
-			else if (map[t - size]->icon == '#' && map[t + size]->icon == '#') {
-				map[t]->spriteVersion = 12;
+			else if (map[t - size]->getIcon() == '#' && map[t + size]->getIcon() == '#') {
+				map[t]->setSpriteVersion(12);
 			}
 			// bottom left corner
-			else if (map[t + size]->icon == '#' && map[t - 1]->icon == '#') {
-				map[t]->spriteVersion = 14;
+			else if (map[t + size]->getIcon() == '#' && map[t - 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(14);
 			}
 			// bottom right corner
-			else if (map[t + size]->icon == '#' && map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 16;
+			else if (map[t + size]->getIcon() == '#' && map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(16);
 			}
 			// top
-			else if (map[t - size]->icon == '#') {
-				map[t]->spriteVersion = 1;
+			else if (map[t - size]->getIcon() == '#') {
+				map[t]->setSpriteVersion(1);
 			}
 			// left
-			else if (map[t - 1]->icon == '#') {
-				map[t]->spriteVersion = 7;
+			else if (map[t - 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(7);
 			}
 			// right
-			else if (map[t + 1]->icon == '#') {
-				map[t]->spriteVersion = 9;
+			else if (map[t + 1]->getIcon() == '#') {
+				map[t]->setSpriteVersion(9);
 			}
 			// bottom
-			else if (map[t + size]->icon == '#') {
-				map[t]->spriteVersion = 15;
+			else if (map[t + size]->getIcon() == '#') {
+				map[t]->setSpriteVersion(15);
 			}
 			// open
 			else {
-				map[t]->spriteVersion = 8;
+				map[t]->setSpriteVersion(8);
 			}
 		}
 	}
 }
 
 Map::~Map(){
-	delete player->under;
+	delete player->getUnder();
 	while (!map.empty()) {
 		if (map.back() != player) {
 			delete map.back();

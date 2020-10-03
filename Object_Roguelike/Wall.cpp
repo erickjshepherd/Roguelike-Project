@@ -1,10 +1,10 @@
 #include "Wall.h"
 
 Wall::Wall() {
-	blocking = 1;
-	icon = '#';
-	name = "wall";
-	description = "It's a wall";
+	setBlocking(1);
+	setIcon('#');
+	setName("wall");
+	setDescription("It's a wall");
 
 	spriteType = BRICK2_W;
 }
@@ -14,7 +14,7 @@ Wall::~Wall() {
 }
 
 void Wall::render(int x, int y, int color) {
-	if (spriteVersion != -1) {
+	if (getSpriteVersion() != -1) {
 		// get the sprite sheet
 		Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + color];
 
@@ -22,8 +22,8 @@ void Wall::render(int x, int y, int color) {
 		int clipX = 0;
 		int clipY = 48;
 		// wall sprites are in rows of 6
-		int xOffset = spriteVersion % 6;
-		int yOffset = spriteVersion / 6;
+		int xOffset = getSpriteVersion() % 6;
+		int yOffset = getSpriteVersion() / 6;
 		// wall sets are in columns of 16
 		int typeXOffset = spriteType / 16;
 		int typeYOffset = spriteType % 16;

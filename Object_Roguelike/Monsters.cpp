@@ -3,36 +3,36 @@
 
 // slime constructor
 Slime::Slime() {
-	name = std::string("slime");
+	setName("slime");
 	health = 20;
 	speed = 1;
 	strength = 2;
 	viewDistance = 6;
-	icon = 'S';
+	setIcon('S');
 	location = 0;
 	loot[0] = 0; // 1/10 to drop dagger
 	loot[1] = 1; // 1/10 to drop freeze
 	loot[2] = 1; // 1/10 to drop freeze
-	spritePath = SLIMEPATH;
-	sprite = 24;
-	spriteSheetW = 6;
-	color = STANDARD;
+	setSpritePath(SLIMEPATH);
+	setSprite(24);
+	setSpriteSheetW(6);
+	setColor(STANDARD);
 }
 
 Slime::Slime(int location) {
-	name = std::string("slime");
+	setName("slime");
 	health = 20;
 	speed = 1;
 	strength = 2;
 	viewDistance = 6;
-	icon = 'S';
+	setIcon('S');
 	this->location = location;
 	loot[0] = 1;
 	loot[1] = 2;
-	spritePath = SLIMEPATH;
-	sprite = 24;
-	spriteSheetW = 6;
-	color = STANDARD;
+	setSpritePath(SLIMEPATH);
+	setSprite(24);
+	setSpriteSheetW(6);
+	setColor(STANDARD);
 }
 
 // slime destructor

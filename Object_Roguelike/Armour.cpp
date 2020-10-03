@@ -10,7 +10,7 @@ Armour::Armour() {
 	maxRoomSize = 0;
 	minRoomSize = 0;
 	totalSize = 0;
-	blocking = 0;
+	setBlocking(0);
 }
 
 Armour::~Armour() {
@@ -18,6 +18,6 @@ Armour::~Armour() {
 }
 
 // equip based on type
-void Armour::Player_Interact() {
+void Armour::playerInteract() {
 
 }
