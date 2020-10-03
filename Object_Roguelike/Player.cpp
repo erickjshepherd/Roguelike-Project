@@ -24,7 +24,7 @@ Player::Player(){
 	// set player sprite info
 	spritePath = PLAYERPATH;
 	spriteSheetW = 8;
-	spriteType = 30;
+	sprite = 30;
 	color = STANDARD;
 
 	// set initial map generation variables

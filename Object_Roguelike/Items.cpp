@@ -23,7 +23,7 @@ dagger::dagger() {
 	// sprite
 	spritePath = SHORTWEPPATH;
 	spriteSheetW = 8;
-	spriteType = 0;
+	sprite = 0;
 }
 
 dagger::dagger(int location) {
@@ -46,7 +46,7 @@ dagger::dagger(int location) {
 	// sprite
 	spritePath = SHORTWEPPATH;
 	spriteSheetW = 8;
-	spriteType = 0;
+	sprite = 0;
 }
 
 dagger::~dagger() {
@@ -73,7 +73,7 @@ longsword::longsword() {
 	// sprite
 	spritePath = MEDWEPPATH;
 	spriteSheetW = 6;
-	spriteType = 0;
+	sprite = 0;
 }
 
 longsword::longsword(int location) {
@@ -95,7 +95,7 @@ longsword::longsword(int location) {
 	// sprite
 	spritePath = MEDWEPPATH;
 	spriteSheetW = 6;
-	spriteType = 0;
+	sprite = 0;
 }
 
 longsword::~longsword() {

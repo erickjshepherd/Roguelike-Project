@@ -6,8 +6,7 @@ Wall::Wall() {
 	name = "wall";
 	description = "It's a wall";
 
-	// use the default wall sprites
-	spriteType = 0;
+	spriteType = BRICK2_W;
 }
 
 Wall::~Wall() {
@@ -15,15 +14,17 @@ Wall::~Wall() {
 }
 
 void Wall::render(int x, int y, int color) {
-	if (sprite != -1) {
+	if (spriteVersion != -1) {
 		// get the sprite sheet
 		Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + color];
 
 		// get the location on the sheet
 		int clipX = 0;
 		int clipY = 48;
-		int xOffset = sprite % 6;
-		int yOffset = sprite / 6;
+		// wall sprites are in rows of 6
+		int xOffset = spriteVersion % 6;
+		int yOffset = spriteVersion / 6;
+		// wall sets are in columns of 16
 		int typeXOffset = spriteType / 16;
 		int typeYOffset = spriteType % 16;
 		clipX += (xOffset * 16) + (typeXOffset * 112);

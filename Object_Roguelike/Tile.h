@@ -37,9 +37,9 @@ public:
 	char icon;
 	
 	// track what sprite should be used
-	int sprite; // todo: refactor name to be wall specific
+	int spriteVersion;
 	int spritePath;
-	int spriteType;
+	int sprite;
 	int spriteSheetW;
 	int color;
 	

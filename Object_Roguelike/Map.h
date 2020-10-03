@@ -55,7 +55,7 @@ private:
 	void Spawn_Items();
 	void convertToClasses();
 	void setWallSprites();
+	void setFloorSprites();
 	void clearEvents();
-
 };
 

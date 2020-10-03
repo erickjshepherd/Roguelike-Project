@@ -16,7 +16,7 @@ Freeze::Freeze() {
 	// sprite
 	spritePath = SCROLLPATH;
 	spriteSheetW = 8;
-	spriteType = 1;
+	sprite = 1;
 }
 
 Freeze::Freeze(int location) {
@@ -33,7 +33,7 @@ Freeze::Freeze(int location) {
 	// sprite
 	spritePath = SCROLLPATH;
 	spriteSheetW = 8;
-	spriteType = 1;
+	sprite = 1;
 }
 
 int Freeze::Cast() {

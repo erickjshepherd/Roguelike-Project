@@ -8,7 +8,8 @@ std::string tilePaths[NUMPATHS] = {
 	"Dawnlike Tiles/Characters/Slime0.png",
 	"Dawnlike Tiles/Items/MedWep.png",
 	"Dawnlike Tiles/Items/Scroll.png",
-	"Dawnlike Tiles/Items/ShortWep.png"
+	"Dawnlike Tiles/Items/ShortWep.png",
+	"Dawnlike Tiles/Objects/Floor.png"
 };
 
 std::vector<Texture*> tileSets_g;

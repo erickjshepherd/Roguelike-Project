@@ -8,7 +8,7 @@
 Tile::Tile() {
 	blocking = 1;
 	border = 0;
-	sprite = -1;
+	spriteVersion = -1;
 	icon = ' ';
 	under = nullptr;
 }
@@ -16,7 +16,7 @@ Tile::Tile() {
 Tile::Tile(char iconI, bool blockingI){
 	blocking = blockingI;
 	border = 0;
-	sprite = -1;
+	spriteVersion = -1;
 	icon = iconI;
 	under = nullptr;
 }
@@ -69,8 +69,8 @@ void Tile::render(int x, int y, int colorIn) {
 	// get the location on the sheet
 	int clipX = 0;
 	int clipY = 0;
-	int typeXOffset = spriteType % spriteSheetW;
-	int typeYOffset = spriteType / spriteSheetW;
+	int typeXOffset = sprite % spriteSheetW;
+	int typeYOffset = sprite / spriteSheetW;
 	clipX += typeXOffset * 16;
 	clipY += typeYOffset * 16;
 
@@ -104,8 +104,8 @@ void Tile::flash(int colorIn, int delay) {
 	// get the location on the sheet
 	int clipX = 0;
 	int clipY = 0;
-	int typeXOffset = spriteType % spriteSheetW;
-	int typeYOffset = spriteType / spriteSheetW;
+	int typeXOffset = sprite % spriteSheetW;
+	int typeYOffset = sprite / spriteSheetW;
 	clipX += typeXOffset * 16;
 	clipY += typeYOffset * 16;
 

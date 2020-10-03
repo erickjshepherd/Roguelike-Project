@@ -14,7 +14,7 @@ Slime::Slime() {
 	loot[1] = 1; // 1/10 to drop freeze
 	loot[2] = 1; // 1/10 to drop freeze
 	spritePath = SLIMEPATH;
-	spriteType = 24;
+	sprite = 24;
 	spriteSheetW = 6;
 	color = STANDARD;
 }
@@ -30,7 +30,7 @@ Slime::Slime(int location) {
 	loot[0] = 1;
 	loot[1] = 2;
 	spritePath = SLIMEPATH;
-	spriteType = 24;
+	sprite = 24;
 	spriteSheetW = 6;
 	color = STANDARD;
 }

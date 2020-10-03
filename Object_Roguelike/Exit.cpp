@@ -7,7 +7,7 @@ Exit::Exit() {
 	description = "The exit!";
 	spritePath = TILEPATH;
 	spriteSheetW = 8;
-	spriteType = 30;
+	sprite = 30;
 }
 
 Exit::~Exit() {
