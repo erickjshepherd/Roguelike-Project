@@ -51,9 +51,9 @@ public:
 	int playerAttack(int damage);
 
 	// spell interaction
-	void spellInteract(int damage, int effect, int intensity);
+	void spellInteract(int damage, int effect, int effectDamage, int intensity);
 
 	// sets the color based on status conditions
-	void updateColor();
+	void resetColor();
 };
 

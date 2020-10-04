@@ -287,40 +287,45 @@ void Player::setCoordinates() {
 
 // draw the players view
 // output: the area around the player is drawn to the console
-void Player::drawPlayerView() {
+void Player::drawPlayerView(int view) {
 
 	int x, y, xy;
 
-	// set the view port
-	SDL_RenderSetViewport(renderer_g, &mapView_g);
-
 	// clear screen
-	SDL_RenderClear(renderer_g);
+	if (view == -1) {
+		SDL_RenderClear(renderer_g);
+	}
+	if (view == 0 || view == -1) {
+		clearMap();
+		// get the width of the square to draw
+		int view_size = (viewDistance * 2) + 1;
 
-	// get the width of the square to draw
-	int view_size = (viewDistance * 2) + 1;
+		for (y = 0; y < view_size; y++) {
 
-	for (y = 0; y < view_size; y++) {
+			for (x = 0; x < view_size; x++) {
 
-		for (x = 0; x < view_size; x++) {
+				xy = viewStart;
+				xy += y * global_map->size;
+				xy += x;
 
-			xy = viewStart;
-			xy += y * global_map->size;
-			xy += x;
+				if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 
-			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
+					// draw sprite
+					global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, -1);
 
-				// draw sprite
-				global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, global_map->map[xy]->getColor());
-
-				if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
-					break;
+					if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
+						break;
+					}
 				}
 			}
 		}
 	}
-	drawStats(-1);
-	global_map->Draw_Events();
+	if (view == 1 || view == -1) {
+		drawStats(-1);
+	}
+	if (view == 2) {
+		global_map->Draw_Events();
+	}
 }
 
 // create a new level
@@ -360,7 +365,7 @@ void Player::getNewLevel(int level) {
 	}
 
 	// update the screen
-	drawPlayerView();
+	drawPlayerView(-1);
 }
 
 // move the player in one of four directions
@@ -404,7 +409,7 @@ int Player::Move(int direction) {
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
-				drawPlayerView();
+				drawPlayerView(0);
 				setCoordinates();
 			}
 
@@ -436,7 +441,7 @@ int Player::Move(int direction) {
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
-				drawPlayerView();
+				drawPlayerView(0);
 				setCoordinates();
 			}
 
@@ -467,7 +472,7 @@ int Player::Move(int direction) {
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
-				drawPlayerView();
+				drawPlayerView(0);
 				setCoordinates();
 			}
 
@@ -498,7 +503,7 @@ int Player::Move(int direction) {
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
-				drawPlayerView();
+				drawPlayerView(0);
 				setCoordinates();
 			}
 
@@ -914,6 +919,11 @@ int Player::selectSpell() {
 			validKey = 0;
 		}
 	}
+}
+
+void Player::clearMap() {
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+	SDL_RenderFillRect(renderer_g, NULL);
 }
 
 // setters

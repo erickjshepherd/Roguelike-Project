@@ -7,5 +7,5 @@ public:
 
 	Wall();
 	~Wall();
-	void render(int x, int y, int color);
+	void render(int x, int y, int colorIn);
 };

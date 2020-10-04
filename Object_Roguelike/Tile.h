@@ -14,7 +14,7 @@ public:
 	// interact functions
 	virtual void playerInteract();
 	virtual void playerStep();
-	virtual void spellInteract(int damage, int effect, int intensity);
+	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity);
 	virtual int playerAttack(int damage);
 
 	// other functions
@@ -22,6 +22,7 @@ public:
 	void flash(int colorIn, int delay);
 	void onScreen(int* X, int* Y);
 	virtual void render(int x, int y, int color);
+	virtual void resetColor();
 
 	// setters
 	void setBlocking(bool b);

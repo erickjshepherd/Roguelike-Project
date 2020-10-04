@@ -17,7 +17,7 @@ public:
 	bool inView();
 	void updateScreen(int X, int Y, int color);
 	void setCoordinates();
-	void drawPlayerView();
+	void drawPlayerView(int view);
 	void drawStats(int line);
 	void clearStats(int line);
 	void takeDamage(int amount);
@@ -27,6 +27,7 @@ public:
 	bool attack(int direction);
 	void decreaseSpellCD();
 	int selectSpell();
+	void clearMap();
 
 	// setters
 	void setLocation(int loc);

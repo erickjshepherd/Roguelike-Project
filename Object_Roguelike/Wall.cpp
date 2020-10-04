@@ -13,10 +13,17 @@ Wall::~Wall() {
 
 }
 
-void Wall::render(int x, int y, int color) {
+void Wall::render(int x, int y, int colorIn) {
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+
 	if (getSpriteVersion() != -1) {
+		
+		if (colorIn == -1) {
+			colorIn = getColor();
+		}
+
 		// get the sprite sheet
-		Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + color];
+		Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + colorIn];
 
 		// get the location on the sheet
 		int clipX = 0;

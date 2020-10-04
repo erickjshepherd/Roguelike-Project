@@ -2,17 +2,26 @@
 #include "Tile.h"
 #include <string>
 
+enum spellEffectEnums {
+	FREEZE,
+	BURN,
+	SLOW,
+	SCARE,
+	CHARM
+};
+
 class Spell : public Tile {
 public:
 	Spell();
 	~Spell();
 
-	int damage;
+	int initDamage;
+	int effectDamage;
 	int location;
 	int cd;
 	int cdCount;
 	int effect;
-	int intensity;
+	int duration;
 	int range;
 
 	int currentDirection;
@@ -20,7 +29,9 @@ public:
 
 	void playerInteract();
 	virtual int Cast();
-	void dmgLine(int direction, int range, int damage, int effect, int intensity);
+	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity);
 	void updateLineColor(int direction, int range, int color);
+	void flashLine();
 	int getDirection();
+	int castLine();
 };

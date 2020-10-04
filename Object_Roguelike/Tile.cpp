@@ -41,7 +41,7 @@ void Tile::playerStep() {
 	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
 }
 
-void Tile::spellInteract(int damage, int effect, int intensity) {
+void Tile::spellInteract(int damage, int effect, int effectDamage, int intensity) {
 
 }
 
@@ -178,6 +178,10 @@ void Tile::drawUnderInfo() {
 	Texture text;
 	text.loadFromRenderedText(infoStr, textColor_g);
 	text.render(0, INSPECTINFO * TEXTSPACE, NULL);
+}
+
+void Tile::resetColor() {
+	color = STANDARD;
 }
 
 // setters

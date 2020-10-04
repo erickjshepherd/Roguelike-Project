@@ -14,10 +14,16 @@ Floor::~Floor() {
 
 }
 
-void Floor::render(int x, int y, int color) {
+void Floor::render(int x, int y, int colorIn) {
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
 	if (getSpriteVersion() != -1) {
+		
+		if (colorIn == -1) {
+			colorIn = getColor();
+		}
+
 		// get the sprite sheet
-		Texture* spriteSheet = tileSets_g[FLOORPATH * NUMCOLORS + color];
+		Texture* spriteSheet = tileSets_g[FLOORPATH * NUMCOLORS + colorIn];
 
 		// get the location on the sheet
 		int clipX = 0;

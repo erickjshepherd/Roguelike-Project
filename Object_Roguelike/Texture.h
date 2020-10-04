@@ -4,7 +4,7 @@
 #include "SDLFuncs.h"
 
 #define NUMPATHS 8
-#define NUMCOLORS 4
+#define NUMCOLORS 5
 
 #define CASTR 255
 #define CASTG 153
@@ -25,7 +25,8 @@ enum colorEnums {
 	STANDARD,
 	CAST,
 	RED,
-	CYAN
+	CYAN,
+	ORANGE
 };
 
 enum wallEnums {

@@ -106,7 +106,7 @@ int Spell::Cast() {
 	return 0;
 }
 
-void Spell::dmgLine(int direction, int range, int damage, int effect, int intensity) {
+void Spell::dmgLine(int direction, int range, int damage, int effect, int effectDamage, int duration) {
 	int increment = 0;
 	if (direction == UP) {
 		increment = -global_map->size;
@@ -122,7 +122,7 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int intens
 	}
 	for (int x = 0; x < range; x++) {
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
-		global_map->map[hitLocation]->spellInteract(damage, effect, intensity);
+		global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
 	}
 }
 
@@ -147,9 +147,36 @@ void Spell::updateLineColor(int direction, int range, int color) {
 	for (int x = 0; x < range; x++) {
 		int loc = global_map->player->getLocation();
 		loc += (x + 1) * increment;
-		global_map->map[loc]->setColor(color);
+		Tile* current;
+		if (color == -1) {
+			current = global_map->map[loc];
+			while (current != NULL) {
+				current->resetColor();
+				current = current->getUnder();
+			}
+		}
+		else {
+			current = global_map->map[loc];
+			while (current != NULL) {
+				current->setColor(color);
+				current = current->getUnder();
+			}
+		}
 	}
 	spellMtx.unlock();
+}
+
+void Spell::flashLine() {
+	while (selecting == 1) {
+		int direction = currentDirection;
+		updateLineColor(currentDirection, range, CAST);
+		Sleep(200);
+		if (currentDirection != direction) {
+			updateLineColor(direction, range, -1);
+		}
+		updateLineColor(currentDirection, range, -1);
+		Sleep(200);
+	}
 }
 
 int Spell::getDirection() {
@@ -187,4 +214,43 @@ int Spell::getDirection() {
 	else {
 		return -1;
 	}
+}
+
+int Spell::castLine() {
+	int finalEvent = 0;
+	int prevDir;
+	int success = 0;
+	selecting = 1;
+	currentDirection = UP;
+
+	if (cdCount != 0) {
+		return 0;
+	}
+
+	std::thread flashThread(&Spell::flashLine, this);
+	while (selecting == 1) {
+		prevDir = currentDirection;
+		finalEvent = getDirection();
+		// immediately flash in the new direction. Let the flash thread catch up
+		if (prevDir != currentDirection) {
+			updateLineColor(prevDir, range, -1);
+			updateLineColor(currentDirection, range, CAST);
+		}
+		global_map->player->drawPlayerView(0);
+		SDL_RenderPresent(renderer_g);
+	}
+	flashThread.join();
+	updateLineColor(currentDirection, range, -1);
+	global_map->player->drawPlayerView(0);
+	SDL_RenderPresent(renderer_g);
+
+	if (finalEvent == EVENT_KEY_ENTER) {
+		dmgLine(currentDirection, range, initDamage, effect, effectDamage, duration);
+		success = 1;
+		cdCount = cd;
+	}
+	else {
+		success = 0;
+	}
+	return success;
 }

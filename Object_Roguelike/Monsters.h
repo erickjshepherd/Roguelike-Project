@@ -7,7 +7,7 @@ Enemy* Get_Enemy(int location, int index);
 
 class Slime : public Enemy {
 public:
-		Slime();
-		Slime(int location);
-		~Slime();
+	Slime();
+	Slime(int location);
+	~Slime();
 };

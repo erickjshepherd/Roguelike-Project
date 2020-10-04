@@ -114,4 +114,7 @@ Tile* Get_Item(int location, int index) {
 	else if (index == 2) {
 		return new longsword(location);
 	}
+	else if (index == 3) {
+		return new Burn(location);
+	}
 }

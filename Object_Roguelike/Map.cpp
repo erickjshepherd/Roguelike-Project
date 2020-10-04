@@ -570,11 +570,14 @@ void Map::Spawn_Items() {
 }
 
 // iterate through each enemy on the map and move them
+// todo: account for enemies killing enemies
 void Map::Enemy_Turn() {
 	int x, enemies;
 	enemies = this->Enemy_List.size();
 	for (x = 0; x < enemies; x++) {
-		this->Enemy_List[x]->enemyTurn();
+		if (Enemy_List[x] != NULL) {
+			Enemy_List[x]->enemyTurn();
+		}
 	}
 }
 
