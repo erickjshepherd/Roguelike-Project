@@ -28,6 +28,7 @@ public:
 	void decreaseSpellCD();
 	int selectSpell();
 	void clearMap();
+	bool enemyAttack(int damage);
 
 	// setters
 	void setLocation(int loc);

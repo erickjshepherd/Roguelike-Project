@@ -921,9 +921,25 @@ int Player::selectSpell() {
 	}
 }
 
+// clears the map viewport on the screen
 void Player::clearMap() {
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
 	SDL_RenderFillRect(renderer_g, NULL);
+}
+
+bool Player::enemyAttack(int damage) {
+	takeDamage(damage);
+
+	// create the event message
+	std::string event("A ");
+	event.append(getName());
+	event.append(" hits you for ");
+	event.append(std::to_string(damage));
+	event.append(" damage.");
+	global_map->Add_Event(event);
+	global_map->Draw_Events();
+
+	return 1;
 }
 
 // setters

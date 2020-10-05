@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 
+// constructor
 Tile::Tile() {
 	blocking = 1;
 	border = 0;
@@ -13,6 +14,8 @@ Tile::Tile() {
 	under = nullptr;
 }
 
+// constructor
+// inputs: tile icon, blocking
 Tile::Tile(char iconI, bool blockingI){
 	blocking = blockingI;
 	border = 0;
@@ -21,6 +24,7 @@ Tile::Tile(char iconI, bool blockingI){
 	under = nullptr;
 }
 
+// destructor
 Tile::~Tile(){
 	try {
 		delete under;
@@ -30,10 +34,13 @@ Tile::~Tile(){
 	}
 }
 
+// virtual function for player interaction
 void Tile::playerInteract() {
 
 }
 
+// virtual function for player stepping
+// outputs info of the tile being stepped on
 void Tile::playerStep() {
 	if (under != NULL) {
 		under->playerStep();
@@ -41,14 +48,28 @@ void Tile::playerStep() {
 	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
 }
 
+// virtual function for spell interaction
+// inputs: initial damage being done, spell effect, effect related damage, duration
 void Tile::spellInteract(int damage, int effect, int effectDamage, int intensity) {
 
 }
 
+// virtual function for player attacking
+// inputs: damage
+// outputs: if the attack worked
 int Tile::playerAttack(int damage) {
 	return 0;
 }
 
+// virtual function for enemy attacking
+// inputs: damage
+// outputs: if the attack worked
+bool Tile::enemyAttack(int damage) {
+	return 0;
+}
+
+// virtual function for rendering tile sprite to screen
+// inputs: x coordinate to render at, y coordinate t orender at, the color to render
 void Tile::render(int x, int y, int colorIn) {
 
 	// set the view port
@@ -86,6 +107,8 @@ void Tile::render(int x, int y, int colorIn) {
 	delete clip;
 }
 
+// makes the tile flash a new color with a delay
+// inputs: the color to flash, the delay
 void Tile::flash(int colorIn, int delay) {
 	int x, y;
 	onScreen(&x, &y);
@@ -126,7 +149,8 @@ void Tile::flash(int colorIn, int delay) {
 	delete clip;
 }
 
-// returns coordinates if the enemy is on the screen
+// returns coordinates if the tile is on the screen
+// inputs: pointer to the x coordinate, pointer to the y coordinate
 void Tile::onScreen(int* X, int* Y) {
 
 	int view_start = global_map->player->getViewStart();
@@ -162,6 +186,7 @@ void Tile::onScreen(int* X, int* Y) {
 	return;
 }
 
+// draws the tile description to the screen
 void Tile::drawUnderInfo() {
 	global_map->player->clearStats(INSPECTINFO);
 
@@ -180,6 +205,7 @@ void Tile::drawUnderInfo() {
 	text.render(0, INSPECTINFO * TEXTSPACE, NULL);
 }
 
+// resets the color of the tile to it's normal state. ex: stops flashing
 void Tile::resetColor() {
 	color = STANDARD;
 }

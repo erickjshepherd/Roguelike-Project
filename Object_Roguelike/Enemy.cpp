@@ -311,19 +311,6 @@ int Enemy::Move(int direction) {
 	}
 }
 
-void Enemy::attackPlayer() {
-	global_map->player->takeDamage(strength);
-
-	// create the event message
-	std::string event("A ");
-	event.append(getName());
-	event.append(" hits you for ");
-	event.append(std::to_string(strength));
-	event.append(" damage.");
-	global_map->Add_Event(event);
-	global_map->Draw_Events();
-}
-
 void Enemy::takeDamage(int amount) {
 	// flash the enemy sprite
 	flash(RED, 100);
@@ -386,8 +373,6 @@ void Enemy::takeDamage(int amount) {
 }
 
 void Enemy::enemyTurn() {
-	
-	int moveResult;
 
 	// Handle frozen + burn
 	if (frozenLength > 0 && burnedLength > 0) {
@@ -447,20 +432,14 @@ void Enemy::enemyTurn() {
 	}
 
 	if (direction != 0) {
-		// check if currently in view
-
-		moveResult = Move(direction);
-		onScreen(&consoleX, &consoleY);
-		
-		// update the screen if in view
-		if (moveResult == 1) {
-			// check if in view now
-
-			//update the screen depending on if monster was viewed and is now viewed
+		int moveResult = -1;
+		// try attacking and move if it fails
+		if (!attack(direction)) {
+			moveResult = Move(direction);
+			onScreen(&consoleX, &consoleY);
 		}
-		// interact with player
+		// interact if can't move
 		if (moveResult == 0) {
-			attackPlayer();
 		}
 		//error
 		if (moveResult == -1) {
@@ -565,4 +544,28 @@ void Enemy::resetColor() {
 	if (oldColor != getColor()) {
 		render(consoleX * TILE_SIZE, consoleY * TILE_SIZE, -1);
 	}
+}
+
+bool Enemy::attack(int direction) {
+	int target, success;
+	success = 0;
+	target = location;
+
+	// up
+	if (direction == 1) {
+		target -= global_map->size;
+	}
+	// down
+	else if (direction == 2) {
+		target += global_map->size;
+	}
+	// left
+	else if (direction == 3) {
+		target--;
+	}
+	// right
+	else if (direction == 4) {
+		target++;
+	}
+	return global_map->map[target]->enemyAttack(strength);
 }

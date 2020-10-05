@@ -8,6 +8,7 @@ class Enemy : public Tile {
 
 public:
 	
+	// constructor and destructor
 	Enemy();
 	~Enemy();
 
@@ -33,27 +34,15 @@ public:
 	int location;
 	int consoleX, consoleY;
 
-	// turn
+	// functions
 	void enemyTurn();
-
-	// movement
 	int sensePlayer();
 	int sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking);
 	int Move(int direction);
-
-	// attack
-	void attackPlayer();
-
-	// take damage
 	void takeDamage(int amount);
-
-	// player interaction
 	int playerAttack(int damage);
-
-	// spell interaction
 	void spellInteract(int damage, int effect, int effectDamage, int intensity);
-
-	// sets the color based on status conditions
 	void resetColor();
+	bool attack(int direction);
 };
 

@@ -151,6 +151,6 @@ int handleEvents() {
 }
 
 void loadFonts() {
-	TTF_Font* font = TTF_OpenFont("Dawnlike Tiles/GUI/SDS_8x8.ttf", 12);
+	TTF_Font* font = TTF_OpenFont("Dawnlike Tiles/GUI/SDS_8x8.ttf", 8);
 	fonts_g.push_back(font);
 }

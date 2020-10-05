@@ -16,6 +16,7 @@ public:
 	virtual void playerStep();
 	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity);
 	virtual int playerAttack(int damage);
+	virtual bool enemyAttack(int damage);
 
 	// other functions
 	void drawUnderInfo();
