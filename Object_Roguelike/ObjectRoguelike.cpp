@@ -17,10 +17,6 @@ int main(int argc, char* argv[]){
 
 	// initialize SDL
 	SDL_Init();
-	// load sprite sheets
-	loadTileSets();
-	// load the fonts
-	loadFonts();
 
 	// create the player character
 	Player* PC = new Player();

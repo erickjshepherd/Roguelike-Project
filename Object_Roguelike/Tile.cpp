@@ -64,7 +64,7 @@ int Tile::playerAttack(int damage) {
 // virtual function for enemy attacking
 // inputs: damage
 // outputs: if the attack worked
-bool Tile::enemyAttack(int damage) {
+bool Tile::enemyAttack(int damage, std::string name) {
 	return 0;
 }
 
@@ -92,15 +92,15 @@ void Tile::render(int x, int y, int colorIn) {
 	int clipY = 0;
 	int typeXOffset = sprite % spriteSheetW;
 	int typeYOffset = sprite / spriteSheetW;
-	clipX += typeXOffset * 16;
-	clipY += typeYOffset * 16;
+	clipX += typeXOffset * TILE_SOURCE_SIZE;
+	clipY += typeYOffset * TILE_SOURCE_SIZE;
 
 	// set up the clip
 	SDL_Rect* clip = new SDL_Rect();
 	clip->x = clipX;
 	clip->y = clipY;
-	clip->w = 16;
-	clip->h = 16;
+	clip->w = TILE_SOURCE_SIZE;
+	clip->h = TILE_SOURCE_SIZE;
 
 	spriteSheet->render(x, y, clip);
 
@@ -112,8 +112,8 @@ void Tile::render(int x, int y, int colorIn) {
 void Tile::flash(int colorIn, int delay) {
 	int x, y;
 	onScreen(&x, &y);
-	x *= TILE_SIZE;
-	y *= TILE_SIZE;
+	x *= tileSize_g;
+	y *= tileSize_g;
 	if (x == -1) {
 		return;
 	}
@@ -129,15 +129,15 @@ void Tile::flash(int colorIn, int delay) {
 	int clipY = 0;
 	int typeXOffset = sprite % spriteSheetW;
 	int typeYOffset = sprite / spriteSheetW;
-	clipX += typeXOffset * 16;
-	clipY += typeYOffset * 16;
+	clipX += typeXOffset * TILE_SOURCE_SIZE;
+	clipY += typeYOffset * TILE_SOURCE_SIZE;
 
 	// set up the clip
 	SDL_Rect* clip = new SDL_Rect();
 	clip->x = clipX;
 	clip->y = clipY;
-	clip->w = 16;
-	clip->h = 16;
+	clip->w = TILE_SOURCE_SIZE;
+	clip->h = TILE_SOURCE_SIZE;
 
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
 	spriteSheet->render(x, y, clip);
@@ -188,6 +188,8 @@ void Tile::onScreen(int* X, int* Y) {
 
 // draws the tile description to the screen
 void Tile::drawUnderInfo() {
+	int textSpace = getTextSpace();
+
 	global_map->player->clearStats(INSPECTINFO);
 
 	if (under->description.length() <= 0) {
@@ -202,7 +204,7 @@ void Tile::drawUnderInfo() {
 	infoStr.append(under->description);
 	Texture text;
 	text.loadFromRenderedText(infoStr, textColor_g);
-	text.render(0, INSPECTINFO * TEXTSPACE, NULL);
+	text.render(0, INSPECTINFO * textSpace, NULL);
 }
 
 // resets the color of the tile to it's normal state. ex: stops flashing

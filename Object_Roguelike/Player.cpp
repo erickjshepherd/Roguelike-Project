@@ -117,6 +117,11 @@ void Player::turn() {
 			eventValue = 0;
 			getUnder()->playerInteract();
 		}
+		else if (eventValue == EVENT_RESIZE) {
+			drawPlayerView(-1);
+			SDL_RenderPresent(renderer_g);
+			validKey = 0;
+		}
 		else {
 			validKey = 0;
 			eventValue = 0;
@@ -253,7 +258,7 @@ void Player::updateScreen(int X, int Y, int color) {
 	int loc = viewStart;
 	loc += X;
 	loc += y * global_map->size;
-	global_map->map[loc]->render(X * 16, Y * 16, color);
+	global_map->map[loc]->render(X * tileSize_g, Y * tileSize_g, color);
 }
 
 // set the player screen coordinates
@@ -311,7 +316,7 @@ void Player::drawPlayerView(int view) {
 				if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 
 					// draw sprite
-					global_map->map[xy]->render(x * TILE_SIZE, y * TILE_SIZE, -1);
+					global_map->map[xy]->render(x * tileSize_g, y * tileSize_g, -1);
 
 					if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
 						break;
@@ -323,7 +328,7 @@ void Player::drawPlayerView(int view) {
 	if (view == 1 || view == -1) {
 		drawStats(-1);
 	}
-	if (view == 2) {
+	if (view == 2 || view == -1) {
 		global_map->Draw_Events();
 	}
 }
@@ -557,6 +562,7 @@ void Player::drawStats(int line) {
 	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
+	int textSpace = getTextSpace();
 
 	// set and clear the view port
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
@@ -569,25 +575,25 @@ void Player::drawStats(int line) {
 			std::string healthStr("Health: " + std::to_string(health));
 			Texture text;
 			text.loadFromRenderedText(healthStr, textColor_g);
-			text.render(0, HEALTH * TEXTSPACE, NULL);
+			text.render(0, HEALTH * textSpace, NULL);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
 			std::string strengthStr("Strength: " + std::to_string(strength));
 			Texture text;
 			text.loadFromRenderedText(strengthStr, textColor_g);
-			text.render(0, STRENGTH * TEXTSPACE, NULL);
+			text.render(0, STRENGTH * textSpace, NULL);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
 			std::string floorStr("Floor: " + std::to_string(global_map->level));
 			Texture text;
 			text.loadFromRenderedText(floorStr, textColor_g);
-			text.render(0, FLOOR * TEXTSPACE, NULL);
+			text.render(0, FLOOR * textSpace, NULL);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
 			std::string roomStr("Rooms: " + std::to_string(global_map->actual_total_rooms));
 			Texture text;
 			text.loadFromRenderedText(roomStr, textColor_g);
-			text.render(0, ROOMS * TEXTSPACE, NULL);
+			text.render(0, ROOMS * textSpace, NULL);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
 			std::string weaponName;
@@ -600,7 +606,7 @@ void Player::drawStats(int line) {
 			std::string weaponStr("Weapon: " + weaponName);
 			Texture text;
 			text.loadFromRenderedText(weaponStr, textColor_g);
-			text.render(0, WEAPON * TEXTSPACE, NULL);
+			text.render(0, WEAPON * textSpace, NULL);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
 			std::string headName;
@@ -613,7 +619,7 @@ void Player::drawStats(int line) {
 			std::string headStr("Head: " + headName);
 			Texture text;
 			text.loadFromRenderedText(headStr, textColor_g);
-			text.render(0, HEAD * TEXTSPACE, NULL);
+			text.render(0, HEAD * textSpace, NULL);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
 			std::string chestName;
@@ -626,7 +632,7 @@ void Player::drawStats(int line) {
 			std::string chestStr("Chest: " + chestName);
 			Texture text;
 			text.loadFromRenderedText(chestStr, textColor_g);
-			text.render(0, CHEST * TEXTSPACE, NULL);
+			text.render(0, CHEST * textSpace, NULL);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
 			std::string legName;
@@ -639,7 +645,7 @@ void Player::drawStats(int line) {
 			std::string legStr("Legs: " + legName);
 			Texture text;
 			text.loadFromRenderedText(legStr, textColor_g);
-			text.render(0, LEGS * TEXTSPACE, NULL);
+			text.render(0, LEGS * textSpace, NULL);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
 			std::string spellName;
@@ -651,7 +657,7 @@ void Player::drawStats(int line) {
 			}
 			Texture text;
 			text.loadFromRenderedText(spellName, textColor_g);
-			text.render(0, SPELL1 * TEXTSPACE, NULL);
+			text.render(0, SPELL1 * textSpace, NULL);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
 			std::string spellName;
@@ -663,7 +669,7 @@ void Player::drawStats(int line) {
 			}
 			Texture text;
 			text.loadFromRenderedText(spellName, textColor_g);
-			text.render(0, SPELL2 * TEXTSPACE, NULL);
+			text.render(0, SPELL2 * textSpace, NULL);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
 			std::string spellName;
@@ -675,14 +681,14 @@ void Player::drawStats(int line) {
 			}
 			Texture text;
 			text.loadFromRenderedText(spellName, textColor_g);
-			text.render(0, SPELL3 * TEXTSPACE, NULL);
+			text.render(0, SPELL3 * textSpace, NULL);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
 			std::string inspectStr;
 			inspectStr.append("Inspection:");
 			Texture text;
 			text.loadFromRenderedText(inspectStr, textColor_g);
-			text.render(0, INSPECT * TEXTSPACE, NULL);
+			text.render(0, INSPECT * textSpace, NULL);
 		}
 	}
 }
@@ -692,80 +698,80 @@ void Player::clearStats(int line) {
 	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
-
+	int textSpace = getTextSpace();
 	COORD position;
 	HANDLE handle;
 
 	SDL_Rect rect;
 	rect.x = statsView_g.x;
-	rect.h = 16;
+	rect.h = textSpace;
 	rect.w = statsView_g.w;
 
 	// y is the line number for each stat
 	// todo: create functions for each stat. cleaner
 	for (y = 0; y < 15; y++) {
 		if (y == HEALTH && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * HEALTH;
+			rect.y = textSpace * HEALTH;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * STRENGTH;
+			rect.y = textSpace * STRENGTH;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * FLOOR;
+			rect.y = textSpace * FLOOR;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * ROOMS;
+			rect.y = textSpace * ROOMS;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * WEAPON;
+			rect.y = textSpace * WEAPON;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * HEAD;
+			rect.y = textSpace * HEAD;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * CHEST;
+			rect.y = textSpace * CHEST;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * LEGS;
+			rect.y = textSpace * LEGS;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * SPELL1;
+			rect.y = textSpace * SPELL1;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * SPELL2;
+			rect.y = textSpace * SPELL2;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * SPELL3;
+			rect.y = textSpace * SPELL3;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * INSPECT;
+			rect.y = textSpace * INSPECT;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
 		else if (y == INSPECTINFO && (y == line || line == -1)) {
-			rect.y = TEXTSPACE * INSPECTINFO;
+			rect.y = textSpace * INSPECTINFO;
 			SDL_RenderSetViewport(renderer_g, &rect);
 			SDL_RenderFillRect(renderer_g, NULL);
 		}
@@ -915,6 +921,11 @@ int Player::selectSpell() {
 		else if (eventValue == EVENT_KEY_ESC) {
 			return -1;
 		}
+		else if (eventValue == EVENT_RESIZE) {
+			drawPlayerView(-1);
+			SDL_RenderPresent(renderer_g);
+			validKey = 0;
+		}
 		else {
 			validKey = 0;
 		}
@@ -927,12 +938,15 @@ void Player::clearMap() {
 	SDL_RenderFillRect(renderer_g, NULL);
 }
 
-bool Player::enemyAttack(int damage) {
+// handles being attacked by an enemy
+// input: damage to take
+// output: if the attack worked 
+bool Player::enemyAttack(int damage, std::string name) {
 	takeDamage(damage);
 
 	// create the event message
 	std::string event("A ");
-	event.append(getName());
+	event.append(name);
 	event.append(" hits you for ");
 	event.append(std::to_string(damage));
 	event.append(" damage.");

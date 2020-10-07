@@ -5,9 +5,10 @@
 #include <string>
 #include <vector>
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define TILE_SIZE 16
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1000
+#define TILE_SOURCE_SIZE 16
+#define MAX_MAP_SIZE 21
 
 enum eventEnums {
 	EVENT_QUIT,
@@ -19,7 +20,8 @@ enum eventEnums {
 	EVENT_KEY_2,
 	EVENT_KEY_3,
 	EVENT_KEY_ENTER,
-	EVENT_KEY_ESC
+	EVENT_KEY_ESC,
+	EVENT_RESIZE
 };
 
 enum dirEnums {
@@ -30,7 +32,10 @@ enum dirEnums {
 };
 
 enum fontEnums {
-	FONT_12
+	FONT_8,
+	FONT_16,
+	FONT_24,
+	FONT_32,
 };
 
 enum viewEnums {
@@ -39,9 +44,8 @@ enum viewEnums {
 	INFO
 };
 
-#define TEXTSPACE 16
+#define NUM_STAT_LINES 14
 enum statEnums {
-		BLANK1,
 		HEALTH,
 		STRENGTH,
 		FLOOR,
@@ -66,9 +70,12 @@ extern SDL_Rect mapView_g;
 extern SDL_Rect statsView_g;
 extern SDL_Rect eventsView_g;
 extern SDL_Color textColor_g;
+extern int tileSize_g;
 
 int SDL_Init();
 void SDL_Close();
 bool loadImage(SDL_Texture* &image, std::string path);
 int handleEvents();
 void loadFonts();
+void rendererInit();
+int getTextSpace();

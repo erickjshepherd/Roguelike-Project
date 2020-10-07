@@ -58,7 +58,8 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 	free();
 
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid(fonts_g[FONT_12], textureText.c_str(), textColor);
+	int textSize = (tileSize_g / 16) - 1;
+	SDL_Surface* textSurface = TTF_RenderText_Solid(fonts_g[textSize], textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
 		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
@@ -94,7 +95,7 @@ void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue) {
 void Texture::render(int x, int y, SDL_Rect* clip = NULL) {
 	SDL_Rect renderQuad = { x, y, width, height };
 
-	int imageScale = TILE_SIZE / 16;
+	int imageScale = tileSize_g / TILE_SOURCE_SIZE;
 
 	if (clip != NULL) {
 		renderQuad.w = clip->w * imageScale;

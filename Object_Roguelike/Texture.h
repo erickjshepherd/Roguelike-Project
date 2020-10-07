@@ -139,5 +139,4 @@ private:
 extern std::vector<Texture*> tileSets_g;
 
 void loadTileSets();
-
 void freeTilesets();

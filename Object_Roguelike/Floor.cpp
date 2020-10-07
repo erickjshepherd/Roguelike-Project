@@ -34,15 +34,15 @@ void Floor::render(int x, int y, int colorIn) {
 		// wall sets are in columns of 12
 		int typeXOffset = spriteType / 12;
 		int typeYOffset = spriteType % 12;
-		clipX += (xOffset * 16) + (typeXOffset * 112);
-		clipY += (yOffset * 16) + (typeYOffset * 48);
+		clipX += (xOffset * TILE_SOURCE_SIZE) + (typeXOffset * TILE_SOURCE_SIZE * 7);
+		clipY += (yOffset * TILE_SOURCE_SIZE) + (typeYOffset * TILE_SOURCE_SIZE * 3);
 
 		// set up the clip
 		SDL_Rect* clip = new SDL_Rect();
 		clip->x = clipX;
 		clip->y = clipY;
-		clip->w = 16;
-		clip->h = 16;
+		clip->w = TILE_SOURCE_SIZE;
+		clip->h = TILE_SOURCE_SIZE;
 
 		spriteSheet->render(x, y, clip);
 

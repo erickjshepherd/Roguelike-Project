@@ -590,14 +590,15 @@ void Map::Add_Event(std::string event) {
 
 void Map::Draw_Events() {
 	std::list<std::string>::iterator current;
+	int textSpace = getTextSpace();
 
 	clearEvents();
-	int eventY = TEXTSPACE;
+	int eventY = textSpace;
 	for (current = this->events.begin(); current != this->events.end(); current++) {
 		Texture text;
 		text.loadFromRenderedText(*current, textColor_g);
 		text.render(0, eventY, NULL);
-		eventY += TEXTSPACE;
+		eventY += textSpace;
 	}
 }
 

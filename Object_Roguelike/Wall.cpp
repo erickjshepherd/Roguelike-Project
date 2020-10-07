@@ -32,17 +32,17 @@ void Wall::render(int x, int y, int colorIn) {
 		int xOffset = getSpriteVersion() % 6;
 		int yOffset = getSpriteVersion() / 6;
 		// wall sets are in columns of 16
-		int typeXOffset = spriteType / 16;
-		int typeYOffset = spriteType % 16;
-		clipX += (xOffset * 16) + (typeXOffset * 112);
-		clipY += (yOffset * 16) + (typeYOffset * 48);
+		int typeXOffset = spriteType / TILE_SOURCE_SIZE;
+		int typeYOffset = spriteType % TILE_SOURCE_SIZE;
+		clipX += (xOffset * TILE_SOURCE_SIZE) + (typeXOffset * TILE_SOURCE_SIZE * 7);
+		clipY += (yOffset * TILE_SOURCE_SIZE) + (typeYOffset * TILE_SOURCE_SIZE * 3);
 
 		// set up the clip
 		SDL_Rect* clip = new SDL_Rect();
 		clip->x = clipX;
 		clip->y = clipY;
-		clip->w = 16;
-		clip->h = 16;
+		clip->w = TILE_SOURCE_SIZE;
+		clip->h = TILE_SOURCE_SIZE;
 
 		spriteSheet->render(x, y, clip);
 

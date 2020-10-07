@@ -5,13 +5,6 @@
 #include "Spell.h"
 #include <mutex>
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-#define ENTER 13
-#define ESC 27
-
 Spell::Spell() {
 	setBlocking(0);
 	cdCount = 0;
@@ -148,18 +141,20 @@ void Spell::updateLineColor(int direction, int range, int color) {
 		int loc = global_map->player->getLocation();
 		loc += (x + 1) * increment;
 		Tile* current;
-		if (color == -1) {
-			current = global_map->map[loc];
-			while (current != NULL) {
-				current->resetColor();
-				current = current->getUnder();
+		if (loc >= 0 && loc < global_map->size * global_map->size) {
+			if (color == -1) {
+				current = global_map->map[loc];
+				while (current != NULL) {
+					current->resetColor();
+					current = current->getUnder();
+				}
 			}
-		}
-		else {
-			current = global_map->map[loc];
-			while (current != NULL) {
-				current->setColor(color);
-				current = current->getUnder();
+			else {
+				current = global_map->map[loc];
+				while (current != NULL) {
+					current->setColor(color);
+					current = current->getUnder();
+				}
 			}
 		}
 	}

@@ -542,7 +542,7 @@ void Enemy::resetColor() {
 	}
 
 	if (oldColor != getColor()) {
-		render(consoleX * TILE_SIZE, consoleY * TILE_SIZE, -1);
+		render(consoleX * tileSize_g, consoleY * tileSize_g, -1);
 	}
 }
 
@@ -567,5 +567,5 @@ bool Enemy::attack(int direction) {
 	else if (direction == 4) {
 		target++;
 	}
-	return global_map->map[target]->enemyAttack(strength);
+	return global_map->map[target]->enemyAttack(strength, getName());
 }
