@@ -70,10 +70,8 @@ bool loadImage(SDL_Texture* &image, std::string path) {
 
 void SDL_Close() {
 	freeTilesets();
-	while (!fonts_g.empty()) {
-		delete fonts_g.back();
-	}
-	fonts_g.pop_back();
+	freeFonts();
+	
 	SDL_FreeSurface(winSurface_g);
 	winSurface_g = NULL;
 	SDL_DestroyRenderer(renderer_g);
@@ -134,6 +132,13 @@ void loadFonts() {
 	fonts_g.push_back(font_24);
 	TTF_Font* font_32 = TTF_OpenFont("Dawnlike Tiles/GUI/SDS_8x8.ttf", 32);
 	fonts_g.push_back(font_32);
+}
+
+void freeFonts() {
+	while (!fonts_g.empty()) {
+		TTF_CloseFont(fonts_g.back());
+		fonts_g.pop_back();
+	}
 }
 
 void rendererInit() {

@@ -31,6 +31,7 @@ enum dirEnums {
 	RIGHT
 };
 
+#define NUM_FONTS 4
 enum fontEnums {
 	FONT_8,
 	FONT_16,
@@ -77,5 +78,6 @@ void SDL_Close();
 bool loadImage(SDL_Texture* &image, std::string path);
 int handleEvents();
 void loadFonts();
+void freeFonts();
 void rendererInit();
 int getTextSpace();

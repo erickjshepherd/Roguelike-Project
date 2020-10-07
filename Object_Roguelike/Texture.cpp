@@ -59,6 +59,9 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 
 	//Render text surface
 	int textSize = (tileSize_g / 16) - 1;
+	if (textSize >= NUM_FONTS) {
+		textSize = NUM_FONTS - 1;
+	}
 	SDL_Surface* textSurface = TTF_RenderText_Solid(fonts_g[textSize], textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{

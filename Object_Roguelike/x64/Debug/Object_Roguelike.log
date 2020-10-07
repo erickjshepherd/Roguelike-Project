@@ -30,12 +30,14 @@ c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7):
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
 c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(703): warning C4101: 'handle': unreferenced local variable
 c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(702): warning C4101: 'position': unreferenced local variable
+  SDLFuncs.cpp
   Spell.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
   Spells.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
+  Texture.cpp
   Tile.cpp
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
@@ -47,6 +49,9 @@ c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7):
 c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.h(7): warning C4005: 'NUMCOLORS': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\wingdi.h(2008): note: see previous definition of 'NUMCOLORS'
   Generating Code...
+c:\users\erick\documents\github\roguelike-project\object_roguelike\texture.cpp(53): warning C4715: 'Texture::loadFromFile': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(55): warning C4715: 'SDL_Init': not all control paths return a value
+c:\users\erick\documents\github\roguelike-project\object_roguelike\sdlfuncs.cpp(69): warning C4715: 'loadImage': not all control paths return a value
 c:\users\erick\documents\github\roguelike-project\object_roguelike\player.cpp(933): warning C4715: 'Player::selectSpell': not all control paths return a value
 c:\users\erick\documents\github\roguelike-project\object_roguelike\monsters.cpp(49): warning C4715: 'Get_Enemy': not all control paths return a value
 c:\users\erick\documents\github\roguelike-project\object_roguelike\items.cpp(120): warning C4715: 'Get_Item': not all control paths return a value
