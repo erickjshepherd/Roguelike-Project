@@ -25,7 +25,7 @@ public:
 	int burnedDamage;
 	int slowed;
 	int scared;
-	int allied;
+	int charmed;
 
 	// loot table
 	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
@@ -36,11 +36,11 @@ public:
 
 	// functions
 	void enemyTurn();
-	int sensePlayer();
-	int sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking);
+	int senseTarget();
+	int senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking, int target);
 	int Move(int direction);
 	void takeDamage(int amount);
-	int playerAttack(int damage);
+	bool receiveAttack(int damage, std::string name, int faction);
 	void spellInteract(int damage, int effect, int effectDamage, int intensity);
 	void resetColor();
 	bool attack(int direction);

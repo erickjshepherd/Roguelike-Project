@@ -3,6 +3,12 @@
 #include <string>
 #include "Texture.h"
 
+enum factionEnums {
+	NEUTRAL,
+	PLAYER,
+	ENEMY1
+};
+
 class Tile{
 
 public:
@@ -15,8 +21,7 @@ public:
 	virtual void playerInteract();
 	virtual void playerStep();
 	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity);
-	virtual int playerAttack(int damage);
-	virtual bool enemyAttack(int damage, std::string name);
+	virtual bool receiveAttack(int damage, std::string name, int faction);
 
 	// other functions
 	void drawUnderInfo();
@@ -37,6 +42,7 @@ public:
 	void setSpriteSheetW(int w);
 	void setColor(int c);
 	void setUnder(Tile* u);
+	void setFaction(int f);
 
 	// getters
 	bool getBlocking();
@@ -50,6 +56,7 @@ public:
 	int getSpriteSheetW();
 	int getColor();
 	Tile* getUnder();
+	int getFaction();
 
 private:
 	// properties
@@ -58,6 +65,7 @@ private:
 	char icon;
 	std::string name;
 	std::string description;
+	int faction;
 
 	// sprite properties
 	int spriteVersion;	// some objects have multiple sprites. This selects which to use and replaces the sprite variable. ex: walls and floors

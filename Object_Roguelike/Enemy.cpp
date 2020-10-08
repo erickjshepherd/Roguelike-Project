@@ -20,8 +20,9 @@ Enemy::Enemy(){
 	burnedDamage = 0;
 	slowed = 0;
 	scared = 0;
-	allied = 0;
+	charmed = 0;
 	setColor(STANDARD);
+	setFaction(ENEMY1);
 }
 
 Enemy::~Enemy(){
@@ -30,7 +31,7 @@ Enemy::~Enemy(){
 
 // checks if the player is visible to the enemy
 // BFS
-int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking) {
+int Enemy::senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking, int target) {
 
 	if (nodes.size() == 0) {
 		return -1;
@@ -47,7 +48,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		return -1;
 	}
 
-	if (global_map->map[current_node]->getIcon() == global_map->player->getIcon()) {
+	if (global_map->map[current_node]->getFaction() == target) {
 		// return the parent node
 		return previous_node;
 	}
@@ -69,7 +70,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		}
 
 		// add unvisited, non-blocking nodes to the search list
-		if ((global_map->map[next_node]->getIcon() != '#' && searchBlocking == 1) || global_map->map[next_node]->getBlocking() == 0 || global_map->map[next_node]->getIcon() == '@'){
+		if ((global_map->map[next_node]->getIcon() != '#' && searchBlocking == 1) || global_map->map[next_node]->getBlocking() == 0 || global_map->map[next_node]->getFaction() == target){
 			int isVisited, y;
 			isVisited = 0;
 			for (y = 0; y < visited.size(); y++) {
@@ -88,7 +89,7 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 
 	// recursively call function, return the next parent in the chain
 	int new_distance = distance - 1;
-	int result = sensePlayer_BFS(new_distance, nodes, parent_nodes, visited, start, searchBlocking);
+	int result = senseTarget_BFS(new_distance, nodes, parent_nodes, visited, start, searchBlocking, target);
 	if (result == current_node) {
 		if (previous_node == start) {
 			return result;
@@ -103,24 +104,32 @@ int Enemy::sensePlayer_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 }
 
 // returns the direction the enemy should move, 0 if no movement
-int Enemy::sensePlayer() {
+int Enemy::senseTarget() {
+
+	// choose the target
+	int target;
+	if (getFaction() == ENEMY1) {
+		target = PLAYER;
+	}
+	else if (getFaction() == PLAYER) {
+		target = ENEMY1;
+	}
 
 	// move if the player is adjacent
-	if (global_map->map[location - global_map->size]->getIcon() == '@') {
+	if (global_map->map[location - global_map->size]->getFaction() == target) {
 		return 1;
 	}
-	else if (global_map->map[location + global_map->size]->getIcon() == '@') {
+	else if (global_map->map[location + global_map->size]->getFaction() == target) {
 		return 2;
 	}
-	else if (global_map->map[location - 1]->getIcon() == '@') {
+	else if (global_map->map[location - 1]->getFaction() == target) {
 		return 3;
 	}
-	else if (global_map->map[location + 1]->getIcon() == '@') {
+	else if (global_map->map[location + 1]->getFaction() == target) {
 		return 4;
 	}
 
-
-	// search for the player
+	// search for the target
 	std::queue<int> nodes, nodesSecond;
 	std::queue<int> parent_nodes, pNodesSecond;
 	std::vector<int> visited, visitedSecond;
@@ -137,12 +146,12 @@ int Enemy::sensePlayer() {
 	// call the BFS recursive function with these data structures
 	// search once ignoring blocking tiles
 	// If the player is not found include blocking tiles for the next best path
-	moveTo = sensePlayer_BFS(distance, nodes, parent_nodes, visited, this->location, 0);
+	moveTo = senseTarget_BFS(distance, nodes, parent_nodes, visited, this->location, 0, target);
 	if (moveTo == -1) {
 		nodesSecond.push(this->location);
 		pNodesSecond.push(-1);
 		visitedSecond.push_back(this->location);
-		moveTo = sensePlayer_BFS(distance, nodesSecond, pNodesSecond, visitedSecond, this->location, 1);
+		moveTo = senseTarget_BFS(distance, nodesSecond, pNodesSecond, visitedSecond, this->location, 1, target);
 	}
 
 	// return the direction to be moved
@@ -410,6 +419,14 @@ void Enemy::enemyTurn() {
 			burnedDamage = 0;
 		}
 	}
+	// Handle charmed status
+	if (charmed == 0) {
+		setFaction(ENEMY1);
+	}
+	else {
+		charmed--;
+	}
+	// Handle slow status
 	if (slowed > 0) {
 		slowed--;
 		if (slowed % 2 == 1) {
@@ -418,17 +435,40 @@ void Enemy::enemyTurn() {
 		}
 	}
 
-	int direction = sensePlayer();
+	int direction = senseTarget();
 
 	// Handle scared status
 	if (slowed > 0) {
-		if (direction == 1 || direction == 3) {
-			direction++;
+		int newDirection = 0;
+		int newLocation = 0;
+		// try moving in the opposite direction
+		if (direction == 1) {
+			newDirection = 2;
+			newLocation = location - global_map->size;
 		}
-		else if (direction == 2 || direction == 4) {
-			direction--;
+		else if (newDirection == 2) {
+			newDirection = 1;
+			newLocation = location + global_map->size;
 		}
-
+		else if (newDirection == 3) {
+			newDirection = 4;
+			newLocation = location - 1;
+		}
+		else if (newDirection == 4) {
+			newDirection = 3;
+			newLocation = location + 1;
+		}
+		// if that fails move in a random direction
+		if (global_map->map[newLocation]->getBlocking() == 1) {
+			int randDirection = (rand() % 4) + 1;
+			while (randDirection == direction && randDirection != newDirection) {
+				randDirection = (rand() % 4) + 1;
+			}
+			direction = randDirection;
+		}
+		else {
+			direction = newDirection;
+		}
 	}
 
 	if (direction != 0) {
@@ -449,9 +489,14 @@ void Enemy::enemyTurn() {
 	resetColor();
 }
 
-int Enemy::playerAttack(int damage) {
-	takeDamage(damage);
-	return 1;
+bool Enemy::receiveAttack(int damage, std::string name, int faction) {
+	if (faction != getFaction() && faction != NEUTRAL) {
+		takeDamage(damage);
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 void Enemy::spellInteract(int damage, int effect, int effectDamage, int length) {
@@ -513,7 +558,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length) 
 		event.append(" turns");
 		global_map->Add_Event(event);
 		global_map->Draw_Events();
-		allied = length;
+		setFaction(PLAYER);
+		charmed = length;
 	}
 	resetColor();
 }
@@ -528,7 +574,7 @@ void Enemy::resetColor() {
 	else if (burnedLength > 0) {
 		setColor(ORANGE);
 	}
-	else if (allied > 0) {
+	else if (charmed > 0) {
 		
 	}
 	else if (scared > 0) {
@@ -567,5 +613,5 @@ bool Enemy::attack(int direction) {
 	else if (direction == 4) {
 		target++;
 	}
-	return global_map->map[target]->enemyAttack(strength, getName());
+	return global_map->map[target]->receiveAttack(strength, getName(), getFaction());
 }

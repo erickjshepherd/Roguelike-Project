@@ -12,6 +12,7 @@ Tile::Tile() {
 	spriteVersion = -1;
 	icon = ' ';
 	under = nullptr;
+	faction = NEUTRAL;
 }
 
 // constructor
@@ -54,17 +55,7 @@ void Tile::spellInteract(int damage, int effect, int effectDamage, int intensity
 
 }
 
-// virtual function for player attacking
-// inputs: damage
-// outputs: if the attack worked
-int Tile::playerAttack(int damage) {
-	return 0;
-}
-
-// virtual function for enemy attacking
-// inputs: damage
-// outputs: if the attack worked
-bool Tile::enemyAttack(int damage, std::string name) {
+bool Tile::receiveAttack(int damage, std::string name, int faction) {
 	return 0;
 }
 
@@ -246,6 +237,9 @@ void Tile::setColor(int c) {
 void Tile::setUnder(Tile* u) {
 	under = u;
 }
+void Tile::setFaction(int f) {
+	faction = f;
+}
 
 // getters
 bool Tile::getBlocking() {
@@ -280,4 +274,7 @@ int Tile::getColor() {
 }
 Tile* Tile::getUnder() {
 	return under;
+}
+int Tile::getFaction() {
+	return faction;
 }

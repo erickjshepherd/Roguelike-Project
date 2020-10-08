@@ -20,6 +20,7 @@ Player::Player(){
 	strength = 10;
 	extraTurns = 0;
 	quit = 0;
+	setFaction(PLAYER);
 	
 	// set player sprite info
 	setSpritePath(PLAYERPATH);
@@ -793,7 +794,7 @@ bool Player::attack(int direction) {
 				target += x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
 							success = 1;
 						}
 					}
@@ -814,7 +815,7 @@ bool Player::attack(int direction) {
 				target -= x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
 							success = 1;
 						}
 					}
@@ -835,7 +836,7 @@ bool Player::attack(int direction) {
 				target += x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
 							success = 1;
 						}
 					}
@@ -856,7 +857,7 @@ bool Player::attack(int direction) {
 				target -= x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->playerAttack(getDamage(x, y))) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
 							success = 1;
 						}
 					}
@@ -938,22 +939,27 @@ void Player::clearMap() {
 	SDL_RenderFillRect(renderer_g, NULL);
 }
 
-// handles being attacked by an enemy
-// input: damage to take
+// handles being attacked. Can only take damage from non allied objects.
+// input: damage to take, name of the attacker, faction of the attacker
 // output: if the attack worked 
-bool Player::enemyAttack(int damage, std::string name) {
-	takeDamage(damage);
+bool Player::receiveAttack(int damage, std::string name, int faction) {
+	if (faction != getFaction() && faction != NEUTRAL) {
+		takeDamage(damage);
 
-	// create the event message
-	std::string event("A ");
-	event.append(name);
-	event.append(" hits you for ");
-	event.append(std::to_string(damage));
-	event.append(" damage.");
-	global_map->Add_Event(event);
-	global_map->Draw_Events();
+		// create the event message
+		std::string event("A ");
+		event.append(name);
+		event.append(" hits you for ");
+		event.append(std::to_string(damage));
+		event.append(" damage.");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
 
-	return 1;
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 // setters

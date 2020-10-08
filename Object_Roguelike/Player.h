@@ -28,7 +28,7 @@ public:
 	void decreaseSpellCD();
 	int selectSpell();
 	void clearMap();
-	bool enemyAttack(int damage, std::string name);
+	bool receiveAttack(int damage, std::string name, int faction);
 
 	// setters
 	void setLocation(int loc);
