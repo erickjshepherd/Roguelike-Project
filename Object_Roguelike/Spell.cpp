@@ -9,6 +9,14 @@ Spell::Spell() {
 	setBlocking(0);
 	cdCount = 0;
 	setIcon('$');
+	initDamage = 0;
+	effectDamage = 0;
+	location = 0;
+	cd = 0;
+	cdCount = 0;
+	effect = NOEFFECT;
+	duration = 0;
+	range = 0;
 }
 
 Spell::~Spell() {

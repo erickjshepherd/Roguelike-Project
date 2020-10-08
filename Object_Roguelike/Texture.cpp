@@ -116,6 +116,8 @@ int Texture::getHeight() {
 	return height;
 }
 
+// todo: maybe load textures into a 2D array and only load the ones that are used.
+// The enemy tileset is the main one that needs these colors
 void loadTileSets() {
 	int x;
 	for (x = 0; x < NUMPATHS; x++) {
@@ -147,6 +149,24 @@ void loadTileSets() {
 		tileSetOrange->loadFromFile(tilePaths[x]);
 		tileSetOrange->setColor(255, 93, 0);
 		tileSets_g.push_back(tileSetOrange);
+
+		// dark green tiles
+		Texture* tileSetDGreen = new Texture();
+		tileSetDGreen->loadFromFile(tilePaths[x]);
+		tileSetDGreen->setColor(51, 153, 51);
+		tileSets_g.push_back(tileSetDGreen);
+
+		// purple tiles
+		Texture* tileSetPurple = new Texture();
+		tileSetPurple->loadFromFile(tilePaths[x]);
+		tileSetPurple->setColor(153, 0, 255);
+		tileSets_g.push_back(tileSetPurple);
+
+		// pink tiles
+		Texture* tileSetPink = new Texture();
+		tileSetPink->loadFromFile(tilePaths[x]);
+		tileSetPink->setColor(255, 102, 204);
+		tileSets_g.push_back(tileSetPink);
 	}
 }
 

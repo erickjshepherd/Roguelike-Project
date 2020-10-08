@@ -13,6 +13,9 @@ Slime::Slime() {
 	loot[0] = 1; // 1/10 to drop freeze
 	loot[1] = 2; // 1/10 to drop longsword
 	loot[2] = 3; // 1/10 to drop burn
+	loot[3] = 4; // 1/10 to drop slow
+	loot[4] = 5; // 1/10 to drop scare
+	loot[5] = 6; // 1/10 to drop charm
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
@@ -30,6 +33,9 @@ Slime::Slime(int location) {
 	loot[0] = 1;
 	loot[1] = 2;
 	loot[2] = 3;
+	loot[3] = 4;
+	loot[4] = 5;
+	loot[5] = 6;
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);

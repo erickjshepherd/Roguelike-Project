@@ -3,13 +3,11 @@
 #include <string>
 #include "SDLFuncs.h"
 
-#define NUMPATHS 8
-#define NUMCOLORS 5
-
 #define CASTR 255
 #define CASTG 153
 #define CASTB 153
 
+#define NUMPATHS 8
 enum pathEnums {
 	TILEPATH,
 	WALLPATH,
@@ -21,12 +19,16 @@ enum pathEnums {
 	FLOORPATH
 };
 
+#define NUMCOLORS 8
 enum colorEnums {
 	STANDARD,
 	CAST,
 	RED,
 	CYAN,
-	ORANGE
+	ORANGE,
+	DARKGREEN,
+	PURPLE,
+	PINK
 };
 
 enum wallEnums {

@@ -103,6 +103,7 @@ longsword::~longsword() {
 }
 
 // controls item drops
+// todo: change this to use enums
 Tile* Get_Item(int location, int index) {
 
 	if (index == 0) {
@@ -116,5 +117,14 @@ Tile* Get_Item(int location, int index) {
 	}
 	else if (index == 3) {
 		return new Burn(location);
+	}
+	else if (index == 4) {
+		return new Slow(location);
+	}
+	else if (index == 5) {
+		return new Scare(location);
+	}
+	else if (index == 6) {
+		return new Charm(location);
 	}
 }

@@ -16,3 +16,24 @@ public:
 	Burn(int location);
 	int Cast();
 };
+
+class Slow : public Spell {
+public:
+	Slow();
+	Slow(int location);
+	int Cast();
+};
+
+class Scare : public Spell {
+public:
+	Scare();
+	Scare(int location);
+	int Cast();
+};
+
+class Charm : public Spell {
+public:
+	Charm();
+	Charm(int location);
+	int Cast();
+};

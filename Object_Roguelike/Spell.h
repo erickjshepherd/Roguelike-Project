@@ -3,6 +3,7 @@
 #include <string>
 
 enum spellEffectEnums {
+	NOEFFECT,
 	FREEZE,
 	BURN,
 	SLOW,

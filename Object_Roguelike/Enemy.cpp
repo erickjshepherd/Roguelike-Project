@@ -438,25 +438,26 @@ void Enemy::enemyTurn() {
 	int direction = senseTarget();
 
 	// Handle scared status
-	if (slowed > 0) {
+	if (scared > 0) {
+		scared--;
 		int newDirection = 0;
 		int newLocation = 0;
 		// try moving in the opposite direction
 		if (direction == 1) {
 			newDirection = 2;
-			newLocation = location - global_map->size;
-		}
-		else if (newDirection == 2) {
-			newDirection = 1;
 			newLocation = location + global_map->size;
 		}
-		else if (newDirection == 3) {
-			newDirection = 4;
-			newLocation = location - 1;
+		else if (direction == 2) {
+			newDirection = 1;
+			newLocation = location - global_map->size;
 		}
-		else if (newDirection == 4) {
-			newDirection = 3;
+		else if (direction == 3) {
+			newDirection = 4;
 			newLocation = location + 1;
+		}
+		else if (direction == 4) {
+			newDirection = 3;
+			newLocation = location - 1;
 		}
 		// if that fails move in a random direction
 		if (global_map->map[newLocation]->getBlocking() == 1) {
@@ -575,13 +576,13 @@ void Enemy::resetColor() {
 		setColor(ORANGE);
 	}
 	else if (charmed > 0) {
-		
+		setColor(PINK);
 	}
 	else if (scared > 0) {
-	
+		setColor(PURPLE);
 	}
 	else if (slowed > 0) {
-	
+		setColor(DARKGREEN);
 	}
 	else {
 		setColor(STANDARD);
