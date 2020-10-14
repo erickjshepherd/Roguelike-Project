@@ -4,7 +4,8 @@
 // slime constructor
 Slime::Slime() {
 	setName("slime");
-	health = 20;
+	maxHealth = 20;
+	health = maxHealth;
 	speed = 1;
 	strength = 2;
 	viewDistance = 6;
@@ -24,7 +25,8 @@ Slime::Slime() {
 
 Slime::Slime(int location) {
 	setName("slime");
-	health = 20;
+	maxHealth = 20;
+	health = maxHealth;
 	speed = 1;
 	strength = 2;
 	viewDistance = 6;

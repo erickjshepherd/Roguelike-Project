@@ -369,13 +369,20 @@ void Enemy::takeDamage(int amount) {
 		global_map->Enemy_List[i] = NULL;
 
 		// test
-		int playerSize = global_map->player->getMapSize();
-		global_map->player->setMapSize(playerSize--);
+		//int playerSize = global_map->player->getMapSize();
+		//global_map->player->setMapSize(playerSize - 1);
 	}
 	else {
 		event.append(". It has ");
 		event.append(std::to_string(health));
 		event.append(" health left.");
+
+		// update screen
+		int x, y;
+		onScreen(&x, &y);
+		if (x != -1) {
+			global_map->player->updateScreen(x, y, -1);
+		}
 	}
 	global_map->Add_Event(event);
 	global_map->Draw_Events();
@@ -615,4 +622,102 @@ bool Enemy::attack(int direction) {
 		target++;
 	}
 	return global_map->map[target]->receiveAttack(strength, getName(), getFaction());
+}
+
+void Enemy::renderHealth() {
+	// get the sprite sheet
+	Texture* spriteSheet = tileSets_g[WALLPATH * NUMCOLORS + STANDARD];
+
+	// get the location on the sheet for green
+	int greenClipX = 0;
+	int greenClipY = 0;
+	int XOffset = 12;
+	int YOffset = 1;
+	greenClipX += XOffset * TILE_SOURCE_SIZE;
+	greenClipY += YOffset * TILE_SOURCE_SIZE;
+
+	// get the location on the sheet for red
+	int redClipX = 0;
+	int redClipY = 0;
+	XOffset = 15;
+	YOffset = 0;
+	redClipX += XOffset * TILE_SOURCE_SIZE;
+	redClipY += YOffset * TILE_SOURCE_SIZE;
+
+	// get the size of the health bar
+	int tileSize = TILE_SOURCE_SIZE;
+	int healthBarR = (health * tileSize) / maxHealth;
+	if ((health * tileSize) % maxHealth > 0) {
+		healthBarR++;
+	}
+	int damageBar = tileSize - healthBarR;
+
+	// get the coordinates
+	int x, y;
+	onScreen(&x, &y);
+	x *= tileSize_g;
+	y *= tileSize_g;
+
+	// set up the green clip
+	SDL_Rect* clip = new SDL_Rect();
+	clip->x = greenClipX;
+	clip->y = greenClipY;
+	clip->w = healthBarR;
+	clip->h = tileSize / 8;
+
+	spriteSheet->render(x, y, clip);
+
+	// set up the red clip
+	clip->x = redClipX;
+	clip->y = redClipY;
+	clip->w = damageBar;
+	clip->h = tileSize / 8;
+
+	x += healthBarR * (tileSize_g / TILE_SOURCE_SIZE);
+	spriteSheet->render(x, y, clip);
+
+	delete clip;
+}
+
+// virtual function for rendering tile sprite to screen
+// inputs: x coordinate to render at, y coordinate t orender at, the color to render
+void Enemy::render(int x, int y, int colorIn) {
+
+	// set the view port
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+
+	// render the under tile with the same color
+	if (getUnder() != nullptr) {
+		getUnder()->render(x, y, colorIn);
+	}
+
+	// -1 is current color
+	if (colorIn == -1) {
+		colorIn = getColor();
+	}
+	// get the sprite sheet
+	Texture* spriteSheet = tileSets_g[getSpritePath() * NUMCOLORS + colorIn];
+
+	// get the location on the sheet
+	int clipX = 0;
+	int clipY = 0;
+	int typeXOffset = getSprite() % getSpriteSheetW();
+	int typeYOffset = getSprite() / getSpriteSheetW();
+	clipX += typeXOffset * TILE_SOURCE_SIZE;
+	clipY += typeYOffset * TILE_SOURCE_SIZE;
+
+	// set up the clip
+	SDL_Rect* clip = new SDL_Rect();
+	clip->x = clipX;
+	clip->y = clipY;
+	clip->w = TILE_SOURCE_SIZE;
+	clip->h = TILE_SOURCE_SIZE;
+
+	spriteSheet->render(x, y, clip);
+
+	delete clip;
+
+	if (health != maxHealth) {
+		renderHealth();
+	}
 }

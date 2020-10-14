@@ -13,6 +13,7 @@ public:
 	~Enemy();
 
 	// stats
+	int maxHealth;
 	int health;
 	int speed;
 	int strength;
@@ -44,5 +45,7 @@ public:
 	void spellInteract(int damage, int effect, int effectDamage, int intensity);
 	void resetColor();
 	bool attack(int direction);
+	void renderHealth();
+	void render(int x, int y, int colorIn);
 };
 
