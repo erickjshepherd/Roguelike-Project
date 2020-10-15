@@ -119,6 +119,7 @@ enum floorEnums {
 
 // paths to tile sets
 extern std::string tilePaths[NUMPATHS];
+extern std::string tilePaths2[NUMPATHS];
 
 class Texture {
 public:
@@ -139,6 +140,8 @@ private:
 };
 
 extern std::vector<Texture*> tileSets_g;
+extern std::vector<Texture*> tileSets2_g;
 
 void loadTileSets();
+void loadTileSets2();
 void freeTilesets();

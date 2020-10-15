@@ -9,6 +9,7 @@
 #define SCREEN_HEIGHT 1000
 #define TILE_SOURCE_SIZE 16
 #define MAX_MAP_SIZE 21
+#define FRAME_WAIT 500
 
 enum eventEnums {
 	EVENT_QUIT,
@@ -72,6 +73,8 @@ extern SDL_Rect statsView_g;
 extern SDL_Rect eventsView_g;
 extern SDL_Color textColor_g;
 extern int tileSize_g;
+extern int currentFrame_g;
+extern int drawFrame_g;
 
 int SDL_Init();
 void SDL_Close();
@@ -81,3 +84,4 @@ void loadFonts();
 void freeFonts();
 void rendererInit();
 int getTextSpace();
+void frameClock();

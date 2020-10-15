@@ -1,5 +1,6 @@
 #include "SDLFuncs.h"
 #include "Texture.h"
+#include <Windows.h>
 
 SDL_Surface* winSurface_g;
 SDL_Window* window_g;
@@ -10,6 +11,8 @@ SDL_Rect statsView_g;
 SDL_Rect eventsView_g;
 SDL_Color textColor_g;
 int tileSize_g;
+int currentFrame_g;
+int drawFrame_g;
 
 int SDL_Init() {
 	
@@ -52,6 +55,10 @@ int SDL_Init() {
 
 	// set up the surface, renderer, and viewports
 	rendererInit();
+
+	// set up the frame clock
+	currentFrame_g = 0;
+	drawFrame_g = 0;
 }
 
 bool loadImage(SDL_Texture* &image, std::string path) {
@@ -200,8 +207,18 @@ void rendererInit() {
 
 	// load the tilesets
 	loadTileSets();
+	loadTileSets2();
 }
 
 int getTextSpace() {
 	return tileSize_g;
+}
+
+void frameClock() {
+	while (drawFrame_g != -1) {
+		currentFrame_g = 0;
+		Sleep(FRAME_WAIT);
+		currentFrame_g = 1;
+		Sleep(FRAME_WAIT);
+	}
 }

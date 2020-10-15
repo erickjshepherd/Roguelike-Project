@@ -76,7 +76,16 @@ void Tile::render(int x, int y, int colorIn) {
 		colorIn = color;
 	}
 	// get the sprite sheet
-	Texture* spriteSheet = tileSets_g[spritePath * NUMCOLORS + colorIn];
+	Texture* spriteSheet;
+	if (drawFrame_g == 0) {
+		spriteSheet = tileSets_g[spritePath * NUMCOLORS + colorIn];
+	}
+	else if (drawFrame_g == 1 && tileSets2_g[spritePath * NUMCOLORS + colorIn]->getWidth() != 0) {
+		spriteSheet = tileSets2_g[spritePath * NUMCOLORS + colorIn];
+	}
+	else {
+		spriteSheet = tileSets_g[spritePath * NUMCOLORS + colorIn];
+	}
 
 	// get the location on the sheet
 	int clipX = 0;

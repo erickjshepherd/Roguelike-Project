@@ -12,7 +12,19 @@ std::string tilePaths[NUMPATHS] = {
 	"Dawnlike Tiles/Objects/Floor.png"
 };
 
+std::string tilePaths2[NUMPATHS] = {
+	"",
+	"",
+	"Dawnlike Tiles/Characters/Player1.png",
+	"Dawnlike Tiles/Characters/Slime1.png",
+	"",
+	"",
+	"",
+	""
+};
+
 std::vector<Texture*> tileSets_g;
+std::vector<Texture*> tileSets2_g;
 
 Texture::Texture() {
 	width = 0;
@@ -117,6 +129,7 @@ int Texture::getHeight() {
 }
 
 // todo: maybe load textures into a 2D array and only load the ones that are used.
+// todo: merge the load functions
 // The enemy tileset is the main one that needs these colors
 void loadTileSets() {
 	int x;
@@ -170,9 +183,66 @@ void loadTileSets() {
 	}
 }
 
+// loads tilesets for the other frame of animation
+void loadTileSets2() {
+	int x;
+	for (x = 0; x < NUMPATHS; x++) {
+		// standard tiles
+		Texture* tileSet = new Texture();
+		tileSet->loadFromFile(tilePaths2[x]);
+		tileSets2_g.push_back(tileSet);
+
+		// cast preview tiles
+		Texture* tileSetCast = new Texture();
+		tileSetCast->loadFromFile(tilePaths2[x]);
+		tileSetCast->setColor(CASTR, CASTG, CASTB);
+		tileSets2_g.push_back(tileSetCast);
+
+		// red tiles
+		Texture* tileSetRed = new Texture();
+		tileSetRed->loadFromFile(tilePaths2[x]);
+		tileSetRed->setColor(255, 0, 0);
+		tileSets2_g.push_back(tileSetRed);
+
+		// cyan tiles
+		Texture* tileSetCyan = new Texture();
+		tileSetCyan->loadFromFile(tilePaths2[x]);
+		tileSetCyan->setColor(102, 255, 255);
+		tileSets2_g.push_back(tileSetCyan);
+
+		// orange tiles
+		Texture* tileSetOrange = new Texture();
+		tileSetOrange->loadFromFile(tilePaths2[x]);
+		tileSetOrange->setColor(255, 93, 0);
+		tileSets2_g.push_back(tileSetOrange);
+
+		// dark green tiles
+		Texture* tileSetDGreen = new Texture();
+		tileSetDGreen->loadFromFile(tilePaths2[x]);
+		tileSetDGreen->setColor(51, 153, 51);
+		tileSets2_g.push_back(tileSetDGreen);
+
+		// purple tiles
+		Texture* tileSetPurple = new Texture();
+		tileSetPurple->loadFromFile(tilePaths2[x]);
+		tileSetPurple->setColor(153, 0, 255);
+		tileSets2_g.push_back(tileSetPurple);
+
+		// pink tiles
+		Texture* tileSetPink = new Texture();
+		tileSetPink->loadFromFile(tilePaths2[x]);
+		tileSetPink->setColor(255, 102, 204);
+		tileSets2_g.push_back(tileSetPink);
+	}
+}
+
 void freeTilesets() {
 	while (!tileSets_g.empty()) {
 		delete tileSets_g.back();
 		tileSets_g.pop_back();
+	}
+	while (!tileSets2_g.empty()) {
+		delete tileSets2_g.back();
+		tileSets2_g.pop_back();
 	}
 }

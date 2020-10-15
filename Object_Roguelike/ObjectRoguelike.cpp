@@ -8,6 +8,7 @@
 #include <ctime>
 #include <string>
 #include "SDLFuncs.h"
+#include <thread>
 
 Map* global_map;
 
@@ -17,6 +18,9 @@ int main(int argc, char* argv[]){
 
 	// initialize SDL
 	SDL_Init();
+
+	// start the frame clock
+	std::thread frameThread(&frameClock);
 
 	// create the player character
 	Player* PC = new Player();
@@ -36,6 +40,10 @@ int main(int argc, char* argv[]){
 			PC->setExtraTurns(playerET - 1);
 		}
 	}
+	
+	// stop the frame clock
+	drawFrame_g = -1;
+	frameThread.join();
 
 	freeTilesets();
 	SDL_Close();

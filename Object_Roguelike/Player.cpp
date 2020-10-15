@@ -52,12 +52,22 @@ void Player::turn() {
 	int validKey = 0;
 	int eventValue;
 	int move_success, attack_success;
+	int prevFrame = -1;
 
 	// keep screen coordinates up to date
 	setCoordinates();
 
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
+		
+		// get the current frame
+		drawFrame_g = currentFrame_g;
+		if (drawFrame_g != prevFrame) {
+			drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
+		}
+		prevFrame = drawFrame_g;
+		
 		validKey = 1;
 		eventValue = handleEvents();
 		if (eventValue == -1) {
