@@ -54,27 +54,32 @@ void Spell::playerInteract() {
 			global_map->Draw_Events();
 
 			selecting = 1;
-			int visible = 1;
+			int prevFrame = -1;
 			while (selecting == 1) {
-				if (visible == 0) {
-					global_map->player->drawStats(SPELL1);
-					global_map->player->drawStats(SPELL2);
-					global_map->player->drawStats(SPELL3);
-					visible = 1;
+				// Render the screen when the frame updates
+				drawFrame_g = currentFrame_g;
+				if (drawFrame_g != prevFrame) {
+					if (drawFrame_g == 0) {
+						global_map->player->drawStats(SPELL1);
+						global_map->player->drawStats(SPELL2);
+						global_map->player->drawStats(SPELL3);
+					}
+					else {
+						global_map->player->clearStats(SPELL1);
+						global_map->player->clearStats(SPELL2);
+						global_map->player->clearStats(SPELL3);
+					}
+					global_map->player->drawPlayerView(0);
+					SDL_RenderPresent(renderer_g);
 				}
-				else {
-					global_map->player->clearStats(SPELL1);
-					global_map->player->clearStats(SPELL2);
-					global_map->player->clearStats(SPELL3);
-					visible = 0;
-				}
+				prevFrame = drawFrame_g;
+
 				spellNum = handleEvents();
 				if (spellNum == EVENT_KEY_1 || spellNum == EVENT_KEY_2 || spellNum == EVENT_KEY_3 || spellNum == EVENT_KEY_ESC) {
 					selecting = 0;
 					resolved = 1;
 				}
 				SDL_RenderPresent(renderer_g);
-				Sleep(200);
 			}
 			global_map->player->drawStats(SPELL1);
 			global_map->player->drawStats(SPELL2);
@@ -169,19 +174,6 @@ void Spell::updateLineColor(int direction, int range, int color) {
 	spellMtx.unlock();
 }
 
-void Spell::flashLine() {
-	while (selecting == 1) {
-		int direction = currentDirection;
-		updateLineColor(currentDirection, range, CAST);
-		Sleep(200);
-		if (currentDirection != direction) {
-			updateLineColor(direction, range, -1);
-		}
-		updateLineColor(currentDirection, range, -1);
-		Sleep(200);
-	}
-}
-
 int Spell::getDirection() {
 	int eventValue = handleEvents();
 	
@@ -223,6 +215,7 @@ int Spell::castLine() {
 	int finalEvent = 0;
 	int prevDir;
 	int success = 0;
+	int prevFrame = -1;
 	selecting = 1;
 	currentDirection = UP;
 
@@ -230,19 +223,37 @@ int Spell::castLine() {
 		return 0;
 	}
 
-	std::thread flashThread(&Spell::flashLine, this);
 	while (selecting == 1) {
 		prevDir = currentDirection;
 		finalEvent = getDirection();
+
+		// Render the screen when the frame updates
+		drawFrame_g = currentFrame_g;
+		if (drawFrame_g != prevFrame) {
+			if (drawFrame_g == 0) {
+				updateLineColor(currentDirection, range, -1);
+			}
+			else {
+				updateLineColor(currentDirection, range, CAST);
+			}
+			global_map->player->drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
+		}
+		prevFrame = drawFrame_g;
+
 		// immediately flash in the new direction. Let the flash thread catch up
 		if (prevDir != currentDirection) {
 			updateLineColor(prevDir, range, -1);
-			updateLineColor(currentDirection, range, CAST);
+			if (drawFrame_g == 0) {
+				updateLineColor(currentDirection, range, -1);
+			}
+			else {
+				updateLineColor(currentDirection, range, CAST);
+			}
+			global_map->player->drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
 		}
-		global_map->player->drawPlayerView(0);
-		SDL_RenderPresent(renderer_g);
 	}
-	flashThread.join();
 	updateLineColor(currentDirection, range, -1);
 	global_map->player->drawPlayerView(0);
 	SDL_RenderPresent(renderer_g);

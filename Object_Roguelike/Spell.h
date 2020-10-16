@@ -32,7 +32,6 @@ public:
 	virtual int Cast();
 	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity);
 	void updateLineColor(int direction, int range, int color);
-	void flashLine();
 	int getDirection();
 	int castLine();
 };
