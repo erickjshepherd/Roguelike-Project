@@ -117,7 +117,7 @@ Slow::Slow(int location) {
 }
 
 int Slow::Cast() {
-	return castLine();
+	return castCircle();
 }
 
 Scare::Scare() {
@@ -127,7 +127,7 @@ Scare::Scare() {
 	duration = 5;
 	cd = 5;
 	cdCount = 0;
-	range = 2;
+	range = 1;
 
 	// sprite
 	setSpritePath(SCROLLPATH);
@@ -143,7 +143,7 @@ Scare::Scare(int location) {
 	duration = 5;
 	cd = 5;
 	cdCount = 0;
-	range = 2;
+	range = 1;
 
 	// sprite
 	setSpritePath(SCROLLPATH);
@@ -152,7 +152,7 @@ Scare::Scare(int location) {
 }
 
 int Scare::Cast() {
-	return castLine();
+	return castCircle();
 }
 
 Charm::Charm() {

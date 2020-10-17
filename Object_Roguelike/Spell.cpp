@@ -3,7 +3,6 @@
 #include <conio.h>
 #include "Global_Map.h"
 #include "Spell.h"
-#include <mutex>
 
 Spell::Spell() {
 	setBlocking(0);
@@ -128,15 +127,15 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int effect
 	}
 	for (int x = 0; x < range; x++) {
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
-		global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
+		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
+			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
+		}
 	}
 }
 
 // Updates the color of the tiles in a line coming from the player
 // Inputs: direction of the line, range of the line, color of the line
-std::mutex spellMtx;
 void Spell::updateLineColor(int direction, int range, int color) {
-	spellMtx.lock();
 	int increment = 0;
 	if (direction == UP) {
 		increment = -global_map->size;
@@ -171,7 +170,6 @@ void Spell::updateLineColor(int direction, int range, int color) {
 			}
 		}
 	}
-	spellMtx.unlock();
 }
 
 int Spell::getDirection() {
@@ -260,6 +258,105 @@ int Spell::castLine() {
 
 	if (finalEvent == EVENT_KEY_ENTER) {
 		dmgLine(currentDirection, range, initDamage, effect, effectDamage, duration);
+		success = 1;
+		cdCount = cd;
+	}
+	else {
+		success = 0;
+	}
+	return success;
+}
+
+void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int intensity) {
+	int x, y, hitLocation, diameter;
+	int startLocation = global_map->player->getLocation();
+	startLocation -= global_map->size * range;
+	startLocation -= range;
+
+	diameter = (range * 2) + 1;
+	for (y = 0; y < diameter; y++) {
+		for (x = 0; x < diameter; x++) {
+			hitLocation = startLocation;
+			hitLocation += y * global_map->size;
+			hitLocation += x;
+			if (hitLocation != global_map->player->getLocation()) {
+				if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
+					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
+				}
+			}
+		}
+	}
+}
+
+void Spell::updateCircleColor(int range, int color) {
+	int x, y, loc, diameter;
+	int startLocation = global_map->player->getLocation();
+	startLocation -= global_map->size * range;
+	startLocation -= range;
+
+	diameter = (range * 2) + 1;
+	for (y = 0; y < diameter; y++) {
+		for (x = 0; x < diameter; x++) {
+			loc = startLocation;
+			loc += y * global_map->size;
+			loc += x;
+			if (loc != global_map->player->getLocation()) {
+				Tile* current;
+				if (loc >= 0 && loc < global_map->size * global_map->size) {
+					if (color == -1) {
+						current = global_map->map[loc];
+						while (current != NULL) {
+							current->resetColor();
+							current = current->getUnder();
+						}
+					}
+					else {
+						current = global_map->map[loc];
+						while (current != NULL) {
+							current->setColor(color);
+							current = current->getUnder();
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+int Spell::castCircle() {
+	int finalEvent = 0;
+	int prevDir;
+	int success = 0;
+	int prevFrame = -1;
+	selecting = 1;
+
+	if (cdCount != 0) {
+		return 0;
+	}
+
+	while (selecting == 1) {
+		finalEvent = getDirection();
+
+		// Render the screen when the frame updates
+		drawFrame_g = currentFrame_g;
+		if (drawFrame_g != prevFrame) {
+			if (drawFrame_g == 0) {
+				updateCircleColor(range, -1);
+			}
+			else {
+				updateCircleColor(range, CAST);
+			}
+			global_map->player->drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
+		}
+		prevFrame = drawFrame_g;
+	}
+	updateCircleColor(range, -1);
+	global_map->player->drawPlayerView(0);
+	SDL_RenderPresent(renderer_g);
+
+	if (finalEvent == EVENT_KEY_ENTER) {
+		dmgCircle(range, initDamage, effect, effectDamage, duration);
 		success = 1;
 		cdCount = cd;
 	}

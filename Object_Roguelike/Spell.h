@@ -32,6 +32,9 @@ public:
 	virtual int Cast();
 	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity);
 	void updateLineColor(int direction, int range, int color);
+	void dmgCircle(int range, int damage, int effect, int effectDamage, int intensity);
+	void updateCircleColor(int range, int color);
 	int getDirection();
 	int castLine();
+	int castCircle();
 };
