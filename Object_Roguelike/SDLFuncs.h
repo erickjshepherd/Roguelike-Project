@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 768
 #define TILE_SOURCE_SIZE 16
 #define MAX_MAP_SIZE 21
 #define FRAME_WAIT 500

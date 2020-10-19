@@ -155,6 +155,7 @@
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Global_Map.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monsters.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Monsters.cpp" />

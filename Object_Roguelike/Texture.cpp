@@ -9,7 +9,8 @@ std::string tilePaths[NUMPATHS] = {
 	"Dawnlike Tiles/Items/MedWep.png",
 	"Dawnlike Tiles/Items/Scroll.png",
 	"Dawnlike Tiles/Items/ShortWep.png",
-	"Dawnlike Tiles/Objects/Floor.png"
+	"Dawnlike Tiles/Objects/Floor.png",
+	"Dawnlike Tiles/GUI/GUI0.png"
 };
 
 std::string tilePaths2[NUMPATHS] = {
@@ -17,6 +18,7 @@ std::string tilePaths2[NUMPATHS] = {
 	"",
 	"Dawnlike Tiles/Characters/Player1.png",
 	"Dawnlike Tiles/Characters/Slime1.png",
+	"",
 	"",
 	"",
 	"",
@@ -126,6 +128,10 @@ int Texture::getWidth() {
 
 int Texture::getHeight() {
 	return height;
+}
+
+SDL_Texture* Texture::getTexture() {
+	return texture;
 }
 
 // todo: maybe load textures into a 2D array and only load the ones that are used.

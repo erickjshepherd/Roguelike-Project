@@ -7,7 +7,7 @@
 #define CASTG 153
 #define CASTB 153
 
-#define NUMPATHS 8
+#define NUMPATHS 9
 enum pathEnums {
 	TILEPATH,
 	WALLPATH,
@@ -16,7 +16,8 @@ enum pathEnums {
 	MEDWEPPATH,
 	SCROLLPATH,
 	SHORTWEPPATH,
-	FLOORPATH
+	FLOORPATH,
+	GUIPATH
 };
 
 #define NUMCOLORS 8
@@ -117,6 +118,25 @@ enum floorEnums {
 	ICE4_F
 };
 
+enum GUIEnums {
+	REDB_G,
+	BLUEB_G,
+	GREENB_G,
+	YELLOWN_G,
+	GREENR_G,
+	ORANGEB_G,
+	REDG_G,
+	BLACKY_G,
+	WHITEB_G,
+	SILVERB_G,
+	GREYB_G,
+	BLACKB_G,
+	WHITEW_G,
+	SILVERS_G,
+	GREYG_G,
+	BLACKG_G
+};
+
 // paths to tile sets
 extern std::string tilePaths[NUMPATHS];
 extern std::string tilePaths2[NUMPATHS];
@@ -132,6 +152,7 @@ public:
 	void render(int x, int y, SDL_Rect* clip);
 	int getWidth();
 	int getHeight();
+	SDL_Texture* getTexture();
 
 private:
 	SDL_Texture* texture;

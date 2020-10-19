@@ -323,6 +323,7 @@ void Spell::updateCircleColor(int range, int color) {
 	}
 }
 
+// todo: merge cast functions somehow. Seems like a lot of copied code
 int Spell::castCircle() {
 	int finalEvent = 0;
 	int prevDir;

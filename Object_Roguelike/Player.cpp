@@ -9,6 +9,7 @@
 #include <Windows.h>
 #include <list>
 #include "Items.h"
+#include "GUI.h"
 
 // player class
 Player::Player(){
@@ -313,6 +314,7 @@ void Player::drawPlayerView(int view) {
 	}
 	if (view == 0 || view == -1) {
 		clearMap();
+		drawBackground(0);
 		// get the width of the square to draw
 		int view_size = (viewDistance * 2) + 1;
 
@@ -337,9 +339,11 @@ void Player::drawPlayerView(int view) {
 		}
 	}
 	if (view == 1 || view == -1) {
+		drawBackground(1);
 		drawStats(-1);
 	}
 	if (view == 2 || view == -1) {
+		drawBackground(2);
 		global_map->Draw_Events();
 	}
 }
@@ -713,8 +717,10 @@ void Player::clearStats(int line) {
 	COORD position;
 	HANDLE handle;
 
+	SDL_RenderSetViewport(renderer_g, &statsView_g);
+
 	SDL_Rect rect;
-	rect.x = statsView_g.x;
+	rect.x = 0;
 	rect.h = textSpace;
 	rect.w = statsView_g.w;
 
@@ -723,72 +729,57 @@ void Player::clearStats(int line) {
 	for (y = 0; y < 15; y++) {
 		if (y == HEALTH && (y == line || line == -1)) {
 			rect.y = textSpace * HEALTH;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
 			rect.y = textSpace * STRENGTH;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
 			rect.y = textSpace * FLOOR;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
 			rect.y = textSpace * ROOMS;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
 			rect.y = textSpace * WEAPON;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
 			rect.y = textSpace * HEAD;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
 			rect.y = textSpace * CHEST;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
 			rect.y = textSpace * LEGS;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
 			rect.y = textSpace * SPELL1;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
 			rect.y = textSpace * SPELL2;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
 			rect.y = textSpace * SPELL3;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
 			rect.y = textSpace * INSPECT;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 		else if (y == INSPECTINFO && (y == line || line == -1)) {
 			rect.y = textSpace * INSPECTINFO;
-			SDL_RenderSetViewport(renderer_g, &rect);
-			SDL_RenderFillRect(renderer_g, NULL);
+			clearRect(rect);
 		}
 	}
-
-	SDL_RenderSetViewport(renderer_g, &statsView_g);
 }
 
 // input: direction to attack
@@ -946,7 +937,13 @@ int Player::selectSpell() {
 // clears the map viewport on the screen
 void Player::clearMap() {
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
-	SDL_RenderFillRect(renderer_g, NULL);
+	SDL_Rect rect;
+	rect.x = 0;
+	rect.y = 0;
+	rect.h = mapView_g.h;
+	rect.w = mapView_g.w;
+	clearRect(rect);
+	drawBackground(0);
 }
 
 // handles being attacked. Can only take damage from non allied objects.

@@ -9,6 +9,7 @@
 #include <string>
 #include "SDLFuncs.h"
 #include <thread>
+#include "GUI.h"
 
 Map* global_map;
 

@@ -17,6 +17,7 @@
 #include "Floor.h"
 #include "Wall.h"
 #include "Exit.h"
+#include "GUI.h"
 
 
 Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
@@ -570,7 +571,6 @@ void Map::Spawn_Items() {
 }
 
 // iterate through each enemy on the map and move them
-// todo: account for enemies killing enemies
 void Map::Enemy_Turn() {
 	int x, enemies;
 	enemies = this->Enemy_List.size();
@@ -593,7 +593,9 @@ void Map::Draw_Events() {
 	int textSpace = getTextSpace();
 
 	clearEvents();
-	int eventY = textSpace;
+	drawBackground(2);
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
 	for (current = this->events.begin(); current != this->events.end(); current++) {
 		Texture text;
 		text.loadFromRenderedText(*current, textColor_g);
@@ -604,7 +606,12 @@ void Map::Draw_Events() {
 
 void Map::clearEvents() {
 	SDL_RenderSetViewport(renderer_g, &eventsView_g);
-	SDL_RenderFillRect(renderer_g, NULL);
+	SDL_Rect rect;
+	rect.x = 0;
+	rect.y = 0;
+	rect.h = eventsView_g.h;
+	rect.w = eventsView_g.w;
+	clearRect(rect);
 }
 
 int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {

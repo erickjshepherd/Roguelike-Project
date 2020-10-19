@@ -186,18 +186,18 @@ void rendererInit() {
 
 	// update the viewports
 	int textSpace = getTextSpace();
-	mapView_g.x = 0;
-	mapView_g.y = 0;
+	mapView_g.x = (screenH - mapSize) / 2;
+	mapView_g.y = (screenH - mapSize) / 2;
 	mapView_g.w = mapSize;
 	mapView_g.h = mapSize;
-	statsView_g.x = mapSize;
-	statsView_g.y = 0;
-	statsView_g.w = screenW - mapSize;;
-	statsView_g.h = NUM_STAT_LINES * textSpace;
-	eventsView_g.x = mapSize;
-	eventsView_g.y = NUM_STAT_LINES * textSpace;
-	eventsView_g.w = screenW - mapSize;
-	eventsView_g.h = screenH - (NUM_STAT_LINES * textSpace);
+	statsView_g.x = screenH + (tileSize_g / 2);
+	statsView_g.y = (tileSize_g / 2);
+	statsView_g.w = (screenW - screenH) - tileSize_g;
+	statsView_g.h = (NUM_STAT_LINES + 1) * textSpace - tileSize_g;
+	eventsView_g.x = screenH + (tileSize_g / 2);
+	eventsView_g.y = (NUM_STAT_LINES + 1) * textSpace + (tileSize_g / 2);
+	eventsView_g.w = (screenW - screenH) - tileSize_g;
+	eventsView_g.h = (screenH - ((NUM_STAT_LINES + 1) * textSpace)) - tileSize_g;
 
 	// Fill the window with a black rectangle
 	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 0, 0, 0));
