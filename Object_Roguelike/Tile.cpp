@@ -188,7 +188,8 @@ void Tile::onScreen(int* X, int* Y) {
 
 // draws the tile description to the screen
 void Tile::drawUnderInfo() {
-	int textSpace = getTextSpace();
+	// todo: consolidate the text scaling into a function
+	int textSpace = (getTextSpace() * 3) / 2;
 
 	global_map->player->clearStats(INSPECTINFO);
 
@@ -203,7 +204,7 @@ void Tile::drawUnderInfo() {
 	std::string infoStr;
 	infoStr.append(under->description);
 	Texture text;
-	text.loadFromRenderedText(infoStr, textColor_g);
+	text.loadFromRenderedText(infoStr, textColor_g, -1);
 	text.render(0, INSPECTINFO * textSpace, NULL);
 }
 

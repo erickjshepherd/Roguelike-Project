@@ -66,17 +66,21 @@ bool Texture::loadFromFile(std::string path) {
 	}
 }
 
-bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
+bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, int font)
 {
 	//Get rid of preexisting texture
 	free();
 
 	//Render text surface
-	int textSize = (tileSize_g / 16) - 1;
-	if (textSize >= NUM_FONTS) {
-		textSize = NUM_FONTS - 1;
+	int textIndex = (tileSize_g / 16) - 1;
+	if (textIndex >= NUM_FONTS) {
+		textIndex = NUM_FONTS - 1;
 	}
-	SDL_Surface* textSurface = TTF_RenderText_Solid(fonts_g[textSize], textureText.c_str(), textColor);
+	// automatically set font if input is -1
+	if (font == -1) {
+		font = textIndex;
+	}
+	SDL_Surface* textSurface = TTF_RenderText_Solid(fonts_g[font], textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
 		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());

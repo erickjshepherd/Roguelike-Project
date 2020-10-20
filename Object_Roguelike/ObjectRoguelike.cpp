@@ -23,6 +23,9 @@ int main(int argc, char* argv[]){
 	// start the frame clock
 	std::thread frameThread(&frameClock);
 
+	// open the menu
+	openMenu();
+
 	// create the player character
 	Player* PC = new Player();
 

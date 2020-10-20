@@ -577,7 +577,9 @@ void Player::drawStats(int line) {
 	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
-	int textSpace = getTextSpace();
+
+	// add space between stats equal to half text height
+	int textSpace = (getTextSpace() * 3) / 2;
 
 	// set and clear the view port
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
@@ -589,25 +591,25 @@ void Player::drawStats(int line) {
 		if (y == HEALTH && (y == line || line == -1)) {
 			std::string healthStr("Health: " + std::to_string(health));
 			Texture text;
-			text.loadFromRenderedText(healthStr, textColor_g);
+			text.loadFromRenderedText(healthStr, textColor_g, -1);
 			text.render(0, HEALTH * textSpace, NULL);
 		}
 		else if (y == STRENGTH && (y == line || line == -1)) {
 			std::string strengthStr("Strength: " + std::to_string(strength));
 			Texture text;
-			text.loadFromRenderedText(strengthStr, textColor_g);
+			text.loadFromRenderedText(strengthStr, textColor_g, -1);
 			text.render(0, STRENGTH * textSpace, NULL);
 		}
 		else if (y == FLOOR && (y == line || line == -1)) {
 			std::string floorStr("Floor: " + std::to_string(global_map->level));
 			Texture text;
-			text.loadFromRenderedText(floorStr, textColor_g);
+			text.loadFromRenderedText(floorStr, textColor_g, -1);
 			text.render(0, FLOOR * textSpace, NULL);
 		}
 		else if (y == ROOMS && (y == line || line == -1)) {
 			std::string roomStr("Rooms: " + std::to_string(global_map->actual_total_rooms));
 			Texture text;
-			text.loadFromRenderedText(roomStr, textColor_g);
+			text.loadFromRenderedText(roomStr, textColor_g, -1);
 			text.render(0, ROOMS * textSpace, NULL);
 		}
 		else if (y == WEAPON && (y == line || line == -1)) {
@@ -620,7 +622,7 @@ void Player::drawStats(int line) {
 			}
 			std::string weaponStr("Weapon: " + weaponName);
 			Texture text;
-			text.loadFromRenderedText(weaponStr, textColor_g);
+			text.loadFromRenderedText(weaponStr, textColor_g, -1);
 			text.render(0, WEAPON * textSpace, NULL);
 		}
 		else if (y == HEAD && (y == line || line == -1)) {
@@ -633,7 +635,7 @@ void Player::drawStats(int line) {
 			}
 			std::string headStr("Head: " + headName);
 			Texture text;
-			text.loadFromRenderedText(headStr, textColor_g);
+			text.loadFromRenderedText(headStr, textColor_g, -1);
 			text.render(0, HEAD * textSpace, NULL);
 		}
 		else if (y == CHEST && (y == line || line == -1)) {
@@ -646,7 +648,7 @@ void Player::drawStats(int line) {
 			}
 			std::string chestStr("Chest: " + chestName);
 			Texture text;
-			text.loadFromRenderedText(chestStr, textColor_g);
+			text.loadFromRenderedText(chestStr, textColor_g, -1);
 			text.render(0, CHEST * textSpace, NULL);
 		}
 		else if (y == LEGS && (y == line || line == -1)) {
@@ -659,7 +661,7 @@ void Player::drawStats(int line) {
 			}
 			std::string legStr("Legs: " + legName);
 			Texture text;
-			text.loadFromRenderedText(legStr, textColor_g);
+			text.loadFromRenderedText(legStr, textColor_g, -1);
 			text.render(0, LEGS * textSpace, NULL);
 		}
 		else if (y == SPELL1 && (y == line || line == -1)) {
@@ -671,7 +673,7 @@ void Player::drawStats(int line) {
 				spellName.append("Spell 1: none");
 			}
 			Texture text;
-			text.loadFromRenderedText(spellName, textColor_g);
+			text.loadFromRenderedText(spellName, textColor_g, -1);
 			text.render(0, SPELL1 * textSpace, NULL);
 		}
 		else if (y == SPELL2 && (y == line || line == -1)) {
@@ -683,7 +685,7 @@ void Player::drawStats(int line) {
 				spellName.append("Spell 2: none");
 			}
 			Texture text;
-			text.loadFromRenderedText(spellName, textColor_g);
+			text.loadFromRenderedText(spellName, textColor_g, -1);
 			text.render(0, SPELL2 * textSpace, NULL);
 		}
 		else if (y == SPELL3 && (y == line || line == -1)) {
@@ -695,14 +697,14 @@ void Player::drawStats(int line) {
 				spellName.append("Spell 3: none");
 			}
 			Texture text;
-			text.loadFromRenderedText(spellName, textColor_g);
+			text.loadFromRenderedText(spellName, textColor_g, -1);
 			text.render(0, SPELL3 * textSpace, NULL);
 		}
 		else if (y == INSPECT && (y == line || line == -1)) {
 			std::string inspectStr;
 			inspectStr.append("Inspection:");
 			Texture text;
-			text.loadFromRenderedText(inspectStr, textColor_g);
+			text.loadFromRenderedText(inspectStr, textColor_g, -1);
 			text.render(0, INSPECT * textSpace, NULL);
 		}
 	}
@@ -713,7 +715,7 @@ void Player::clearStats(int line) {
 	short view_size = (short)(viewDistance * 2) + 1;
 	short x = 2 * view_size;
 	short y;
-	int textSpace = getTextSpace();
+	int textSpace = (getTextSpace() * 3) / 2;
 	COORD position;
 	HANDLE handle;
 

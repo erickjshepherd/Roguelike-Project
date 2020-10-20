@@ -590,7 +590,7 @@ void Map::Add_Event(std::string event) {
 
 void Map::Draw_Events() {
 	std::list<std::string>::iterator current;
-	int textSpace = getTextSpace();
+	int textSpace = (getTextSpace() * 3) / 2;
 
 	clearEvents();
 	drawBackground(2);
@@ -598,7 +598,7 @@ void Map::Draw_Events() {
 	SDL_RenderSetViewport(renderer_g, &eventsView_g);
 	for (current = this->events.begin(); current != this->events.end(); current++) {
 		Texture text;
-		text.loadFromRenderedText(*current, textColor_g);
+		text.loadFromRenderedText(*current, textColor_g, -1);
 		text.render(0, eventY, NULL);
 		eventY += textSpace;
 	}

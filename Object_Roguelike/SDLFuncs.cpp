@@ -185,7 +185,7 @@ void rendererInit() {
 	winSurface_g = SDL_GetWindowSurface(window_g);
 
 	// update the viewports
-	int textSpace = getTextSpace();
+	int textSpace = (getTextSpace() * 3) / 2;
 	mapView_g.x = (screenH - mapSize) / 2;
 	mapView_g.y = (screenH - mapSize) / 2;
 	mapView_g.w = mapSize;
@@ -211,7 +211,12 @@ void rendererInit() {
 }
 
 int getTextSpace() {
-	return tileSize_g;
+	int textIndex = (tileSize_g / 16) - 1;
+	if (textIndex >= NUM_FONTS) {
+		textIndex = NUM_FONTS - 1;
+	}
+	int h = TTF_FontHeight(fonts_g[textIndex]);
+	return h;
 }
 
 void frameClock() {
