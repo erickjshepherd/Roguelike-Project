@@ -5,7 +5,7 @@
 #define BACKGROUNDTYPE WHITEB_G
 
 // renders a text box sprite
-void renderGUI(int x, int y, int w, int h, int version, int type) {
+void renderTextBox(int x, int y, int w, int h, int version, int type) {
 
 	// get the sprite sheet
 	Texture* spriteSheet = tileSets_g[GUIPATH * NUMCOLORS];
@@ -36,21 +36,48 @@ void renderGUI(int x, int y, int w, int h, int version, int type) {
 	delete clip;
 }
 
+void renderGUI(int x, int y, int w, int h, int sprite) {
+	// get the sprite sheet
+	Texture* spriteSheet = tileSets_g[GUIPATH * NUMCOLORS];
+
+	// get the location on the sheet
+	int clipX = 0;
+	int clipY = 0;
+	// text box sprites are in rows of 4
+	int xOffset = sprite % 16;
+	int yOffset = sprite / 16;
+	clipX += (xOffset * TILE_SOURCE_SIZE);
+	clipY += (yOffset * TILE_SOURCE_SIZE);
+
+	// set up the clip
+	SDL_Rect* clip = new SDL_Rect();
+	clip->x = clipX;
+	clip->y = clipY;
+	clip->w = TILE_SOURCE_SIZE;
+	clip->h = TILE_SOURCE_SIZE;
+
+	// render the tile
+	SDL_Rect renderQuad = { x, y, w, h };
+	SDL_RenderCopy(renderer_g, spriteSheet->getTexture(), clip, &renderQuad);
+
+	delete clip;
+}
+
 void drawTextBox(int x, int y, int w, int h, int type) {
 
 	int tileSize = tileSize_g;
 	// draw corners
-	renderGUI(x, y, tileSize, tileSize, 1, type); // top left
-	renderGUI(x + (w - tileSize), y, tileSize, tileSize, 3, type); // top right
-	renderGUI(x, y + (h - tileSize), tileSize, tileSize, 9, type); // bottom left
-	renderGUI(x + (w - tileSize), y + (h - tileSize), tileSize, tileSize, 11, type); // bottom right
+	renderTextBox(x, y, tileSize, tileSize, 1, type); // top left
+	renderTextBox(x + (w - tileSize), y, tileSize, tileSize, 3, type); // top right
+	renderTextBox(x, y + (h - tileSize), tileSize, tileSize, 9, type); // bottom left
+	renderTextBox(x + (w - tileSize), y + (h - tileSize), tileSize, tileSize, 11, type); // bottom right
 	// draw sides
-	renderGUI(x, y + tileSize, tileSize, h - (tileSize * 2), 5, type); // left
-	renderGUI(x + tileSize, y, w - (tileSize * 2), tileSize, 2, type); // top
-	renderGUI(x + tileSize, y + (h - tileSize), w - (tileSize * 2), tileSize, 10, type); // bottom
-	renderGUI(x + (w - tileSize), y + tileSize, tileSize, h - (tileSize * 2), 7, type); // right
+	renderTextBox(x, y + tileSize, tileSize, h - (tileSize * 2), 5, type); // left
+	renderTextBox(x + tileSize, y, w - (tileSize * 2), tileSize, 2, type); // top
+	renderTextBox(x + tileSize, y + (h - tileSize), w - (tileSize * 2), tileSize, 10, type); // bottom
+	renderTextBox(x + (w - tileSize), y + tileSize, tileSize, h - (tileSize * 2), 7, type); // right
 	// fill center
-	renderGUI(x + tileSize, y + tileSize, w - (tileSize * 2), h - (tileSize * 2), 6, type); // center
+	renderTextBox(x + tileSize, y + tileSize, w - (tileSize * 2), h - (tileSize * 2), 6, type); // center
 }
 
 void drawBackground(int view) {
@@ -75,10 +102,10 @@ void drawBackground(int view) {
 }
 
 void clearRect(SDL_Rect rect) {
-	renderGUI(rect.x, rect.y, rect.w, rect.h, 6, BACKGROUNDTYPE); // center
+	renderTextBox(rect.x, rect.y, rect.w, rect.h, 6, BACKGROUNDTYPE); // center
 }
 
-void drawMenu(int* playX, int* playY, int* optX, int* optY) {
+void drawMenu(int* playX, int* playY, int* optX, int* optY, int* exitX, int* exitY) {
 	int screenW, screenH;
 	SDL_GetWindowSize(window_g, &screenW, &screenH);
 	SDL_RenderSetViewport(renderer_g, NULL);
@@ -89,7 +116,7 @@ void drawMenu(int* playX, int* playY, int* optX, int* optY) {
 	// draw the title
 	Texture titleT;
 	int w, h;
-	std::string titleText = "Insert Title Here";
+	std::string titleText = "Untitled Roguelike";
 	TTF_SizeText(fonts_g[3], titleText.c_str(), &w, &h);
 	titleT.loadFromRenderedText(titleText, textColor_g, 3);
 	int titleX = (screenW - w) / 2;
@@ -112,10 +139,77 @@ void drawMenu(int* playX, int* playY, int* optX, int* optY) {
 	*optY = *playY + (h * 2);
 	*optX = (screenW - w) / 2;
 	optionsT.render(*optX, *optY, NULL);
+
+	// draw the exit button
+	Texture exitT;
+	std::string exitText = "Exit";
+	TTF_SizeText(fonts_g[2], exitText.c_str(), &w, &h);
+	exitT.loadFromRenderedText(exitText, textColor_g, 2);
+	*exitY = *optY + (h * 2);
+	*exitX = (screenW - w) / 2;
+	exitT.render(*exitX, *exitY, NULL);
 }
 
-void openMenu() {
-	int playX, playY, optX, optY;
-	drawMenu(&playX, &playY, &optX, &optY);
+// todo: update this to handle sub-menus. ex: options sub-menu
+int openMenu() {
+	// draw the menu items
+	int playX, playY, optX, optY, exitX, exitY;
+	drawMenu(&playX, &playY, &optX, &optY, &exitX, &exitY);
+
+	// set up the arrow
+	int fontH = TTF_FontHeight(fonts_g[2]);
+	int arrowSize = fontH;
+	bool round = (arrowSize % 16) > 0;
+	arrowSize /= 16;
+	if (round) {
+		arrowSize++;
+	}
+	arrowSize *= 16;
+	int arrowX = optX - (arrowSize * 2);
+	int arrowY = playY;
+	arrowX -= (arrowSize - fontH) / 2;
+	renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
+
 	SDL_RenderPresent(renderer_g);
+	int key;
+	int selection = 0;
+	int quit = 0;
+	bool selecting = 1;
+	while (selecting) {
+		key = handleEvents();
+		if (key == EVENT_KEY_DOWN) {
+			if (selection < 2) {
+				selection++;
+				SDL_Rect clear = { arrowX, arrowY, arrowSize, arrowSize };
+				clearRect(clear);
+				arrowY += fontH * 2;
+				renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
+				SDL_RenderPresent(renderer_g);
+			}
+		}
+		else if (key == EVENT_KEY_UP) {
+			if (selection > 0) {
+				selection--;
+				SDL_Rect clear = { arrowX, arrowY, arrowSize, arrowSize };
+				clearRect(clear);
+				arrowY -= fontH * 2;
+				renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
+				SDL_RenderPresent(renderer_g);
+			}
+		}
+		else if (key == EVENT_KEY_ENTER) {
+			if (selection == 0) {
+				selecting = 0;
+			}
+			else if (selection == 2) {
+				quit = 1;
+				selecting = 0;
+			}
+		}
+		else if (key == EVENT_QUIT || key == EVENT_KEY_ESC) {
+			quit = 1;
+			selecting = 0;
+		}
+	}
+	return quit;
 }

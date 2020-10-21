@@ -23,25 +23,24 @@ int main(int argc, char* argv[]){
 	// start the frame clock
 	std::thread frameThread(&frameClock);
 
-	// open the menu
-	openMenu();
+	if (!openMenu()) {
+		// create the player character
+		Player* PC = new Player();
 
-	// create the player character
-	Player* PC = new Player();
+		// get a new level
+		PC->getNewLevel(1);
 
-	// get a new level
-	PC->getNewLevel(1);
-
-	while (PC->getQuit() == 0) {
-		SDL_RenderPresent(renderer_g);
-		PC->turn();
-		SDL_RenderPresent(renderer_g);
-		if (PC->getExtraTurns() == 0) {
-			global_map->Enemy_Turn();
-		}
-		else {
-			int playerET = PC->getExtraTurns();
-			PC->setExtraTurns(playerET - 1);
+		while (PC->getQuit() == 0) {
+			SDL_RenderPresent(renderer_g);
+			PC->turn();
+			SDL_RenderPresent(renderer_g);
+			if (PC->getExtraTurns() == 0) {
+				global_map->Enemy_Turn();
+			}
+			else {
+				int playerET = PC->getExtraTurns();
+				PC->setExtraTurns(playerET - 1);
+			}
 		}
 	}
 	
