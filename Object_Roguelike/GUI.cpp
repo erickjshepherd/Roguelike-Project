@@ -4,6 +4,12 @@
 
 #define BACKGROUNDTYPE WHITEB_G
 
+std::string mainMenuStrings[numMenuItems] = {
+	"Play",
+	"Options",
+	"Exit"
+};
+
 // renders a text box sprite
 void renderTextBox(int x, int y, int w, int h, int version, int type) {
 
@@ -105,11 +111,11 @@ void clearRect(SDL_Rect rect) {
 	renderTextBox(rect.x, rect.y, rect.w, rect.h, 6, BACKGROUNDTYPE); // center
 }
 
-void drawMenu(int* playX, int* playY, int* optX, int* optY, int* exitX, int* exitY) {
+void drawMenu(int* arrowX, int* arrowY, int* arrowSize, int titleFont, int itemFont) {
 	int screenW, screenH;
 	SDL_GetWindowSize(window_g, &screenW, &screenH);
 	SDL_RenderSetViewport(renderer_g, NULL);
-
+	
 	// set the background
 	drawTextBox(0, 0, screenW, screenH, BACKGROUNDTYPE);
 
@@ -117,93 +123,91 @@ void drawMenu(int* playX, int* playY, int* optX, int* optY, int* exitX, int* exi
 	Texture titleT;
 	int w, h;
 	std::string titleText = "Untitled Roguelike";
-	TTF_SizeText(fonts_g[3], titleText.c_str(), &w, &h);
+	TTF_SizeText(fonts_g[titleFont], titleText.c_str(), &w, &h);
 	titleT.loadFromRenderedText(titleText, textColor_g, 3);
 	int titleX = (screenW - w) / 2;
 	titleT.render(titleX, h, NULL);
 
-	// draw the play button
-	Texture playT;
-	std::string playText = "Play";
-	*playY = h * 3;
-	TTF_SizeText(fonts_g[2], playText.c_str(), &w, &h);
-	playT.loadFromRenderedText(playText, textColor_g, 2);
-	*playX = (screenW - w) / 2;
-	playT.render(*playX, *playY, NULL);
+	// draw the rest of the menu items
+	*arrowY = h * 3;
+	int currentY = *arrowY;
+	int maxX = 0;
+	for (int x = 0; x < numMenuItems; x++) {
+		Texture texture;
+		std::string itemText = mainMenuStrings[x];
+		TTF_SizeText(fonts_g[itemFont], itemText.c_str(), &w, &h);
+		texture.loadFromRenderedText(itemText, textColor_g, itemFont);
+		texture.render((screenW - w) / 2, currentY, NULL);
+		currentY += h * 2;
+		if (w > maxX) {
+			maxX = w;
+			*arrowX = (screenW - w) / 2;
+		}
+	}
 
-	// draw the options button
-	Texture optionsT;
-	std::string optionsText = "Options";
-	TTF_SizeText(fonts_g[2], optionsText.c_str(), &w, &h);
-	optionsT.loadFromRenderedText(optionsText, textColor_g, 2);
-	*optY = *playY + (h * 2);
-	*optX = (screenW - w) / 2;
-	optionsT.render(*optX, *optY, NULL);
-
-	// draw the exit button
-	Texture exitT;
-	std::string exitText = "Exit";
-	TTF_SizeText(fonts_g[2], exitText.c_str(), &w, &h);
-	exitT.loadFromRenderedText(exitText, textColor_g, 2);
-	*exitY = *optY + (h * 2);
-	*exitX = (screenW - w) / 2;
-	exitT.render(*exitX, *exitY, NULL);
+	// return the initial arrow position
+	int fontH = TTF_FontHeight(fonts_g[ITEMFONT]);
+	*arrowSize = fontH;
+	bool round = (*arrowSize % 16) > 0;
+	*arrowSize /= 16;
+	if (round) {
+		(*arrowSize)++;
+	}
+	*arrowSize *= 16;
+	*arrowX = *arrowX - (*arrowSize * 2);
+	*arrowY = *arrowY - (*arrowSize - fontH) / 2;
 }
 
-// todo: update this to handle sub-menus. ex: options sub-menu
+void drawArrow(int arrowX, int arrowY, int arrowSize, int position, bool clear) {
+	// set up the arrow
+	int fontH = TTF_FontHeight(fonts_g[ITEMFONT]);
+	int offset = fontH * 2 * position;
+	arrowY += offset;
+	if (clear) {
+		SDL_Rect clear = { arrowX, arrowY, arrowSize, arrowSize };
+		clearRect(clear);
+	}
+	else {
+		renderGUI(arrowX, arrowY, arrowSize, arrowSize, ARROWSPRITE);
+	}
+	SDL_RenderPresent(renderer_g);
+}
+
+// todo: create a menu class instead
 int openMenu() {
 	// draw the menu items
-	int playX, playY, optX, optY, exitX, exitY;
-	drawMenu(&playX, &playY, &optX, &optY, &exitX, &exitY);
+	int arrowX, arrowY, arrowSize;
+	drawMenu(&arrowX, &arrowY, &arrowSize, TITLEFONT, ITEMFONT);
+	drawArrow(arrowX, arrowY, arrowSize, 0, 0);
 
-	// set up the arrow
-	int fontH = TTF_FontHeight(fonts_g[2]);
-	int arrowSize = fontH;
-	bool round = (arrowSize % 16) > 0;
-	arrowSize /= 16;
-	if (round) {
-		arrowSize++;
-	}
-	arrowSize *= 16;
-	int arrowX = optX - (arrowSize * 2);
-	int arrowY = playY;
-	arrowX -= (arrowSize - fontH) / 2;
-	renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
-
-	SDL_RenderPresent(renderer_g);
 	int key;
 	int selection = 0;
 	int quit = 0;
 	bool selecting = 1;
+	int menu = MAIN;
+	int numItems = numMenuItems;
 	while (selecting) {
 		key = handleEvents();
 		if (key == EVENT_KEY_DOWN) {
-			if (selection < 2) {
+			if (selection < (numItems - 1)) {
+				drawArrow(arrowX, arrowY, arrowSize, selection, 1);
 				selection++;
-				SDL_Rect clear = { arrowX, arrowY, arrowSize, arrowSize };
-				clearRect(clear);
-				arrowY += fontH * 2;
-				renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
-				SDL_RenderPresent(renderer_g);
+				drawArrow(arrowX, arrowY, arrowSize, selection, 0);
 			}
 		}
 		else if (key == EVENT_KEY_UP) {
 			if (selection > 0) {
+				drawArrow(arrowX, arrowY, arrowSize, selection, 1);
 				selection--;
-				SDL_Rect clear = { arrowX, arrowY, arrowSize, arrowSize };
-				clearRect(clear);
-				arrowY -= fontH * 2;
-				renderGUI(arrowX, arrowY, arrowSize, arrowSize, 37);
-				SDL_RenderPresent(renderer_g);
+				drawArrow(arrowX, arrowY, arrowSize, selection, 0);
 			}
 		}
 		else if (key == EVENT_KEY_ENTER) {
-			if (selection == 0) {
-				selecting = 0;
+			if (selection == PLAY_M && menu == MAIN) {
+				return 0;
 			}
-			else if (selection == 2) {
-				quit = 1;
-				selecting = 0;
+			else if (selection == EXIT_M && menu == MAIN) {
+				return 1;
 			}
 		}
 		else if (key == EVENT_QUIT || key == EVENT_KEY_ESC) {
