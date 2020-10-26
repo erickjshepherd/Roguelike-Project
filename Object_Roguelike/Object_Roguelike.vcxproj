@@ -158,12 +158,14 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SDLFuncs.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SubMenus.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
@@ -178,6 +180,7 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Monsters.cpp" />
     <ClCompile Include="ObjectRoguelike.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -190,6 +193,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SubMenus.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Wall.cpp" />
