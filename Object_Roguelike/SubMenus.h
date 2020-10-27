@@ -13,4 +13,5 @@ public:
 	optionsMenu();
 	~optionsMenu();
 	int selectItem(int item);
+	void apply();
 };

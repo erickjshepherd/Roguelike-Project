@@ -1,1 +1,5 @@
-﻿
+﻿  SubMenus.cpp
+c:\users\erick\documents\github\roguelike-project\object_roguelike\submenus.cpp(104): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\erick\documents\github\roguelike-project\object_roguelike\submenus.cpp(115): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\erick\documents\github\roguelike-project\object_roguelike\submenus.cpp(53): warning C4715: 'mainMenu::selectItem': not all control paths return a value
+  Object_Roguelike.vcxproj -> C:\Users\Erick\Documents\GitHub\Roguelike-Project\x64\Debug\Object_Roguelike.exe

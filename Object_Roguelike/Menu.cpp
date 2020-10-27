@@ -54,6 +54,23 @@ void Menu::drawMenu() {
 		}
 	}
 
+	// draw the changeable items
+	for (int x = 0; x < numChangeable; x++) {
+		Texture texture;
+		int currentState = changeableItems[x].currentState;
+		std::string itemText = changeableItems[x].states[currentState];
+		TTF_SizeText(fonts_g[itemFont], itemText.c_str(), &w, &h);
+		texture.loadFromRenderedText(itemText, textColor_g, itemFont);
+		texture.render((screenW - w) / 2, currentY, NULL);
+		changeableItems[x].x = (screenW - w) / 2;
+		changeableItems[x].y = currentY;
+		currentY += h * 2;
+		if (w > maxX) {
+			maxX = w;
+			arrowX = (screenW - w) / 2;
+		}
+	}
+
 	// return the initial arrow position
 	int fontH = TTF_FontHeight(fonts_g[itemFont]);
 	arrowSize = fontH;
@@ -70,7 +87,7 @@ void Menu::drawMenu() {
 void Menu::drawArrow(int position) {
 	// set up the arrow
 	int fontH = TTF_FontHeight(fonts_g[itemFont]);
-	for (int x = 0; x < numItems; x++) {
+	for (int x = 0; x < numItems + numChangeable; x++) {
 		int offset = fontH * 2 * x;
 		int newArrowY = arrowY + offset;
 		if (x != position) {

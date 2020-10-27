@@ -219,7 +219,7 @@ bool Player::inView() {
 
 	// get the width of the square to draw
 	int view_size = (viewDistance * 2) + 1;
-	view_size -= 2;
+	view_size -= 4;
 
 	for (y = 0; y < view_size; y++) {
 
@@ -227,8 +227,8 @@ bool Player::inView() {
 
 			// set start to one square diagonally down/right from view_start
 			xy = viewStart;
-			xy += global_map->size;
-			xy++;
+			xy += global_map->size * 2;
+			xy += 2;
 
 			xy += y * global_map->size;
 			xy += x;
@@ -422,10 +422,8 @@ int Player::Move(int direction) {
 			// update camera position and redraw screen
 			if (inView() == false) {
 
-				viewStart -= global_map->size * viewDistance;
-				while (viewStart < 0) {
-					viewStart += global_map->size;
-				}
+				viewStart = location - global_map->size * viewDistance;
+				viewStart -= viewDistance;
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
@@ -457,7 +455,8 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				viewStart += global_map->size * viewDistance;
+				viewStart = location - global_map->size * viewDistance;
+				viewStart -= viewDistance;
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}
@@ -488,6 +487,7 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
+				viewStart = location - global_map->size * viewDistance;
 				viewStart -= viewDistance;
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
@@ -519,7 +519,8 @@ int Player::Move(int direction) {
 
 			if (inView() == false) {
 
-				viewStart += viewDistance;
+				viewStart = location - global_map->size * viewDistance;
+				viewStart -= viewDistance;
 				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
 					viewStart++;
 				}

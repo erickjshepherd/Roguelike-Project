@@ -121,7 +121,7 @@ int openMenu() {
 		}
 		key = handleEvents();
 		if (key == EVENT_KEY_DOWN) {
-			if (selection < (currentMenu_g->numItems - 1)) {
+			if (selection < ((currentMenu_g->numItems + currentMenu_g->numChangeable) - 1)) {
 				selection++;
 				currentMenu_g->drawArrow(selection);
 			}
