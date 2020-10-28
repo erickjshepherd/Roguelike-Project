@@ -141,5 +141,23 @@ int optionsMenu::selectItem(int item) {
 }
 
 void optionsMenu::apply() {
-	
+	for (int x = 0; x < numChangeable; x++) {
+		int currentItem = numItems + x;
+		if (currentItem == FULLSCREEN_O) {
+			if (changeableItems[x].currentState == OFF_STATE) {
+				SDL_SetWindowFullscreen(window_g, 0);
+				rendererInit();
+				drawMenu();
+				drawArrow(currentItem);
+				SDL_RenderPresent(renderer_g);
+			}
+			else {
+				SDL_SetWindowFullscreen(window_g, SDL_WINDOW_FULLSCREEN_DESKTOP);
+				rendererInit();
+				drawMenu();
+				drawArrow(currentItem);
+				SDL_RenderPresent(renderer_g);
+			}
+		}
+	}
 }

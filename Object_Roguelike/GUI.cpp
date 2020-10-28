@@ -142,6 +142,11 @@ int openMenu() {
 			quit = 1;
 			selecting = 0;
 		}
+		else if (key == EVENT_RESIZE) {
+			SDL_RenderPresent(renderer_g);
+			currentMenu_g->drawMenu();
+			currentMenu_g->drawArrow(selection);
+		}
 	}
 	return quit;
 }

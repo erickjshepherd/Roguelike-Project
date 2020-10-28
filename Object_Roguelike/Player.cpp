@@ -212,14 +212,14 @@ int Player::getStart(int type) {
 
 // is the player within the camera view?
 // output: true if yes, false if no
-bool Player::inView() {
+bool Player::inView(int buffer) {
 
 	int x, y, xy;
 	bool present = false;
 
 	// get the width of the square to draw
 	int view_size = (viewDistance * 2) + 1;
-	view_size -= 4;
+ 	view_size -= buffer * 2;
 
 	for (y = 0; y < view_size; y++) {
 
@@ -227,8 +227,8 @@ bool Player::inView() {
 
 			// set start to one square diagonally down/right from view_start
 			xy = viewStart;
-			xy += global_map->size * 2;
-			xy += 2;
+			xy += global_map->size * buffer;
+			xy += buffer;
 
 			xy += y * global_map->size;
 			xy += x;
@@ -420,19 +420,11 @@ int Player::Move(int direction) {
 			updateScreen(consoleX, consoleY, getColor());
 
 			// update camera position and redraw screen
-			if (inView() == false) {
-
-				viewStart = location - global_map->size * viewDistance;
-				viewStart -= viewDistance;
-				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
-					viewStart++;
-				}
-				drawPlayerView(0);
-				setCoordinates();
+			if (inView(2) == false) {
+				resetCamera();
 			}
 
 			success = true;
-
 		}
 	}
 	else if (direction == EVENT_KEY_DOWN) {
@@ -453,15 +445,8 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView() == false) {
-
-				viewStart = location - global_map->size * viewDistance;
-				viewStart -= viewDistance;
-				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
-					viewStart++;
-				}
-				drawPlayerView(0);
-				setCoordinates();
+			if (inView(2) == false) {
+				resetCamera();
 			}
 
 			success = true;
@@ -485,15 +470,8 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView() == false) {
-
-				viewStart = location - global_map->size * viewDistance;
-				viewStart -= viewDistance;
-				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
-					viewStart++;
-				}
-				drawPlayerView(0);
-				setCoordinates();
+			if (inView(2) == false) {
+				resetCamera();
 			}
 
 			success = true;
@@ -517,21 +495,12 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView() == false) {
-
-				viewStart = location - global_map->size * viewDistance;
-				viewStart -= viewDistance;
-				while ((viewStart % global_map->size) > (location % global_map->size) || viewStart < 0) {
-					viewStart++;
-				}
-				drawPlayerView(0);
-				setCoordinates();
+			if (inView(2) == false) {
+				resetCamera();
 			}
 
 			success = true;
-
 		}
-
 	}
 	else {
 		nextLocation = 0;
@@ -970,6 +939,23 @@ bool Player::receiveAttack(int damage, std::string name, int faction) {
 	else {
 		return 0;
 	}
+}
+
+// reset the camera to the upper left of the player
+void Player::resetCamera() {
+	viewStart = location;
+	for (int x = 0; x < viewDistance; x++) {
+		if (viewStart % global_map->size != 0) {
+			viewStart--;
+		}
+	}
+	for (int x = 0; x < viewDistance; x++) {
+		if (viewStart >= global_map->size) {
+			viewStart -= global_map->size;
+		}
+	}
+	drawPlayerView(0);
+	setCoordinates();
 }
 
 // setters
