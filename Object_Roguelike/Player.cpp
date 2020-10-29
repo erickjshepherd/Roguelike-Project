@@ -212,39 +212,77 @@ int Player::getStart(int type) {
 
 // is the player within the camera view?
 // output: true if yes, false if no
-bool Player::inView(int buffer) {
+int Player::inView(int buffer) {
 
 	int x, y, xy;
-	bool present = false;
+	int position = -1;
 
 	// get the width of the square to draw
 	int view_size = (viewDistance * 2) + 1;
- 	view_size -= buffer * 2;
 
 	for (y = 0; y < view_size; y++) {
 
 		for (x = 0; x < view_size; x++) {
 
-			// set start to one square diagonally down/right from view_start
 			xy = viewStart;
-			xy += global_map->size * buffer;
-			xy += buffer;
-
 			xy += y * global_map->size;
 			xy += x;
 
 			// don't read out of range
 			if (xy >= 0 && xy < (global_map->size * global_map->size)) {
-				
+
 				if (global_map->map[xy] == this) {
 
-					present = true;
+					// top
+					if (y < buffer) {
+						position = 2;
+					}
+					// bottom
+					if (y >= view_size - buffer) {
+						position = 8;
+					}
+					// left
+					if (x < buffer) {
+						// top left
+						if (position == 2) {
+							position = 1;
+						}
+						// bottom left
+						else if (position == 8) {
+							position = 7;
+						}
+						else {
+							position = 4;
+						}
+					}
+					// right
+					if (x >= view_size - buffer) {
+						// top right
+						if (position == 2) {
+							position = 3;
+						}
+						// bottom right
+						else if (position == 8) {
+							position = 9;
+						}
+						else {
+							position = 6;
+						}
+					}
+					// center
+					if (position == -1) {
+						position = 5;
+					}
+				}
+				// don't read past the border
+				if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
+					break;
 				}
 			}
 		}
 	}
 
-	return present;
+	return position;
 }
 
 // update the screen at specific coordinates
@@ -397,6 +435,7 @@ int Player::Move(int direction) {
 	
 	// set the view port
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
+	int prevSection = inView(2);
 
 	// get the input and move if able
 	if (direction == EVENT_KEY_UP) {
@@ -420,7 +459,8 @@ int Player::Move(int direction) {
 			updateScreen(consoleX, consoleY, getColor());
 
 			// update camera position and redraw screen
-			if (inView(2) == false) {
+			int currentSection = inView(2);
+			if (currentSection != prevSection) {
 				resetCamera();
 			}
 
@@ -445,7 +485,9 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView(2) == false) {
+			// update camera position and redraw screen
+			int currentSection = inView(2);
+			if (currentSection != prevSection) {
 				resetCamera();
 			}
 
@@ -470,7 +512,9 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView(2) == false) {
+			// update camera position and redraw screen
+			int currentSection = inView(2);
+			if (currentSection != prevSection) {
 				resetCamera();
 			}
 
@@ -495,7 +539,9 @@ int Player::Move(int direction) {
 			setCoordinates();
 			updateScreen(consoleX, consoleY, getColor());
 
-			if (inView(2) == false) {
+			// update camera position and redraw screen
+			int currentSection = inView(2);
+			if (currentSection != prevSection) {
 				resetCamera();
 			}
 

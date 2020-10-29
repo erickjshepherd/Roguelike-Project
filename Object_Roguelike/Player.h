@@ -14,7 +14,7 @@ public:
 	// functions
 	int getStart(int type);
 	void turn();
-	bool inView(int buffer);
+	int inView(int buffer);
 	void updateScreen(int X, int Y, int color);
 	void setCoordinates();
 	void drawPlayerView(int view);
