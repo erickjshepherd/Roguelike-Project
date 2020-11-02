@@ -14,7 +14,7 @@ Menu::~Menu() {
 	
 }
 
-int Menu::selectItem(int item) {
+int Menu::selectItem() {
 	return 0;
 }
 
@@ -84,13 +84,13 @@ void Menu::drawMenu() {
 	arrowY = arrowY - (arrowSize - fontH) / 2;
 }
 
-void Menu::drawArrow(int position) {
+void Menu::drawArrow() {
 	// set up the arrow
 	int fontH = TTF_FontHeight(fonts_g[itemFont]);
 	for (int x = 0; x < numItems + numChangeable; x++) {
 		int offset = fontH * 2 * x;
 		int newArrowY = arrowY + offset;
-		if (x != position) {
+		if (x != selection) {
 			SDL_Rect clear = { arrowX, newArrowY, arrowSize, arrowSize };
 			clearRect(clear);
 		}
@@ -109,6 +109,8 @@ void Menu::freeChildren() {
 }
 
 void Menu::openSubMenu(Menu* sub) {
+	sub->selection = 0;
+	sub->parent = this;
 	currentMenu_g = sub;
-	children.push_back(sub);
+	//children.push_back(sub);
 }

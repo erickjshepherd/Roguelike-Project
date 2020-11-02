@@ -105,10 +105,9 @@ void clearRect(SDL_Rect rect) {
 	renderTextBox(rect.x, rect.y, rect.w, rect.h, 6, BACKGROUNDTYPE); // center
 }
 
-int openMenu() {
-	currentMenu_g = new mainMenu();
+int openMenu(Menu* menu) {
+	currentMenu_g = menu;
 	int key;
-	int selection = 0;
 	int quit = 0;
 	bool selecting = 1;
 	Menu* prevMenu = NULL;
@@ -116,24 +115,24 @@ int openMenu() {
 	while (selecting) {
 		if (currentMenu_g != prevMenu) {
 			currentMenu_g->drawMenu();
-			currentMenu_g->drawArrow(selection);
+			currentMenu_g->drawArrow();
 			prevMenu = currentMenu_g;
 		}
 		key = handleEvents();
 		if (key == EVENT_KEY_DOWN) {
-			if (selection < ((currentMenu_g->numItems + currentMenu_g->numChangeable) - 1)) {
-				selection++;
-				currentMenu_g->drawArrow(selection);
+			if (currentMenu_g->selection < ((currentMenu_g->numItems + currentMenu_g->numChangeable) - 1)) {
+				currentMenu_g->selection++;
+				currentMenu_g->drawArrow();
 			}
 		}
 		else if (key == EVENT_KEY_UP) {
-			if (selection > 0) {
-				selection--;
-				currentMenu_g->drawArrow(selection);
+			if (currentMenu_g->selection > 0) {
+				currentMenu_g->selection--;
+				currentMenu_g->drawArrow();
 			}
 		}
 		else if (key == EVENT_KEY_ENTER) {
-			quit = currentMenu_g->selectItem(selection);
+			quit = currentMenu_g->selectItem();
 			if (quit != -1) {
 				selecting = 0;
 			}
@@ -145,8 +144,9 @@ int openMenu() {
 		else if (key == EVENT_RESIZE) {
 			SDL_RenderPresent(renderer_g);
 			currentMenu_g->drawMenu();
-			currentMenu_g->drawArrow(selection);
+			currentMenu_g->drawArrow();
 		}
 	}
+	delete menu;
 	return quit;
 }

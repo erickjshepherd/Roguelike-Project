@@ -38,6 +38,7 @@ Texture::~Texture() {
 	free();
 }
 
+// todo: memory leak here
 void Texture::free() {
 	if (texture != NULL) {
 		SDL_DestroyTexture(texture);

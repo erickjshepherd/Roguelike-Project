@@ -1,6 +1,9 @@
 #include "SubMenus.h"
 #include "GUI.h"
 
+// global menus for saving states
+optionsMenu* optionsMenu_g;
+
 // main menu
 #define numMainItems 3
 std::string mainMenuStrings[numMainItems] = {
@@ -21,6 +24,7 @@ std::string mainMenuHStrings[numMainHeaders] = {
 mainMenu::mainMenu() {
 	itemFont = 2;
 	headerFont = 3;
+	selection = 0;
 	numItems = numMainItems;
 	for (int x = 0; x < numItems; x++) {
 		itemNames.push_back(mainMenuStrings[x]);
@@ -35,19 +39,15 @@ mainMenu::~mainMenu() {
 	
 }
 
-int mainMenu::selectItem(int item) {
-	freeChildren();
-	if (item == PLAY_MAIN) {
+int mainMenu::selectItem() {
+	if (selection == PLAY_MAIN) {
 		return 0;
 	}
-	else if (item == OPTIONS_MAIN) {
-		Menu* options = new optionsMenu;
-		options->parent = this;
-		children.push_back(options);
-		currentMenu_g = options;
+	else if (selection == OPTIONS_MAIN) {
+		openSubMenu(optionsMenu_g);
 		return -1;
 	}
-	else if (item == EXIT_MAIN) {
+	else if (selection == EXIT_MAIN) {
 		return 1;
 	}
 }
@@ -78,6 +78,7 @@ enum offOnEnums {
 optionsMenu::optionsMenu() {
 	itemFont = 2;
 	headerFont = 3;
+	selection = 0;
 	numItems = numOptionItems;
 	for (int x = 0; x < numItems; x++) {
 		itemNames.push_back(optionMenuStrings[x]);
@@ -108,16 +109,15 @@ optionsMenu::~optionsMenu() {
 
 }
 
-int optionsMenu::selectItem(int item) {
-	freeChildren();
+int optionsMenu::selectItem() {
 	int changeableIndex = 0;
-	if (item > numOptionItems) {
-		changeableIndex = (item - numItems) + changeableItems.size();
+	if (selection > numOptionItems) {
+		changeableIndex = (selection - numItems) + changeableItems.size();
 	}
-	if (item == BACK_O) {
+	if (selection == BACK_O) {
 		currentMenu_g = parent;
 	}
-	else if (item == FULLSCREEN_O) {
+	else if (selection == FULLSCREEN_O) {
 		// todo: make an update state function out of this
 		int w, h;
 		int currentState = changeableItems[changeableIndex].currentState;
@@ -134,7 +134,7 @@ int optionsMenu::selectItem(int item) {
 		texture.render(changeableItems[changeableIndex].x, changeableItems[changeableIndex].y, NULL);
 		SDL_RenderPresent(renderer_g);
 	}
-	else if (item == APPLY_O) {
+	else if (selection == APPLY_O) {
 		apply();
 	}
 	return -1;
@@ -148,16 +148,72 @@ void optionsMenu::apply() {
 				SDL_SetWindowFullscreen(window_g, 0);
 				rendererInit();
 				drawMenu();
-				drawArrow(currentItem);
+				drawArrow();
 				SDL_RenderPresent(renderer_g);
 			}
 			else {
 				SDL_SetWindowFullscreen(window_g, SDL_WINDOW_FULLSCREEN_DESKTOP);
 				rendererInit();
 				drawMenu();
-				drawArrow(currentItem);
+				drawArrow();
 				SDL_RenderPresent(renderer_g);
 			}
 		}
 	}
+}
+
+// pause menu
+#define numPauseItems 3
+std::string pauseMenuStrings[numPauseItems] = {
+	"Resume",
+	"Options",
+	"Exit"
+};
+enum pauseMenuEnums {
+	RESUME_PAUSE,
+	OPTIONS_PAUSE,
+	EXIT_PAUSE
+};
+#define numPauseHeaders 1
+std::string pauseMenuHStrings[numPauseHeaders] = {
+	"Untitled Roguelike",
+};
+
+pauseMenu::pauseMenu() {
+	itemFont = 2;
+	headerFont = 3;
+	selection = 0;
+	numItems = numPauseItems;
+	for (int x = 0; x < numItems; x++) {
+		itemNames.push_back(pauseMenuStrings[x]);
+	}
+	numHeaders = numPauseHeaders;
+	for (int x = 0; x < numHeaders; x++) {
+		headerNames.push_back(pauseMenuHStrings[x]);
+	}
+}
+
+pauseMenu::~pauseMenu() {
+
+}
+
+int pauseMenu::selectItem() {
+	if (selection == RESUME_PAUSE) {
+		return 0;
+	}
+	else if (selection == OPTIONS_PAUSE) {
+		openSubMenu(optionsMenu_g);
+		return -1;
+	}
+	else if (selection == EXIT_PAUSE) {
+		return 1;
+	}
+}
+
+void initMenus() {
+	optionsMenu_g = new optionsMenu();
+}
+
+void freeMenus() {
+	delete optionsMenu_g;
 }

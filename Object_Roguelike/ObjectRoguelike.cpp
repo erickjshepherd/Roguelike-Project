@@ -10,6 +10,7 @@
 #include "SDLFuncs.h"
 #include <thread>
 #include "GUI.h"
+#include "SubMenus.h"
 
 Map* global_map;
 
@@ -23,7 +24,11 @@ int main(int argc, char* argv[]){
 	// start the frame clock
 	std::thread frameThread(&frameClock);
 
-	if (!openMenu()) {
+	// initialize the menus
+	initMenus();
+	mainMenu* mainM = new mainMenu();
+
+	if (!openMenu(mainM)) {
 		// create the player character
 		Player* PC = new Player();
 
@@ -44,6 +49,9 @@ int main(int argc, char* argv[]){
 		}
 	}
 	
+	// free menus
+	freeMenus();
+
 	// stop the frame clock
 	drawFrame_g = -1;
 	frameThread.join();

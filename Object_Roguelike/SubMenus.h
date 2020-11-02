@@ -5,13 +5,26 @@ class mainMenu : public Menu {
 public:
 	mainMenu();
 	~mainMenu();
-	int selectItem(int item);
+	int selectItem();
 };
 
 class optionsMenu : public Menu {
 public:
 	optionsMenu();
 	~optionsMenu();
-	int selectItem(int item);
+	int selectItem();
 	void apply();
 };
+
+extern optionsMenu* optionsMenu_g;
+
+class pauseMenu : public Menu {
+public:
+	pauseMenu();
+	~pauseMenu();
+	int selectItem();
+};
+
+void initMenus();
+
+void freeMenus();

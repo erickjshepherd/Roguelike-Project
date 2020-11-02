@@ -12,4 +12,4 @@ void drawTextBox(int x, int y, int w, int h, int type);
 void drawBackground(int view);
 void clearRect(SDL_Rect rect);
 void renderGUI(int x, int y, int w, int h, int sprite);
-int openMenu();
+int openMenu(Menu* menu);

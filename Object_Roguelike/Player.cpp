@@ -10,6 +10,7 @@
 #include <list>
 #include "Items.h"
 #include "GUI.h"
+#include "SubMenus.h"
 
 // player class
 Player::Player(){
@@ -129,7 +130,19 @@ void Player::turn() {
 			eventValue = 0;
 			getUnder()->playerInteract();
 		}
+		else if (eventValue == EVENT_KEY_ESC) {
+			eventValue = 0;
+			pauseMenu* menu = new pauseMenu();
+			int menuRet = openMenu(menu);
+			if (menuRet == 1) {
+				quit = 1;
+				return;
+			}
+			drawPlayerView(-1);
+			validKey = 0;
+		}
 		else if (eventValue == EVENT_RESIZE) {
+			eventValue = 0;
 			drawPlayerView(-1);
 			SDL_RenderPresent(renderer_g);
 			validKey = 0;

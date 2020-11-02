@@ -24,13 +24,14 @@ public:
 	std::vector<Menu*> children;
 	std::vector<changeable> changeableItems;
 	Menu* parent;
+	int selection;
 
 
 	Menu();
 	~Menu();
-	virtual int selectItem(int item);
+	virtual int selectItem();
 	void drawMenu();
-	void drawArrow(int position);
+	void drawArrow();
 	void freeChildren();
 	void openSubMenu(Menu* sub);
 };
