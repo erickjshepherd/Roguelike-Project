@@ -118,21 +118,7 @@ int optionsMenu::selectItem() {
 		currentMenu_g = parent;
 	}
 	else if (selection == FULLSCREEN_O) {
-		// todo: make an update state function out of this
-		int w, h;
-		int currentState = changeableItems[changeableIndex].currentState;
-		TTF_SizeText(fonts_g[itemFont], changeableItems[changeableIndex].states[currentState].c_str(), &w, &h);
-		SDL_Rect clear = {changeableItems[changeableIndex].x, changeableItems[changeableIndex].y, w, h};
-		changeableItems[changeableIndex].currentState++;
-		if (changeableItems[changeableIndex].currentState >= changeableItems[changeableIndex].states.size()) {
-			changeableItems[changeableIndex].currentState = 0;
-		}
-		currentState = changeableItems[changeableIndex].currentState;
-		clearRect(clear);
-		Texture texture;
-		texture.loadFromRenderedText(changeableItems[changeableIndex].states[currentState], textColor_g, itemFont);
-		texture.render(changeableItems[changeableIndex].x, changeableItems[changeableIndex].y, NULL);
-		SDL_RenderPresent(renderer_g);
+		incrementState(changeableIndex);
 	}
 	else if (selection == APPLY_O) {
 		apply();

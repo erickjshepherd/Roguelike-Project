@@ -34,4 +34,5 @@ public:
 	void drawArrow();
 	void freeChildren();
 	void openSubMenu(Menu* sub);
+	void incrementState(int changeableIndex);
 };
