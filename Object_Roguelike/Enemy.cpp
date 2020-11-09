@@ -21,6 +21,10 @@ Enemy::Enemy(){
 	slowed = 0;
 	scared = 0;
 	charmed = 0;
+	movement = 2;
+	attacks = 1;
+	turnPeriod = 1;
+	turnCount = 0;
 	setColor(STANDARD);
 	setFaction(ENEMY1);
 }
@@ -390,6 +394,7 @@ void Enemy::takeDamage(int amount) {
 
 void Enemy::enemyTurn() {
 
+	// Handle all the status conditions every round regardless of if the enemy takes a turn
 	// Handle frozen + burn
 	if (frozenLength > 0 && burnedLength > 0) {
 		frozenLength = 0;
@@ -397,7 +402,6 @@ void Enemy::enemyTurn() {
 		burnedLength = 0;
 		burnedDamage = 0;
 	}
-
 	// Handle frozen status
 	if (frozenLength > 0) {
 		frozenLength--;
@@ -442,55 +446,46 @@ void Enemy::enemyTurn() {
 		}
 	}
 
-	int direction = senseTarget();
-
-	// Handle scared status
-	if (scared > 0) {
-		scared--;
-		int newDirection = 0;
-		int newLocation = 0;
-		// try moving in the opposite direction
-		if (direction == 1) {
-			newDirection = 2;
-			newLocation = location + global_map->size;
-		}
-		else if (direction == 2) {
-			newDirection = 1;
-			newLocation = location - global_map->size;
-		}
-		else if (direction == 3) {
-			newDirection = 4;
-			newLocation = location + 1;
-		}
-		else if (direction == 4) {
-			newDirection = 3;
-			newLocation = location - 1;
-		}
-		// if that fails move in a random direction
-		if (global_map->map[newLocation]->getBlocking() == 1) {
-			int randDirection = (rand() % 4) + 1;
-			while (randDirection == direction && randDirection != newDirection) {
-				randDirection = (rand() % 4) + 1;
-			}
-			direction = randDirection;
-		}
-		else {
-			direction = newDirection;
-		}
+	// Take a turn?
+	turnCount++;
+	if (turnCount < turnPeriod) {
+		return;
+	}
+	else {
+		turnCount = 0;
 	}
 
-	if (direction != 0) {
-		int moveResult = -1;
-		// try attacking and move if it fails
-		if (!attack(direction)) {
-			moveResult = Move(direction);
-			onScreen(&consoleX, &consoleY);
+	int attackCount = 0;
+	for (int x = 0; x < movement; x++) {
+		int attacked = 0;
+
+		// get the direction to move
+		int direction = senseTarget();
+
+		// Handle scared status
+		if (scared > 0) {
+			scared--;
+			direction = reverseDirection(direction);
 		}
-		// interact if can't move
-		if (moveResult == 0) {
-		}
-		//error
-		if (moveResult == -1) {
+
+		if (direction != 0) {
+			int moveResult = -1;
+			
+			// try attacking
+			for (int y = 0; y < attacks; y++) {
+				if (attackCount < attacks) {
+					if (attack(direction)) {
+						attackCount++;
+						attacked = 1;
+					}
+				}
+			}
+			
+			// move if attack fails
+			if (attacked == 0) {
+				moveResult = Move(direction);
+				onScreen(&consoleX, &consoleY);
+			}
 		}
 	}
 
@@ -728,5 +723,38 @@ void Enemy::render(int x, int y, int colorIn) {
 
 	if (health != maxHealth) {
 		renderHealth();
+	}
+}
+
+int Enemy::reverseDirection(int direction) {
+	int newDirection = 0;
+	int newLocation = 0;
+	// try moving in the opposite direction
+	if (direction == 1) {
+		newDirection = 2;
+		newLocation = location + global_map->size;
+	}
+	else if (direction == 2) {
+		newDirection = 1;
+		newLocation = location - global_map->size;
+	}
+	else if (direction == 3) {
+		newDirection = 4;
+		newLocation = location + 1;
+	}
+	else if (direction == 4) {
+		newDirection = 3;
+		newLocation = location - 1;
+	}
+	// if that fails move in a random direction
+	if (global_map->map[newLocation]->getBlocking() == 1) {
+		int randDirection = (rand() % 4) + 1;
+		while (randDirection == direction && randDirection != newDirection) {
+			randDirection = (rand() % 4) + 1;
+		}
+		return randDirection;
+	}
+	else {
+		return newDirection;
 	}
 }

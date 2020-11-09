@@ -15,9 +15,14 @@ public:
 	// stats
 	int maxHealth;
 	int health;
-	int speed;
 	int strength;
 	int viewDistance;
+
+	// speed stats
+	int movement; // number of tiles that can be traversed per turn
+	int attacks; // number of attacks per turn
+	int turnPeriod; // how often the enemy takes turns
+	int turnCount; // increases every round until equal to turnPeriod
 
 	// effects
 	int frozenLength;
@@ -47,5 +52,6 @@ public:
 	bool attack(int direction);
 	void renderHealth();
 	void render(int x, int y, int colorIn);
+	int reverseDirection(int direction);
 };
 

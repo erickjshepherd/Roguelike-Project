@@ -6,11 +6,14 @@ Slime::Slime() {
 	setName("slime");
 	maxHealth = 20;
 	health = maxHealth;
-	speed = 1;
 	strength = 2;
 	viewDistance = 6;
 	setIcon('S');
 	location = 0;
+	movement = 1;
+	attacks = 1;
+	turnPeriod = 1;
+	turnCount = 0;
 	loot[0] = 1; // 1/10 to drop freeze
 	loot[1] = 2; // 1/10 to drop longsword
 	loot[2] = 3; // 1/10 to drop burn
@@ -27,11 +30,14 @@ Slime::Slime(int location) {
 	setName("slime");
 	maxHealth = 20;
 	health = maxHealth;
-	speed = 1;
 	strength = 2;
 	viewDistance = 6;
 	setIcon('S');
 	this->location = location;
+	movement = 1;
+	attacks = 1;
+	turnPeriod = 1;
+	turnCount = 0;
 	loot[0] = 1;
 	loot[1] = 2;
 	loot[2] = 3;
