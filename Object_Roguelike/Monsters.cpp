@@ -20,6 +20,9 @@ Slime::Slime() {
 	loot[3] = 4; // 1/10 to drop slow
 	loot[4] = 5; // 1/10 to drop scare
 	loot[5] = 6; // 1/10 to drop charm
+	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
+	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
+	attackInit(hit, damage);
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
@@ -44,6 +47,9 @@ Slime::Slime(int location) {
 	loot[3] = 4;
 	loot[4] = 5;
 	loot[5] = 6;
+	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
+	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
+	attackInit(hit_init, damage_init);
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);

@@ -52,6 +52,7 @@ int Enemy::senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		return -1;
 	}
 
+	// todo: update this to use inRange for smarter enemies
 	if (global_map->map[current_node]->getFaction() == target) {
 		// return the parent node
 		return previous_node;
@@ -119,18 +120,10 @@ int Enemy::senseTarget() {
 		target = ENEMY1;
 	}
 
-	// move if the player is adjacent
-	if (global_map->map[location - global_map->size]->getFaction() == target) {
-		return 1;
-	}
-	else if (global_map->map[location + global_map->size]->getFaction() == target) {
-		return 2;
-	}
-	else if (global_map->map[location - 1]->getFaction() == target) {
-		return 3;
-	}
-	else if (global_map->map[location + 1]->getFaction() == target) {
-		return 4;
+	// move if the target is adjacent
+	int direction = inRange();
+	if (direction != 0) {
+		return direction;
 	}
 
 	// search for the target
@@ -471,12 +464,16 @@ void Enemy::enemyTurn() {
 		if (direction != 0) {
 			int moveResult = -1;
 			
-			// try attacking
-			for (int y = 0; y < attacks; y++) {
-				if (attackCount < attacks) {
-					if (attack(direction)) {
-						attackCount++;
-						attacked = 1;
+			// only attack if there is something in range
+			int attackDir = inRange();
+			if (attackDir != 0) {
+				// try attacking
+				for (int y = 0; y < attacks; y++) {
+					if (attackCount < attacks) {
+						if (attack(attackDir)) {
+							attackCount++;
+							attacked = 1;
+						}
 					}
 				}
 			}
@@ -596,27 +593,95 @@ void Enemy::resetColor() {
 }
 
 bool Enemy::attack(int direction) {
-	int target, success;
-	success = 0;
-	target = location;
+	int x, y, target, priority, success;
 
 	// up
+	success = 0;
 	if (direction == 1) {
-		target -= global_map->size;
+		for (priority = 1; priority < 10; priority++) {
+			target = location - (3 * global_map->size) - 1;
+			for (x = 0; x < 3; x++) {
+				target += x * global_map->size;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+							success = 1;
+						}
+					}
+					target += 1;
+				}
+				target = location - (3 * global_map->size) - 1;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
 	}
 	// down
 	else if (direction == 2) {
-		target += global_map->size;
+		for (priority = 1; priority < 10; priority++) {
+			target = location + (3 * global_map->size) + 1;
+			for (x = 0; x < 3; x++) {
+				target -= x * global_map->size;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+							success = 1;
+						}
+					}
+					target -= 1;
+				}
+				target = location + (3 * global_map->size) + 1;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
 	}
 	// left
 	else if (direction == 3) {
-		target--;
+		for (priority = 1; priority < 10; priority++) {
+			target = location - 3 + global_map->size;
+			for (x = 0; x < 3; x++) {
+				target += x;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+							success = 1;
+						}
+					}
+					target -= global_map->size;
+				}
+				target = location - 3 + global_map->size;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
 	}
 	// right
 	else if (direction == 4) {
-		target++;
+		for (priority = 1; priority < 10; priority++) {
+			target = location + 3 - global_map->size;
+			for (x = 0; x < 3; x++) {
+				target -= x;
+				for (y = 0; y < 3; y++) {
+					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+							success = 1;
+						}
+					}
+					target += global_map->size;
+				}
+				target = location + 3 - global_map->size;
+			}
+			if (success == 1) {
+				break;
+			}
+		}
 	}
-	return global_map->map[target]->receiveAttack(strength, getName(), getFaction());
+
+	return success;
 }
 
 void Enemy::renderHealth() {
@@ -756,5 +821,107 @@ int Enemy::reverseDirection(int direction) {
 	}
 	else {
 		return newDirection;
+	}
+}
+
+// output: the damage the enemy deals with an attack
+int Enemy::getDamage(int x, int y) {
+	int damage = strength;
+	damage += this->damage[x][y];
+	return damage;
+}
+
+// return the direction of any valid attack targets
+int Enemy::inRange() {
+	int x, y, target, numHit, direction, maxHit;
+	direction = 0;
+	maxHit = 0;
+
+	// up
+	numHit = 0;
+	target = location - (3 * global_map->size) - 1;
+	for (x = 0; x < 3; x++) {
+		target += x * global_map->size;
+		for (y = 0; y < 3; y++) {
+			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
+				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+					numHit++;
+				}
+			}
+			target++;
+		}
+		target = location - (3 * global_map->size) - 1;
+	}
+	if (numHit > maxHit) {
+		direction = 1;
+		maxHit = numHit;
+	}
+	// down
+	numHit = 0;
+	target = location + (3 * global_map->size) + 1;
+	for (x = 0; x < 3; x++) {
+		target -= x * global_map->size;
+		for (y = 0; y < 3; y++) {
+			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
+				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+					numHit++;
+				}
+			}
+			target--;
+		}
+		target = location + (3 * global_map->size) + 1;
+	}
+	if (numHit > maxHit) {
+		direction = 2;
+		maxHit = numHit;
+	}
+	// left
+	numHit = 0;
+	target = location - 3 + global_map->size;
+	for (x = 0; x < 3; x++) {
+		target += x;
+		for (y = 0; y < 3; y++) {
+			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
+				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+					numHit++;
+				}
+			}
+			target -= global_map->size;
+		}
+		target = location - 3 + global_map->size;
+	}
+	if (numHit > maxHit) {
+		direction = 3;
+		maxHit = numHit;
+	}
+	// right
+	numHit = 0;
+	target = location + 3 - global_map->size;
+	for (x = 0; x < 3; x++) {
+		target -= x;
+		for (y = 0; y < 3; y++) {
+			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
+				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+					numHit++;
+				}
+			}
+			target += global_map->size;
+		}
+		target = location + 3 - global_map->size;
+	}
+	if (numHit > maxHit) {
+		direction = 4;
+		maxHit = numHit;
+	}
+	return direction;
+}
+
+void Enemy::attackInit(int hit[3][3], int damage[3][3]) {
+	int x, y;
+	for (x = 0; x < 3; x++) {
+		for (y = 0; y < 3; y++) {
+			this->hit[x][y] = hit[x][y];
+			this->damage[x][y] = damage[x][y];
+		}
 	}
 }

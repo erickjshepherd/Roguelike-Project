@@ -24,6 +24,10 @@ public:
 	int turnPeriod; // how often the enemy takes turns
 	int turnCount; // increases every round until equal to turnPeriod
 
+	// attack stats
+	int hit[3][3];
+	int damage[3][3];
+
 	// effects
 	int frozenLength;
 	int frozenDamage;
@@ -53,5 +57,8 @@ public:
 	void renderHealth();
 	void render(int x, int y, int colorIn);
 	int reverseDirection(int direction);
+	int getDamage(int x, int y);
+	int inRange();
+	void attackInit(int hit[3][3], int damage[3][3]);
 };
 
