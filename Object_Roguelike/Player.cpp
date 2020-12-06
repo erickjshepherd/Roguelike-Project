@@ -37,6 +37,7 @@ Player::Player(){
 	minRoomSize = 5;
 	maxTunnelSize = 10;
 	minTunnelSize = 4;
+	roomBuffer = 0;
 	roomOverlap = 0;
 
 	// set map and location variables
@@ -187,40 +188,6 @@ void Player::turn() {
 			global_map->map[location]->getUnder()->playerStep();
 		}
 	}
-}
-
-// get a random location in the new map to start
-// input: 1 if a town map, 0 if a random map
-// output: the integer location of the start point
-int Player::getStart(int type) {
-
-	int total_size = global_map->size*global_map->size;
-	int location = rand() % total_size;
-	bool found_start = false;
-
-	if (type == 1) {
-
-		location = 157;
-	}
-
-	else {
-
-		while (found_start == false) {
-
-			if (global_map->map[location]->getIcon() == '.') {
-
-				found_start = true;
-			}
-
-			else {
-
-				location = rand() % total_size;
-			}
-		}
-	}
-
-
-	return location;
 }
 
 // is the player within the camera view?
@@ -404,7 +371,7 @@ void Player::drawPlayerView(int view) {
 void Player::getNewLevel(int level) {
 
 	while (1) {
-		Map* next = new Map(getMapSize(), getTotalRooms(), getMaxRoomSize(), getMinRoomSize(),getRoomOverlap(), 0, level, getMaxTunnelSize(), getMinTunnelSize());
+		Map* next = new Map(getMapSize(), getTotalRooms(), getMaxRoomSize(), getMinRoomSize(), getRoomBuffer(), getRoomOverlap(), 0, level, getMaxTunnelSize(), getMinTunnelSize());
 		next->player = this;
 
 		// delete the old map
@@ -412,7 +379,7 @@ void Player::getNewLevel(int level) {
 
 		// set up the new map and location
 		global_map = next;
-		location = getStart(global_map->type);
+		location = global_map->playerStart;
 		viewDistance = 10;
 		consoleX = viewDistance * 2;
 		consoleY = viewDistance;
@@ -1087,6 +1054,9 @@ void Player::setMaxTunnelSize(int mts) {
 void Player::setMinTunnelSize(int mts) {
 	minTunnelSize = mts;
 }
+void Player::setRoomBuffer(int rb) {
+	roomBuffer = rb;
+}
 void Player::setRoomOverlap(int ro) {
 	roomOverlap = ro;
 }
@@ -1220,6 +1190,9 @@ int Player::getMinTunnelSize() {
 		total += legs->minTunnelSize;
 	}
 	return total;
+}
+int Player::getRoomBuffer() {
+	return roomBuffer;
 }
 int Player::getRoomOverlap() {
 	return roomOverlap;

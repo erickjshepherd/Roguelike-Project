@@ -58,7 +58,8 @@ public:
 	void render(int x, int y, int colorIn);
 	int reverseDirection(int direction);
 	int getDamage(int x, int y);
-	int inRange();
+	int inRange(int location, int target);
 	void attackInit(int hit[3][3], int damage[3][3]);
+	int getTarget();
 };
 

@@ -12,7 +12,7 @@ class Map{
 
 public:
 	
-	Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel);
+	Map(int size, int total, int max, int min, int buffer, bool overlap, int mapType, int level, int maxTunnel, int minTunnel);
 	~Map();
 
 	std::vector<Tile*> map;
@@ -29,9 +29,11 @@ public:
 	int min_room_size;
 	int maxTunnelSize;
 	int minTunnelSize;
+	int roomBuffer;
 	int room_overlap;
 	int type;
 	int level;
+	int playerStart;
 
 	void Enemy_Turn();
 	void Add_Event(std::string event);
@@ -49,13 +51,17 @@ private:
 	void Close_Special();
 	void Clear_Special();
 	void Fill_Dead_Ends();
-	void Map_Generate();
-	void Set_Exit();
+	int Map_Generate();
+	int Set_Exit();
 	void Spawn_Enemies();
 	void Spawn_Items();
 	void convertToClasses();
 	void setWallSprites();
 	void setFloorSprites();
 	void clearEvents();
+	void clearRoomBuffers();
+	int getOpenLocation();
+	int placePlayerStart();
+	void clearPlayerStart();
 };
 

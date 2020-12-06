@@ -20,7 +20,7 @@
 #include "GUI.h"
 
 
-Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
+Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
 
 	map.resize(size*size);
 
@@ -32,9 +32,9 @@ Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int l
 	this->level = level;
 	this->maxTunnelSize = maxTunnel;
 	this->minTunnelSize = minTunnel;
+	this->roomBuffer = buffer;
 
 	if (overlap) {
-
 		this->room_overlap = 1;
 	}
 	else {
@@ -44,8 +44,18 @@ Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int l
 
 	// get a random map
 	if (mapType == 0) {
-
-		Map_Generate();
+		// try to generate the map 100 times
+		int success;
+		for (int x = 0; x < 100; x++) {
+			success = Map_Generate();
+			if (success != -1) {
+				break;
+			}
+		}
+		// todo: have a preset map for when generation fails
+		if (success == -1) {
+			
+		}
 	}
 
 	// get preloaded map #1
@@ -56,8 +66,9 @@ Map::Map(int size, int total, int max, int min, bool overlap, int mapType, int l
 }
 
 // Generate the map
-void Map::Map_Generate() {
+int Map::Map_Generate() {
 
+	// create the dungeon
 	Fill_Map();
 	Close_Map();
 	Make_Rooms();
@@ -71,9 +82,21 @@ void Map::Map_Generate() {
 	setWallSprites();
 	setFloorSprites();
 
+	// place things in the dungeon
+	int playerLocation = placePlayerStart();
+	if (playerLocation == -1) {
+		return -1;
+	}
+	int exitLocation = Set_Exit();
+	if (exitLocation == -1) {
+		return -1;
+	}
 	Spawn_Enemies();
+	
+	// clear the icon serving as a player placeholder when everything else has been placed
+	clearPlayerStart();
 
-	Set_Exit();
+	return 0;
 }
 
 // Fill map with #
@@ -100,7 +123,8 @@ void Map::Make_Rooms() {
 	int xy;
 	actual_total_rooms = 0;
 
-	for (Rooms = total_rooms; Rooms != 0; Rooms--) { // Run the loop for each Room
+	// Run the loop for each Room
+	for (Rooms = total_rooms; Rooms != 0; Rooms--) {
 
 		// Get a random Location in the map
 		int Total_Size = size * size;
@@ -135,7 +159,7 @@ void Map::Make_Rooms() {
 				// only read map if in bounds
 				else {
 
-					if (map[xy]->getIcon() == '.') {
+					if (map[xy]->getIcon() == '.' || map[xy]->getIcon() == 'b') {
 						empty = 0;
 					}
 
@@ -170,8 +194,53 @@ void Map::Make_Rooms() {
 
 			map[xy]->setIcon('T'); // mark tiles for future tunnels
 			actual_total_rooms++;
+
+			// set up a buffer that surrounds the room
+			int xLoc = Location % size;
+			int yLoc = Location / size;
+			int xBuff = roomBuffer;
+			int yBuff = roomBuffer;
+			// don't let the buffer extend outside the map
+			if (xLoc < roomBuffer) {
+				xBuff = xLoc;
+			}
+			if (yLoc < roomBuffer) {
+				yBuff = yLoc;
+			}
+			int bufferStart = (Location - xBuff) - yBuff * size;
+			// don't let the buffer start on the map borders
+			if (bufferStart % size == 0) {
+				bufferStart++;
+				xBuff--;
+			}
+			if (bufferStart / size == 0) {
+				bufferStart += size;
+				yBuff--;
+			}
+			for (y = 0; y < Height + roomBuffer + yBuff; y++) {
+
+				for (x = 0; x < Width + roomBuffer + xBuff; x++) {
+
+					xy = bufferStart;
+					xy += y * size;
+					xy += x;
+					
+					if (xy >= Total_Size) {
+						break;
+					}
+
+					if (map[xy]->getBorder()) {
+						break;
+					}
+
+					if (map[xy]->getIcon() == '#') {
+						map[xy]->setIcon('b');
+					}
+				}
+			}
 		}
 	}
+	clearRoomBuffers();
 }
 
 // Create the central tunnel
@@ -515,45 +584,34 @@ void Map::Fill_Dead_Ends() {
 }
 
 // Place the exit
-void Map::Set_Exit() {
-
-	int total_size = size*size;
-	int location = rand() % total_size;
-	bool found_start = false;
-
-	while (found_start == false) {
-		if (map[location]->getIcon() == '.') {
-
-			found_start = true;
-		}
-		else {
-
-			location = rand() % total_size;
-		}
+int Map::Set_Exit() {
+	int location = getOpenLocation();
+	
+	if (location == -1) {
+		return location;
 	}
 
 	Tile* under = map[location];
 	map[location] = new Exit();
 	map[location]->setUnder(under);
+	return location;
 }
 
 // Spawn enemies on the map
 void Map::Spawn_Enemies() {
 
-	int x, location, index;
+	int x, location, enemyType;
 	int Total_Size = size * size;
 	Tile* under;
 
 	for (x = 0; x < size; x++) {
-		location = rand();
-		location %= Total_Size;
-		while (this->map[location]->getIcon() != '.') {
-			location = rand();
-			location %= Total_Size;
+		location = getOpenLocation();
+		if (location == -1) {
+			break;
 		}
 		under = this->map[location];
-		index = rand() % NUM_MONSTERS;
-		Enemy* enemy = Get_Enemy(location, index);
+		enemyType = rand() % NUM_MONSTERS;
+		Enemy* enemy = Get_Enemy(location, enemyType);
 		this->map[location] = enemy;
 		this->map[location]->setUnder(under);
 		this->Enemy_List.push_back(enemy);
@@ -991,6 +1049,52 @@ void Map::setFloorSprites() {
 			}
 		}
 	}
+}
+
+void Map::clearRoomBuffers() {
+	int t;
+	int Total_Size = size * size;
+
+	for (t = 0; t < Total_Size; t++) {
+		if (map[t]->getIcon() == 'b') {
+			map[t]->setIcon('#');
+		}
+	}
+}
+
+int Map::getOpenLocation() {
+	int t, numLoc, locationIndex;
+	int Total_Size = size * size;
+	std::vector<int> openLocations;
+
+	// get all open locations
+	for (t = 0; t < Total_Size; t++) {
+		if (map[t]->getIcon() == '.') {
+			openLocations.push_back(t);
+		}
+	}
+	numLoc = openLocations.size();
+
+	if (numLoc == 0) {
+		return -1;
+	}
+
+	locationIndex = rand() % numLoc;
+	return openLocations[locationIndex];
+}
+
+int Map::placePlayerStart() {
+	int location = getOpenLocation();
+	if (location == -1) {
+		return -1;
+	}
+	playerStart = location;
+	map[location]->setIcon('@');
+	return location;
+}
+
+void Map::clearPlayerStart() {
+	map[playerStart]->setIcon('.');
 }
 
 Map::~Map(){

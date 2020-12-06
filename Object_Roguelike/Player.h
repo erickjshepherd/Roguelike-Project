@@ -12,7 +12,6 @@ public:
 	~Player();
 
 	// functions
-	int getStart(int type);
 	void turn();
 	int inView(int buffer);
 	void updateScreen(int X, int Y, int color);
@@ -55,6 +54,7 @@ public:
 	void setMinRoomSize(int mrs);
 	void setMaxTunnelSize(int mts);
 	void setMinTunnelSize(int mts);
+	void setRoomBuffer(int ro);
 	void setRoomOverlap(int ro);
 
 
@@ -82,6 +82,7 @@ public:
 	int getMinRoomSize();
 	int getMaxTunnelSize();
 	int getMinTunnelSize();
+	int getRoomBuffer();
 	int getRoomOverlap();
 
 private:
@@ -114,6 +115,7 @@ private:
 	int minRoomSize;
 	int maxTunnelSize;
 	int minTunnelSize;
+	int roomBuffer;
 	int roomOverlap;
 };
 

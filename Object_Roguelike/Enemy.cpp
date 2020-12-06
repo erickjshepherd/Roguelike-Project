@@ -52,7 +52,6 @@ int Enemy::senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 		return -1;
 	}
 
-	// todo: update this to use inRange for smarter enemies
 	if (global_map->map[current_node]->getFaction() == target) {
 		// return the parent node
 		return previous_node;
@@ -112,16 +111,10 @@ int Enemy::senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int>
 int Enemy::senseTarget() {
 
 	// choose the target
-	int target;
-	if (getFaction() == ENEMY1) {
-		target = PLAYER;
-	}
-	else if (getFaction() == PLAYER) {
-		target = ENEMY1;
-	}
+	int target = getTarget();
 
 	// move if the target is adjacent
-	int direction = inRange();
+	int direction = inRange(location, target);
 	if (direction != 0) {
 		return direction;
 	}
@@ -465,7 +458,8 @@ void Enemy::enemyTurn() {
 			int moveResult = -1;
 			
 			// only attack if there is something in range
-			int attackDir = inRange();
+			int target = getTarget();
+			int attackDir = inRange(location, target);
 			if (attackDir != 0) {
 				// try attacking
 				for (int y = 0; y < attacks; y++) {
@@ -832,7 +826,7 @@ int Enemy::getDamage(int x, int y) {
 }
 
 // return the direction of any valid attack targets
-int Enemy::inRange() {
+int Enemy::inRange(int location, int targetFaction) {
 	int x, y, target, numHit, direction, maxHit;
 	direction = 0;
 	maxHit = 0;
@@ -844,7 +838,7 @@ int Enemy::inRange() {
 		target += x * global_map->size;
 		for (y = 0; y < 3; y++) {
 			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
-				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+				if (global_map->map[target]->getFaction() == targetFaction) {
 					numHit++;
 				}
 			}
@@ -863,7 +857,7 @@ int Enemy::inRange() {
 		target -= x * global_map->size;
 		for (y = 0; y < 3; y++) {
 			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
-				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+				if (global_map->map[target]->getFaction() == targetFaction) {
 					numHit++;
 				}
 			}
@@ -882,7 +876,7 @@ int Enemy::inRange() {
 		target += x;
 		for (y = 0; y < 3; y++) {
 			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
-				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+				if (global_map->map[target]->getFaction() == targetFaction) {
 					numHit++;
 				}
 			}
@@ -901,7 +895,7 @@ int Enemy::inRange() {
 		target -= x;
 		for (y = 0; y < 3; y++) {
 			if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] > 0) {
-				if (global_map->map[target]->getFaction() != getFaction() && global_map->map[target]->getFaction() != NEUTRAL) {
+				if (global_map->map[target]->getFaction() == targetFaction) {
 					numHit++;
 				}
 			}
@@ -924,4 +918,15 @@ void Enemy::attackInit(int hit[3][3], int damage[3][3]) {
 			this->damage[x][y] = damage[x][y];
 		}
 	}
+}
+
+int Enemy::getTarget() {
+	int target;
+	if (getFaction() == ENEMY1) {
+		target = PLAYER;
+	}
+	else if (getFaction() == PLAYER) {
+		target = ENEMY1;
+	}
+	return target;
 }
