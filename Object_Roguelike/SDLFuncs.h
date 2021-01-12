@@ -85,3 +85,8 @@ void freeFonts();
 void rendererInit();
 int getTextSpace();
 void frameClock();
+int inputEventFilter(void* data, SDL_Event* event);
+int noFilter(void* data, SDL_Event* event);
+void filterInputEvents();
+void resetFilter();
+void clearEvents();

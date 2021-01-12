@@ -171,6 +171,10 @@ void Tile::onScreen(int* X, int* Y) {
 
 			if (xy >= 0 && xy < (size * size)) {
 
+				if (global_map->map[xy]->border && (xy % global_map->size) == (global_map->size - 1)) {
+					break;
+				}
+
 				if (global_map->map[xy] == this) {
 
 					*X = x;

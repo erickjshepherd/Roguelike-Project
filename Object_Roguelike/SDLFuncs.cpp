@@ -227,3 +227,29 @@ void frameClock() {
 		Sleep(FRAME_WAIT);
 	}
 }
+
+int inputEventFilter(void* data, SDL_Event* event) {
+	if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP || event->type == SDL_MOUSEMOTION) {
+		return 0;
+	}
+	return 1;
+}
+
+int noFilter(void* data, SDL_Event* event) {
+	return 1;
+}
+
+void filterInputEvents() {
+	SDL_SetEventFilter(inputEventFilter, nullptr);
+}
+
+void resetFilter() {
+	SDL_SetEventFilter(noFilter, nullptr);
+}
+
+void clearEvents() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+	
+	}
+}

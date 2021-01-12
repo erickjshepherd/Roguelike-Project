@@ -25,6 +25,9 @@ Enemy::Enemy(){
 	attacks = 1;
 	turnPeriod = 1;
 	turnCount = 0;
+	location = 0;
+	idleMove = 0;
+	prevDirection = 0;
 	setColor(STANDARD);
 	setFaction(ENEMY1);
 }
@@ -454,8 +457,9 @@ void Enemy::enemyTurn() {
 			direction = reverseDirection(direction);
 		}
 
+		// target was sensed
+		int moveSuccess;
 		if (direction != 0) {
-			int moveResult = -1;
 			
 			// only attack if there is something in range
 			int target = getTarget();
@@ -471,12 +475,20 @@ void Enemy::enemyTurn() {
 					}
 				}
 			}
-			
-			// move if attack fails
-			if (attacked == 0) {
-				moveResult = Move(direction);
-				onScreen(&consoleX, &consoleY);
+		}
+		// idle movement
+		else {
+			if (idleMove) {
+				direction = getIdleDirection(prevDirection);
 			}
+		}
+		// move if attack fails
+		if (attacked == 0 && direction != 0) {
+			moveSuccess = Move(direction);
+			if (moveSuccess == 1) {
+				prevDirection = direction;
+			}
+			onScreen(&consoleX, &consoleY);
 		}
 	}
 
@@ -818,6 +830,71 @@ int Enemy::reverseDirection(int direction) {
 	}
 }
 
+int Enemy::getIdleDirection(int direction) {
+	int newDirection, newLocation;
+	
+	// get possible moves
+	std::vector<int> moves;
+	for (int x = 1; x <= 4; x++) {
+		int newLocation = getNewLocation(x);
+		if (global_map->map[newLocation]->getBlocking() == 0) {
+			moves.push_back(x);
+		}
+	}
+
+	// return 0 if can't move
+	int numMoves = moves.size();
+	if (numMoves == 0) {
+		return 0;
+	}
+
+	// if input direction is 0 get a random direction
+	if (direction == 0) {
+		return moves[rand() % numMoves];
+	}
+	else {
+		// try moving forward
+		newDirection = getRelatedDirection(direction, 1);
+		for (int x = 0; x < numMoves; x++) {
+			if (moves[x] == newDirection) {
+				return newDirection;
+			}
+		}
+
+		// try moving left/right
+		int firstRelation = (rand() % 2) + 3;
+		int secondRelation;
+		if (firstRelation == 3) {
+			secondRelation = 4;
+		}
+		else {
+			secondRelation = 3;
+		}
+		newDirection = getRelatedDirection(direction, firstRelation);
+		for (int x = 0; x < numMoves; x++) {
+			if (moves[x] == newDirection) {
+				return newDirection;
+			}
+		}
+		newDirection = getRelatedDirection(direction, secondRelation);
+		for (int x = 0; x < numMoves; x++) {
+			if (moves[x] == newDirection) {
+				return newDirection;
+			}
+		}
+
+		// try moving backward
+		newDirection = getRelatedDirection(direction, 2);
+		for (int x = 0; x < numMoves; x++) {
+			if (moves[x] == newDirection) {
+				return newDirection;
+			}
+		}
+	}
+
+	return 0;
+}
+
 // output: the damage the enemy deals with an attack
 int Enemy::getDamage(int x, int y) {
 	int damage = strength;
@@ -929,4 +1006,86 @@ int Enemy::getTarget() {
 		target = ENEMY1;
 	}
 	return target;
+}
+
+// inputs (1-indexed):
+// directions: up, down, left, right
+// relations: forward, backward, left, right
+int Enemy::getRelatedDirection(int direction, int relation) {
+	if (direction == 1) {
+		if (relation == 1) {
+			return 1;
+		}
+		else if (relation == 2) {
+			return 2;
+		}
+		else if (relation == 3) {
+			return 3;
+		}
+		else if (relation == 4) {
+			return 4;
+		}
+	}
+	if (direction == 2) {
+		if (relation == 1) {
+			return 2;
+		}
+		else if (relation == 2) {
+			return 1;
+		}
+		else if (relation == 3) {
+			return 4;
+		}
+		else if (relation == 4) {
+			return 3;
+		}
+	}
+	if (direction == 3) {
+		if (relation == 1) {
+			return 3;
+		}
+		else if (relation == 2) {
+			return 4;
+		}
+		else if (relation == 3) {
+			return 2;
+		}
+		else if (relation == 4) {
+			return 1;
+		}
+	}
+	if (direction == 4) {
+		if (relation == 1) {
+			return 4;
+		}
+		else if (relation == 2) {
+			return 3;
+		}
+		else if (relation == 3) {
+			return 1;
+		}
+		else if (relation == 4) {
+			return 2;
+		}
+	}
+}
+
+int Enemy::getNewLocation(int direction) {
+	int newLocation;
+	if (direction == 1) {
+		newLocation = location - global_map->size;
+	}
+	else if (direction == 2) {
+		newLocation = location + global_map->size;
+	}
+	else if (direction == 3) {
+		newLocation = location - 1;
+	}
+	else if (direction == 4) {
+		newLocation = location + 1;
+	}
+	else {
+		newLocation = 0;
+	}
+	return newLocation;
 }

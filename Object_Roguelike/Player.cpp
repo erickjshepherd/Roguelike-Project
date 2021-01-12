@@ -60,6 +60,9 @@ void Player::turn() {
 	// keep screen coordinates up to date
 	setCoordinates();
 
+	// enable SDL input events
+	resetFilter();
+
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
 		
@@ -188,6 +191,10 @@ void Player::turn() {
 			global_map->map[location]->getUnder()->playerStep();
 		}
 	}
+	
+	// stop additional inputs and clear the event buffer
+	filterInputEvents();
+	clearEvents();
 }
 
 // is the player within the camera view?

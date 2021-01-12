@@ -17,6 +17,7 @@ public:
 	int health;
 	int strength;
 	int viewDistance;
+	int idleMove;
 
 	// speed stats
 	int movement; // number of tiles that can be traversed per turn
@@ -43,6 +44,7 @@ public:
 	// data
 	int location;
 	int consoleX, consoleY;
+	int prevDirection;
 
 	// functions
 	void enemyTurn();
@@ -57,9 +59,12 @@ public:
 	void renderHealth();
 	void render(int x, int y, int colorIn);
 	int reverseDirection(int direction);
+	int getIdleDirection(int direction);
 	int getDamage(int x, int y);
 	int inRange(int location, int target);
 	void attackInit(int hit[3][3], int damage[3][3]);
 	int getTarget();
+	int getRelatedDirection(int direction, int relation);
+	int getNewLocation(int direction);
 };
 

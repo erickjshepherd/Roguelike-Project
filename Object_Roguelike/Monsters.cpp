@@ -9,11 +9,9 @@ Slime::Slime() {
 	strength = 2;
 	viewDistance = 6;
 	setIcon('S');
-	location = 0;
 	movement = 1;
 	attacks = 1;
 	turnPeriod = 1;
-	turnCount = 0;
 	loot[0] = 1; // 1/10 to drop freeze
 	loot[1] = 2; // 1/10 to drop longsword
 	loot[2] = 3; // 1/10 to drop burn
@@ -26,7 +24,6 @@ Slime::Slime() {
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
-	setColor(STANDARD);
 }
 
 Slime::Slime(int location) {
@@ -40,7 +37,6 @@ Slime::Slime(int location) {
 	movement = 1;
 	attacks = 1;
 	turnPeriod = 1;
-	turnCount = 0;
 	loot[0] = 1;
 	loot[1] = 2;
 	loot[2] = 3;
@@ -53,7 +49,6 @@ Slime::Slime(int location) {
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
-	setColor(STANDARD);
 }
 
 // slime destructor
