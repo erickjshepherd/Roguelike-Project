@@ -49,3 +49,7 @@ void Wall::render(int x, int y, int colorIn) {
 		delete clip;
 	}
 }
+
+int Wall::playerInteract() {
+	return -1;
+}

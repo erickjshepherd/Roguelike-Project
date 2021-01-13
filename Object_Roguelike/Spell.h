@@ -28,7 +28,7 @@ public:
 	int currentDirection;
 	int selecting;
 
-	void playerInteract();
+	int playerInteract();
 	virtual int Cast();
 	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity);
 	void updateLineColor(int direction, int range, int color);

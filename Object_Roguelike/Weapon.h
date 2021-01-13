@@ -17,5 +17,5 @@ public:
 	int damage[3][3];
 
 	// player interaction
-	void playerInteract();
+	int playerInteract();
 };

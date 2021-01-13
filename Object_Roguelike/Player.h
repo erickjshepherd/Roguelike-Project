@@ -98,6 +98,7 @@ private:
 	int extraTurns;
 	int quit;
 	int damaged; // damaged this turn
+	int slowTurns;
 
 	// player objects
 	Weapon* weapon;

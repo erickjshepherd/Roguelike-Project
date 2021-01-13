@@ -23,7 +23,7 @@ Spell::~Spell() {
 }
 
 // todo: create proper setters for the spells
-void Spell::playerInteract() {
+int Spell::playerInteract() {
 	int spellNum;
 	int resolved = 0;
 	while (resolved == 0) {
@@ -105,6 +105,8 @@ void Spell::playerInteract() {
 			}
 		}
 	}
+
+	return 0;
 }
 
 int Spell::Cast() {

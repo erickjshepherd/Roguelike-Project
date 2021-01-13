@@ -18,6 +18,6 @@ Armour::~Armour() {
 }
 
 // equip based on type
-void Armour::playerInteract() {
-
+int Armour::playerInteract() {
+	return 0;
 }

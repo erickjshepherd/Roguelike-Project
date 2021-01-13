@@ -20,7 +20,7 @@ Weapon::Weapon(int defense, int magic, int type) {
 Weapon::~Weapon(){
 }
 
-void Weapon::playerInteract() {
+int Weapon::playerInteract() {
 	if (global_map->player->getWeapon() != NULL) {
 		global_map->player->setUnder(global_map->player->getWeapon());
 		global_map->player->getUnder()->setUnder(getUnder());
@@ -31,4 +31,6 @@ void Weapon::playerInteract() {
 	}
 	global_map->player->setWeapon(this);
 	global_map->player->drawStats(WEAPON);
+
+	return 0;
 }

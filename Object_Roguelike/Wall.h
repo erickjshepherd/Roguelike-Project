@@ -8,4 +8,5 @@ public:
 	Wall();
 	~Wall();
 	void render(int x, int y, int colorIn);
+	int playerInteract();
 };

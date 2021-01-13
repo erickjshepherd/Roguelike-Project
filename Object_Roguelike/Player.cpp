@@ -22,6 +22,7 @@ Player::Player(){
 	strength = 10;
 	extraTurns = 0;
 	quit = 0;
+	slowTurns = 0;
 	setFaction(PLAYER);
 	
 	// set player sprite info
@@ -61,11 +62,24 @@ void Player::turn() {
 	setCoordinates();
 
 	// enable SDL input events
-	resetFilter();
+	if (slowTurns == 0) {
+		resetFilter();
+	}
+
+	// get the current time since SDL was initialized
+	int turnStartTime = SDL_GetTicks();
 
 	// get the keyboard input until there is a successful action
 	while (validKey == 0) {
-		
+
+		// enable inputs after a certain amount of time
+		if (slowTurns == 1) {
+			if (SDL_GetTicks() - turnStartTime > 500) {
+				slowTurns = 0;
+				resetFilter();
+			}
+		}
+
 		// get the current frame
 		drawFrame_g = currentFrame_g;
 		if (drawFrame_g != prevFrame) {
@@ -183,7 +197,10 @@ void Player::turn() {
 		else if (eventValue == EVENT_KEY_RIGHT) {
 			target = location + 1;
 		}
-		global_map->map[target]->playerInteract();
+		int interactResult = global_map->map[target]->playerInteract();
+		if (interactResult == -1) {
+			slowTurns = 1;
+		}
 	}
 	// Do post move actions
 	else {

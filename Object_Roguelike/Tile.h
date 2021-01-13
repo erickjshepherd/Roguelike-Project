@@ -18,7 +18,7 @@ public:
 	~Tile();
 
 	// interact functions
-	virtual void playerInteract();
+	virtual int playerInteract();
 	virtual void playerStep();
 	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity);
 	virtual bool receiveAttack(int damage, std::string name, int faction);

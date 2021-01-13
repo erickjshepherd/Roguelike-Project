@@ -36,8 +36,8 @@ Tile::~Tile(){
 }
 
 // virtual function for player interaction
-void Tile::playerInteract() {
-
+int Tile::playerInteract() {
+	return 0;
 }
 
 // virtual function for player stepping
