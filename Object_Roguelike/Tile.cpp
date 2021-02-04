@@ -51,7 +51,7 @@ void Tile::playerStep() {
 
 // virtual function for spell interaction
 // inputs: initial damage being done, spell effect, effect related damage, duration
-void Tile::spellInteract(int damage, int effect, int effectDamage, int intensity) {
+void Tile::spellInteract(int damage, int effect, int effectDamage, int intensity, int direction) {
 
 }
 

@@ -189,3 +189,38 @@ Charm::Charm(int location) {
 int Charm::Cast() {
 	return castLine();
 }
+
+Push::Push() {
+	setName("Push");
+	setDescription("A Push spell");
+	effect = PUSH;
+	duration = 2;
+	cd = 5;
+	cdCount = 0;
+	range = 2;
+
+	// sprite
+	setSpritePath(SCROLLPATH);
+	setSpriteSheetW(8);
+	setSprite(10);
+}
+
+Push::Push(int location) {
+	setName("Push");
+	setDescription("A Push spell");
+	this->location = location;
+	effect = PUSH;
+	duration = 2;
+	cd = 5;
+	cdCount = 0;
+	range = 2;
+
+	// sprite
+	setSpritePath(SCROLLPATH);
+	setSpriteSheetW(8);
+	setSprite(10);
+}
+
+int Push::Cast() {
+	return castLine();
+}

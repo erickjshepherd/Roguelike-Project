@@ -130,7 +130,7 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int effect
 	for (int x = 0; x < range; x++) {
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
 		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
+			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
 		}
 	}
 }
@@ -283,7 +283,7 @@ void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int i
 			hitLocation += x;
 			if (hitLocation != global_map->player->getLocation()) {
 				if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration);
+					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, 0); // todo: how to get direction for circle spells
 				}
 			}
 		}

@@ -8,7 +8,8 @@ enum spellEffectEnums {
 	BURN,
 	SLOW,
 	SCARE,
-	CHARM
+	CHARM,
+	PUSH
 };
 
 class Spell : public Tile {

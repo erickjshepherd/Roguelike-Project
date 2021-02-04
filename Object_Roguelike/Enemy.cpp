@@ -406,10 +406,10 @@ void Enemy::enemyTurn() {
 	}
 	// Handle burn status
 	if (burnedLength > 0) {
-		global_map->map[location - global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2);
-		global_map->map[location + global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2);
-		global_map->map[location - 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2);
-		global_map->map[location + 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2);
+		global_map->map[location - global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 1);
+		global_map->map[location + global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 2);
+		global_map->map[location - 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 3);
+		global_map->map[location + 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 4);
 		takeDamage(burnedDamage);
 		if (health <= 0) {
 			return;
@@ -505,7 +505,7 @@ bool Enemy::receiveAttack(int damage, std::string name, int faction) {
 	}
 }
 
-void Enemy::spellInteract(int damage, int effect, int effectDamage, int length) {
+void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, int direction) {
 	
 	takeDamage(damage);
 	if (health <= 0) {
@@ -566,6 +566,16 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length) 
 		global_map->Draw_Events();
 		setFaction(PLAYER);
 		charmed = length;
+	}
+	if (effect == PUSH) {
+		std::string event("A ");
+		event.append(getName());
+		event.append(" has been pushed ");
+		event.append(std::to_string(length));
+		event.append(" tiles");
+		global_map->Add_Event(event);
+		global_map->Draw_Events();
+		forceMove(direction, length, effectDamage);
 	}
 	resetColor();
 }
@@ -1088,4 +1098,16 @@ int Enemy::getNewLocation(int direction) {
 		newLocation = 0;
 	}
 	return newLocation;
+}
+
+void Enemy::forceMove(int direction, int distance, int damage) {
+	int moveSuccess;
+	for (int i = 0; i < distance; i++) {
+		moveSuccess = Move(direction + 1); // todo: get everything using the same numbers for up/down/left/right
+		onScreen(&consoleX, &consoleY);
+		if (moveSuccess != 1) {
+			takeDamage(damage);
+			break;
+		}
+	}
 }

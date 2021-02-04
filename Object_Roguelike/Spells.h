@@ -37,3 +37,10 @@ public:
 	Charm(int location);
 	int Cast();
 };
+
+class Push : public Spell {
+public:
+	Push();
+	Push(int location);
+	int Cast();
+};

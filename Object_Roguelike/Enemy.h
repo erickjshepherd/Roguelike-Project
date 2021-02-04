@@ -53,7 +53,7 @@ public:
 	int Move(int direction);
 	void takeDamage(int amount);
 	bool receiveAttack(int damage, std::string name, int faction);
-	void spellInteract(int damage, int effect, int effectDamage, int intensity);
+	void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction);
 	void resetColor();
 	bool attack(int direction);
 	void renderHealth();
@@ -66,5 +66,6 @@ public:
 	int getTarget();
 	int getRelatedDirection(int direction, int relation);
 	int getNewLocation(int direction);
+	void forceMove(int direction, int distance, int damage);
 };
 

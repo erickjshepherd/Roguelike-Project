@@ -127,4 +127,7 @@ Tile* Get_Item(int location, int index) {
 	else if (index == 6) {
 		return new Charm(location);
 	}
+	else if (index == 7) {
+		return new Push(location);
+	}
 }

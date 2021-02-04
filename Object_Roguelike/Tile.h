@@ -20,7 +20,7 @@ public:
 	// interact functions
 	virtual int playerInteract();
 	virtual void playerStep();
-	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity);
+	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction);
 	virtual bool receiveAttack(int damage, std::string name, int faction);
 
 	// other functions
