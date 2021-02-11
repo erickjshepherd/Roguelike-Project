@@ -69,3 +69,9 @@ public:
 	void forceMove(int direction, int distance, int damage);
 };
 
+enum relationEnums {
+	RFORWARD,
+	RBACKWARD,
+	RLEFT,
+	RRIGHT
+};

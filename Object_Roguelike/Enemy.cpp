@@ -118,7 +118,7 @@ int Enemy::senseTarget() {
 
 	// move if the target is adjacent
 	int direction = inRange(location, target);
-	if (direction != 0) {
+	if (direction != -1) {
 		return direction;
 	}
 
@@ -149,19 +149,19 @@ int Enemy::senseTarget() {
 
 	// return the direction to be moved
 	if (moveTo == this->location - global_map->size) {
-		return 1;
+		return UP;
 	}
 	else if (moveTo == this->location + global_map->size) {
-		return 2;
+		return DOWN;
 	}
 	else if (moveTo == this->location - 1) {
-		return 3;
+		return LEFT;
 	}
 	else if (moveTo == this->location + 1) {
-		return 4;
+		return RIGHT;
 	}
 	else {
-		return 0;
+		return -1;
 	}
 }
 
@@ -176,7 +176,7 @@ int Enemy::Move(int direction) {
 	onScreen(&x, &y);
 
 	// up
-	if (direction == 1) {
+	if (direction == UP) {
 		
 		nextLocation = location - size;
 
@@ -209,7 +209,7 @@ int Enemy::Move(int direction) {
 		}
 	}
 	// down
-	else if (direction == 2) {
+	else if (direction == DOWN) {
 		
 		nextLocation = location + size;
 
@@ -242,7 +242,7 @@ int Enemy::Move(int direction) {
 		}
 	}
 	// left
-	else if (direction == 3) {
+	else if (direction == LEFT) {
 		
 		nextLocation = location - 1;
 
@@ -275,7 +275,7 @@ int Enemy::Move(int direction) {
 		}
 	}
 	// right
-	else if (direction == 4) {
+	else if (direction == RIGHT) {
 		
 		nextLocation = location + 1;
 
@@ -459,12 +459,12 @@ void Enemy::enemyTurn() {
 
 		// target was sensed
 		int moveSuccess;
-		if (direction != 0) {
+		if (direction != -1) {
 			
 			// only attack if there is something in range
 			int target = getTarget();
 			int attackDir = inRange(location, target);
-			if (attackDir != 0) {
+			if (attackDir != -1) {
 				// try attacking
 				for (int y = 0; y < attacks; y++) {
 					if (attackCount < attacks) {
@@ -483,7 +483,7 @@ void Enemy::enemyTurn() {
 			}
 		}
 		// move if attack fails
-		if (attacked == 0 && direction != 0) {
+		if (attacked == 0 && direction != -1) {
 			moveSuccess = Move(direction);
 			if (moveSuccess == 1) {
 				prevDirection = direction;
@@ -613,7 +613,7 @@ bool Enemy::attack(int direction) {
 
 	// up
 	success = 0;
-	if (direction == 1) {
+	if (direction == UP) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - (3 * global_map->size) - 1;
 			for (x = 0; x < 3; x++) {
@@ -634,7 +634,7 @@ bool Enemy::attack(int direction) {
 		}
 	}
 	// down
-	else if (direction == 2) {
+	else if (direction == DOWN) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + (3 * global_map->size) + 1;
 			for (x = 0; x < 3; x++) {
@@ -655,7 +655,7 @@ bool Enemy::attack(int direction) {
 		}
 	}
 	// left
-	else if (direction == 3) {
+	else if (direction == LEFT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - 3 + global_map->size;
 			for (x = 0; x < 3; x++) {
@@ -676,7 +676,7 @@ bool Enemy::attack(int direction) {
 		}
 	}
 	// right
-	else if (direction == 4) {
+	else if (direction == RIGHT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + 3 - global_map->size;
 			for (x = 0; x < 3; x++) {
@@ -808,30 +808,42 @@ void Enemy::render(int x, int y, int colorIn) {
 }
 
 int Enemy::reverseDirection(int direction) {
-	int newDirection = 0;
+	int newDirection = -1;
 	int newLocation = 0;
 	// try moving in the opposite direction
-	if (direction == 1) {
-		newDirection = 2;
+	if (direction == UP) {
+		newDirection = DOWN;
 		newLocation = location + global_map->size;
 	}
-	else if (direction == 2) {
-		newDirection = 1;
+	else if (direction == DOWN) {
+		newDirection = UP;
 		newLocation = location - global_map->size;
 	}
-	else if (direction == 3) {
-		newDirection = 4;
+	else if (direction == LEFT) {
+		newDirection = RIGHT;
 		newLocation = location + 1;
 	}
-	else if (direction == 4) {
-		newDirection = 3;
+	else if (direction == RIGHT) {
+		newDirection = LEFT;
 		newLocation = location - 1;
 	}
 	// if that fails move in a random direction
 	if (global_map->map[newLocation]->getBlocking() == 1) {
-		int randDirection = (rand() % 4) + 1;
+		int randDirection = rand() % 4;
 		while (randDirection == direction && randDirection != newDirection) {
-			randDirection = (rand() % 4) + 1;
+			randDirection = rand() % 4;
+		}
+		if (randDirection == 0) {
+			randDirection = UP;
+		}
+		else if (randDirection == 1) {
+			randDirection = DOWN;
+		}
+		else if (randDirection == 2) {
+			randDirection = LEFT;
+		}
+		else if (randDirection == 3) {
+			randDirection = RIGHT;
 		}
 		return randDirection;
 	}
@@ -845,26 +857,39 @@ int Enemy::getIdleDirection(int direction) {
 	
 	// get possible moves
 	std::vector<int> moves;
-	for (int x = 1; x <= 4; x++) {
-		int newLocation = getNewLocation(x);
+	for (int x = 0; x < 4; x++) {
+		int target = -1;
+		if (x == 0) {
+			target = UP;
+		}
+		else if (x == 1) {
+			target = DOWN;
+		}
+		else if (x == 2) {
+			target = LEFT;
+		}
+		else if (x == 3) {
+			target = RIGHT;
+		}
+		int newLocation = getNewLocation(target);
 		if (global_map->map[newLocation]->getBlocking() == 0) {
-			moves.push_back(x);
+			moves.push_back(target);
 		}
 	}
 
 	// return 0 if can't move
 	int numMoves = moves.size();
 	if (numMoves == 0) {
-		return 0;
+		return -1;
 	}
 
-	// if input direction is 0 get a random direction
-	if (direction == 0) {
+	// if input direction is -1 get a random direction
+	if (direction == -1) {
 		return moves[rand() % numMoves];
 	}
 	else {
 		// try moving forward
-		newDirection = getRelatedDirection(direction, 1);
+		newDirection = getRelatedDirection(direction, RFORWARD);
 		for (int x = 0; x < numMoves; x++) {
 			if (moves[x] == newDirection) {
 				return newDirection;
@@ -872,13 +897,15 @@ int Enemy::getIdleDirection(int direction) {
 		}
 
 		// try moving left/right
-		int firstRelation = (rand() % 2) + 3;
+		int firstRelation = rand() % 2;
 		int secondRelation;
-		if (firstRelation == 3) {
-			secondRelation = 4;
+		if (firstRelation == 0) {
+			firstRelation = RLEFT;
+			secondRelation = RRIGHT;
 		}
 		else {
-			secondRelation = 3;
+			firstRelation = RRIGHT;
+			secondRelation = RLEFT;
 		}
 		newDirection = getRelatedDirection(direction, firstRelation);
 		for (int x = 0; x < numMoves; x++) {
@@ -894,7 +921,7 @@ int Enemy::getIdleDirection(int direction) {
 		}
 
 		// try moving backward
-		newDirection = getRelatedDirection(direction, 2);
+		newDirection = getRelatedDirection(direction, RBACKWARD);
 		for (int x = 0; x < numMoves; x++) {
 			if (moves[x] == newDirection) {
 				return newDirection;
@@ -915,7 +942,7 @@ int Enemy::getDamage(int x, int y) {
 // return the direction of any valid attack targets
 int Enemy::inRange(int location, int targetFaction) {
 	int x, y, target, numHit, direction, maxHit;
-	direction = 0;
+	direction = -1;
 	maxHit = 0;
 
 	// up
@@ -934,7 +961,7 @@ int Enemy::inRange(int location, int targetFaction) {
 		target = location - (3 * global_map->size) - 1;
 	}
 	if (numHit > maxHit) {
-		direction = 1;
+		direction = UP;
 		maxHit = numHit;
 	}
 	// down
@@ -953,7 +980,7 @@ int Enemy::inRange(int location, int targetFaction) {
 		target = location + (3 * global_map->size) + 1;
 	}
 	if (numHit > maxHit) {
-		direction = 2;
+		direction = DOWN;
 		maxHit = numHit;
 	}
 	// left
@@ -972,7 +999,7 @@ int Enemy::inRange(int location, int targetFaction) {
 		target = location - 3 + global_map->size;
 	}
 	if (numHit > maxHit) {
-		direction = 3;
+		direction = LEFT;
 		maxHit = numHit;
 	}
 	// right
@@ -991,7 +1018,7 @@ int Enemy::inRange(int location, int targetFaction) {
 		target = location + 3 - global_map->size;
 	}
 	if (numHit > maxHit) {
-		direction = 4;
+		direction = RIGHT;
 		maxHit = numHit;
 	}
 	return direction;
@@ -1022,80 +1049,80 @@ int Enemy::getTarget() {
 // directions: up, down, left, right
 // relations: forward, backward, left, right
 int Enemy::getRelatedDirection(int direction, int relation) {
-	if (direction == 1) {
-		if (relation == 1) {
-			return 1;
+	if (direction == UP) {
+		if (relation == RFORWARD) {
+			return UP;
 		}
-		else if (relation == 2) {
-			return 2;
+		else if (relation == RBACKWARD) {
+			return DOWN;
 		}
-		else if (relation == 3) {
-			return 3;
+		else if (relation == RLEFT) {
+			return LEFT;
 		}
-		else if (relation == 4) {
-			return 4;
-		}
-	}
-	if (direction == 2) {
-		if (relation == 1) {
-			return 2;
-		}
-		else if (relation == 2) {
-			return 1;
-		}
-		else if (relation == 3) {
-			return 4;
-		}
-		else if (relation == 4) {
-			return 3;
+		else if (relation == RRIGHT) {
+			return RIGHT;
 		}
 	}
-	if (direction == 3) {
-		if (relation == 1) {
-			return 3;
+	if (direction == DOWN) {
+		if (relation == RFORWARD) {
+			return DOWN;
 		}
-		else if (relation == 2) {
-			return 4;
+		else if (relation == RBACKWARD) {
+			return UP;
 		}
-		else if (relation == 3) {
-			return 2;
+		else if (relation == RLEFT) {
+			return RIGHT;
 		}
-		else if (relation == 4) {
-			return 1;
+		else if (relation == RRIGHT) {
+			return LEFT;
 		}
 	}
-	if (direction == 4) {
-		if (relation == 1) {
-			return 4;
+	if (direction == LEFT) {
+		if (relation == RFORWARD) {
+			return LEFT;
 		}
-		else if (relation == 2) {
-			return 3;
+		else if (relation == RBACKWARD) {
+			return RIGHT;
 		}
-		else if (relation == 3) {
-			return 1;
+		else if (relation == RLEFT) {
+			return DOWN;
 		}
-		else if (relation == 4) {
-			return 2;
+		else if (relation == RRIGHT) {
+			return UP;
+		}
+	}
+	if (direction == RIGHT) {
+		if (relation == RFORWARD) {
+			return RIGHT;
+		}
+		else if (relation == RBACKWARD) {
+			return LEFT;
+		}
+		else if (relation == RLEFT) {
+			return UP;
+		}
+		else if (relation == RRIGHT) {
+			return DOWN;
 		}
 	}
 }
 
 int Enemy::getNewLocation(int direction) {
 	int newLocation;
-	if (direction == 1) {
+	if (direction == UP) {
 		newLocation = location - global_map->size;
 	}
-	else if (direction == 2) {
+	else if (direction == DOWN) {
 		newLocation = location + global_map->size;
 	}
-	else if (direction == 3) {
+	else if (direction == LEFT) {
 		newLocation = location - 1;
 	}
-	else if (direction == 4) {
+	else if (direction == RIGHT) {
 		newLocation = location + 1;
 	}
 	else {
-		newLocation = 0;
+		newLocation = -1;
 	}
 	return newLocation;
 }
@@ -1103,7 +1130,7 @@ int Enemy::getNewLocation(int direction) {
 void Enemy::forceMove(int direction, int distance, int damage) {
 	int moveSuccess;
 	for (int i = 0; i < distance; i++) {
-		moveSuccess = Move(direction + 1); // todo: get everything using the same numbers for up/down/left/right
+		moveSuccess = Move(direction);
 		onScreen(&consoleX, &consoleY);
 		if (moveSuccess != 1) {
 			takeDamage(damage);

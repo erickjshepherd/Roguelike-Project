@@ -57,6 +57,7 @@ void Player::turn() {
 	int eventValue;
 	int move_success, attack_success;
 	int prevFrame = -1;
+	int direction = -1;
 
 	// keep screen coordinates up to date
 	setCoordinates();
@@ -99,15 +100,19 @@ void Player::turn() {
 			return;
 		}
 		else if (eventValue == EVENT_KEY_UP) {
+			direction = UP;
 			break;
 		}
 		else if (eventValue == EVENT_KEY_DOWN) {
+			direction = DOWN;
 			break;
 		}
 		else if (eventValue == EVENT_KEY_LEFT) {
+			direction = LEFT;
 			break;
 		}
 		else if (eventValue == EVENT_KEY_RIGHT) {
+			direction = RIGHT;
 			break;
 		}
 		else if (eventValue == EVENT_KEY_1) {
@@ -175,9 +180,9 @@ void Player::turn() {
 	decreaseSpellCD();
 
 	// try to attack and then try to move
-	attack_success = attack(eventValue);
+	attack_success = attack(direction);
 	if (attack_success == 0) {
-		move_success = Move(eventValue);
+		move_success = Move(direction);
 	}
 	
 	// Interact if can't attack or move
@@ -185,16 +190,16 @@ void Player::turn() {
 
 		int target = -1;
 
-		if (eventValue == EVENT_KEY_UP) {
+		if (direction == UP) {
 			target = location - global_map->size;
 		}
-		else if (eventValue == EVENT_KEY_DOWN) {
+		else if (direction == DOWN) {
 			target = location + global_map->size;
 		}
-		else if (eventValue == EVENT_KEY_LEFT) {
+		else if (direction == LEFT) {
 			target = location - 1;
 		}
-		else if (eventValue == EVENT_KEY_RIGHT) {
+		else if (direction == RIGHT) {
 			target = location + 1;
 		}
 		int interactResult = global_map->map[target]->playerInteract();
@@ -442,7 +447,7 @@ int Player::Move(int direction) {
 	int prevSection = inView(2);
 
 	// get the input and move if able
-	if (direction == EVENT_KEY_UP) {
+	if (direction == UP) {
 
 		nextLocation = location - global_map->size;
 
@@ -471,7 +476,7 @@ int Player::Move(int direction) {
 			success = true;
 		}
 	}
-	else if (direction == EVENT_KEY_DOWN) {
+	else if (direction == DOWN) {
 
 		nextLocation = location + global_map->size;
 
@@ -498,7 +503,7 @@ int Player::Move(int direction) {
 			success = true;
 		}
 	}
-	else if (direction == EVENT_KEY_LEFT) {
+	else if (direction == LEFT) {
 
 		nextLocation = location - 1;
 
@@ -525,7 +530,7 @@ int Player::Move(int direction) {
 			success = true;
 		}
 	}
-	else if (direction == EVENT_KEY_RIGHT) {
+	else if (direction == RIGHT) {
 
 		nextLocation = location + 1;
 
@@ -810,7 +815,7 @@ bool Player::attack(int direction) {
 	int x, y, target, priority, success;
 	// up
 	success = 0;
-	if (direction == EVENT_KEY_UP) {
+	if (direction == UP) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - (3 * global_map->size) - 1;
 			for (x = 0; x < 3; x++) {
@@ -831,7 +836,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// down
-	else if (direction == EVENT_KEY_DOWN) {
+	else if (direction == DOWN) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + (3 * global_map->size) + 1;
 			for (x = 0; x < 3; x++) {
@@ -852,7 +857,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// left
-	else if (direction == EVENT_KEY_LEFT) {
+	else if (direction == LEFT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location - 3 + global_map->size;
 			for (x = 0; x < 3; x++) {
@@ -873,7 +878,7 @@ bool Player::attack(int direction) {
 		}
 	}
 	// right
-	else if (direction == EVENT_KEY_RIGHT) {
+	else if (direction == RIGHT) {
 		for (priority = 1; priority < 10; priority++) {
 			target = location + 3 - global_map->size;
 			for (x = 0; x < 3; x++) {
