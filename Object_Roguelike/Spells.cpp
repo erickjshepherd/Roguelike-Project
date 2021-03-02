@@ -92,7 +92,7 @@ Slow::Slow() {
 	duration = 10;
 	cd = 5;
 	cdCount = 0;
-	range = 2;
+	range = 3;
 
 	// sprite
 	setSpritePath(SCROLLPATH);
@@ -108,7 +108,7 @@ Slow::Slow(int location) {
 	duration = 10;
 	cd = 5;
 	cdCount = 0;
-	range = 2;
+	range = 3;
 
 	// sprite
 	setSpritePath(SCROLLPATH);
@@ -117,7 +117,7 @@ Slow::Slow(int location) {
 }
 
 int Slow::Cast() {
-	return castCircle();
+	return castCone();
 }
 
 Scare::Scare() {

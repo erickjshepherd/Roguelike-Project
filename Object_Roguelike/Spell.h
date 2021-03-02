@@ -38,4 +38,7 @@ public:
 	int getDirection();
 	int castLine();
 	int castCircle();
+	void dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity);
+	void updateConeColor(int direction, int range, int color);
+	int castCone();
 };

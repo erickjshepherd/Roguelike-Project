@@ -368,3 +368,180 @@ int Spell::castCircle() {
 	}
 	return success;
 }
+
+void Spell::dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity) {
+	int increment = 0;
+	int sideIncrement = 0;
+	if (direction == UP) {
+		increment = -global_map->size;
+		sideIncrement = 1;
+	}
+	else if (direction == DOWN) {
+		increment = global_map->size;
+		sideIncrement = 1;
+	}
+	else if (direction == LEFT) {
+		increment = -1;
+		sideIncrement = global_map->size;
+	}
+	else if (direction == RIGHT) {
+		increment = 1;
+		sideIncrement = global_map->size;
+	}
+	for (int x = 0; x < range; x++) {
+		// central hit
+		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
+		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
+			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+		}
+		// side hit
+		for (int i = 0; i < x; i++) {
+			int sideHitLocation = hitLocation + sideIncrement * (i + 1);
+			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
+				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+			}
+			sideHitLocation = hitLocation - sideIncrement * (i + 1);
+			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
+				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+			}
+		}
+	}
+}
+
+void Spell::updateConeColor(int direction, int range, int color) {
+	int increment = 0;
+	int sideIncrement = 0;
+	if (direction == UP) {
+		increment = -global_map->size;
+		sideIncrement = 1;
+	}
+	else if (direction == DOWN) {
+		increment = global_map->size;
+		sideIncrement = 1;
+	}
+	else if (direction == LEFT) {
+		increment = -1;
+		sideIncrement = global_map->size;
+	}
+	else if (direction == RIGHT) {
+		increment = 1;
+		sideIncrement = global_map->size;
+	}
+	for (int x = 0; x < range; x++) {
+		// central
+		int loc = global_map->player->getLocation();
+		loc += (x + 1) * increment;
+		Tile* current;
+		if (loc >= 0 && loc < global_map->size * global_map->size) {
+			if (color == -1) {
+				current = global_map->map[loc];
+				while (current != NULL) {
+					current->resetColor();
+					current = current->getUnder();
+				}
+			}
+			else {
+				current = global_map->map[loc];
+				while (current != NULL) {
+					current->setColor(color);
+					current = current->getUnder();
+				}
+			}
+		}
+		// side
+		for (int i = 0; i < x; i++) {
+			int sideLoc = loc + sideIncrement * (i + 1);
+			if (sideLoc >= 0 && sideLoc < global_map->size * global_map->size) {
+				if (color == -1) {
+					current = global_map->map[sideLoc];
+					while (current != NULL) {
+						current->resetColor();
+						current = current->getUnder();
+					}
+				}
+				else {
+					current = global_map->map[sideLoc];
+					while (current != NULL) {
+						current->setColor(color);
+						current = current->getUnder();
+					}
+				}
+			}
+			sideLoc = loc - sideIncrement * (i + 1);
+			if (sideLoc >= 0 && sideLoc < global_map->size * global_map->size) {
+				if (color == -1) {
+					current = global_map->map[sideLoc];
+					while (current != NULL) {
+						current->resetColor();
+						current = current->getUnder();
+					}
+				}
+				else {
+					current = global_map->map[sideLoc];
+					while (current != NULL) {
+						current->setColor(color);
+						current = current->getUnder();
+					}
+				}
+			}
+		}
+	}
+}
+
+int Spell::castCone() {
+	int finalEvent = 0;
+	int prevDir;
+	int success = 0;
+	int prevFrame = -1;
+	selecting = 1;
+	currentDirection = UP;
+
+	if (cdCount != 0) {
+		return 0;
+	}
+
+	while (selecting == 1) {
+		prevDir = currentDirection;
+		finalEvent = getDirection();
+
+		// Render the screen when the frame updates
+		drawFrame_g = currentFrame_g;
+		if (drawFrame_g != prevFrame) {
+			if (drawFrame_g == 0) {
+				updateConeColor(currentDirection, range, -1);
+			}
+			else {
+				updateConeColor(currentDirection, range, CAST);
+			}
+			global_map->player->drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
+		}
+		prevFrame = drawFrame_g;
+
+		// immediately flash in the new direction. Let the flash thread catch up
+		if (prevDir != currentDirection) {
+			updateConeColor(prevDir, range, -1);
+			if (drawFrame_g == 0) {
+				updateConeColor(currentDirection, range, -1);
+			}
+			else {
+				updateConeColor(currentDirection, range, CAST);
+			}
+			global_map->player->drawPlayerView(0);
+			SDL_RenderPresent(renderer_g);
+		}
+	}
+	updateConeColor(currentDirection, range, -1);
+	global_map->player->drawPlayerView(0);
+	SDL_RenderPresent(renderer_g);
+
+	if (finalEvent == EVENT_KEY_ENTER) {
+		dmgCone(currentDirection, range, initDamage, effect, effectDamage, duration);
+		success = 1;
+		cdCount = cd;
+	}
+	else {
+		success = 0;
+	}
+	return success;
+}
