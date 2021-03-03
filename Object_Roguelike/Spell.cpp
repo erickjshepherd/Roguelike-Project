@@ -12,10 +12,29 @@ Spell::Spell() {
 	effectDamage = 0;
 	location = 0;
 	cd = 0;
-	cdCount = 0;
 	effect = NOEFFECT;
 	duration = 0;
 	range = 0;
+}
+
+Spell::Spell(int initDamage, int effectDamage, int location, int cd, int effect, int duration, int range, int castType, int sprite) {
+	setName("Spell");
+	setDescription("A magic spell");
+	setBlocking(0);
+	cdCount = 0;
+	setIcon('$');
+	this->initDamage = initDamage;
+	this->effectDamage = effectDamage;
+	this->location = location;
+	this->cd = cd;
+	this->effect = effect;
+	this->duration = duration;
+	this->range = range;
+	this->castType = castType;
+	
+	setSpritePath(SCROLLPATH);
+	setSpriteSheetW(8);
+	setSprite(sprite);
 }
 
 Spell::~Spell() {
@@ -110,7 +129,17 @@ int Spell::playerInteract() {
 }
 
 int Spell::Cast() {
-	return 0;
+	int result;
+	if (castType == LINE) {
+		result = castLine();
+	}
+	else if (castType == CIRCLE) {
+		result = castCircle();
+	}
+	else if (castType == CONE) {
+		result = castCone();
+	}
+	return result;
 }
 
 void Spell::dmgLine(int direction, int range, int damage, int effect, int effectDamage, int duration) {
@@ -544,4 +573,9 @@ int Spell::castCone() {
 		success = 0;
 	}
 	return success;
+}
+
+// Set the name and description of a spell based on it's attributes
+int Spell::generateInfo() {
+	return 0;
 }

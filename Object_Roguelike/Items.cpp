@@ -110,7 +110,7 @@ Tile* Get_Item(int location, int index) {
 		return new dagger(location);
 	}
 	else if (index == 1) {
-		return new Freeze(location);
+		return new Spell(5, 2, location, 5, FREEZE, 3, 2, LINE, 1);
 	}
 	else if (index == 2) {
 		return new longsword(location);
