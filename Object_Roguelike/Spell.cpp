@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <Windows.h>
 #include <thread>
 #include <conio.h>
@@ -35,6 +36,9 @@ Spell::Spell(int initDamage, int effectDamage, int location, int cd, int effect,
 	setSpritePath(SCROLLPATH);
 	setSpriteSheetW(8);
 	setSprite(sprite);
+
+	// set up the spells name and description
+	generateInfo();
 }
 
 Spell::~Spell() {
@@ -577,5 +581,43 @@ int Spell::castCone() {
 
 // Set the name and description of a spell based on it's attributes
 int Spell::generateInfo() {
+	std::string spellName;
+	std::string spellDescription;
+	std::string spellCastType;
+	// get the name/effect
+	if (effect == NOEFFECT) {
+		spellName = "Spell";
+	}
+	else if (effect == FREEZE) {
+		spellName = "Freeze";
+	}
+	else if (effect == BURN) {
+		spellName = "Burn";
+	}
+	else if (effect == SLOW) {
+		spellName = "Slow";
+	}
+	else if (effect == SCARE) {
+		spellName = "Scare";
+	}
+	else if (effect == CHARM) {
+		spellName = "Charm";
+	}
+	else if (effect == PUSH) {
+		spellName = "Push";
+	}
+	// get casting type
+	if (castType == LINE) {
+		spellCastType = "Line";
+	}
+	else if (castType == CIRCLE) {
+		spellCastType = "Circle";
+	}
+	else if (castType == CONE) {
+		spellCastType = "Cone";
+	}
+	setName(spellName);
+	spellDescription = "Spell Effect: " + spellName;
+	setDescription(spellDescription);
 	return 0;
 }

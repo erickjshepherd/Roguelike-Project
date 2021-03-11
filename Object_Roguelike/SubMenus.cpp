@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SubMenus.h"
 #include "GUI.h"
 

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Armour.h"
 #include "Player.h"
 #include "Global_Map.h"

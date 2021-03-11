@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "Texture.h"
 
 std::string tilePaths[NUMPATHS] = {

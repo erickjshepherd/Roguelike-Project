@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SDLFuncs.h"
 #include "Texture.h"
 #include <Windows.h>

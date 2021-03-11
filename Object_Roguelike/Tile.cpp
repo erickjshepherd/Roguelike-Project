@@ -205,6 +205,7 @@ void Tile::drawUnderInfo() {
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
 
 	// todo: move to draw_stats
+	// todo: parse description for \n and draw each line
 	std::string infoStr;
 	infoStr.append(under->description);
 	Texture text;

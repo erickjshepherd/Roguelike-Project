@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Items.h"
-#include "Spells.h"
+#include "Spell.h"
 
 
 // Dagger functions
@@ -116,18 +116,18 @@ Tile* Get_Item(int location, int index) {
 		return new longsword(location);
 	}
 	else if (index == 3) {
-		return new Burn(location);
+		return new Spell(5, 2, location, 5, BURN, 6, 2, LINE, 11);
 	}
 	else if (index == 4) {
-		return new Slow(location);
+		return new Spell(0, 0, location, 5, SLOW, 10, 3, CONE, 4);
 	}
 	else if (index == 5) {
-		return new Scare(location);
+		return new Spell(0, 0, location, 5, SCARE, 5, 1, CIRCLE, 7);
 	}
 	else if (index == 6) {
-		return new Charm(location);
+		return new Spell(0, 0, location, 5, CHARM, 5, 1, CIRCLE, 2);
 	}
 	else if (index == 7) {
-		return new Push(location);
+		return new Spell(0, 10, location, 5, PUSH, 2, 2, LINE, 10);
 	}
 }
