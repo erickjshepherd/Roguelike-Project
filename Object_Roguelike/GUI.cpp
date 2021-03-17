@@ -106,6 +106,17 @@ void clearRect(SDL_Rect rect) {
 	renderTextBox(rect.x, rect.y, rect.w, rect.h, 6, BACKGROUNDTYPE); // center
 }
 
+// clears the info window
+void clearInfoWindow() {
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	SDL_Rect rect;
+	rect.x = 0;
+	rect.y = 0;
+	rect.h = eventsView_g.h;
+	rect.w = eventsView_g.w;
+	clearRect(rect);
+}
+
 int openMenu(Menu* menu) {
 	currentMenu_g = menu;
 	int key;

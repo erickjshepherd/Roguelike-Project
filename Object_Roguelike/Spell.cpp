@@ -72,8 +72,8 @@ int Spell::playerInteract() {
 		else {
 			resolved = 0;
 			std::string event("No more spells can be learned. Select a spell to forget.");
-			global_map->Add_Event(event);
-			global_map->Draw_Events();
+			global_map->player->addEvent(event);
+			global_map->player->drawInfoWindow();
 
 			selecting = 1;
 			int prevFrame = -1;

@@ -377,8 +377,8 @@ void Enemy::takeDamage(int amount) {
 			global_map->player->updateScreen(x, y, -1);
 		}
 	}
-	global_map->Add_Event(event);
-	global_map->Draw_Events();
+	global_map->player->addEvent(event);
+	global_map->player->drawInfoWindow();
 }
 
 void Enemy::enemyTurn() {
@@ -518,8 +518,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" has been frozen for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		global_map->player->addEvent(event);
+		global_map->player->drawInfoWindow();
 		frozenLength = length;
 		frozenDamage = effectDamage;
 	}
@@ -530,8 +530,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 			event.append(" has been burned (");
 			event.append(std::to_string(length));
 			event.append(")");
-			global_map->Add_Event(event);
-			global_map->Draw_Events();
+			global_map->player->addEvent(event);
+			global_map->player->drawInfoWindow();
 			burnedLength = length;
 			burnedDamage = effectDamage;
 		}
@@ -542,8 +542,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" has been slowed for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		global_map->player->addEvent(event);
+		global_map->player->drawInfoWindow();
 		slowed = length;
 	}
 	if (effect == SCARE) {
@@ -552,8 +552,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" has been scared for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		global_map->player->addEvent(event);
+		global_map->player->drawInfoWindow();
 		scared = length;
 	}
 	if (effect == CHARM) {
@@ -562,8 +562,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" has been charmed for ");
 		event.append(std::to_string(length));
 		event.append(" turns");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		global_map->player->addEvent(event);
+		global_map->player->drawInfoWindow();
 		setFaction(PLAYER);
 		charmed = length;
 	}
@@ -573,8 +573,8 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" has been pushed ");
 		event.append(std::to_string(length));
 		event.append(" tiles");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		global_map->player->addEvent(event);
+		global_map->player->drawInfoWindow();
 		forceMove(direction, length, effectDamage);
 	}
 	resetColor();

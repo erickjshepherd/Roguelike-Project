@@ -3,6 +3,7 @@
 #include "Weapon.h"
 #include "Armour.h"
 #include "Spell.h"
+#include <list>
 
 class Player : public Tile{
 
@@ -29,6 +30,10 @@ public:
 	void clearMap();
 	bool receiveAttack(int damage, std::string name, int faction);
 	void resetCamera();
+	void drawInfoWindow();
+	void drawUnderInfoWindow();
+	void addEvent(std::string event);
+	void drawEvents();
 
 	// setters
 	void setLocation(int loc);
@@ -99,6 +104,8 @@ private:
 	int quit;
 	int damaged; // damaged this turn
 	int slowTurns;
+	int currentInfoWindow;
+	std::list<std::string> events;
 
 	// player objects
 	Weapon* weapon;

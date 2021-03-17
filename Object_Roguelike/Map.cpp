@@ -639,39 +639,6 @@ void Map::Enemy_Turn() {
 	}
 }
 
-void Map::Add_Event(std::string event) {
-	this->events.push_back(event);
-	if (this->events.size() > NUM_EVENTS) {
-		this->events.pop_front();
-	}
-}
-
-void Map::Draw_Events() {
-	std::list<std::string>::iterator current;
-	int textSpace = (getTextSpace() * 3) / 2;
-
-	clearEvents();
-	drawBackground(2);
-	int eventY = 0;
-	SDL_RenderSetViewport(renderer_g, &eventsView_g);
-	for (current = this->events.begin(); current != this->events.end(); current++) {
-		Texture text;
-		text.loadFromRenderedText(*current, textColor_g, -1);
-		text.render(0, eventY, NULL);
-		eventY += textSpace;
-	}
-}
-
-void Map::clearEvents() {
-	SDL_RenderSetViewport(renderer_g, &eventsView_g);
-	SDL_Rect rect;
-	rect.x = 0;
-	rect.y = 0;
-	rect.h = eventsView_g.h;
-	rect.w = eventsView_g.w;
-	clearRect(rect);
-}
-
 int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {
 	if (nodes.size() == 0) {
 		return -1;

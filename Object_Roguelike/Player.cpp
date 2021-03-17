@@ -24,6 +24,7 @@ Player::Player(){
 	quit = 0;
 	slowTurns = 0;
 	setFaction(PLAYER);
+	currentInfoWindow = EVENTS_W;
 	
 	// set player sprite info
 	setSpritePath(PLAYERPATH);
@@ -391,7 +392,7 @@ void Player::drawPlayerView(int view) {
 	}
 	if (view == 2 || view == -1) {
 		drawBackground(2);
-		global_map->Draw_Events();
+		drawInfoWindow();
 	}
 }
 
@@ -986,8 +987,8 @@ bool Player::receiveAttack(int damage, std::string name, int faction) {
 		event.append(" hits you for ");
 		event.append(std::to_string(damage));
 		event.append(" damage.");
-		global_map->Add_Event(event);
-		global_map->Draw_Events();
+		addEvent(event);
+		drawInfoWindow();
 
 		return 1;
 	}
@@ -1011,6 +1012,69 @@ void Player::resetCamera() {
 	}
 	drawPlayerView(0);
 	setCoordinates();
+}
+
+// draws one of the info windows in the bottom right
+void Player::drawInfoWindow() {
+	if (currentInfoWindow == EVENTS_W) {
+		drawEvents();
+	}
+	else if (currentInfoWindow == UNDER_W) {
+		drawUnderInfoWindow();
+	}
+}
+
+void Player::drawUnderInfoWindow() {
+	std::vector<std::string> lines;
+	std::vector<std::string>::iterator current;
+	int textSpace = (getTextSpace() * 3) / 2;
+
+	// split the description into lines
+	int pos = 0;
+	int prev = 0;
+	std::string underString = getUnder()->getDescription();
+	while ((pos = underString.find('\n', prev)) != std::string::npos)
+	{
+		lines.push_back(underString.substr(prev, pos - prev));
+		prev = pos + 1;
+	}
+
+	// clear the info window
+	clearInfoWindow();
+	drawBackground(2);
+
+	// draw the description lines
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	for (current = lines.begin(); current != lines.end(); current++) {
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g, -1);
+		text.render(0, eventY, NULL);
+		eventY += textSpace;
+	}
+}
+
+void Player::addEvent(std::string event) {
+	this->events.push_back(event);
+	if (this->events.size() > NUM_EVENTS) {
+		this->events.pop_front();
+	}
+}
+
+void Player::drawEvents() {
+	std::list<std::string>::iterator current;
+	int textSpace = (getTextSpace() * 3) / 2;
+
+	clearInfoWindow();
+	drawBackground(2);
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	for (current = this->events.begin(); current != this->events.end(); current++) {
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g, -1);
+		text.render(0, eventY, NULL);
+		eventY += textSpace;
+	}
 }
 
 // setters

@@ -2,7 +2,6 @@
 #include "Tile.h"
 #include "Player.h"
 #include <vector>
-#include <list>
 #include <string>
 #include "Enemy.h"
 
@@ -18,7 +17,6 @@ public:
 	std::vector<Tile*> map;
 	std::vector<int> specialTunnelY;
 	std::vector<Enemy*> Enemy_List;
-	std::list<std::string> events;
 	std::vector<Enemy*> Dead_Enemies;
 	Player* player;
 	
@@ -36,8 +34,6 @@ public:
 	int playerStart;
 
 	void Enemy_Turn();
-	void Add_Event(std::string event);
-	void Draw_Events();
 	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
 	int findExit(int start);
 
@@ -58,7 +54,6 @@ private:
 	void convertToClasses();
 	void setWallSprites();
 	void setFloorSprites();
-	void clearEvents();
 	void clearRoomBuffers();
 	int getOpenLocation();
 	int placePlayerStart();
