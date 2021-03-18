@@ -617,7 +617,14 @@ int Spell::generateInfo() {
 		spellCastType = "Cone";
 	}
 	setName(spellName);
-	spellDescription = "Spell Effect: " + spellName;
+	spellDescription = "Effect: " + spellName + "\n";
+	spellDescription += "Shape: " + spellCastType + "\n";
+	spellDescription += "Range: " + std::to_string(range) + "\n";
+	spellDescription += "Damage: " + std::to_string(initDamage) + "\n";
+	spellDescription += "Effect Damage: " + std::to_string(effectDamage) + "\n";
+	spellDescription += "Effect Duration/Range: " + std::to_string(duration) + "\n";
+	spellDescription += "Cooldown: " + std::to_string(cd) + "\n";
+
 	setDescription(spellDescription);
 	return 0;
 }

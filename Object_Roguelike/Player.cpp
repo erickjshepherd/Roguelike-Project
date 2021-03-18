@@ -165,6 +165,11 @@ void Player::turn() {
 			drawPlayerView(-1);
 			validKey = 0;
 		}
+		else if (eventValue == EVENT_KEY_TAB) {
+			eventValue = 0;
+			currentInfoWindow = nextInfoWindow(currentInfoWindow);
+			drawInfoWindow();
+		}
 		else if (eventValue == EVENT_RESIZE) {
 			eventValue = 0;
 			drawPlayerView(-1);
@@ -1153,6 +1158,9 @@ void Player::setRoomBuffer(int rb) {
 void Player::setRoomOverlap(int ro) {
 	roomOverlap = ro;
 }
+void Player::setCurrentInfoWindow(int wi) {
+	currentInfoWindow = wi;
+}
 
 //getters
 int Player::getLocation() {
@@ -1289,6 +1297,9 @@ int Player::getRoomBuffer() {
 }
 int Player::getRoomOverlap() {
 	return roomOverlap;
+}
+int Player::getCurrentInfoWindow() {
+	return currentInfoWindow;
 }
 
 // destructor

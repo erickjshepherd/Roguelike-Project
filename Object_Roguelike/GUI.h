@@ -7,12 +7,13 @@
 
 extern Menu* currentMenu_g;
 
+#define NUM_INFO_WINDOWS 2
 enum infoWindows {
 	EVENTS_W,
 	UNDER_W,
-	STATS_W,
-	WEAPON_W,
-	SPELL_W
+	//STATS_W,
+	//WEAPON_W,
+	//SPELL_W
 };
 
 void renderTextBox(int x, int y, int w, int h, int version, int type);
@@ -22,3 +23,4 @@ void clearRect(SDL_Rect rect);
 void clearInfoWindow();
 void renderGUI(int x, int y, int w, int h, int sprite);
 int openMenu(Menu* menu);
+int nextInfoWindow(int window);

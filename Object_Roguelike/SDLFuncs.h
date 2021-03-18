@@ -22,7 +22,8 @@ enum eventEnums {
 	EVENT_KEY_3,
 	EVENT_KEY_ENTER,
 	EVENT_KEY_ESC,
-	EVENT_RESIZE
+	EVENT_RESIZE,
+	EVENT_KEY_TAB
 };
 
 enum dirEnums {

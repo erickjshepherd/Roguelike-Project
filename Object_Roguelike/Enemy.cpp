@@ -452,9 +452,11 @@ void Enemy::enemyTurn() {
 		int direction = senseTarget();
 
 		// Handle scared status
+		int reversed = 0;
 		if (scared > 0) {
 			scared--;
 			direction = reverseDirection(direction);
+			reversed = 1;
 		}
 
 		// target was sensed
@@ -464,7 +466,7 @@ void Enemy::enemyTurn() {
 			// only attack if there is something in range
 			int target = getTarget();
 			int attackDir = inRange(location, target);
-			if (attackDir != -1) {
+			if (attackDir != -1 && reversed == 0) {
 				// try attacking
 				for (int y = 0; y < attacks; y++) {
 					if (attackCount < attacks) {

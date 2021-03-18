@@ -61,6 +61,7 @@ public:
 	void setMinTunnelSize(int mts);
 	void setRoomBuffer(int ro);
 	void setRoomOverlap(int ro);
+	void setCurrentInfoWindow(int wi);
 
 
 	// getters
@@ -89,6 +90,7 @@ public:
 	int getMinTunnelSize();
 	int getRoomBuffer();
 	int getRoomOverlap();
+	int getCurrentInfoWindow();
 
 private:
 	// location and screen variables

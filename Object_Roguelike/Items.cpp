@@ -10,7 +10,7 @@ dagger::dagger() {
 	type = 1;
 	setIcon('W');
 	setName("dagger");
-	setDescription("A simple dagger");
+	setDescription("A simple dagger\n");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;
@@ -33,7 +33,7 @@ dagger::dagger(int location) {
 	this->location = location;
 	setIcon('W');
 	setName("dagger");
-	setDescription("A simple dagger");
+	setDescription("A simple dagger\n");
 	int hit_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,0,0}, {0,1,0} };
 	int x, y;
@@ -60,7 +60,7 @@ longsword::longsword() {
 	type = 1; // ?
 	setIcon('W');
 	setName("longsword");
-	setDescription("A long sword");
+	setDescription("A long sword\n");
 	int hit_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int x, y;
@@ -82,7 +82,7 @@ longsword::longsword(int location) {
 	type = 1; // ?
 	setIcon('W');
 	setName("longsword");
-	setDescription("A long sword");
+	setDescription("A long sword\n");
 	int hit_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int damage_init[3][3] = { {0,0,0}, {0,1,0}, {0,1,0} };
 	int x, y;

@@ -119,6 +119,8 @@ int handleEvents() {
 				return EVENT_KEY_ENTER;
 			case SDLK_ESCAPE:
 				return EVENT_KEY_ESC;
+			case SDLK_TAB:
+				return EVENT_KEY_TAB;
 			}
 		}
 		else if (event.type == SDL_WINDOWEVENT) {

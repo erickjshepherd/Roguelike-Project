@@ -162,3 +162,7 @@ int openMenu(Menu* menu) {
 	delete menu;
 	return quit;
 }
+
+int nextInfoWindow(int window) {
+	return (window + 1) % NUM_INFO_WINDOWS;
+}

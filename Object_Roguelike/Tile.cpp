@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include <iostream>
 #include <conio.h>
+#include "GUI.h"
 
 // constructor
 Tile::Tile() {
@@ -47,6 +48,9 @@ void Tile::playerStep() {
 		under->playerStep();
 	}
 	global_map->player->drawUnderInfo(); // todo: handle more of this here instead of in player class
+	if (global_map->player->getCurrentInfoWindow() == UNDER_W) {
+		global_map->player->drawInfoWindow();
+	}
 }
 
 // virtual function for spell interaction
@@ -205,9 +209,8 @@ void Tile::drawUnderInfo() {
 	SDL_RenderSetViewport(renderer_g, &statsView_g);
 
 	// todo: move to draw_stats
-	// todo: parse description for \n and draw each line
 	std::string infoStr;
-	infoStr.append(under->description);
+	infoStr.append(under->name);
 	Texture text;
 	text.loadFromRenderedText(infoStr, textColor_g, -1);
 	text.render(0, INSPECTINFO * textSpace, NULL);
