@@ -1082,6 +1082,10 @@ void Player::drawEvents() {
 	}
 }
 
+void Player::drawWeaponInfo() {
+
+}
+
 // setters
 void Player::setLocation(int loc) {
 	location = loc;

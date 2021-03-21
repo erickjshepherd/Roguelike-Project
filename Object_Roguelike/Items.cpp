@@ -107,13 +107,13 @@ longsword::~longsword() {
 Tile* Get_Item(int location, int index) {
 
 	if (index == 0) {
-		return new dagger(location);
+		return new Weapon(0, 0, DAGGER, location);
 	}
 	else if (index == 1) {
 		return new Spell(5, 2, location, 5, FREEZE, 3, 2, LINE, 1);
 	}
 	else if (index == 2) {
-		return new longsword(location);
+		return new Weapon(0, 0, LONGSWORD, location);
 	}
 	else if (index == 3) {
 		return new Spell(5, 2, location, 5, BURN, 6, 2, LINE, 11);

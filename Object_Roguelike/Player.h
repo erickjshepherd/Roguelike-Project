@@ -34,6 +34,7 @@ public:
 	void drawUnderInfoWindow();
 	void addEvent(std::string event);
 	void drawEvents();
+	void drawWeaponInfo();
 
 	// setters
 	void setLocation(int loc);
