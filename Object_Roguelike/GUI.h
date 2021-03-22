@@ -7,12 +7,12 @@
 
 extern Menu* currentMenu_g;
 
-#define NUM_INFO_WINDOWS 2
+#define NUM_INFO_WINDOWS 3
 enum infoWindows {
 	EVENTS_W,
 	UNDER_W,
 	//STATS_W,
-	//WEAPON_W,
+	WEAPON_W,
 	//SPELL_W
 };
 

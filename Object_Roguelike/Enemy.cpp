@@ -347,8 +347,10 @@ void Enemy::takeDamage(int amount) {
 		if (loot[loot_index] != -1) {
 			delete dropped_loot;
 			dropped_loot = Get_Item(location, loot[loot_index]);
-			dropped_loot->setUnder(getUnder());
-			setUnder(dropped_loot);
+			if (dropped_loot != NULL) {
+				dropped_loot->setUnder(getUnder());
+				setUnder(dropped_loot);
+			}
 		}
 		global_map->map[location] = getUnder();
 

@@ -45,7 +45,7 @@ Player::Player(){
 	// set map and location variables
 	viewDistance = 10;
 	
-	weapon = new dagger();
+	weapon = new Weapon(0, 0, DAGGER, location);
 }
 
 // player turn function
@@ -1027,6 +1027,9 @@ void Player::drawInfoWindow() {
 	else if (currentInfoWindow == UNDER_W) {
 		drawUnderInfoWindow();
 	}
+	else if (currentInfoWindow == WEAPON_W) {
+		drawWeaponInfo();
+	}
 }
 
 void Player::drawUnderInfoWindow() {
@@ -1083,7 +1086,33 @@ void Player::drawEvents() {
 }
 
 void Player::drawWeaponInfo() {
+	std::vector<std::string> lines;
+	std::vector<std::string>::iterator current;
+	int textSpace = (getTextSpace() * 3) / 2;
 
+	// split the description into lines
+	int pos = 0;
+	int prev = 0;
+	std::string underString = weapon->getDescription();
+	while ((pos = underString.find('\n', prev)) != std::string::npos)
+	{
+		lines.push_back(underString.substr(prev, pos - prev));
+		prev = pos + 1;
+	}
+
+	// clear the info window
+	clearInfoWindow();
+	drawBackground(2);
+
+	// draw the description lines
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	for (current = lines.begin(); current != lines.end(); current++) {
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g, -1);
+		text.render(0, eventY, NULL);
+		eventY += textSpace;
+	}
 }
 
 // setters

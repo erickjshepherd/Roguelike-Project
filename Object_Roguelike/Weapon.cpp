@@ -73,6 +73,7 @@ void Weapon::generateInfo() {
 	weaponDescription += " \n";
 	weaponDescription += "Defense: " + std::to_string(defense) + "\n";
 	weaponDescription += "Magic: " + std::to_string(magic) + "\n";
+	setDescription(weaponDescription);
 }
 
 weaponTemplate Weapon::getWeaponTemplate(int type) {
