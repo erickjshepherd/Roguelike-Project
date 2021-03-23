@@ -7,13 +7,13 @@
 
 extern Menu* currentMenu_g;
 
-#define NUM_INFO_WINDOWS 3
+#define NUM_INFO_WINDOWS 4
 enum infoWindows {
 	EVENTS_W,
 	UNDER_W,
-	//STATS_W,
 	WEAPON_W,
-	//SPELL_W
+	//SPELL_W,
+	MAP_W
 };
 
 void renderTextBox(int x, int y, int w, int h, int version, int type);

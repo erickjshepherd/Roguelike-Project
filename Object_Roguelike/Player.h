@@ -35,6 +35,7 @@ public:
 	void addEvent(std::string event);
 	void drawEvents();
 	void drawWeaponInfo();
+	void drawMapInfo();
 
 	// setters
 	void setLocation(int loc);

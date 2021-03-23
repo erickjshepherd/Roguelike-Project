@@ -167,6 +167,7 @@ void Player::turn() {
 		}
 		else if (eventValue == EVENT_KEY_TAB) {
 			eventValue = 0;
+			validKey = 0;
 			currentInfoWindow = nextInfoWindow(currentInfoWindow);
 			drawInfoWindow();
 		}
@@ -1030,6 +1031,9 @@ void Player::drawInfoWindow() {
 	else if (currentInfoWindow == WEAPON_W) {
 		drawWeaponInfo();
 	}
+	else if (currentInfoWindow == MAP_W) {
+		drawMapInfo();
+	}
 }
 
 void Player::drawUnderInfoWindow() {
@@ -1040,7 +1044,7 @@ void Player::drawUnderInfoWindow() {
 	// split the description into lines
 	int pos = 0;
 	int prev = 0;
-	std::string underString = getUnder()->getDescription();
+	std::string underString = "Item Info\n\n" + getUnder()->getDescription();
 	while ((pos = underString.find('\n', prev)) != std::string::npos)
 	{
 		lines.push_back(underString.substr(prev, pos - prev));
@@ -1073,6 +1077,7 @@ void Player::drawEvents() {
 	std::list<std::string>::iterator current;
 	int textSpace = (getTextSpace() * 3) / 2;
 
+	// todo: extract this into its own function. Gets reused a lot
 	clearInfoWindow();
 	drawBackground(2);
 	int eventY = 0;
@@ -1093,10 +1098,48 @@ void Player::drawWeaponInfo() {
 	// split the description into lines
 	int pos = 0;
 	int prev = 0;
-	std::string underString = weapon->getDescription();
-	while ((pos = underString.find('\n', prev)) != std::string::npos)
+	std::string weaponString = "Weapon Info\n\n" + weapon->getName() + ":\n" + weapon->getDescription();
+	while ((pos = weaponString.find('\n', prev)) != std::string::npos)
 	{
-		lines.push_back(underString.substr(prev, pos - prev));
+		lines.push_back(weaponString.substr(prev, pos - prev));
+		prev = pos + 1;
+	}
+
+	// clear the info window
+	clearInfoWindow();
+	drawBackground(2);
+
+	// draw the description lines
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	for (current = lines.begin(); current != lines.end(); current++) {
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g, -1);
+		text.render(0, eventY, NULL);
+		eventY += textSpace;
+	}
+}
+
+void Player::drawMapInfo() {
+	std::vector<std::string> lines;
+	std::vector<std::string>::iterator current;
+	int textSpace = (getTextSpace() * 3) / 2;
+
+	// split the description into lines
+	int pos = 0;
+	int prev = 0;
+	std::string mapString = "Map Generation Info\n\n";
+	mapString += "Map Width/Height: " + std::to_string(size) + "\n";
+	mapString += "Max Possible Rooms: " + std::to_string(totalRooms) + "\n";
+	mapString += "Max Room Size: " + std::to_string(maxRoomSize) + "\n";
+	mapString += "Min Room Size: " + std::to_string(minRoomSize) + "\n";
+	mapString += "Room Buffer Distance: " + std::to_string(roomBuffer) + "\n";
+	mapString += "Max Tunnel Segment Size: " + std::to_string(maxTunnelSize) + "\n";
+	mapString += "Min Tunnel Segment Size: " + std::to_string(minTunnelSize) + "\n";
+	mapString += "Room Overlap: " + std::to_string(roomOverlap) + "\n";
+	while ((pos = mapString.find('\n', prev)) != std::string::npos)
+	{
+		lines.push_back(mapString.substr(prev, pos - prev));
 		prev = pos + 1;
 	}
 
