@@ -119,6 +119,8 @@ void Player::turn() {
 		else if (eventValue == EVENT_KEY_1) {
 			eventValue = 0;
 			if (spell1 != NULL) {
+				currentSpell = 1;
+				drawInfoWindow();
 				if (spell1->Cast() == 0) {
 					validKey = 0;
 				}
@@ -126,10 +128,13 @@ void Player::turn() {
 			else {
 				validKey = 0;
 			}
+			currentSpell = 0;
 		}
 		else if (eventValue == EVENT_KEY_2) {
 			eventValue = 0;
 			if (spell2 != NULL) {
+				currentSpell = 2;
+				drawInfoWindow();
 				if (spell2->Cast() == 0) {
 					validKey = 0;
 				}
@@ -137,10 +142,13 @@ void Player::turn() {
 			else {
 				validKey = 0;
 			}
+			currentSpell = 0;
 		}
 		else if (eventValue == EVENT_KEY_3) {
 			eventValue = 0;
 			if (spell3 != NULL) {
+				currentSpell = 3;
+				drawInfoWindow();
 				if (spell3->Cast() == 0) {
 					validKey = 0;
 				}
@@ -148,7 +156,7 @@ void Player::turn() {
 			else {
 				validKey = 0;
 			}
-
+			currentSpell = 0;
 		}
 		else if (eventValue == EVENT_KEY_ENTER) {
 			eventValue = 0;
@@ -1031,6 +1039,9 @@ void Player::drawInfoWindow() {
 	else if (currentInfoWindow == WEAPON_W) {
 		drawWeaponInfo();
 	}
+	else if (currentInfoWindow == SPELL_W) {
+		drawSpellInfo();
+	}
 	else if (currentInfoWindow == MAP_W) {
 		drawMapInfo();
 	}
@@ -1140,6 +1151,45 @@ void Player::drawMapInfo() {
 	while ((pos = mapString.find('\n', prev)) != std::string::npos)
 	{
 		lines.push_back(mapString.substr(prev, pos - prev));
+		prev = pos + 1;
+	}
+
+	// clear the info window
+	clearInfoWindow();
+	drawBackground(2);
+
+	// draw the description lines
+	int eventY = 0;
+	SDL_RenderSetViewport(renderer_g, &eventsView_g);
+	for (current = lines.begin(); current != lines.end(); current++) {
+		Texture text;
+		text.loadFromRenderedText(*current, textColor_g, -1);
+		text.render(0, eventY, NULL);
+		eventY += textSpace;
+	}
+}
+
+void Player::drawSpellInfo() {
+	std::vector<std::string> lines;
+	std::vector<std::string>::iterator current;
+	int textSpace = (getTextSpace() * 3) / 2;
+
+	// split the description into lines
+	int pos = 0;
+	int prev = 0;
+	std::string spellString = "Spell Info\n\n";
+	if (currentSpell == 1) {
+		spellString += spell1->getName() + ":\n" + spell1->getDescription();
+	}
+	else if (currentSpell == 2) {
+		spellString += spell2->getName() + ":\n" + spell2->getDescription();
+	}
+	else if (currentSpell == 3) {
+		spellString += spell3->getName() + ":\n" + spell3->getDescription();
+	}
+	while ((pos = spellString.find('\n', prev)) != std::string::npos)
+	{
+		lines.push_back(spellString.substr(prev, pos - prev));
 		prev = pos + 1;
 	}
 

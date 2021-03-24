@@ -36,6 +36,7 @@ public:
 	void drawEvents();
 	void drawWeaponInfo();
 	void drawMapInfo();
+	void drawSpellInfo();
 
 	// setters
 	void setLocation(int loc);
@@ -109,6 +110,7 @@ private:
 	int damaged; // damaged this turn
 	int slowTurns;
 	int currentInfoWindow;
+	int currentSpell;
 	std::list<std::string> events;
 
 	// player objects
