@@ -37,6 +37,7 @@ public:
 	void drawWeaponInfo();
 	void drawMapInfo();
 	void drawSpellInfo();
+	void drawInfoString(std::string inputText);
 
 	// setters
 	void setLocation(int loc);
