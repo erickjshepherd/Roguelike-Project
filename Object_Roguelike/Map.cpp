@@ -33,6 +33,7 @@ Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int ma
 	this->maxTunnelSize = maxTunnel;
 	this->minTunnelSize = minTunnel;
 	this->roomBuffer = buffer;
+	this->biome = 0;
 
 	if (overlap) {
 		this->room_overlap = 1;
@@ -78,6 +79,11 @@ int Map::Map_Generate() {
 	Close_Map();
 	Fill_Dead_Ends();
 	Fill_Dead_Ends();
+
+	// set the biome
+	biome = determineBiome();
+
+	// set up sprites
 	convertToClasses();
 	setWallSprites();
 	setFloorSprites();
@@ -717,19 +723,21 @@ int Map::findExit(int start) {
 }
 
 void Map::convertToClasses() {
-	int y, border;
+	int y, border, wallSpriteT, floorSpriteT;
 	int Total_Size = size * size;
 
 	for (y = 0; y != Total_Size; y++) {
 		border = map[y]->getBorder();
+		wallSpriteT = getWallSet();
+		floorSpriteT = getFloorSet();
 		if (map[y]->getIcon() == '#') {
 			delete map[y];
-			map[y] = new Wall();
+			map[y] = new Wall(wallSpriteT);
 			map[y]->setBorder(border);
 		}
 		else if (map[y]->getIcon() == '.') {
 			delete map[y];
-			map[y] = new Floor();
+			map[y] = new Floor(floorSpriteT);
 			map[y]->setBorder(border);
 		}
 	}
@@ -1062,6 +1070,119 @@ int Map::placePlayerStart() {
 
 void Map::clearPlayerStart() {
 	map[playerStart]->setIcon('.');
+}
+
+// Returns a biome based on the map properties
+int Map::determineBiome() {
+	return CAVE;
+}
+
+// Returns the wall sprite based on the biome
+int Map::getWallSet() {
+	int wall = 0;
+	if (biome == CRYSTAL_CAVE) {
+		wall = GCRYSTAL2_W;
+	}
+	else if (biome == ICE_CAVE) {
+		wall = ICE2_W;
+	}
+	else if (biome == SUMMIT) {
+		wall = GRAVEL1_W;
+	}
+	else if (biome == MOUNTAIN) {
+		wall = DIRT1_W;
+	}
+	else if (biome == BASEMENT) {
+		wall = BRICK3_W;
+	}
+	else if (biome == CATACOMB) {
+		wall = BRICK4_W;
+	}
+	else if (biome == SEWER) {
+		wall = BRICK3_W;
+	}
+	else if (biome == MINE) {
+		wall = MINE2_W;
+	}
+	else if (biome == CRYSTAL_CAVE_2) {
+		wall = YCRYSTAL2_W;
+	}
+	else if (biome == FIELD) {
+		wall = DIRT1_W;
+	}
+	else if (biome == CAVE) {
+		wall = GRAVEL3_W;
+	}
+	else if (biome == FOREST) {
+		wall = DIRT2_W;
+	}
+	else if (biome == HOUSE) {
+		wall = WOOD1_W;
+	}
+	else if (biome == CASTLE) {
+		wall = BRICK2_W;
+	}
+	else if (biome == VILLAGE) {
+		wall = WOOD1_W;
+	}
+	else if (biome == CITY) {
+		wall = BRICK1_W;
+	}
+	return wall;
+}
+
+// returns the floor sprite based on the biome
+int Map::getFloorSet() {
+	int floor = 0;
+	if (biome == CRYSTAL_CAVE) {
+		floor = ROCK2_F;
+	}
+	else if (biome == ICE_CAVE) {
+		floor = ICE3_F;
+	}
+	else if (biome == SUMMIT) {
+		floor = ROCK2_F;
+	}
+	else if (biome == MOUNTAIN) {
+		floor = DIRT3_F;
+	}
+	else if (biome == BASEMENT) {
+		floor = BRICK3_F;
+	}
+	else if (biome == CATACOMB) {
+		floor = BRICK4_F;
+	}
+	else if (biome == SEWER) {
+		floor = BRICK4_F;
+	}
+	else if (biome == MINE) {
+		floor = DIRT3_F;
+	}
+	else if (biome == CRYSTAL_CAVE_2) {
+		floor = ROCK2_F;
+	}
+	else if (biome == FIELD) {
+		floor = GRASS2_F;
+	}
+	else if (biome == CAVE) {
+		floor = ROCK4_F;
+	}
+	else if (biome == FOREST) {
+		floor = GRASS3_F;
+	}
+	else if (biome == HOUSE) {
+		floor = BRICK6_F;
+	}
+	else if (biome == CASTLE) {
+		floor = BRICK2_F;
+	}
+	else if (biome == VILLAGE) {
+		floor = GRASS2_F;
+	}
+	else if (biome == CITY) {
+		floor = BRICK2_F;
+	}
+	return floor;
 }
 
 Map::~Map(){

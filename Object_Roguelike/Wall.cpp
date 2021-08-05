@@ -10,6 +10,15 @@ Wall::Wall() {
 	spriteType = BRICK2_W;
 }
 
+Wall::Wall(int spriteT) {
+	setBlocking(1);
+	setIcon('#');
+	setName("wall");
+	setDescription("It's a wall");
+
+	spriteType = spriteT;
+}
+
 Wall::~Wall() {
 
 }

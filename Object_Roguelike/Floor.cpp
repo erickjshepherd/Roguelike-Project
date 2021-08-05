@@ -11,6 +11,16 @@ Floor::Floor() {
 	spriteType = BRICK3_F;
 }
 
+Floor::Floor(int spriteT) {
+	setBlocking(0);
+	setIcon('.');
+	setName("floor");
+	setDescription("");
+
+	// sprite
+	spriteType = spriteT;
+}
+
 Floor::~Floor() {
 
 }

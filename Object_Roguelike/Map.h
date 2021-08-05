@@ -7,6 +7,25 @@
 
 #define NUM_EVENTS 5
 
+enum biomeEnums {
+	CRYSTAL_CAVE,
+	ICE_CAVE,
+	SUMMIT,
+	MOUNTAIN,
+	BASEMENT,
+	CATACOMB,
+	SEWER,
+	MINE,
+	CRYSTAL_CAVE_2,
+	FIELD,
+	CAVE,
+	FOREST,
+	HOUSE,
+	CASTLE,
+	VILLAGE,
+	CITY
+};
+
 class Map{
 
 public:
@@ -32,6 +51,7 @@ public:
 	int type;
 	int level;
 	int playerStart;
+	int biome;
 
 	void Enemy_Turn();
 	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
@@ -58,5 +78,8 @@ private:
 	int getOpenLocation();
 	int placePlayerStart();
 	void clearPlayerStart();
+	int determineBiome();
+	int getWallSet();
+	int getFloorSet();
 };
 
