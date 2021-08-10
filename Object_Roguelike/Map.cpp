@@ -1074,7 +1074,7 @@ void Map::clearPlayerStart() {
 
 // Returns a biome based on the map properties
 int Map::determineBiome() {
-	return CAVE;
+	return FIELD;
 }
 
 // Returns the wall sprite based on the biome
@@ -1087,7 +1087,7 @@ int Map::getWallSet() {
 		wall = ICE2_W;
 	}
 	else if (biome == SUMMIT) {
-		wall = GRAVEL1_W;
+		wall = DIRT7_W;
 	}
 	else if (biome == MOUNTAIN) {
 		wall = DIRT1_W;
@@ -1135,16 +1135,16 @@ int Map::getWallSet() {
 int Map::getFloorSet() {
 	int floor = 0;
 	if (biome == CRYSTAL_CAVE) {
-		floor = ROCK2_F;
+		floor = ICE1_F;
 	}
 	else if (biome == ICE_CAVE) {
-		floor = ICE3_F;
+		floor = ICE2_F;
 	}
 	else if (biome == SUMMIT) {
-		floor = ROCK2_F;
+		floor = ROCK3_F;
 	}
 	else if (biome == MOUNTAIN) {
-		floor = DIRT3_F;
+		floor = ROCK2_F;
 	}
 	else if (biome == BASEMENT) {
 		floor = BRICK3_F;
@@ -1156,10 +1156,10 @@ int Map::getFloorSet() {
 		floor = BRICK4_F;
 	}
 	else if (biome == MINE) {
-		floor = DIRT3_F;
+		floor = SPECK3_F;
 	}
 	else if (biome == CRYSTAL_CAVE_2) {
-		floor = ROCK2_F;
+		floor = ICE1_F;
 	}
 	else if (biome == FIELD) {
 		floor = GRASS2_F;
