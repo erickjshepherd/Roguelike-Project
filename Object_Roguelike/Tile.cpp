@@ -9,6 +9,7 @@
 // constructor
 Tile::Tile() {
 	blocking = 1;
+	room = 0;
 	border = 0;
 	spriteVersion = -1;
 	icon = ' ';
@@ -18,8 +19,9 @@ Tile::Tile() {
 
 // constructor
 // inputs: tile icon, blocking
-Tile::Tile(char iconI, bool blockingI){
+Tile::Tile(char iconI, bool blockingI, bool roomI){
 	blocking = blockingI;
+	room = roomI;
 	border = 0;
 	spriteVersion = -1;
 	icon = iconI;
@@ -228,6 +230,9 @@ void Tile::setBlocking(bool b) {
 void Tile::setBorder(bool b) {
 	border = b;
 }
+void Tile::setRoom(bool r) {
+	room = r;
+}
 void Tile::setIcon(char i) {
 	icon = i;
 }
@@ -265,6 +270,9 @@ bool Tile::getBlocking() {
 }
 bool Tile::getBorder() {
 	return border;
+}
+bool Tile::getRoom() {
+	return room;
 }
 char Tile::getIcon() {
 	return icon;

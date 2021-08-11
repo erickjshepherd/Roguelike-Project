@@ -26,6 +26,12 @@ enum biomeEnums {
 	CITY
 };
 
+struct roomInfo {
+	int xSize;
+	int ySize;
+	int center;
+};
+
 class Map{
 
 public:
@@ -35,6 +41,7 @@ public:
 
 	std::vector<Tile*> map;
 	std::vector<int> specialTunnelY;
+	std::vector<roomInfo> roomData;
 	std::vector<Enemy*> Enemy_List;
 	std::vector<Enemy*> Dead_Enemies;
 	Player* player;

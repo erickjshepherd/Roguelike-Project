@@ -14,7 +14,7 @@ class Tile{
 public:
 	// constructor and destructor
 	Tile();
-	Tile(char iconI, bool blockingI);
+	Tile(char iconI, bool blockingI, bool room);
 	~Tile();
 
 	// interact functions
@@ -33,6 +33,7 @@ public:
 	// setters
 	void setBlocking(bool b);
 	void setBorder(bool b);
+	void setRoom(bool r);
 	void setIcon(char i);
 	void setName(std::string n);
 	void setDescription(std::string d);
@@ -47,6 +48,7 @@ public:
 	// getters
 	bool getBlocking();
 	bool getBorder();
+	bool getRoom();
 	char getIcon();
 	std::string getName();
 	std::string getDescription();
@@ -62,6 +64,7 @@ private:
 	// properties
 	bool blocking;
 	bool border;
+	bool room;
 	char icon;
 	std::string name;
 	std::string description;

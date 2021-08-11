@@ -33,12 +33,12 @@ Player::Player(){
 	setColor(STANDARD);
 
 	// set initial map generation variables
-	size = 30;
+	size = 50;
 	totalRooms = 20;
-	maxRoomSize = 15;
+	maxRoomSize = 10;
 	minRoomSize = 5;
-	maxTunnelSize = 10;
-	minTunnelSize = 4;
+	maxTunnelSize = 6;
+	minTunnelSize = 2;
 	roomBuffer = 0;
 	roomOverlap = 0;
 

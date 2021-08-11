@@ -195,8 +195,14 @@ void Map::Make_Rooms() {
 
 					map[xy]->setIcon('.');
 					map[xy]->setBlocking(0);
+					map[xy]->setRoom(1);
 				}
 			}
+
+			// keep track of room data
+			int roomCenter = Location + (Width / 2) + (Height * size / 2);
+			roomInfo info = { Width, Height, roomCenter };
+			roomData.push_back(info);
 
 			map[xy]->setIcon('T'); // mark tiles for future tunnels
 			actual_total_rooms++;
@@ -1074,6 +1080,11 @@ void Map::clearPlayerStart() {
 
 // Returns a biome based on the map properties
 int Map::determineBiome() {
+	int numRooms = actual_total_rooms;
+	int avgRoomSize = (max_room_size - min_room_size) / 2;
+	int avgHallSize = (maxTunnelSize - minTunnelSize) / 2;
+	// todo: write algorithm to determine this
+	int avgRoomDistance;
 	return FIELD;
 }
 

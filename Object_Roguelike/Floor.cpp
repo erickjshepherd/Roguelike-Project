@@ -21,6 +21,17 @@ Floor::Floor(int spriteT) {
 	spriteType = spriteT;
 }
 
+Floor::Floor(int spriteT, int roomI) {
+	setBlocking(0);
+	setRoom(1);
+	setIcon('.');
+	setName("floor");
+	setDescription("");
+
+	// sprite
+	spriteType = spriteT;
+}
+
 Floor::~Floor() {
 
 }
