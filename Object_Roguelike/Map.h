@@ -30,6 +30,7 @@ struct roomInfo {
 	int xSize;
 	int ySize;
 	int center;
+	int topLeft;
 };
 
 class Map{
@@ -88,5 +89,8 @@ private:
 	int determineBiome();
 	int getWallSet();
 	int getFloorSet();
+	int measureRoomDistance(roomInfo r1, roomInfo r2);
+	int measurePointDistance(int x, int y);
+	int getAverageRoomDist();
 };
 

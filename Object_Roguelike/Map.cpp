@@ -18,6 +18,7 @@
 #include "Wall.h"
 #include "Exit.h"
 #include "GUI.h"
+#include <math.h>
 
 
 Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
@@ -113,7 +114,7 @@ void Map::Fill_Map() {
 
 	for (y = 0; y != Total_Size; y++) {
 
-		map[y] = new Tile('#', 1);
+		map[y] = new Tile('#', 1, 0);
 	}
 }
 
@@ -201,7 +202,7 @@ void Map::Make_Rooms() {
 
 			// keep track of room data
 			int roomCenter = Location + (Width / 2) + (Height * size / 2);
-			roomInfo info = { Width, Height, roomCenter };
+			roomInfo info = { Width, Height, roomCenter, Location};
 			roomData.push_back(info);
 
 			map[xy]->setIcon('T'); // mark tiles for future tunnels
@@ -1083,8 +1084,7 @@ int Map::determineBiome() {
 	int numRooms = actual_total_rooms;
 	int avgRoomSize = (max_room_size - min_room_size) / 2;
 	int avgHallSize = (maxTunnelSize - minTunnelSize) / 2;
-	// todo: write algorithm to determine this
-	int avgRoomDistance;
+	int avgRoomDistance = getAverageRoomDist();
 	return FIELD;
 }
 
@@ -1194,6 +1194,77 @@ int Map::getFloorSet() {
 		floor = BRICK2_F;
 	}
 	return floor;
+}
+
+int Map::measureRoomDistance(roomInfo r1, roomInfo r2) {
+	std::vector<int> points1;
+	std::vector<int> points2;
+
+	points1.push_back(r1.topLeft);
+	points1.push_back(r1.topLeft + r1.xSize - 1);
+	points1.push_back(r1.topLeft + (r1.ySize - 1) * size);
+	points1.push_back(r1.topLeft + ((r1.ySize - 1) * size) + r1.xSize - 1);
+
+	points2.push_back(r2.topLeft);
+	points2.push_back(r2.topLeft + r2.xSize - 1);
+	points2.push_back(r2.topLeft + (r2.ySize - 1) * size);
+	points2.push_back(r2.topLeft + ((r2.ySize - 1) * size) + r2.xSize - 1);
+
+	int dist = 0;
+	int first = 1;
+	for (int x = 0; x < points1.size(); x++) {
+		for (int y = 0; y < points2.size(); y++) {
+			int tempDist = measurePointDistance(points1[x], points2[y]);
+			if (tempDist < dist || first == 1) {
+				dist = tempDist;
+				first = 0;
+			}
+		}
+	}
+	return dist;
+}
+
+int Map::measurePointDistance(int x, int y) {
+	int row1 = x / size;
+	int col1 = x % size;
+
+	int row2 = y / size;
+	int col2 = y % size;
+
+	int colDiff;
+	if (col1 > col2) {
+		colDiff = col1 - col2;
+	}
+	else {
+		colDiff = col2 - col1;
+	}
+
+	int rowDiff;
+	if (row1 > row2) {
+		rowDiff = row1 - row2;
+	}
+	else {
+		rowDiff = row2 - row1;
+	}
+
+	double length = sqrt((colDiff * colDiff) + (rowDiff * rowDiff));
+	// round
+	return (int)(length + .5);
+}
+
+int Map::getAverageRoomDist() {
+	int totalDist = 0;
+	int numDist = 0;
+	if (roomData.size() < 2) {
+		return 0;
+	}
+	for (int x = 0; x < roomData.size(); x++) {
+		for (int y = x + 1; y < roomData.size(); y++) {
+			totalDist += measureRoomDistance(roomData[x], roomData[y]);
+			numDist++;
+		}
+	}
+	return totalDist / numDist;
 }
 
 Map::~Map(){
