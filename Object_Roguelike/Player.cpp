@@ -33,13 +33,13 @@ Player::Player(){
 	setColor(STANDARD);
 
 	// set initial map generation variables
-	size = 30;
-	totalRooms = 20;
-	maxRoomSize = 10;
-	minRoomSize = 5;
-	maxTunnelSize = 6;
-	minTunnelSize = 2;
-	roomBuffer = 5;
+	size = 40;
+	totalRooms = 25;
+	maxRoomSize = 14;
+	minRoomSize = 8;
+	maxTunnelSize = 4;
+	minTunnelSize = 1;
+	roomBuffer = 0;
 	roomOverlap = 0;
 
 	// set map and location variables
@@ -1087,6 +1087,7 @@ void Player::drawWeaponInfo() {
 void Player::drawMapInfo() {
 	// split the description into lines
 	std::string mapString = "Map Generation Info\n\n";
+	mapString += "Biome: " + global_map->biomeName + "\n";
 	mapString += "Map Width/Height: " + std::to_string(size) + "\n";
 	mapString += "Max Possible Rooms: " + std::to_string(totalRooms) + "\n";
 	mapString += "Max Room Size: " + std::to_string(maxRoomSize) + "\n";

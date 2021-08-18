@@ -27,8 +27,8 @@ Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int ma
 
 	this->size = size;
 	this->total_rooms = total;
-	this->max_room_size = max;
-	this->min_room_size = min;
+	this->maxRoomSize = max;
+	this->minRoomSize = min;
 	this->type = mapType;
 	this->level = level;
 	this->maxTunnelSize = maxTunnel;
@@ -140,12 +140,12 @@ void Map::Make_Rooms() {
 
 		// Get random room dimensions
 		Height = rand();
-		Height %= max_room_size;
-		if (Height < min_room_size) { Height = min_room_size; }
+		Height %= (maxRoomSize - minRoomSize) + 1;
+		Height += minRoomSize;
 
 		Width = rand();
-		Width %= max_room_size;
-		if (Width < min_room_size) { Width = min_room_size; }
+		Width %= (maxRoomSize - minRoomSize) + 1;
+		Width += minRoomSize;
 
 		empty = 1; // Assume location is empty
 		outofBounds = 0; // Assume location is in bounds
@@ -385,10 +385,10 @@ void Map::Tunnel() {
 				}
 
 				amount = rand();
-				amount %= maxTunnelSize;
-				if (amount < minTunnelSize) {
-					amount = minTunnelSize;
-				}
+				amount %= (maxTunnelSize - minTunnelSize) + 1;
+				amount += minTunnelSize;
+
+				hallLengths.push_back(amount);
 
 				int digCount;
 				for (digCount = 0; digCount < amount; digCount++) {
@@ -1082,10 +1082,85 @@ void Map::clearPlayerStart() {
 // Returns a biome based on the map properties
 int Map::determineBiome() {
 	int numRooms = actual_total_rooms;
-	int avgRoomSize = (max_room_size - min_room_size) / 2;
-	int avgHallSize = (maxTunnelSize - minTunnelSize) / 2;
+	int avgRoomSize = getAverageRoomSize();
+	int avgHallSize = getAverageHallLength();
 	int avgRoomDistance = getAverageRoomDist();
-	return FIELD;
+
+	// determine if parameters are 'big' or 'small'
+	// todo: I don't love this system but it can be tweaked later
+	bool largeRooms = avgRoomSize > 64;
+	bool longHalls = avgHallSize > 10;
+	bool sparseRooms = avgRoomDistance > 10;
+	bool manyRooms = numRooms > 15;
+
+	if (!largeRooms && !longHalls && !sparseRooms && !manyRooms) {
+		biomeName = "Crystal Cave";
+		return CRYSTAL_CAVE;
+	}
+	else if (!largeRooms && !longHalls && !sparseRooms && manyRooms) {
+		biomeName = "Ice Caves";
+		return ICE_CAVE;
+	}
+	else if (!largeRooms && !longHalls && sparseRooms && !manyRooms) {
+		biomeName = "Summit";
+		return SUMMIT;
+	}
+	else if (!largeRooms && !longHalls && sparseRooms && manyRooms) {
+		biomeName = "Mountain";
+		return MOUNTAIN;
+	}
+	else if (!largeRooms && longHalls && !sparseRooms && !manyRooms) {
+		biomeName = "Basement";
+		return BASEMENT;
+	}
+	else if (!largeRooms && longHalls && !sparseRooms && manyRooms) {
+		biomeName = "Catacomb";
+		return CATACOMB;
+	}
+	else if (!largeRooms && longHalls && sparseRooms && !manyRooms) {
+		biomeName = "Sewer";
+		return SEWER;
+	}
+	else if (!largeRooms && longHalls && sparseRooms && manyRooms) {
+		biomeName = "Mine";
+		return MINE;
+	}
+	else if (largeRooms && !longHalls && !sparseRooms && !manyRooms) {
+		biomeName = "Village";
+		return VILLAGE;
+	}
+	else if (largeRooms && !longHalls && !sparseRooms && manyRooms) {
+		biomeName = "Field";
+		return FIELD;
+	}
+	else if (largeRooms && !longHalls && sparseRooms && !manyRooms) {
+		biomeName = "Cave";
+		return CAVE;
+	}
+	else if (largeRooms && !longHalls && sparseRooms && manyRooms) {
+		biomeName = "Forest";
+		return FOREST;
+	}
+	else if (largeRooms && longHalls && !sparseRooms && !manyRooms) {
+		biomeName = "House";
+		return HOUSE;
+	}
+	else if (largeRooms && longHalls && !sparseRooms && manyRooms) {
+		biomeName = "Castle";
+		return CASTLE;
+	}
+	else if (largeRooms && longHalls && sparseRooms && !manyRooms) {
+		biomeName = " Large Crystal Cave";
+		return CRYSTAL_CAVE_2;
+	}
+	else if (largeRooms && longHalls && sparseRooms && manyRooms) {
+		biomeName = "City";
+		return CITY;
+	}
+	else {
+		biomeName = "Default";
+		return FIELD;
+	}
 }
 
 // Returns the wall sprite based on the biome
@@ -1252,6 +1327,9 @@ int Map::measurePointDistance(int x, int y) {
 	return (int)(length + .5);
 }
 
+// For each room this will find the distance to the closest room and return the average of those.
+// This should be a decent measure of if rooms are close together but there are cases where it
+// is not ideal, such as when there are separated clusters of rooms.
 int Map::getAverageRoomDist() {
 	int totalDist = 0;
 	int numDist = 0;
@@ -1259,12 +1337,35 @@ int Map::getAverageRoomDist() {
 		return 0;
 	}
 	for (int x = 0; x < roomData.size(); x++) {
+		int smallest = 0;
+		int first = 1;
 		for (int y = x + 1; y < roomData.size(); y++) {
-			totalDist += measureRoomDistance(roomData[x], roomData[y]);
-			numDist++;
+			int dist = measureRoomDistance(roomData[x], roomData[y]);
+			if (dist < smallest || first == 1) {
+				smallest = dist;
+				first = 0;
+			}
 		}
+		totalDist += smallest;
+		numDist++;
 	}
 	return totalDist / numDist;
+}
+
+int Map::getAverageRoomSize() {
+	int totalSize = 0;
+	for (int x = 0; x < roomData.size(); x++) {
+		totalSize += roomData[x].xSize * roomData[x].ySize;
+	}
+	return totalSize / roomData.size();
+}
+
+int Map::getAverageHallLength() {
+	int totalSize = 0;
+	for (int x = 0; x < hallLengths.size(); x++) {
+		totalSize += hallLengths[x];
+	}
+	return totalSize / hallLengths.size();
 }
 
 Map::~Map(){

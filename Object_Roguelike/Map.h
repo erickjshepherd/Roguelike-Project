@@ -16,13 +16,13 @@ enum biomeEnums {
 	CATACOMB,
 	SEWER,
 	MINE,
-	CRYSTAL_CAVE_2,
+	VILLAGE,
 	FIELD,
 	CAVE,
 	FOREST,
 	HOUSE,
 	CASTLE,
-	VILLAGE,
+	CRYSTAL_CAVE_2,
 	CITY
 };
 
@@ -43,6 +43,7 @@ public:
 	std::vector<Tile*> map;
 	std::vector<int> specialTunnelY;
 	std::vector<roomInfo> roomData;
+	std::vector<int> hallLengths;
 	std::vector<Enemy*> Enemy_List;
 	std::vector<Enemy*> Dead_Enemies;
 	Player* player;
@@ -50,8 +51,8 @@ public:
 	int size;
 	int total_rooms;
 	int actual_total_rooms;
-	int max_room_size;
-	int min_room_size;
+	int maxRoomSize;
+	int minRoomSize;
 	int maxTunnelSize;
 	int minTunnelSize;
 	int roomBuffer;
@@ -60,6 +61,7 @@ public:
 	int level;
 	int playerStart;
 	int biome;
+	std::string biomeName;
 
 	void Enemy_Turn();
 	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
@@ -92,5 +94,7 @@ private:
 	int measureRoomDistance(roomInfo r1, roomInfo r2);
 	int measurePointDistance(int x, int y);
 	int getAverageRoomDist();
+	int getAverageRoomSize();
+	int getAverageHallLength();
 };
 
