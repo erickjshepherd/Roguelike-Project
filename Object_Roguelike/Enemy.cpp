@@ -451,7 +451,10 @@ void Enemy::enemyTurn() {
 		int attacked = 0;
 
 		// get the direction to move
-		int direction = senseTarget();
+		int direction = -1;
+		if (global_map->measurePointDistance(location, global_map->player->getLocation()) <= viewDistance + 1) {
+			direction = senseTarget();
+		}
 
 		// Handle scared status
 		int reversed = 0;

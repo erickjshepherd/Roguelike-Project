@@ -66,6 +66,7 @@ public:
 	void Enemy_Turn();
 	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
 	int findExit(int start);
+	int measurePointDistance(int x, int y);
 
 private:
 
@@ -85,14 +86,13 @@ private:
 	void setWallSprites();
 	void setFloorSprites();
 	void clearRoomBuffers();
-	int getOpenLocation();
+	int getOpenLocation(int roomOnly);
 	int placePlayerStart();
 	void clearPlayerStart();
 	int determineBiome();
 	int getWallSet();
 	int getFloorSet();
 	int measureRoomDistance(roomInfo r1, roomInfo r2);
-	int measurePointDistance(int x, int y);
 	int getAverageRoomDist();
 	int getAverageRoomSize();
 	int getAverageHallLength();

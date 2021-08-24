@@ -598,7 +598,7 @@ void Map::Fill_Dead_Ends() {
 
 // Place the exit
 int Map::Set_Exit() {
-	int location = getOpenLocation();
+	int location = getOpenLocation(1);
 	
 	if (location == -1) {
 		return location;
@@ -618,7 +618,7 @@ void Map::Spawn_Enemies() {
 	Tile* under;
 
 	for (x = 0; x < size; x++) {
-		location = getOpenLocation();
+		location = getOpenLocation(0);
 		if (location == -1) {
 			break;
 		}
@@ -743,8 +743,9 @@ void Map::convertToClasses() {
 			map[y]->setBorder(border);
 		}
 		else if (map[y]->getIcon() == '.') {
+			int isRoom = map[y]->getRoom();
 			delete map[y];
-			map[y] = new Floor(floorSpriteT);
+			map[y] = new Floor(floorSpriteT, isRoom);
 			map[y]->setBorder(border);
 		}
 	}
@@ -1044,7 +1045,7 @@ void Map::clearRoomBuffers() {
 	}
 }
 
-int Map::getOpenLocation() {
+int Map::getOpenLocation(int roomOnly) {
 	int t, numLoc, locationIndex;
 	int Total_Size = size * size;
 	std::vector<int> openLocations;
@@ -1052,7 +1053,9 @@ int Map::getOpenLocation() {
 	// get all open locations
 	for (t = 0; t < Total_Size; t++) {
 		if (map[t]->getIcon() == '.') {
-			openLocations.push_back(t);
+			if ((roomOnly && map[t]->getRoom()) || (roomOnly == 0)) {
+				openLocations.push_back(t);
+			}
 		}
 	}
 	numLoc = openLocations.size();
@@ -1066,7 +1069,7 @@ int Map::getOpenLocation() {
 }
 
 int Map::placePlayerStart() {
-	int location = getOpenLocation();
+	int location = getOpenLocation(1);
 	if (location == -1) {
 		return -1;
 	}
