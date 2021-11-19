@@ -38,6 +38,13 @@ public:
 	int scared;
 	int charmed;
 
+	// ability
+	// parameters: intensity, damage
+	void (*ability)(int, int);
+	int abilityTrigger;
+	int abilityIntensity;
+	int abilityDamage;
+
 	// loot table
 	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
 
@@ -67,6 +74,8 @@ public:
 	int getRelatedDirection(int direction, int relation);
 	int getNewLocation(int direction);
 	void forceMove(int direction, int distance, int damage);
+	// ability functions
+	void executeAbility(int trigger);
 };
 
 enum relationEnums {
@@ -74,4 +83,12 @@ enum relationEnums {
 	RBACKWARD,
 	RLEFT,
 	RRIGHT
+};
+
+enum triggerEnums {
+	TATTACK,
+	TMOVE,
+	TDAMAGED,
+	TADJACENT,
+	TDEAD
 };

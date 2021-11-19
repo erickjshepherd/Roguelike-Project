@@ -30,6 +30,9 @@ Enemy::Enemy(){
 	prevDirection = 0;
 	setColor(STANDARD);
 	setFaction(ENEMY1);
+	ability = NULL;
+	abilityDamage = 0;
+	abilityIntensity = 0;
 }
 
 Enemy::~Enemy(){
@@ -1143,5 +1146,11 @@ void Enemy::forceMove(int direction, int distance, int damage) {
 			takeDamage(damage);
 			break;
 		}
+	}
+}
+
+void Enemy::executeAbility(int trigger) {
+	if (trigger == abilityTrigger && ability != NULL) {
+		ability(abilityIntensity, abilityDamage);
 	}
 }
