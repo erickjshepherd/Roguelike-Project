@@ -121,7 +121,7 @@ void Player::turn() {
 			if (spell1 != NULL) {
 				currentSpell = 1;
 				drawInfoWindow();
-				if (spell1->Cast() == 0) {
+				if (spell1->Cast(this) == 0) {
 					validKey = 0;
 				}
 			}
@@ -135,7 +135,7 @@ void Player::turn() {
 			if (spell2 != NULL) {
 				currentSpell = 2;
 				drawInfoWindow();
-				if (spell2->Cast() == 0) {
+				if (spell2->Cast(this) == 0) {
 					validKey = 0;
 				}
 			}
@@ -149,7 +149,7 @@ void Player::turn() {
 			if (spell3 != NULL) {
 				currentSpell = 3;
 				drawInfoWindow();
-				if (spell3->Cast() == 0) {
+				if (spell3->Cast(this) == 0) {
 					validKey = 0;
 				}
 			}
@@ -839,7 +839,7 @@ bool Player::attack(int direction) {
 				target += x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
 							success = 1;
 						}
 					}
@@ -860,7 +860,7 @@ bool Player::attack(int direction) {
 				target -= x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
 							success = 1;
 						}
 					}
@@ -881,7 +881,7 @@ bool Player::attack(int direction) {
 				target += x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
 							success = 1;
 						}
 					}
@@ -902,7 +902,7 @@ bool Player::attack(int direction) {
 				target -= x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && weapon->hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
 							success = 1;
 						}
 					}
@@ -993,7 +993,7 @@ void Player::clearMap() {
 // handles being attacked. Can only take damage from non allied objects.
 // input: damage to take, name of the attacker, faction of the attacker
 // output: if the attack worked 
-bool Player::receiveAttack(int damage, std::string name, int faction) {
+bool Player::receiveAttack(int damage, std::string name, int faction, Tile* source) {
 	if (faction != getFaction() && faction != NEUTRAL) {
 		takeDamage(damage);
 

@@ -316,12 +316,15 @@ int Enemy::Move(int direction) {
 	}
 }
 
-void Enemy::takeDamage(int amount) {
+void Enemy::takeDamage(int amount, Tile* source) {
 	// flash the enemy sprite
 	flash(RED, 100);
 
 	// update health
 	health = health - amount;
+
+	// trigger damaged abilities
+	executeAbility(TDAMAGED, source);
 	
 	// create damage event
 	std::string event("A ");
@@ -336,6 +339,9 @@ void Enemy::takeDamage(int amount) {
 		onScreen(&x, &y);
 		health = 0;
 		int i;
+
+		// trigger death abilities
+		executeAbility(TDEAD, source);
 
 		// find the index of the dead enemy then remove from list and map
 		for (i = 0; i < global_map->Enemy_List.size(); i++) {
@@ -388,6 +394,11 @@ void Enemy::takeDamage(int amount) {
 
 void Enemy::enemyTurn() {
 
+	// execute adjacent ability, can only happen once a turn
+	if (abilityTrigger == TADJACENT) {
+		executeAdjacent();
+	}
+
 	// Handle all the status conditions every round regardless of if the enemy takes a turn
 	// Handle frozen + burn
 	if (frozenLength > 0 && burnedLength > 0) {
@@ -400,7 +411,7 @@ void Enemy::enemyTurn() {
 	if (frozenLength > 0) {
 		frozenLength--;
 		if (frozenLength == 0) {
-			takeDamage(frozenDamage);
+			takeDamage(frozenDamage, spellSource);
 			if (health <= 0) {
 				return;
 			}
@@ -411,11 +422,11 @@ void Enemy::enemyTurn() {
 	}
 	// Handle burn status
 	if (burnedLength > 0) {
-		global_map->map[location - global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 1);
-		global_map->map[location + global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 2);
-		global_map->map[location - 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 3);
-		global_map->map[location + 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 4);
-		takeDamage(burnedDamage);
+		global_map->map[location - global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 1, spellSource);
+		global_map->map[location + global_map->size]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 2, spellSource);
+		global_map->map[location - 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 3, spellSource);
+		global_map->map[location + 1]->spellInteract(burnedDamage, BURN, burnedDamage, burnedLength / 2, 4, spellSource);
+		takeDamage(burnedDamage, spellSource);
 		if (health <= 0) {
 			return;
 		}
@@ -443,6 +454,7 @@ void Enemy::enemyTurn() {
 	// Take a turn?
 	turnCount++;
 	if (turnCount < turnPeriod) {
+		resetColor();
 		return;
 	}
 	else {
@@ -496,18 +508,28 @@ void Enemy::enemyTurn() {
 		if (attacked == 0 && direction != -1) {
 			moveSuccess = Move(direction);
 			if (moveSuccess == 1) {
+				executeAbility(TMOVE, NULL);
 				prevDirection = direction;
 			}
 			onScreen(&consoleX, &consoleY);
 		}
 	}
 
+	// execute adjacent ability
+	if (abilityTrigger == TADJACENT) {
+		executeAdjacent();
+	}
+
+	// decrement the ability counter each turn
+	if (abilityCounter != 0) {
+		abilityCounter--;
+	}
 	resetColor();
 }
 
-bool Enemy::receiveAttack(int damage, std::string name, int faction) {
+bool Enemy::receiveAttack(int damage, std::string name, int faction, Tile* source) {
 	if (faction != getFaction() && faction != NEUTRAL) {
-		takeDamage(damage);
+		takeDamage(damage, source);
 		return 1;
 	}
 	else {
@@ -515,13 +537,13 @@ bool Enemy::receiveAttack(int damage, std::string name, int faction) {
 	}
 }
 
-void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, int direction) {
+void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, int direction, Tile* source) {
 	
-	takeDamage(damage);
+	takeDamage(damage, source);
 	if (health <= 0) {
 		return;
 	}
-
+	spellSource = source;
 	if (effect == FREEZE) {
 		std::string event("A ");
 		event.append(getName());
@@ -585,7 +607,7 @@ void Enemy::spellInteract(int damage, int effect, int effectDamage, int length, 
 		event.append(" tiles");
 		global_map->player->addEvent(event);
 		global_map->player->drawInfoWindow();
-		forceMove(direction, length, effectDamage);
+		forceMove(direction, length, effectDamage, spellSource);
 	}
 	resetColor();
 }
@@ -621,6 +643,7 @@ void Enemy::resetColor() {
 bool Enemy::attack(int direction) {
 	int x, y, target, priority, success;
 
+	// todo: consolidate the 4 directional parts into one function
 	// up
 	success = 0;
 	if (direction == UP) {
@@ -630,7 +653,8 @@ bool Enemy::attack(int direction) {
 				target += x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
+							executeAbility(TATTACK, global_map->map[target]);
 							success = 1;
 						}
 					}
@@ -651,7 +675,8 @@ bool Enemy::attack(int direction) {
 				target -= x * global_map->size;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
+							executeAbility(TATTACK, global_map->map[target]);
 							success = 1;
 						}
 					}
@@ -672,7 +697,8 @@ bool Enemy::attack(int direction) {
 				target += x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
+							executeAbility(TATTACK, global_map->map[target]);
 							success = 1;
 						}
 					}
@@ -693,7 +719,8 @@ bool Enemy::attack(int direction) {
 				target -= x;
 				for (y = 0; y < 3; y++) {
 					if (target >= 0 && target < (global_map->size*global_map->size) && hit[x][y] == priority) {
-						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction())) {
+						if (global_map->map[target]->receiveAttack(getDamage(x, y), getName(), getFaction(), this)) {
+							executeAbility(TATTACK, global_map->map[target]);
 							success = 1;
 						}
 					}
@@ -1137,20 +1164,53 @@ int Enemy::getNewLocation(int direction) {
 	return newLocation;
 }
 
-void Enemy::forceMove(int direction, int distance, int damage) {
+void Enemy::forceMove(int direction, int distance, int damage, Tile* source) {
 	int moveSuccess;
 	for (int i = 0; i < distance; i++) {
 		moveSuccess = Move(direction);
 		onScreen(&consoleX, &consoleY);
 		if (moveSuccess != 1) {
-			takeDamage(damage);
+			takeDamage(damage, source);
 			break;
 		}
 	}
 }
 
-void Enemy::executeAbility(int trigger) {
+void Enemy::executeAbility(int trigger, Tile* target) {
 	if (trigger == abilityTrigger && ability != NULL) {
-		ability(abilityIntensity, abilityDamage);
+		if (abilityCheck()) {
+			ability(abilityIntensity, abilityDamage, target);
+		}
+	}
+}
+
+bool Enemy::abilityCheck() {
+	if (abilityCounter == 0) {
+		abilityCounter = abilityCooldown;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void Enemy::executeAdjacent() {
+	int x, y, hitLocation, diameter;
+	int startLocation = location;
+	startLocation -= global_map->size;
+	startLocation -= 1;
+
+	diameter = 3;
+	for (y = 0; y < diameter; y++) {
+		for (x = 0; x < diameter; x++) {
+			hitLocation = startLocation;
+			hitLocation += y * global_map->size;
+			hitLocation += x;
+			if (hitLocation != location) {
+				if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
+					executeAbility(TADJACENT, global_map->map[hitLocation]);
+				}
+			}
+		}
 	}
 }

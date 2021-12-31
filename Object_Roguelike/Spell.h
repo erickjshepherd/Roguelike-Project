@@ -38,16 +38,16 @@ public:
 	int selecting;
 
 	int playerInteract();
-	virtual int Cast();
-	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity);
+	virtual int Cast(Tile* source);
+	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
 	void updateLineColor(int direction, int range, int color);
-	void dmgCircle(int range, int damage, int effect, int effectDamage, int intensity);
+	void dmgCircle(int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
 	void updateCircleColor(int range, int color);
 	int getDirection();
-	int castLine();
-	int castCircle();
-	void dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity);
+	int castLine(Tile* source);
+	int castCircle(Tile* source);
+	void dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
 	void updateConeColor(int direction, int range, int color);
-	int castCone();
+	int castCone(Tile* source);
 	int generateInfo();
 };

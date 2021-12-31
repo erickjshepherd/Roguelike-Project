@@ -28,7 +28,7 @@ public:
 	void decreaseSpellCD();
 	int selectSpell();
 	void clearMap();
-	bool receiveAttack(int damage, std::string name, int faction);
+	bool receiveAttack(int damage, std::string name, int faction, Tile* source);
 	void resetCamera();
 	void drawInfoWindow();
 	void drawUnderInfoWindow();

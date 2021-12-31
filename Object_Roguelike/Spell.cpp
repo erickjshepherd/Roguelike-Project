@@ -132,21 +132,21 @@ int Spell::playerInteract() {
 	return 0;
 }
 
-int Spell::Cast() {
+int Spell::Cast(Tile* source) {
 	int result;
 	if (castType == LINE) {
-		result = castLine();
+		result = castLine(source);
 	}
 	else if (castType == CIRCLE) {
-		result = castCircle();
+		result = castCircle(source);
 	}
 	else if (castType == CONE) {
-		result = castCone();
+		result = castCone(source);
 	}
 	return result;
 }
 
-void Spell::dmgLine(int direction, int range, int damage, int effect, int effectDamage, int duration) {
+void Spell::dmgLine(int direction, int range, int damage, int effect, int effectDamage, int duration, Tile* source) {
 	int increment = 0;
 	if (direction == UP) {
 		increment = -global_map->size;
@@ -163,7 +163,7 @@ void Spell::dmgLine(int direction, int range, int damage, int effect, int effect
 	for (int x = 0; x < range; x++) {
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
 		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
 		}
 	}
 }
@@ -244,7 +244,7 @@ int Spell::getDirection() {
 	}
 }
 
-int Spell::castLine() {
+int Spell::castLine(Tile* source) {
 	int finalEvent = 0;
 	int prevDir;
 	int success = 0;
@@ -292,7 +292,7 @@ int Spell::castLine() {
 	SDL_RenderPresent(renderer_g);
 
 	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgLine(currentDirection, range, initDamage, effect, effectDamage, duration);
+		dmgLine(currentDirection, range, initDamage, effect, effectDamage, duration, source);
 		success = 1;
 		cdCount = cd;
 	}
@@ -302,7 +302,7 @@ int Spell::castLine() {
 	return success;
 }
 
-void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int intensity) {
+void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int intensity, Tile* source) {
 	int x, y, hitLocation, diameter;
 	int startLocation = global_map->player->getLocation();
 	startLocation -= global_map->size * range;
@@ -316,7 +316,7 @@ void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int i
 			hitLocation += x;
 			if (hitLocation != global_map->player->getLocation()) {
 				if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, 0); // todo: how to get direction for circle spells
+					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, 0, source); // todo: how to get direction for circle spells
 				}
 			}
 		}
@@ -359,7 +359,7 @@ void Spell::updateCircleColor(int range, int color) {
 }
 
 // todo: merge cast functions somehow. Seems like a lot of copied code
-int Spell::castCircle() {
+int Spell::castCircle(Tile* source) {
 	int finalEvent = 0;
 	int prevDir;
 	int success = 0;
@@ -392,7 +392,7 @@ int Spell::castCircle() {
 	SDL_RenderPresent(renderer_g);
 
 	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgCircle(range, initDamage, effect, effectDamage, duration);
+		dmgCircle(range, initDamage, effect, effectDamage, duration, source);
 		success = 1;
 		cdCount = cd;
 	}
@@ -402,7 +402,7 @@ int Spell::castCircle() {
 	return success;
 }
 
-void Spell::dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity) {
+void Spell::dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source) {
 	int increment = 0;
 	int sideIncrement = 0;
 	if (direction == UP) {
@@ -425,17 +425,17 @@ void Spell::dmgCone(int direction, int range, int damage, int effect, int effect
 		// central hit
 		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
 		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
 		}
 		// side hit
 		for (int i = 0; i < x; i++) {
 			int sideHitLocation = hitLocation + sideIncrement * (i + 1);
 			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
-				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
 			}
 			sideHitLocation = hitLocation - sideIncrement * (i + 1);
 			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
-				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction);
+				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
 			}
 		}
 	}
@@ -521,7 +521,7 @@ void Spell::updateConeColor(int direction, int range, int color) {
 	}
 }
 
-int Spell::castCone() {
+int Spell::castCone(Tile* source) {
 	int finalEvent = 0;
 	int prevDir;
 	int success = 0;
@@ -569,7 +569,7 @@ int Spell::castCone() {
 	SDL_RenderPresent(renderer_g);
 
 	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgCone(currentDirection, range, initDamage, effect, effectDamage, duration);
+		dmgCone(currentDirection, range, initDamage, effect, effectDamage, duration, source);
 		success = 1;
 		cdCount = cd;
 	}

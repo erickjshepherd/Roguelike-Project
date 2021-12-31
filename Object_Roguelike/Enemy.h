@@ -37,13 +37,16 @@ public:
 	int slowed;
 	int scared;
 	int charmed;
+	Tile* spellSource;
 
 	// ability
 	// parameters: intensity, damage
-	void (*ability)(int, int);
+	void (*ability)(int, int, Tile*);
 	int abilityTrigger;
 	int abilityIntensity;
 	int abilityDamage;
+	int abilityCooldown;
+	int abilityCounter = 0;
 
 	// loot table
 	int loot[10] = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
@@ -58,9 +61,9 @@ public:
 	int senseTarget();
 	int senseTarget_BFS(int distance, std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start, int searchBlocking, int target);
 	int Move(int direction);
-	void takeDamage(int amount);
-	bool receiveAttack(int damage, std::string name, int faction);
-	void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction);
+	void takeDamage(int amount, Tile* source);
+	bool receiveAttack(int damage, std::string name, int faction, Tile* source);
+	void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction, Tile* source);
 	void resetColor();
 	bool attack(int direction);
 	void renderHealth();
@@ -73,9 +76,11 @@ public:
 	int getTarget();
 	int getRelatedDirection(int direction, int relation);
 	int getNewLocation(int direction);
-	void forceMove(int direction, int distance, int damage);
+	void forceMove(int direction, int distance, int damage, Tile* source);
 	// ability functions
-	void executeAbility(int trigger);
+	void executeAbility(int trigger, Tile* target);
+	bool abilityCheck();
+	void executeAdjacent();
 };
 
 enum relationEnums {

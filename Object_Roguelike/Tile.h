@@ -20,8 +20,8 @@ public:
 	// interact functions
 	virtual int playerInteract();
 	virtual void playerStep();
-	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction);
-	virtual bool receiveAttack(int damage, std::string name, int faction);
+	virtual void spellInteract(int damage, int effect, int effectDamage, int intensity, int direction, Tile* source);
+	virtual bool receiveAttack(int damage, std::string name, int faction, Tile* source);
 
 	// other functions
 	void drawUnderInfo();
