@@ -29,19 +29,9 @@ public:
 	int hit[3][3];
 	int damage[3][3];
 
-	// effects
-	int frozenLength;
-	int frozenDamage;
-	int burnedLength;
-	int burnedDamage;
-	int slowed;
-	int scared;
-	int charmed;
-	Tile* spellSource;
-
 	// ability
 	// parameters: intensity, damage
-	void (*ability)(int, int, Tile*);
+	void (*ability)(Tile*, int, int, Tile*);
 	int abilityTrigger;
 	int abilityIntensity;
 	int abilityDamage;

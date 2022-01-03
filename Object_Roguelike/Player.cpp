@@ -193,6 +193,15 @@ void Player::turn() {
 		}
 	}
 
+	// handle freeze condition
+	if (frozenLength > 0) {
+		frozenLength--;
+		if (frozenLength == 0) {
+			receiveAttack(frozenDamage, spellSource->getName(), spellSource->getFaction(), spellSource);
+		}
+		return;
+	}
+
 	// decrease spell cooldowns on each successful move
 	decreaseSpellCD();
 

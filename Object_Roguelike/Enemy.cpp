@@ -1179,7 +1179,7 @@ void Enemy::forceMove(int direction, int distance, int damage, Tile* source) {
 void Enemy::executeAbility(int trigger, Tile* target) {
 	if (trigger == abilityTrigger && ability != NULL) {
 		if (abilityCheck()) {
-			ability(abilityIntensity, abilityDamage, target);
+			ability(this, abilityIntensity, abilityDamage, target);
 		}
 	}
 }

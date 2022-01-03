@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Monsters.h"
+#include "Abilities.h"
 
 // slime constructor
 Slime::Slime() {
@@ -25,6 +26,12 @@ Slime::Slime() {
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
+	// ability
+	ability = abilityFreeze;
+	abilityCooldown = 10;
+	abilityDamage = 0;
+	abilityIntensity = 1;
+	abilityTrigger = TDEAD;
 }
 
 Slime::Slime(int location) {
@@ -51,6 +58,12 @@ Slime::Slime(int location) {
 	setSpritePath(SLIMEPATH);
 	setSprite(24);
 	setSpriteSheetW(6);
+	// ability
+	ability = abilityFreeze;
+	abilityCooldown = 10;
+	abilityDamage = 0;
+	abilityIntensity = 1;
+	abilityTrigger = TDEAD;
 }
 
 // slime destructor

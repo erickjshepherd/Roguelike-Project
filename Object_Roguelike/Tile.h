@@ -17,6 +17,16 @@ public:
 	Tile(char iconI, bool blockingI, bool room);
 	~Tile();
 
+	// effects
+	int frozenLength;
+	int frozenDamage;
+	int burnedLength;
+	int burnedDamage;
+	int slowed;
+	int scared;
+	int charmed;
+	Tile* spellSource;
+
 	// interact functions
 	virtual int playerInteract();
 	virtual void playerStep();
