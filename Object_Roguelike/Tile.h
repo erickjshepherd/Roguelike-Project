@@ -36,6 +36,7 @@ public:
 	// other functions
 	void drawUnderInfo();
 	void flash(int colorIn, int delay);
+	void flashDir(int dir, int delay);
 	void onScreen(int* X, int* Y);
 	virtual void render(int x, int y, int color);
 	virtual void resetColor();

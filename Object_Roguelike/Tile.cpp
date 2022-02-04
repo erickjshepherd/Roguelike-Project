@@ -155,6 +155,61 @@ void Tile::flash(int colorIn, int delay) {
 	delete clip;
 }
 
+void Tile::flashDir(int dir, int delay) {
+	int x, y;
+	onScreen(&x, &y);
+	x *= tileSize_g;
+	y *= tileSize_g;
+	if (x == -1) {
+		return;
+	}
+	if (under != nullptr) {
+		under->render(x, y, -1);
+	}
+
+	// get the sprite sheet
+	Texture* spriteSheet = tileSets_g[spritePath * NUMCOLORS];
+
+	// get the location on the sheet
+	int clipX = 0;
+	int clipY = 0;
+	int typeXOffset = sprite % spriteSheetW;
+	int typeYOffset = sprite / spriteSheetW;
+	clipX += typeXOffset * TILE_SOURCE_SIZE;
+	clipY += typeYOffset * TILE_SOURCE_SIZE;
+
+	// set up the clip
+	SDL_Rect* clip = new SDL_Rect();
+	clip->x = clipX;
+	clip->y = clipY;
+	clip->w = TILE_SOURCE_SIZE;
+	clip->h = TILE_SOURCE_SIZE;
+
+	SDL_RenderSetViewport(renderer_g, &mapView_g);
+	int offset = tileSize_g / 8;
+	if (dir == UP) {
+		spriteSheet->render(x, y - offset, clip);
+	}
+	else if (dir == DOWN) {
+		spriteSheet->render(x, y + offset, clip);
+	}
+	else if (dir == LEFT) {
+		spriteSheet->render(x - offset, y, clip);
+	}
+	else if (dir == RIGHT) {
+		spriteSheet->render(x + offset, y, clip);
+	}
+	SDL_RenderPresent(renderer_g);
+	Sleep(delay);
+	if (under != nullptr) {
+		under->render(x, y, -1);
+	}
+	render(x, y, -1);
+	SDL_RenderPresent(renderer_g);
+
+	delete clip;
+}
+
 // returns coordinates if the tile is on the screen
 // inputs: pointer to the x coordinate, pointer to the y coordinate
 void Tile::onScreen(int* X, int* Y) {
