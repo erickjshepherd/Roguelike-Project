@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "Global_Map.h"
 #include "Spell.h"
+#include "Shared.h"
 
 Spell::Spell() {
 	setBlocking(0);

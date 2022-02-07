@@ -11,6 +11,7 @@
 #include <thread>
 #include "GUI.h"
 #include "SubMenus.h"
+#include "Shared.h"
 
 Map* global_map;
 
@@ -29,23 +30,64 @@ int main(int argc, char* argv[]){
 	mainMenu* mainM = new mainMenu();
 
 	if (!openMenu(mainM)) {
+		int quit = 0;
+		int state = PLAYER_S;
+
 		// create the player character
 		Player* PC = new Player();
 
 		// get a new level
 		PC->getNewLevel(1);
 
-		while (PC->getQuit() == 0) {
-			SDL_RenderPresent(renderer_g);
-			PC->turn();
-			SDL_RenderPresent(renderer_g);
-			if (PC->getExtraTurns() == 0) {
-				global_map->Enemy_Turn();
+		while (quit == 0) {
+			// get valid input //
+			int validKey = 1;
+			int eventValue;
+			int direction;
+
+			// enable SDL input events
+			resetFilter();
+
+			// handle events
+			eventValue = handleEvents();
+			if (eventValue == -1) {
+
 			}
-			else {
-				int playerET = PC->getExtraTurns();
-				PC->setExtraTurns(playerET - 1);
+			else if (eventValue == EVENT_QUIT) {
+				quit = 1;
 			}
+			else if (eventValue == EVENT_KEY_ESC) {
+				pauseMenu* menu = new pauseMenu();
+				int menuRet = openMenu(menu);
+				if (menuRet == 1) {
+					quit = 1;
+				}
+				//drawPlayerView(-1);
+			}
+			else if (eventValue == EVENT_RESIZE) {
+
+			}
+
+			// player logic //
+			if (validPlayerInput(eventValue) && state == PLAYER_S) {
+				state = PC->turn(eventValue);
+			}
+			
+			// enemy logic //
+			if (PC->getExtraTurns() == 0 && state == ENEMY_S) {
+				state = global_map->Enemy_Turn();
+			}
+			
+			// display logic //
+			// passive animations
+			if (drawFrame_g != currentFrame_g) {
+				drawFrame_g = currentFrame_g;
+			}
+
+			// active animations
+
+			PC->drawPlayerView(0); // move this to the SDLFuncs file
+			SDL_RenderPresent(renderer_g);
 		}
 	}
 	

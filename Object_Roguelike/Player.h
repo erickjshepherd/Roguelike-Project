@@ -13,7 +13,7 @@ public:
 	~Player();
 
 	// functions
-	void turn();
+	int turn(int input);
 	int inView(int buffer);
 	void updateScreen(int X, int Y, int color);
 	void setCoordinates();

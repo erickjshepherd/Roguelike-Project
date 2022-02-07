@@ -63,7 +63,7 @@ public:
 	int biome;
 	std::string biomeName;
 
-	void Enemy_Turn();
+	int Enemy_Turn();
 	int findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start);
 	int findExit(int start);
 	int measurePointDistance(int x, int y);

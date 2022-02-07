@@ -19,6 +19,7 @@
 #include "Exit.h"
 #include "GUI.h"
 #include <math.h>
+#include "Shared.h"
 
 
 Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){
@@ -642,7 +643,7 @@ void Map::Spawn_Items() {
 }
 
 // iterate through each enemy on the map and move them
-void Map::Enemy_Turn() {
+int Map::Enemy_Turn() {
 	int x, enemies;
 	enemies = this->Enemy_List.size();
 	for (x = 0; x < enemies; x++) {
@@ -650,6 +651,7 @@ void Map::Enemy_Turn() {
 			Enemy_List[x]->enemyTurn();
 		}
 	}
+	return PLAYER_S;
 }
 
 int Map::findExit_BFS(std::queue<int> &nodes, std::queue<int> &parent_nodes, std::vector<int> &visited, int start) {

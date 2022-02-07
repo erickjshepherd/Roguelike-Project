@@ -256,3 +256,39 @@ void clearEvents() {
 	
 	}
 }
+
+// does the input need to be handled by the player object
+bool validPlayerInput(int input) {
+	bool valid;
+	if (input == EVENT_KEY_UP) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_DOWN) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_LEFT) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_RIGHT) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_1) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_2) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_3) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_ENTER) {
+		valid = 1;
+	}
+	else if (input == EVENT_KEY_TAB) {
+		valid = 1;
+	}
+	else {
+		valid = 0;
+	}
+	return valid;
+}

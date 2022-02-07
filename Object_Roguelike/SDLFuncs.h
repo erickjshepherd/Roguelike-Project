@@ -26,13 +26,6 @@ enum eventEnums {
 	EVENT_KEY_TAB
 };
 
-enum dirEnums {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-};
-
 #define NUM_FONTS 4
 enum fontEnums {
 	FONT_8,
@@ -91,3 +84,4 @@ int noFilter(void* data, SDL_Event* event);
 void filterInputEvents();
 void resetFilter();
 void clearEvents();
+bool validPlayerInput(int input);

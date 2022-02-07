@@ -11,6 +11,7 @@
 #include "Items.h"
 #include "GUI.h"
 #include "SubMenus.h"
+#include "Shared.h"
 
 // player class
 Player::Player(){
@@ -50,147 +51,47 @@ Player::Player(){
 
 // player turn function
 // reads key input and selects a direction to move
-void Player::turn() {
+int Player::turn(int input) {
 
 	damaged = 0;
 	int nextLocation = 0;
-	int validKey = 0;
-	int eventValue;
 	int move_success, attack_success;
 	int prevFrame = -1;
 	int direction = -1;
+	int validKey = 0;
 
 	// keep screen coordinates up to date
 	setCoordinates();
 
-	// enable SDL input events
-	if (slowTurns == 0) {
-		resetFilter();
+	if (input == EVENT_KEY_UP) {
+		direction = UP;
 	}
+	else if (input == EVENT_KEY_DOWN) {
+		direction = DOWN;
+	}
+	else if (input == EVENT_KEY_LEFT) {
+		direction = LEFT;
+	}
+	else if (input == EVENT_KEY_RIGHT) {
+		direction = RIGHT;
+	}
+	else if (input == EVENT_KEY_1) {
 
-	// get the current time since SDL was initialized
-	int turnStartTime = SDL_GetTicks();
+	}
+	else if (input == EVENT_KEY_2) {
 
-	// get the keyboard input until there is a successful action
-	while (validKey == 0) {
+	}
+	else if (input == EVENT_KEY_3) {
 
-		// enable inputs after a certain amount of time
-		if (slowTurns == 1) {
-			if (SDL_GetTicks() - turnStartTime > 500) {
-				slowTurns = 0;
-				resetFilter();
-			}
-		}
-
-		// get the current frame
-		drawFrame_g = currentFrame_g;
-		if (drawFrame_g != prevFrame) {
-			drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-		prevFrame = drawFrame_g;
-		
-		validKey = 1;
-		eventValue = handleEvents();
-		if (eventValue == -1) {
-			eventValue = 0;
-			validKey = 0;
-		}
-		else if (eventValue == EVENT_QUIT) {
-			quit = 1;
-			return;
-		}
-		else if (eventValue == EVENT_KEY_UP) {
-			direction = UP;
-			break;
-		}
-		else if (eventValue == EVENT_KEY_DOWN) {
-			direction = DOWN;
-			break;
-		}
-		else if (eventValue == EVENT_KEY_LEFT) {
-			direction = LEFT;
-			break;
-		}
-		else if (eventValue == EVENT_KEY_RIGHT) {
-			direction = RIGHT;
-			break;
-		}
-		else if (eventValue == EVENT_KEY_1) {
-			eventValue = 0;
-			if (spell1 != NULL) {
-				currentSpell = 1;
-				drawInfoWindow();
-				if (spell1->Cast(this) == 0) {
-					validKey = 0;
-				}
-			}
-			else {
-				validKey = 0;
-			}
-			currentSpell = 0;
-		}
-		else if (eventValue == EVENT_KEY_2) {
-			eventValue = 0;
-			if (spell2 != NULL) {
-				currentSpell = 2;
-				drawInfoWindow();
-				if (spell2->Cast(this) == 0) {
-					validKey = 0;
-				}
-			}
-			else {
-				validKey = 0;
-			}
-			currentSpell = 0;
-		}
-		else if (eventValue == EVENT_KEY_3) {
-			eventValue = 0;
-			if (spell3 != NULL) {
-				currentSpell = 3;
-				drawInfoWindow();
-				if (spell3->Cast(this) == 0) {
-					validKey = 0;
-				}
-			}
-			else {
-				validKey = 0;
-			}
-			currentSpell = 0;
-		}
-		else if (eventValue == EVENT_KEY_ENTER) {
-			eventValue = 0;
-			getUnder()->playerInteract();
-		}
-		else if (eventValue == EVENT_KEY_ESC) {
-			eventValue = 0;
-			pauseMenu* menu = new pauseMenu();
-			int menuRet = openMenu(menu);
-			if (menuRet == 1) {
-				quit = 1;
-				return;
-			}
-			drawPlayerView(-1);
-			validKey = 0;
-		}
-		else if (eventValue == EVENT_KEY_TAB) {
-			eventValue = 0;
-			validKey = 0;
-			currentInfoWindow = nextInfoWindow(currentInfoWindow);
-			drawInfoWindow();
-			SDL_RenderPresent(renderer_g);
-		}
-		else if (eventValue == EVENT_RESIZE) {
-			eventValue = 0;
-			drawPlayerView(-1);
-			SDL_RenderPresent(renderer_g);
-			validKey = 0;
-			SDL_RenderPresent(renderer_g);
-		}
-		else {
-			validKey = 0;
-			eventValue = 0;
-		}
+	}
+	else if (input == EVENT_KEY_ENTER) {
+		getUnder()->playerInteract();
+		return PLAYER_S;
+	}
+	else if (input == EVENT_KEY_TAB) {
+		currentInfoWindow = nextInfoWindow(currentInfoWindow);
+		drawInfoWindow();
+		return PLAYER_S;
 	}
 
 	// handle freeze condition
@@ -199,11 +100,8 @@ void Player::turn() {
 		if (frozenLength == 0) {
 			receiveAttack(frozenDamage, spellSource->getName(), spellSource->getFaction(), spellSource);
 		}
-		return;
+		return ENEMY_S;
 	}
-
-	// decrease spell cooldowns on each successful move
-	decreaseSpellCD();
 
 	// try to attack and then try to move
 	attack_success = attack(direction);
@@ -212,7 +110,7 @@ void Player::turn() {
 	}
 	
 	// Interact if can't attack or move
-	if (attack_success != 1 && move_success == -1 && eventValue != 0) {
+	if (attack_success != 1 && move_success == -1 && input != 0) {
 
 		int target = -1;
 
@@ -240,9 +138,10 @@ void Player::turn() {
 		}
 	}
 	
-	// stop additional inputs and clear the event buffer
-	filterInputEvents();
-	clearEvents();
+	// decrease spell cooldowns at the end of turn
+	decreaseSpellCD();
+
+	return ENEMY_S;
 }
 
 // is the player within the camera view?
@@ -610,7 +509,7 @@ int Player::getDamage(int x, int y){
 void Player::takeDamage(int amount) {
 	// only flash once per turn
 	if (damaged != 1) {
-		flash(RED, 100);
+		//flash(RED, 100);
 		damaged = 1;
 	}
 	if (health < amount) {
@@ -952,31 +851,31 @@ void Player::decreaseSpellCD() {
 // reads player input to select a spell
 // output: spell number. -1 if the operation was cancelled
 int Player::selectSpell() {
-	int eventValue = 0;
+	int input = 0;
 	int validKey = 0;
 
 	while (validKey == 0) {
 		validKey = 1;
 
-		eventValue = handleEvents();
+		input = handleEvents();
 
-		if (eventValue == EVENT_QUIT) {
+		if (input == EVENT_QUIT) {
 			quit = 1;
 			return -1;
 		}
-		else if (eventValue == EVENT_KEY_1) {
+		else if (input == EVENT_KEY_1) {
 			return 1;
 		}
-		else if (eventValue == EVENT_KEY_2) {
+		else if (input == EVENT_KEY_2) {
 			return 2;
 		}
-		else if (eventValue == EVENT_KEY_3) {
+		else if (input == EVENT_KEY_3) {
 			return 3;
 		}
-		else if (eventValue == EVENT_KEY_ESC) {
+		else if (input == EVENT_KEY_ESC) {
 			return -1;
 		}
-		else if (eventValue == EVENT_RESIZE) {
+		else if (input == EVENT_RESIZE) {
 			drawPlayerView(-1);
 			SDL_RenderPresent(renderer_g);
 			validKey = 0;

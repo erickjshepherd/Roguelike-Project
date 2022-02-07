@@ -168,6 +168,7 @@
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SDLFuncs.h" />
+    <ClInclude Include="Shared.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SubMenus.h" />

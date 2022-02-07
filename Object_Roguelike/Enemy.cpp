@@ -11,6 +11,7 @@
 #include <vector>
 #include "Monsters.h"
 #include "Items.h"
+#include "Shared.h"
 
 Enemy::Enemy(){
 	setBlocking(1);
@@ -318,7 +319,7 @@ int Enemy::Move(int direction) {
 
 void Enemy::takeDamage(int amount, Tile* source) {
 	// flash the enemy sprite
-	flash(RED, 100);
+	//flash(RED, 100);
 
 	// update health
 	health = health - amount;

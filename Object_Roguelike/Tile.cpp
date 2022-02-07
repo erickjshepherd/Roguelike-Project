@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include "GUI.h"
+#include "Shared.h"
 
 // constructor
 Tile::Tile() {
