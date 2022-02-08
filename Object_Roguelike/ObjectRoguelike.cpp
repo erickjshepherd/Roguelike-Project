@@ -45,13 +45,15 @@ int main(int argc, char* argv[]){
 			int eventValue;
 			int direction;
 
-			// enable SDL input events
-			resetFilter();
-
 			// handle events
 			eventValue = handleEvents();
 			if (eventValue == -1) {
 
+			}
+			else if (validPlayerInput(eventValue)) {
+				// stop additional inputs and clear the event buffer
+				filterInputEvents();
+				clearEvents();
 			}
 			else if (eventValue == EVENT_QUIT) {
 				quit = 1;
@@ -62,7 +64,7 @@ int main(int argc, char* argv[]){
 				if (menuRet == 1) {
 					quit = 1;
 				}
-				//drawPlayerView(-1);
+				PC->drawPlayerView(-1);
 			}
 			else if (eventValue == EVENT_RESIZE) {
 
@@ -71,10 +73,13 @@ int main(int argc, char* argv[]){
 			// player logic //
 			if (validPlayerInput(eventValue) && state == PLAYER_S) {
 				state = PC->turn(eventValue);
+				
+				// enable SDL input events
+				resetFilter();
 			}
 			
 			// enemy logic //
-			if (PC->getExtraTurns() == 0 && state == ENEMY_S) {
+			if (state == ENEMY_S) {
 				state = global_map->Enemy_Turn();
 			}
 			
@@ -82,11 +87,11 @@ int main(int argc, char* argv[]){
 			// passive animations
 			if (drawFrame_g != currentFrame_g) {
 				drawFrame_g = currentFrame_g;
+				PC->drawPlayerView(0); // move this to the SDLFuncs file
 			}
 
 			// active animations
 
-			PC->drawPlayerView(0); // move this to the SDLFuncs file
 			SDL_RenderPresent(renderer_g);
 		}
 	}
