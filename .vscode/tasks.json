@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Object_Roguelike (x64)",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "\"${workspaceFolder}\\.vscode\\build.bat\" \"${workspaceFolder}\""
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Clean and build Object_Roguelike (x64)",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "if exist \"${workspaceFolder}\\vs_build\" rmdir /s /q \"${workspaceFolder}\\vs_build\" & mkdir \"${workspaceFolder}\\vs_build\" & \"${workspaceFolder}\\.vscode\\build.bat\" \"${workspaceFolder}\""
+      ],
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Clean build artifacts",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "if exist \"${workspaceFolder}\\vs_build\" rmdir /s /q \"${workspaceFolder}\\vs_build\""
+      ],
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}

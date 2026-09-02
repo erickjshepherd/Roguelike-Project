@@ -1,4 +1,5 @@
 .vs/
+vs_build/
 x64/Debug/
 *.psess
 *.vsp
