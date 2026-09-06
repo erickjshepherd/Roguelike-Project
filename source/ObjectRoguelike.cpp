@@ -8,7 +8,6 @@
 #include <ctime>
 #include <string>
 #include "SDLFuncs.h"
-#include <thread>
 #include "GUI.h"
 #include "SubMenus.h"
 #include "Shared.h"
@@ -21,9 +20,6 @@ int main(int argc, char* argv[]){
 
 	// initialize SDL
 	SDL_Init();
-
-	// start the frame clock
-	std::thread frameThread(&frameClock);
 
 	// initialize the menus
 	initMenus();
@@ -40,6 +36,9 @@ int main(int argc, char* argv[]){
 		PC->getNewLevel(1);
 
 		while (quit == 0) {
+			// advance the passive animation clock
+			updateFrameClock();
+
 			// get valid input //
 			int validKey = 1;
 			int eventValue;
@@ -98,10 +97,6 @@ int main(int argc, char* argv[]){
 	
 	// free menus
 	freeMenus();
-
-	// stop the frame clock
-	drawFrame_g = -1;
-	frameThread.join();
 
 	freeTilesets();
 	SDL_Close();

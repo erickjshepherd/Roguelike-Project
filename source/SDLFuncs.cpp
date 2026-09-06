@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "SDLFuncs.h"
 #include "Texture.h"
-#include <Windows.h>
 
 SDL_Surface* winSurface_g;
 SDL_Window* window_g;
@@ -181,7 +180,7 @@ void rendererInit() {
 	// update the renderer
 	SDL_DestroyRenderer(renderer_g);
 	renderer_g = NULL;
-	renderer_g = SDL_CreateRenderer(window_g, -1, SDL_RENDERER_ACCELERATED);
+	renderer_g = SDL_CreateRenderer(window_g, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(renderer_g, 0, 0, 0, 0);
 
 	// update the surface
@@ -224,13 +223,12 @@ int getTextSpace() {
 	return h;
 }
 
-void frameClock() {
-	while (drawFrame_g != -1) {
-		currentFrame_g = 0;
-		Sleep(FRAME_WAIT);
-		currentFrame_g = 1;
-		Sleep(FRAME_WAIT);
-	}
+// Advance the passive animation clock.
+// The current frame is derived from SDL's millisecond timer, so it is a pure
+// function of elapsed time: no thread, no locking, and it can never drift.
+// Call this once per iteration of any loop that renders the map.
+void updateFrameClock() {
+	currentFrame_g = (SDL_GetTicks() / FRAME_WAIT) % ANIMATION_FRAMES;
 }
 
 int inputEventFilter(void* data, SDL_Event* event) {

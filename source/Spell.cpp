@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <Windows.h>
-#include <thread>
 #include <conio.h>
 #include "Global_Map.h"
 #include "Spell.h"
@@ -85,6 +83,7 @@ int Spell::playerInteract() {
 			int prevFrame = -1;
 			while (selecting == 1) {
 				// Render the screen when the frame updates
+				updateFrameClock();
 				drawFrame_g = currentFrame_g;
 				if (drawFrame_g != prevFrame) {
 					if (drawFrame_g == 0) {
@@ -267,6 +266,7 @@ int Spell::castLine(Tile* source) {
 		finalEvent = getDirection();
 
 		// Render the screen when the frame updates
+		updateFrameClock();
 		drawFrame_g = currentFrame_g;
 		if (drawFrame_g != prevFrame) {
 			if (drawFrame_g == 0) {
@@ -280,7 +280,7 @@ int Spell::castLine(Tile* source) {
 		}
 		prevFrame = drawFrame_g;
 
-		// immediately flash in the new direction. Let the flash thread catch up
+		// immediately flash in the new direction. Let the frame clock catch up
 		if (prevDir != currentDirection) {
 			updateLineColor(prevDir, range, -1);
 			if (drawFrame_g == 0) {
@@ -380,6 +380,7 @@ int Spell::castCircle(Tile* source) {
 		finalEvent = getDirection();
 
 		// Render the screen when the frame updates
+		updateFrameClock();
 		drawFrame_g = currentFrame_g;
 		if (drawFrame_g != prevFrame) {
 			if (drawFrame_g == 0) {
@@ -544,6 +545,7 @@ int Spell::castCone(Tile* source) {
 		finalEvent = getDirection();
 
 		// Render the screen when the frame updates
+		updateFrameClock();
 		drawFrame_g = currentFrame_g;
 		if (drawFrame_g != prevFrame) {
 			if (drawFrame_g == 0) {
@@ -557,7 +559,7 @@ int Spell::castCone(Tile* source) {
 		}
 		prevFrame = drawFrame_g;
 
-		// immediately flash in the new direction. Let the flash thread catch up
+		// immediately flash in the new direction. Let the frame clock catch up
 		if (prevDir != currentDirection) {
 			updateConeColor(prevDir, range, -1);
 			if (drawFrame_g == 0) {
