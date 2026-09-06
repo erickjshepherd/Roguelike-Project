@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "name": "MinGW",
+      "includePath": [
+        "${workspaceFolder}/source",
+        "${workspaceFolder}/SDL2/include",
+        "${workspaceFolder}/SDL2_image/include",
+        "${workspaceFolder}/SDL2_ttf/include"
+      ],
+      "defines": [
+        "_DEBUG",
+        "_CONSOLE",
+        "WIN32"
+      ],
+      "intelliSenseMode": "windows-gcc-x64",
+      "browse": {
+        "path": [
+          "${workspaceFolder}/source",
+          "${workspaceFolder}/SDL2/include",
+          "${workspaceFolder}/SDL2_image/include",
+          "${workspaceFolder}/SDL2_ttf/include"
+        ]
+      }
+    }
+  ],
+  "version": 4
+}
