@@ -49,13 +49,17 @@ int main(int argc, char* argv[]){
 			if (eventValue == -1) {
 
 			}
+			else if (eventValue == EVENT_QUIT) {
+				quit = 1;
+			}
+			else if (state == TARGETING_S) {
+				// choosing a spell direction: keys go to the targeting handler, ESC cancels
+				state = PC->targetingInput(eventValue);
+			}
 			else if (validPlayerInput(eventValue)) {
 				// stop additional inputs and clear the event buffer
 				filterInputEvents();
 				clearEvents();
-			}
-			else if (eventValue == EVENT_QUIT) {
-				quit = 1;
 			}
 			else if (eventValue == EVENT_KEY_ESC) {
 				pauseMenu* menu = new pauseMenu();

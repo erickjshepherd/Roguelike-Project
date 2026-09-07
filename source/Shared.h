@@ -16,7 +16,8 @@ enum stateEnums {
 	MENU_S,
 	PLAYER_S,
 	ENEMY_S,
-	ANIMATION_S
+	ANIMATION_S,
+	TARGETING_S
 };
 
 extern int turn_g;
