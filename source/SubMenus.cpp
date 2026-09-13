@@ -133,18 +133,12 @@ void optionsMenu::apply() {
 		if (currentItem == FULLSCREEN_O) {
 			if (changeableItems[x].currentState == OFF_STATE) {
 				SDL_SetWindowFullscreen(window_g, 0);
-				rendererInit();
-				drawMenu();
-				drawArrow();
-				SDL_RenderPresent(renderer_g);
 			}
 			else {
 				SDL_SetWindowFullscreen(window_g, SDL_WINDOW_FULLSCREEN_DESKTOP);
-				rendererInit();
-				drawMenu();
-				drawArrow();
-				SDL_RenderPresent(renderer_g);
 			}
+			// rebuild the renderer for the new window size; openMenu() redraws and presents
+			rendererInit();
 		}
 	}
 }

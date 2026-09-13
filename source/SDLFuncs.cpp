@@ -180,12 +180,27 @@ void rendererInit() {
 	// update the renderer
 	SDL_DestroyRenderer(renderer_g);
 	renderer_g = NULL;
-	renderer_g = SDL_CreateRenderer(window_g, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	const char* variant = getenv("RL_VARIANT"); if (!variant) variant = ""; // DEBUG_LOG
+	Uint32 rflags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC; // DEBUG_LOG
+	if (strstr(variant, "novsync")) rflags = SDL_RENDERER_ACCELERATED; // DEBUG_LOG
+	if (strstr(variant, "d3d11")) SDL_SetHint(SDL_HINT_RENDER_DRIVER, "direct3d11"); // DEBUG_LOG
+	if (strstr(variant, "opengl")) SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl"); // DEBUG_LOG
+	renderer_g = SDL_CreateRenderer(window_g, -1, rflags);
+	{ // DEBUG_LOG
+		FILE* f = fopen("C:/Users/erick/AppData/Local/Temp/rl_debug.log", "a");
+		if (f) {
+			fprintf(f, "rendererInit: renderer=%p err='%s' size=%dx%d tile=%d flags=%u\n", (void*)renderer_g, SDL_GetError(), screenW, screenH, tileSize_g, SDL_GetWindowFlags(window_g));
+			SDL_RendererInfo ri;
+			if (renderer_g && SDL_GetRendererInfo(renderer_g, &ri) == 0) fprintf(f, "  driver=%s\n", ri.name);
+			fclose(f);
+		}
+	}
 	SDL_SetRenderDrawColor(renderer_g, 0, 0, 0, 0);
 
 	// update the surface
 	SDL_FreeSurface(winSurface_g);
 	winSurface_g = NULL;
+	if (!strstr(variant, "nosurface")) // DEBUG_LOG
 	winSurface_g = SDL_GetWindowSurface(window_g);
 
 	// update the viewports
@@ -203,11 +218,13 @@ void rendererInit() {
 	eventsView_g.w = (screenW - screenH) - tileSize_g;
 	eventsView_g.h = (screenH - ((NUM_STAT_LINES + 1) * textSpace)) - tileSize_g;
 
+	if (winSurface_g) { // DEBUG_LOG
 	// Fill the window with a black rectangle
 	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 0, 0, 0));
 
 	// Update the window display
 	SDL_UpdateWindowSurface(window_g);
+	} // DEBUG_LOG
 
 	// load the tilesets
 	loadTileSets();

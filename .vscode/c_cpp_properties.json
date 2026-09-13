@@ -2,6 +2,9 @@
   "configurations": [
     {
       "name": "MinGW",
+      "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
       "includePath": [
         "${workspaceFolder}/source",
         "${workspaceFolder}/SDL2/include",
@@ -11,7 +14,8 @@
       "defines": [
         "_DEBUG",
         "_CONSOLE",
-        "WIN32"
+        "WIN32",
+        "SDL_MAIN_HANDLED"
       ],
       "intelliSenseMode": "windows-gcc-x64",
       "browse": {

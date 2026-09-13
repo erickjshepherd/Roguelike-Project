@@ -104,7 +104,6 @@ void Menu::drawArrow() {
 			renderGUI(arrowX, newArrowY, arrowSize, arrowSize, ARROWSPRITE);
 		}
 	}
-	SDL_RenderPresent(renderer_g);
 }
 
 void Menu::freeChildren() {
@@ -135,5 +134,4 @@ void Menu::incrementState(int changeableIndex) {
 	Texture texture;
 	texture.loadFromRenderedText(changeableItems[changeableIndex].states[currentState], textColor_g, itemFont);
 	texture.render(changeableItems[changeableIndex].x, changeableItems[changeableIndex].y, NULL);
-	SDL_RenderPresent(renderer_g);
 }

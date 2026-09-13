@@ -78,38 +78,26 @@ int Spell::playerInteract() {
 			global_map->player->drawInfoWindow();
 
 			selecting = 1;
-			int prevFrame = -1;
 			while (selecting == 1) {
-				// Render the screen when the frame updates
-				updateFrameClock();
-				drawFrame_g = currentFrame_g;
-				if (drawFrame_g != prevFrame) {
-					if (drawFrame_g == 0) {
-						global_map->player->drawStats(SPELL1);
-						global_map->player->drawStats(SPELL2);
-						global_map->player->drawStats(SPELL3);
-					}
-					else {
-						global_map->player->clearStats(SPELL1);
-						global_map->player->clearStats(SPELL2);
-						global_map->player->clearStats(SPELL3);
-					}
-					global_map->player->drawPlayerView(0);
-					SDL_RenderPresent(renderer_g);
-				}
-				prevFrame = drawFrame_g;
-
 				spellNum = handleEvents();
 				if (spellNum == EVENT_KEY_1 || spellNum == EVENT_KEY_2 || spellNum == EVENT_KEY_3 || spellNum == EVENT_KEY_ESC) {
 					selecting = 0;
 					resolved = 1;
 				}
+
+				// Draw the whole frame, then render it once (the backbuffer is not
+				// preserved between presents). The spell lines blink on odd frames.
+				updateFrameClock();
+				drawFrame_g = currentFrame_g;
+				global_map->player->drawPlayerView(-1);
+				if (drawFrame_g != 0) {
+					global_map->player->clearStats(SPELL1);
+					global_map->player->clearStats(SPELL2);
+					global_map->player->clearStats(SPELL3);
+				}
 				SDL_RenderPresent(renderer_g);
 			}
-			global_map->player->drawStats(SPELL1);
-			global_map->player->drawStats(SPELL2);
-			global_map->player->drawStats(SPELL3);
-			SDL_RenderPresent(renderer_g);
+			// the main loop redraws and presents after this returns
 
 			if (spellNum == EVENT_KEY_1) {
 				global_map->player->setUnder(global_map->player->getSpell1());

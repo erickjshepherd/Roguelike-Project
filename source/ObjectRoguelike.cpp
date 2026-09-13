@@ -67,10 +67,6 @@ int main(int argc, char* argv[]){
 				if (menuRet == 1) {
 					quit = 1;
 				}
-				PC->drawPlayerView(-1);
-			}
-			else if (eventValue == EVENT_RESIZE) {
-
 			}
 
 			// player logic //
@@ -87,11 +83,12 @@ int main(int argc, char* argv[]){
 			}
 			
 			// display logic //
-			// passive animations
-			if (drawFrame_g != currentFrame_g) {
-				drawFrame_g = currentFrame_g;
-				PC->drawPlayerView(0); // move this to the SDLFuncs file
-			}
+			// Draw the whole frame, then render it once. The backbuffer is not
+			// preserved between presents (fullscreen shows black otherwise), so
+			// every iteration must draw everything it wants on screen. The
+			// passive animation frame is picked up here from the frame clock.
+			drawFrame_g = currentFrame_g;
+			PC->drawPlayerView(-1);
 
 			// active animations
 

@@ -930,44 +930,6 @@ void Player::decreaseSpellCD() {
 	}
 }
 
-// reads player input to select a spell
-// output: spell number. -1 if the operation was cancelled
-int Player::selectSpell() {
-	int input = 0;
-	int validKey = 0;
-
-	while (validKey == 0) {
-		validKey = 1;
-
-		input = handleEvents();
-
-		if (input == EVENT_QUIT) {
-			quit = 1;
-			return -1;
-		}
-		else if (input == EVENT_KEY_1) {
-			return 1;
-		}
-		else if (input == EVENT_KEY_2) {
-			return 2;
-		}
-		else if (input == EVENT_KEY_3) {
-			return 3;
-		}
-		else if (input == EVENT_KEY_ESC) {
-			return -1;
-		}
-		else if (input == EVENT_RESIZE) {
-			drawPlayerView(-1);
-			SDL_RenderPresent(renderer_g);
-			validKey = 0;
-		}
-		else {
-			validKey = 0;
-		}
-	}
-}
-
 // clears the map viewport on the screen
 void Player::clearMap() {
 	SDL_RenderSetViewport(renderer_g, &mapView_g);
