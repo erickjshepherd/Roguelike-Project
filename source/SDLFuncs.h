@@ -60,7 +60,6 @@ enum statEnums {
 		INSPECTINFO
 };
 
-extern SDL_Surface* winSurface_g;
 extern SDL_Window* window_g;
 extern SDL_Renderer* renderer_g;
 extern std::vector<TTF_Font*> fonts_g;
@@ -79,6 +78,7 @@ int handleEvents();
 void loadFonts();
 void freeFonts();
 void rendererInit();
+void reloadTextures();
 int getTextSpace();
 void updateFrameClock();
 int inputEventFilter(void* data, SDL_Event* event);

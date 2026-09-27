@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <d3d9.h> // DEBUG_LOG
-#include <SDL_system.h> // DEBUG_LOG
 #include "GUI.h"
 #include "SubMenus.h"
 
@@ -125,20 +123,8 @@ int openMenu(Menu* menu) {
 	int quit = 0;
 	bool selecting = 1;
 
-	static int autoIter = 0; // DEBUG_LOG
-	const char* variant = getenv("RL_VARIANT"); if (!variant) variant = ""; // DEBUG_LOG
-	bool needPresent = true; // DEBUG_LOG
 	while (selecting) {
-		if (getenv("RL_AUTOFS") && ++autoIter == 120) { // DEBUG_LOG: simulate Apply with Fullscreen: On
-			FILE* f = fopen("C:/Users/erick/AppData/Local/Temp/rl_debug.log", "a"); if (f) { fprintf(f, "AUTOFS: switching to fullscreen desktop\n"); fclose(f); }
-			SDL_SetWindowFullscreen(window_g, SDL_WINDOW_FULLSCREEN_DESKTOP);
-			if (strstr(variant, "delay")) SDL_Delay(100); // DEBUG_LOG
-			if (!strstr(variant, "norinit")) rendererInit(); // DEBUG_LOG
-			if (strstr(variant, "present1")) { currentMenu_g->drawMenu(); currentMenu_g->drawArrow(); SDL_RenderPresent(renderer_g); } // DEBUG_LOG
-			needPresent = true;
-		}
 		key = handleEvents();
-		if (key != -1) needPresent = true; // DEBUG_LOG
 		if (key == EVENT_KEY_DOWN) {
 			if (currentMenu_g->selection < ((currentMenu_g->numItems + currentMenu_g->numChangeable) - 1)) {
 				currentMenu_g->selection++;
@@ -163,23 +149,10 @@ int openMenu(Menu* menu) {
 		// draw the whole frame, then render it once. The backbuffer is not
 		// preserved between presents (fullscreen shows black otherwise), so
 		// every iteration must draw everything it wants on screen.
-		if (selecting && (needPresent || !strstr(variant, "gated"))) { // DEBUG_LOG
-			needPresent = false;
-			if (strstr(variant, "clear")) SDL_RenderClear(renderer_g); // DEBUG_LOG
+		if (selecting) {
 			currentMenu_g->drawMenu();
 			currentMenu_g->drawArrow();
-			{ FILE* f = fopen("C:/Users/erick/AppData/Local/Temp/rl_debug.log", "a"); if (f) { fprintf(f, "t=%u key=%d drawn, presenting\n", SDL_GetTicks(), key); fclose(f); } } // DEBUG_LOG
 			SDL_RenderPresent(renderer_g);
-			{ // DEBUG_LOG
-				FILE* f = fopen("C:/Users/erick/AppData/Local/Temp/rl_debug.log", "a");
-				if (f) {
-					int w, h; SDL_GetWindowSize(window_g, &w, &h); int ow, oh; SDL_GetRendererOutputSize(renderer_g, &ow, &oh);
-					IDirect3DDevice9* dev = SDL_RenderGetD3D9Device(renderer_g);
-					long coop = dev ? (long)dev->TestCooperativeLevel() : -1;
-					if (dev) dev->Release();
-					fprintf(f, "t=%u presented key=%d window=%dx%d output=%dx%d flags=%u coop=0x%lx err='%s'\n", SDL_GetTicks(), key, w, h, ow, oh, SDL_GetWindowFlags(window_g), coop, SDL_GetError()); fclose(f);
-				}
-			}
 		}
 	}
 	delete menu;

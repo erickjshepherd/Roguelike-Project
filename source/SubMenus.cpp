@@ -128,18 +128,15 @@ int optionsMenu::selectItem() {
 }
 
 void optionsMenu::apply() {
-	for (int x = 0; x < numChangeable; x++) {
-		int currentItem = numItems + x;
-		if (currentItem == FULLSCREEN_O) {
-			if (changeableItems[x].currentState == OFF_STATE) {
-				SDL_SetWindowFullscreen(window_g, 0);
-			}
-			else {
-				SDL_SetWindowFullscreen(window_g, SDL_WINDOW_FULLSCREEN_DESKTOP);
-			}
-			// rebuild the renderer for the new window size; openMenu() redraws and presents
-			rendererInit();
-		}
+	// Only touch the window when the requested state differs from the current
+	// one. A real change makes SDL queue SDL_WINDOWEVENT_SIZE_CHANGED, and
+	// handleEvents() answers that with rendererInit(), so the layout is
+	// recomputed exactly once and only when the window size actually changed.
+	const changeable& fullscreen = changeableItems[FULLSCREEN_O - numItems];
+	bool wantFullscreen = (fullscreen.currentState == ON_STATE);
+	bool isFullscreen = (SDL_GetWindowFlags(window_g) & SDL_WINDOW_FULLSCREEN_DESKTOP) == SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (wantFullscreen != isFullscreen) {
+		SDL_SetWindowFullscreen(window_g, wantFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 	}
 }
 
