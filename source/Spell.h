@@ -1,6 +1,7 @@
 #pragma once
 #include "Tile.h"
 #include <string>
+#include <vector>
 
 enum spellEffectEnums {
 	NOEFFECT,
@@ -34,20 +35,18 @@ public:
 	int range;
 	int castType;
 
-	int currentDirection;
 	int selecting;
 
 	int playerInteract();
-	virtual int Cast(Tile* source);
-	void dmgLine(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
-	void updateLineColor(int direction, int range, int color);
-	void dmgCircle(int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
-	void updateCircleColor(int range, int color);
-	int getDirection();
-	int castLine(Tile* source);
-	int castCircle(Tile* source);
-	void dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source);
-	void updateConeColor(int direction, int range, int color);
-	int castCone(Tile* source);
+
+	// targeting //
+	// map indices this spell would affect when cast from origin in direction.
+	// pure: no drawing, no damage. Used by both the targeting overlay and Cast().
+	std::vector<int> targetTiles(int origin, int direction);
+	// apply the spell to a set of tiles
+	void applyTo(const std::vector<int>& tiles, int direction, Tile* source);
+	// cast from origin in direction. returns 1 on success, 0 if on cooldown
+	virtual int Cast(int origin, int direction, Tile* source);
+
 	int generateInfo();
 };

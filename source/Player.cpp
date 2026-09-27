@@ -21,6 +21,8 @@ Player::Player(){
 	viewStart = 0;
 	damaged = 0;
 	currentSpell = 0;
+	targetingSpell = nullptr;
+	targetingDir = UP;
 	
 	// set player state
 	setBlocking(1);
@@ -89,13 +91,13 @@ int Player::turn(int input) {
 		direction = RIGHT;
 	}
 	else if (input == EVENT_KEY_1) {
-
+		return startTargeting(spell1);
 	}
 	else if (input == EVENT_KEY_2) {
-
+		return startTargeting(spell2);
 	}
 	else if (input == EVENT_KEY_3) {
-
+		return startTargeting(spell3);
 	}
 	else if (input == EVENT_KEY_ENTER) {
 		getUnder()->playerInteract();
@@ -155,6 +157,65 @@ int Player::turn(int input) {
 	decreaseSpellCD();
 
 	return ENEMY_S;
+}
+
+// begin choosing a direction for a spell. Does not block: the main loop
+// switches to TARGETING_S and feeds later key presses to targetingInput().
+// output: the next game state
+int Player::startTargeting(Spell* s) {
+	if (s == NULL) {
+		addEvent("No spell in that slot.");
+		drawInfoWindow();
+		return PLAYER_S;
+	}
+	if (s->cdCount != 0) {
+		addEvent(s->getName() + " is still on cooldown.");
+		drawInfoWindow();
+		return PLAYER_S;
+	}
+	targetingSpell = s;
+	targetingDir = UP;
+	drawPlayerView(0);
+	return TARGETING_S;
+}
+
+// handle one input while choosing a spell direction
+// output: the next game state
+int Player::targetingInput(int input) {
+	if (input == EVENT_KEY_UP) {
+		targetingDir = UP;
+	}
+	else if (input == EVENT_KEY_DOWN) {
+		targetingDir = DOWN;
+	}
+	else if (input == EVENT_KEY_LEFT) {
+		targetingDir = LEFT;
+	}
+	else if (input == EVENT_KEY_RIGHT) {
+		targetingDir = RIGHT;
+	}
+	else if (input == EVENT_KEY_ESC) {
+		targetingSpell = nullptr;
+		drawPlayerView(0);
+		return PLAYER_S;
+	}
+	else if (input == EVENT_KEY_ENTER) {
+		Spell* s = targetingSpell;
+		targetingSpell = nullptr;
+		s->Cast(location, targetingDir, this);
+
+		// casting ends the turn, same as turn()
+		decreaseSpellCD();
+		drawPlayerView(-1);
+		return ENEMY_S;
+	}
+	else {
+		return TARGETING_S;
+	}
+
+	// direction changed: redraw right away instead of waiting for the frame clock
+	drawPlayerView(0);
+	return TARGETING_S;
 }
 
 // is the player within the camera view?
@@ -303,6 +364,13 @@ void Player::drawPlayerView(int view) {
 		// get the width of the square to draw
 		int view_size = (viewDistance * 2) + 1;
 
+		// spell targeting overlay: tiles the pending spell would hit flash the cast color
+		std::unordered_set<int> highlight;
+		if (targetingSpell != nullptr && drawFrame_g == 1) {
+			std::vector<int> targets = targetingSpell->targetTiles(location, targetingDir);
+			highlight.insert(targets.begin(), targets.end());
+		}
+
 		for (y = 0; y < view_size; y++) {
 
 			for (x = 0; x < view_size; x++) {
@@ -314,7 +382,8 @@ void Player::drawPlayerView(int view) {
 				if (xy >= 0 && xy < (global_map->size * global_map->size)) {
 
 					// draw sprite
-					global_map->map[xy]->render(x * tileSize_g, y * tileSize_g, -1);
+					int color = highlight.count(xy) ? CAST : -1;
+					global_map->map[xy]->render(x * tileSize_g, y * tileSize_g, color);
 
 					if (global_map->map[xy]->getBorder() && (xy % global_map->size) == (global_map->size - 1)) {
 						break;
@@ -857,44 +926,6 @@ void Player::decreaseSpellCD() {
 		if (spell3->cdCount > 0) {
 			spell3->cdCount--;
 			drawStats(SPELL3);
-		}
-	}
-}
-
-// reads player input to select a spell
-// output: spell number. -1 if the operation was cancelled
-int Player::selectSpell() {
-	int input = 0;
-	int validKey = 0;
-
-	while (validKey == 0) {
-		validKey = 1;
-
-		input = handleEvents();
-
-		if (input == EVENT_QUIT) {
-			quit = 1;
-			return -1;
-		}
-		else if (input == EVENT_KEY_1) {
-			return 1;
-		}
-		else if (input == EVENT_KEY_2) {
-			return 2;
-		}
-		else if (input == EVENT_KEY_3) {
-			return 3;
-		}
-		else if (input == EVENT_KEY_ESC) {
-			return -1;
-		}
-		else if (input == EVENT_RESIZE) {
-			drawPlayerView(-1);
-			SDL_RenderPresent(renderer_g);
-			validKey = 0;
-		}
-		else {
-			validKey = 0;
 		}
 	}
 }

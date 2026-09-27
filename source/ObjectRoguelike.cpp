@@ -8,7 +8,6 @@
 #include <ctime>
 #include <string>
 #include "SDLFuncs.h"
-#include <thread>
 #include "GUI.h"
 #include "SubMenus.h"
 #include "Shared.h"
@@ -21,9 +20,6 @@ int main(int argc, char* argv[]){
 
 	// initialize SDL
 	SDL_Init();
-
-	// start the frame clock
-	std::thread frameThread(&frameClock);
 
 	// initialize the menus
 	initMenus();
@@ -40,6 +36,9 @@ int main(int argc, char* argv[]){
 		PC->getNewLevel(1);
 
 		while (quit == 0) {
+			// advance the passive animation clock
+			updateFrameClock();
+
 			// get valid input //
 			int validKey = 1;
 			int eventValue;
@@ -50,13 +49,17 @@ int main(int argc, char* argv[]){
 			if (eventValue == -1) {
 
 			}
+			else if (eventValue == EVENT_QUIT) {
+				quit = 1;
+			}
+			else if (state == TARGETING_S) {
+				// choosing a spell direction: keys go to the targeting handler, ESC cancels
+				state = PC->targetingInput(eventValue);
+			}
 			else if (validPlayerInput(eventValue)) {
 				// stop additional inputs and clear the event buffer
 				filterInputEvents();
 				clearEvents();
-			}
-			else if (eventValue == EVENT_QUIT) {
-				quit = 1;
 			}
 			else if (eventValue == EVENT_KEY_ESC) {
 				pauseMenu* menu = new pauseMenu();
@@ -64,10 +67,6 @@ int main(int argc, char* argv[]){
 				if (menuRet == 1) {
 					quit = 1;
 				}
-				PC->drawPlayerView(-1);
-			}
-			else if (eventValue == EVENT_RESIZE) {
-
 			}
 
 			// player logic //
@@ -84,11 +83,12 @@ int main(int argc, char* argv[]){
 			}
 			
 			// display logic //
-			// passive animations
-			if (drawFrame_g != currentFrame_g) {
-				drawFrame_g = currentFrame_g;
-				PC->drawPlayerView(0); // move this to the SDLFuncs file
-			}
+			// Draw the whole frame, then render it once. The backbuffer is not
+			// preserved between presents (fullscreen shows black otherwise), so
+			// every iteration must draw everything it wants on screen. The
+			// passive animation frame is picked up here from the frame clock.
+			drawFrame_g = currentFrame_g;
+			PC->drawPlayerView(-1);
 
 			// active animations
 
@@ -98,10 +98,6 @@ int main(int argc, char* argv[]){
 	
 	// free menus
 	freeMenus();
-
-	// stop the frame clock
-	drawFrame_g = -1;
-	frameThread.join();
 
 	freeTilesets();
 	SDL_Close();

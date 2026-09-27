@@ -4,6 +4,7 @@
 #include "Armour.h"
 #include "Spell.h"
 #include <list>
+#include <unordered_set>
 
 class Player : public Tile{
 
@@ -27,6 +28,8 @@ public:
 	bool attack(int direction);
 	void decreaseSpellCD();
 	int selectSpell();
+	int startTargeting(Spell* s);
+	int targetingInput(int input);
 	void clearMap();
 	bool receiveAttack(int damage, std::string name, int faction, Tile* source);
 	void resetCamera();
@@ -113,6 +116,10 @@ private:
 	int currentInfoWindow;
 	int currentSpell;
 	std::list<std::string> events;
+
+	// spell targeting state. non-null while the player is choosing a direction (TARGETING_S)
+	Spell* targetingSpell;
+	int targetingDir;
 
 	// player objects
 	Weapon* weapon;

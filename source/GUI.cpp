@@ -122,25 +122,17 @@ int openMenu(Menu* menu) {
 	int key;
 	int quit = 0;
 	bool selecting = 1;
-	Menu* prevMenu = NULL;
 
 	while (selecting) {
-		if (currentMenu_g != prevMenu) {
-			currentMenu_g->drawMenu();
-			currentMenu_g->drawArrow();
-			prevMenu = currentMenu_g;
-		}
 		key = handleEvents();
 		if (key == EVENT_KEY_DOWN) {
 			if (currentMenu_g->selection < ((currentMenu_g->numItems + currentMenu_g->numChangeable) - 1)) {
 				currentMenu_g->selection++;
-				currentMenu_g->drawArrow();
 			}
 		}
 		else if (key == EVENT_KEY_UP) {
 			if (currentMenu_g->selection > 0) {
 				currentMenu_g->selection--;
-				currentMenu_g->drawArrow();
 			}
 		}
 		else if (key == EVENT_KEY_ENTER) {
@@ -153,10 +145,14 @@ int openMenu(Menu* menu) {
 			quit = 1;
 			selecting = 0;
 		}
-		else if (key == EVENT_RESIZE) {
-			SDL_RenderPresent(renderer_g);
+
+		// draw the whole frame, then render it once. The backbuffer is not
+		// preserved between presents (fullscreen shows black otherwise), so
+		// every iteration must draw everything it wants on screen.
+		if (selecting) {
 			currentMenu_g->drawMenu();
 			currentMenu_g->drawArrow();
+			SDL_RenderPresent(renderer_g);
 		}
 	}
 	delete menu;

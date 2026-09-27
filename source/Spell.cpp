@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <Windows.h>
-#include <thread>
 #include <conio.h>
 #include "Global_Map.h"
 #include "Spell.h"
@@ -8,7 +6,6 @@
 
 Spell::Spell() {
 	castType = 0;
-	currentDirection = 0;
 	selecting = 0;
 	setBlocking(0);
 	cdCount = 0;
@@ -23,7 +20,6 @@ Spell::Spell() {
 }
 
 Spell::Spell(int initDamage, int effectDamage, int location, int cd, int effect, int duration, int range, int castType, int sprite) {
-	currentDirection = 0;
 	selecting = 0;
 	setName("Spell");
 	setDescription("A magic spell");
@@ -82,37 +78,26 @@ int Spell::playerInteract() {
 			global_map->player->drawInfoWindow();
 
 			selecting = 1;
-			int prevFrame = -1;
 			while (selecting == 1) {
-				// Render the screen when the frame updates
-				drawFrame_g = currentFrame_g;
-				if (drawFrame_g != prevFrame) {
-					if (drawFrame_g == 0) {
-						global_map->player->drawStats(SPELL1);
-						global_map->player->drawStats(SPELL2);
-						global_map->player->drawStats(SPELL3);
-					}
-					else {
-						global_map->player->clearStats(SPELL1);
-						global_map->player->clearStats(SPELL2);
-						global_map->player->clearStats(SPELL3);
-					}
-					global_map->player->drawPlayerView(0);
-					SDL_RenderPresent(renderer_g);
-				}
-				prevFrame = drawFrame_g;
-
 				spellNum = handleEvents();
 				if (spellNum == EVENT_KEY_1 || spellNum == EVENT_KEY_2 || spellNum == EVENT_KEY_3 || spellNum == EVENT_KEY_ESC) {
 					selecting = 0;
 					resolved = 1;
 				}
+
+				// Draw the whole frame, then render it once (the backbuffer is not
+				// preserved between presents). The spell lines blink on odd frames.
+				updateFrameClock();
+				drawFrame_g = currentFrame_g;
+				global_map->player->drawPlayerView(-1);
+				if (drawFrame_g != 0) {
+					global_map->player->clearStats(SPELL1);
+					global_map->player->clearStats(SPELL2);
+					global_map->player->clearStats(SPELL3);
+				}
 				SDL_RenderPresent(renderer_g);
 			}
-			global_map->player->drawStats(SPELL1);
-			global_map->player->drawStats(SPELL2);
-			global_map->player->drawStats(SPELL3);
-			SDL_RenderPresent(renderer_g);
+			// the main loop redraws and presents after this returns
 
 			if (spellNum == EVENT_KEY_1) {
 				global_map->player->setUnder(global_map->player->getSpell1());
@@ -138,451 +123,84 @@ int Spell::playerInteract() {
 	return 0;
 }
 
-int Spell::Cast(Tile* source) {
-	int result;
+// Which map indices does this spell hit when cast from origin in direction?
+// Pure geometry: the targeting overlay and Cast() both use this so they can never disagree.
+std::vector<int> Spell::targetTiles(int origin, int direction) {
+	std::vector<int> tiles;
+	int mapSize = global_map->size;
+	int mapArea = mapSize * mapSize;
+	auto add = [&](int loc) {
+		if (loc >= 0 && loc < mapArea) {
+			tiles.push_back(loc);
+		}
+	};
+
+	// step along the cast direction, and perpendicular to it
+	int increment = 0;
+	int sideIncrement = 0;
+	if (direction == UP) {
+		increment = -mapSize;
+		sideIncrement = 1;
+	}
+	else if (direction == DOWN) {
+		increment = mapSize;
+		sideIncrement = 1;
+	}
+	else if (direction == LEFT) {
+		increment = -1;
+		sideIncrement = mapSize;
+	}
+	else if (direction == RIGHT) {
+		increment = 1;
+		sideIncrement = mapSize;
+	}
+
 	if (castType == LINE) {
-		result = castLine(source);
+		for (int x = 0; x < range; x++) {
+			add(origin + (x + 1) * increment);
+		}
 	}
 	else if (castType == CIRCLE) {
-		result = castCircle(source);
+		int diameter = (range * 2) + 1;
+		int startLocation = origin - mapSize * range - range;
+		for (int y = 0; y < diameter; y++) {
+			for (int x = 0; x < diameter; x++) {
+				int loc = startLocation + y * mapSize + x;
+				if (loc != origin) {
+					add(loc);
+				}
+			}
+		}
 	}
 	else if (castType == CONE) {
-		result = castCone(source);
-	}
-	return result;
-}
-
-void Spell::dmgLine(int direction, int range, int damage, int effect, int effectDamage, int duration, Tile* source) {
-	int increment = 0;
-	if (direction == UP) {
-		increment = -global_map->size;
-	}
-	else if (direction == DOWN) {
-		increment = global_map->size;
-	}
-	else if (direction == LEFT) {
-		increment = -1;
-	}
-	else if (direction == RIGHT) {
-		increment = 1;
-	}
-	for (int x = 0; x < range; x++) {
-		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
-		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
-		}
-	}
-}
-
-// Updates the color of the tiles in a line coming from the player
-// Inputs: direction of the line, range of the line, color of the line
-void Spell::updateLineColor(int direction, int range, int color) {
-	int increment = 0;
-	if (direction == UP) {
-		increment = -global_map->size;
-	}
-	else if (direction == DOWN) {
-		increment = global_map->size;
-	}
-	else if (direction == LEFT) {
-		increment = -1;
-	}
-	else if (direction == RIGHT) {
-		increment = 1;
-	}
-	for (int x = 0; x < range; x++) {
-		int loc = global_map->player->getLocation();
-		loc += (x + 1) * increment;
-		Tile* current;
-		if (loc >= 0 && loc < global_map->size * global_map->size) {
-			if (color == -1) {
-				current = global_map->map[loc];
-				while (current != NULL) {
-					current->resetColor();
-					current = current->getUnder();
-				}
-			}
-			else {
-				current = global_map->map[loc];
-				while (current != NULL) {
-					current->setColor(color);
-					current = current->getUnder();
-				}
+		for (int x = 0; x < range; x++) {
+			int loc = origin + (x + 1) * increment;
+			add(loc);
+			for (int i = 0; i < x; i++) {
+				add(loc + sideIncrement * (i + 1));
+				add(loc - sideIncrement * (i + 1));
 			}
 		}
 	}
+	return tiles;
 }
 
-int Spell::getDirection() {
-	int eventValue = handleEvents();
-	
-	if (eventValue == EVENT_QUIT) {
-		selecting = 0;
-		global_map->player->setQuit(1);
-		return -1;
-	}
-	if (eventValue == EVENT_KEY_UP) {
-		currentDirection = UP;
-		return eventValue;
-	}
-	else if (eventValue == EVENT_KEY_DOWN) {
-		currentDirection = DOWN;
-		return eventValue;
-	}
-	else if (eventValue == EVENT_KEY_LEFT) {
-		currentDirection = LEFT;
-		return eventValue;
-	}
-	else if (eventValue == EVENT_KEY_RIGHT) {
-		currentDirection = RIGHT;
-		return eventValue;
-	}
-	else if (eventValue == EVENT_KEY_ESC) {
-		selecting = 0;
-		return eventValue;
-	}
-	else if (eventValue == EVENT_KEY_ENTER){
-		selecting = 0;
-		return eventValue;
-	}
-	else {
-		return -1;
+// Apply this spell's damage and effect to every tile in the list
+void Spell::applyTo(const std::vector<int>& tiles, int direction, Tile* source) {
+	for (int loc : tiles) {
+		global_map->map[loc]->spellInteract(initDamage, effect, effectDamage, duration, direction, source);
 	}
 }
 
-int Spell::castLine(Tile* source) {
-	int finalEvent = 0;
-	int prevDir;
-	int success = 0;
-	int prevFrame = -1;
-	selecting = 1;
-	currentDirection = UP;
-
+// Cast the spell. The caller has already picked the direction (see Player::targetingInput),
+// so this does no input handling or drawing and returns immediately.
+int Spell::Cast(int origin, int direction, Tile* source) {
 	if (cdCount != 0) {
 		return 0;
 	}
-
-	while (selecting == 1) {
-		prevDir = currentDirection;
-		finalEvent = getDirection();
-
-		// Render the screen when the frame updates
-		drawFrame_g = currentFrame_g;
-		if (drawFrame_g != prevFrame) {
-			if (drawFrame_g == 0) {
-				updateLineColor(currentDirection, range, -1);
-			}
-			else {
-				updateLineColor(currentDirection, range, CAST);
-			}
-			global_map->player->drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-		prevFrame = drawFrame_g;
-
-		// immediately flash in the new direction. Let the flash thread catch up
-		if (prevDir != currentDirection) {
-			updateLineColor(prevDir, range, -1);
-			if (drawFrame_g == 0) {
-				updateLineColor(currentDirection, range, -1);
-			}
-			else {
-				updateLineColor(currentDirection, range, CAST);
-			}
-			global_map->player->drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-	}
-	updateLineColor(currentDirection, range, -1);
-	global_map->player->drawPlayerView(0);
-	SDL_RenderPresent(renderer_g);
-
-	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgLine(currentDirection, range, initDamage, effect, effectDamage, duration, source);
-		success = 1;
-		cdCount = cd;
-	}
-	else {
-		success = 0;
-	}
-	return success;
-}
-
-void Spell::dmgCircle(int range, int damage, int effect, int effectDamage, int intensity, Tile* source) {
-	int x, y, hitLocation, diameter;
-	int startLocation = global_map->player->getLocation();
-	startLocation -= global_map->size * range;
-	startLocation -= range;
-
-	diameter = (range * 2) + 1;
-	for (y = 0; y < diameter; y++) {
-		for (x = 0; x < diameter; x++) {
-			hitLocation = startLocation;
-			hitLocation += y * global_map->size;
-			hitLocation += x;
-			if (hitLocation != global_map->player->getLocation()) {
-				if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-					global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, 0, source); // todo: how to get direction for circle spells
-				}
-			}
-		}
-	}
-}
-
-void Spell::updateCircleColor(int range, int color) {
-	int x, y, loc, diameter;
-	int startLocation = global_map->player->getLocation();
-	startLocation -= global_map->size * range;
-	startLocation -= range;
-
-	diameter = (range * 2) + 1;
-	for (y = 0; y < diameter; y++) {
-		for (x = 0; x < diameter; x++) {
-			loc = startLocation;
-			loc += y * global_map->size;
-			loc += x;
-			if (loc != global_map->player->getLocation()) {
-				Tile* current;
-				if (loc >= 0 && loc < global_map->size * global_map->size) {
-					if (color == -1) {
-						current = global_map->map[loc];
-						while (current != NULL) {
-							current->resetColor();
-							current = current->getUnder();
-						}
-					}
-					else {
-						current = global_map->map[loc];
-						while (current != NULL) {
-							current->setColor(color);
-							current = current->getUnder();
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-// todo: merge cast functions somehow. Seems like a lot of copied code
-int Spell::castCircle(Tile* source) {
-	int finalEvent = 0;
-	int prevDir;
-	int success = 0;
-	int prevFrame = -1;
-	selecting = 1;
-
-	if (cdCount != 0) {
-		return 0;
-	}
-
-	while (selecting == 1) {
-		finalEvent = getDirection();
-
-		// Render the screen when the frame updates
-		drawFrame_g = currentFrame_g;
-		if (drawFrame_g != prevFrame) {
-			if (drawFrame_g == 0) {
-				updateCircleColor(range, -1);
-			}
-			else {
-				updateCircleColor(range, CAST);
-			}
-			global_map->player->drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-		prevFrame = drawFrame_g;
-	}
-	updateCircleColor(range, -1);
-	global_map->player->drawPlayerView(0);
-	SDL_RenderPresent(renderer_g);
-
-	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgCircle(range, initDamage, effect, effectDamage, duration, source);
-		success = 1;
-		cdCount = cd;
-	}
-	else {
-		success = 0;
-	}
-	return success;
-}
-
-void Spell::dmgCone(int direction, int range, int damage, int effect, int effectDamage, int intensity, Tile* source) {
-	int increment = 0;
-	int sideIncrement = 0;
-	if (direction == UP) {
-		increment = -global_map->size;
-		sideIncrement = 1;
-	}
-	else if (direction == DOWN) {
-		increment = global_map->size;
-		sideIncrement = 1;
-	}
-	else if (direction == LEFT) {
-		increment = -1;
-		sideIncrement = global_map->size;
-	}
-	else if (direction == RIGHT) {
-		increment = 1;
-		sideIncrement = global_map->size;
-	}
-	for (int x = 0; x < range; x++) {
-		// central hit
-		int hitLocation = global_map->player->getLocation() + (x + 1) * increment;
-		if (hitLocation >= 0 && hitLocation < global_map->size * global_map->size) {
-			global_map->map[hitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
-		}
-		// side hit
-		for (int i = 0; i < x; i++) {
-			int sideHitLocation = hitLocation + sideIncrement * (i + 1);
-			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
-				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
-			}
-			sideHitLocation = hitLocation - sideIncrement * (i + 1);
-			if (sideHitLocation >= 0 && sideHitLocation < global_map->size * global_map->size) {
-				global_map->map[sideHitLocation]->spellInteract(damage, effect, effectDamage, duration, direction, source);
-			}
-		}
-	}
-}
-
-void Spell::updateConeColor(int direction, int range, int color) {
-	int increment = 0;
-	int sideIncrement = 0;
-	if (direction == UP) {
-		increment = -global_map->size;
-		sideIncrement = 1;
-	}
-	else if (direction == DOWN) {
-		increment = global_map->size;
-		sideIncrement = 1;
-	}
-	else if (direction == LEFT) {
-		increment = -1;
-		sideIncrement = global_map->size;
-	}
-	else if (direction == RIGHT) {
-		increment = 1;
-		sideIncrement = global_map->size;
-	}
-	for (int x = 0; x < range; x++) {
-		// central
-		int loc = global_map->player->getLocation();
-		loc += (x + 1) * increment;
-		Tile* current;
-		if (loc >= 0 && loc < global_map->size * global_map->size) {
-			if (color == -1) {
-				current = global_map->map[loc];
-				while (current != NULL) {
-					current->resetColor();
-					current = current->getUnder();
-				}
-			}
-			else {
-				current = global_map->map[loc];
-				while (current != NULL) {
-					current->setColor(color);
-					current = current->getUnder();
-				}
-			}
-		}
-		// side
-		for (int i = 0; i < x; i++) {
-			int sideLoc = loc + sideIncrement * (i + 1);
-			if (sideLoc >= 0 && sideLoc < global_map->size * global_map->size) {
-				if (color == -1) {
-					current = global_map->map[sideLoc];
-					while (current != NULL) {
-						current->resetColor();
-						current = current->getUnder();
-					}
-				}
-				else {
-					current = global_map->map[sideLoc];
-					while (current != NULL) {
-						current->setColor(color);
-						current = current->getUnder();
-					}
-				}
-			}
-			sideLoc = loc - sideIncrement * (i + 1);
-			if (sideLoc >= 0 && sideLoc < global_map->size * global_map->size) {
-				if (color == -1) {
-					current = global_map->map[sideLoc];
-					while (current != NULL) {
-						current->resetColor();
-						current = current->getUnder();
-					}
-				}
-				else {
-					current = global_map->map[sideLoc];
-					while (current != NULL) {
-						current->setColor(color);
-						current = current->getUnder();
-					}
-				}
-			}
-		}
-	}
-}
-
-int Spell::castCone(Tile* source) {
-	int finalEvent = 0;
-	int prevDir;
-	int success = 0;
-	int prevFrame = -1;
-	selecting = 1;
-	currentDirection = UP;
-
-	if (cdCount != 0) {
-		return 0;
-	}
-
-	while (selecting == 1) {
-		prevDir = currentDirection;
-		finalEvent = getDirection();
-
-		// Render the screen when the frame updates
-		drawFrame_g = currentFrame_g;
-		if (drawFrame_g != prevFrame) {
-			if (drawFrame_g == 0) {
-				updateConeColor(currentDirection, range, -1);
-			}
-			else {
-				updateConeColor(currentDirection, range, CAST);
-			}
-			global_map->player->drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-		prevFrame = drawFrame_g;
-
-		// immediately flash in the new direction. Let the flash thread catch up
-		if (prevDir != currentDirection) {
-			updateConeColor(prevDir, range, -1);
-			if (drawFrame_g == 0) {
-				updateConeColor(currentDirection, range, -1);
-			}
-			else {
-				updateConeColor(currentDirection, range, CAST);
-			}
-			global_map->player->drawPlayerView(0);
-			SDL_RenderPresent(renderer_g);
-		}
-	}
-	updateConeColor(currentDirection, range, -1);
-	global_map->player->drawPlayerView(0);
-	SDL_RenderPresent(renderer_g);
-
-	if (finalEvent == EVENT_KEY_ENTER) {
-		dmgCone(currentDirection, range, initDamage, effect, effectDamage, duration, source);
-		success = 1;
-		cdCount = cd;
-	}
-	else {
-		success = 0;
-	}
-	return success;
+	applyTo(targetTiles(origin, direction), direction, source);
+	cdCount = cd;
+	return 1;
 }
 
 // Set the name and description of a spell based on it's attributes

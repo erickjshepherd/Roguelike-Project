@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "SDLFuncs.h"
 #include "Texture.h"
-#include <Windows.h>
 
-SDL_Surface* winSurface_g;
 SDL_Window* window_g;
 SDL_Renderer* renderer_g;
 std::vector<TTF_Font*> fonts_g;
@@ -54,7 +52,8 @@ int SDL_Init() {
 	// load the fonts
 	loadFonts();
 
-	// set up the surface, renderer, and viewports
+	// set up the renderer and viewports
+	renderer_g = NULL;
 	rendererInit();
 
 	// set up the frame clock
@@ -82,8 +81,6 @@ void SDL_Close() {
 	freeTilesets();
 	freeFonts();
 	
-	SDL_FreeSurface(winSurface_g);
-	winSurface_g = NULL;
 	SDL_DestroyRenderer(renderer_g);
 	renderer_g = NULL;
 	SDL_DestroyWindow(window_g);
@@ -126,10 +123,17 @@ int handleEvents() {
 			}
 		}
 		else if (event.type == SDL_WINDOWEVENT) {
-			if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+			// SIZE_CHANGED fires for every size change, including fullscreen
+			// switches and SDL_SetWindowSize; RESIZED only fires for user drags
+			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
 				rendererInit();
 				return EVENT_RESIZE;
 			}
+		}
+		else if (event.type == SDL_RENDER_DEVICE_RESET) {
+			// the GPU device was lost: every texture is invalid and must be rebuilt
+			reloadTextures();
+			return EVENT_RESIZE;
 		}
 	}
 	return -1;
@@ -154,40 +158,45 @@ void freeFonts() {
 }
 
 void rendererInit() {
+	// Create the renderer once. An SDL2 renderer survives window resizes and
+	// fullscreen switches, and every texture created from it stays valid, so
+	// it is never torn down and rebuilt here. Mixing the window-surface API
+	// (SDL_GetWindowSurface / SDL_UpdateWindowSurface) with a renderer on the
+	// same window is unsupported and froze the display after going fullscreen,
+	// so this function no longer touches the window surface at all.
+	bool firstInit = (renderer_g == NULL);
+	if (firstInit) {
+		renderer_g = SDL_CreateRenderer(window_g, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		if (renderer_g == NULL) {
+			SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
+			// fall back to whatever SDL can give us
+			renderer_g = SDL_CreateRenderer(window_g, -1, 0);
+			if (renderer_g == NULL) {
+				SDL_Log("SDL_CreateRenderer fallback failed: %s", SDL_GetError());
+				exit(-1);
+			}
+		}
+		SDL_SetRenderDrawColor(renderer_g, 0, 0, 0, 255);
+	}
+
 	// get the screen dimensions
 	int screenW, screenH;
 	SDL_GetWindowSize(window_g, &screenW, &screenH);
 
 	// set the tile size to be the largest multiple of 16 that fits on the screen
-	int smallestDim;
-	if (screenH < screenW) {
-		smallestDim = screenH;
-	}
-	else {
-		smallestDim = screenW;
-	}
+	int smallestDim = (screenH < screenW) ? screenH : screenW;
 	int tileScale = (smallestDim / MAX_MAP_SIZE) / TILE_SOURCE_SIZE;
 	if (tileScale == 0) {
-		SDL_SetWindowSize(window_g, TILE_SOURCE_SIZE * MAX_MAP_SIZE, TILE_SOURCE_SIZE * MAX_MAP_SIZE);
-		SDL_GetWindowSize(window_g, &screenW, &screenH);
 		tileScale = 1;
+		// only grow a windowed window: resizing a fullscreen window is a no-op
+		// and would just queue another size-changed event
+		if (!(SDL_GetWindowFlags(window_g) & SDL_WINDOW_FULLSCREEN_DESKTOP)) {
+			SDL_SetWindowSize(window_g, TILE_SOURCE_SIZE * MAX_MAP_SIZE, TILE_SOURCE_SIZE * MAX_MAP_SIZE);
+			SDL_GetWindowSize(window_g, &screenW, &screenH);
+		}
 	}
 	tileSize_g = TILE_SOURCE_SIZE * tileScale;
 	int mapSize = tileSize_g * MAX_MAP_SIZE;
-
-	// free the tilesets
-	freeTilesets();
-
-	// update the renderer
-	SDL_DestroyRenderer(renderer_g);
-	renderer_g = NULL;
-	renderer_g = SDL_CreateRenderer(window_g, -1, SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer_g, 0, 0, 0, 0);
-
-	// update the surface
-	SDL_FreeSurface(winSurface_g);
-	winSurface_g = NULL;
-	winSurface_g = SDL_GetWindowSurface(window_g);
 
 	// update the viewports
 	int textSpace = (getTextSpace() * 3) / 2;
@@ -204,13 +213,22 @@ void rendererInit() {
 	eventsView_g.w = (screenW - screenH) - tileSize_g;
 	eventsView_g.h = (screenH - ((NUM_STAT_LINES + 1) * textSpace)) - tileSize_g;
 
-	// Fill the window with a black rectangle
-	SDL_FillRect(winSurface_g, NULL, SDL_MapRGB(winSurface_g->format, 0, 0, 0));
+	// start the next frame from a clean, full-window backbuffer
+	SDL_RenderSetViewport(renderer_g, NULL);
+	SDL_RenderClear(renderer_g);
 
-	// Update the window display
-	SDL_UpdateWindowSurface(window_g);
+	// load the tilesets once; they belong to the renderer and stay valid across
+	// resizes. reloadTextures() rebuilds them if the GPU device is ever lost.
+	if (firstInit) {
+		loadTileSets();
+		loadTileSets2();
+	}
+}
 
-	// load the tilesets
+// Rebuild every texture. Only needed when SDL reports SDL_RENDER_DEVICE_RESET,
+// which invalidates all existing textures.
+void reloadTextures() {
+	freeTilesets();
 	loadTileSets();
 	loadTileSets2();
 }
@@ -224,13 +242,12 @@ int getTextSpace() {
 	return h;
 }
 
-void frameClock() {
-	while (drawFrame_g != -1) {
-		currentFrame_g = 0;
-		Sleep(FRAME_WAIT);
-		currentFrame_g = 1;
-		Sleep(FRAME_WAIT);
-	}
+// Advance the passive animation clock.
+// The current frame is derived from SDL's millisecond timer, so it is a pure
+// function of elapsed time: no thread, no locking, and it can never drift.
+// Call this once per iteration of any loop that renders the map.
+void updateFrameClock() {
+	currentFrame_g = (SDL_GetTicks() / FRAME_WAIT) % ANIMATION_FRAMES;
 }
 
 int inputEventFilter(void* data, SDL_Event* event) {

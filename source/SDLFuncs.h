@@ -9,6 +9,8 @@
 #define SCREEN_HEIGHT 768
 #define TILE_SOURCE_SIZE 16
 #define MAX_MAP_SIZE 21
+// passive sprite animation: number of frames in the cycle and how long each one is shown (ms)
+#define ANIMATION_FRAMES 2
 #define FRAME_WAIT 500
 
 enum eventEnums {
@@ -58,7 +60,6 @@ enum statEnums {
 		INSPECTINFO
 };
 
-extern SDL_Surface* winSurface_g;
 extern SDL_Window* window_g;
 extern SDL_Renderer* renderer_g;
 extern std::vector<TTF_Font*> fonts_g;
@@ -77,8 +78,9 @@ int handleEvents();
 void loadFonts();
 void freeFonts();
 void rendererInit();
+void reloadTextures();
 int getTextSpace();
-void frameClock();
+void updateFrameClock();
 int inputEventFilter(void* data, SDL_Event* event);
 int noFilter(void* data, SDL_Event* event);
 void filterInputEvents();
