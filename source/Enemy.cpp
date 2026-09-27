@@ -1,16 +1,18 @@
 #include "stdafx.h"
-#include "Enemy.h"
-#include "Global_Map.h"
-#include <time.h>
+
+#include <conio.h>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <conio.h>
-#include <Windows.h>
 #include <queue>
+#include <time.h>
 #include <vector>
-#include "Monsters.h"
+#include <Windows.h>
+
+#include "Enemy.h"
+#include "Global_Map.h"
 #include "Items.h"
+#include "Monsters.h"
 #include "Shared.h"
 
 Enemy::Enemy(){

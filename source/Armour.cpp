@@ -1,7 +1,8 @@
 #include "stdafx.h"
+
 #include "Armour.h"
-#include "Player.h"
 #include "Global_Map.h"
+#include "Player.h"
 
 Armour::Armour() {
 	type = 0;

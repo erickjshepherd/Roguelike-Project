@@ -1,6 +1,7 @@
 #pragma once
-#include "Tile.h"
 #include <string>
+
+#include "Tile.h"
 
 enum weaponTypes {
 	DAGGER,

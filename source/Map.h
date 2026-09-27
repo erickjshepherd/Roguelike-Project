@@ -1,9 +1,10 @@
 #pragma once
-#include "Tile.h"
-#include "Player.h"
-#include <vector>
 #include <string>
+#include <vector>
+
 #include "Enemy.h"
+#include "Player.h"
+#include "Tile.h"
 
 #define NUM_EVENTS 5
 

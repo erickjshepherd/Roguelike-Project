@@ -1,6 +1,6 @@
 #pragma once
-#include "Texture.h"
 #include "Menu.h"
+#include "Texture.h"
 
 #define ARROWSPRITE 37
 #define BACKGROUNDTYPE WHITEB_G

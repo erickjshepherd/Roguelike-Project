@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include "Menu.h"
+
 #include "GUI.h"
+#include "Menu.h"
 #include "Texture.h"
 
 Menu::Menu() {

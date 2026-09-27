@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include "SDLFuncs.h"
 
 #define CASTR 255

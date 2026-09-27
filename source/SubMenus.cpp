@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include "SubMenus.h"
+
 #include "GUI.h"
+#include "SubMenus.h"
 
 // global menus for saving states
 optionsMenu* optionsMenu_g;

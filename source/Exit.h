@@ -1,5 +1,5 @@
 #pragma once
-#include "global_map.h"
+#include "Global_Map.h"
 #include "Tile.h"
 
 class Exit : public Tile {

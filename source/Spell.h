@@ -1,7 +1,8 @@
 #pragma once
-#include "Tile.h"
 #include <string>
 #include <vector>
+
+#include "Tile.h"
 
 enum spellEffectEnums {
 	NOEFFECT,

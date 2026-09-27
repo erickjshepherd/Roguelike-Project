@@ -1,10 +1,11 @@
 #pragma once
-#include "Tile.h"
-#include "Weapon.h"
-#include "Armour.h"
-#include "Spell.h"
 #include <list>
 #include <unordered_set>
+
+#include "Armour.h"
+#include "Spell.h"
+#include "Tile.h"
+#include "Weapon.h"
 
 class Player : public Tile{
 

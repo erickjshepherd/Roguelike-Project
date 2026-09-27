@@ -1,7 +1,8 @@
 #include "stdafx.h"
-#include "Weapon.h"
-#include "Player.h"
+
 #include "Global_Map.h"
+#include "Player.h"
+#include "Weapon.h"
 
 Weapon::Weapon(){
 	type = 0;

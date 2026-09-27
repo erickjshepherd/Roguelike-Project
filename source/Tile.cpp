@@ -1,11 +1,13 @@
 #include "stdafx.h"
-#include "Tile.h"
-#include "Global_Map.h"
-#include "Texture.h"
-#include <iostream>
+
 #include <conio.h>
+#include <iostream>
+
+#include "Global_Map.h"
 #include "GUI.h"
 #include "Shared.h"
+#include "Texture.h"
+#include "Tile.h"
 
 // constructor
 Tile::Tile() {

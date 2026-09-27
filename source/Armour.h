@@ -1,6 +1,7 @@
 #pragma once
-#include "Tile.h"
 #include <string>
+
+#include "Tile.h"
 
 class Armour : public Tile {
 public:

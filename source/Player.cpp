@@ -1,17 +1,19 @@
 #include "stdafx.h"
-#include "Player.h"
-#include "Global_Map.h"
-#include <time.h>
+
+#include <conio.h>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <conio.h>
-#include <Windows.h>
 #include <list>
-#include "Items.h"
+#include <time.h>
+#include <Windows.h>
+
+#include "Global_Map.h"
 #include "GUI.h"
-#include "SubMenus.h"
+#include "Items.h"
+#include "Player.h"
 #include "Shared.h"
+#include "SubMenus.h"
 
 // player class
 Player::Player(){

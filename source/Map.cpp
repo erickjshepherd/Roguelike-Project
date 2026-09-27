@@ -1,25 +1,27 @@
 #include "stdafx.h"
-#include <time.h>
+
+#include <conio.h>
 #include <cstdlib>
 #include <ctime>
-#include "Map.h"
-#include <vector>
+#include <iostream>
+#include <iterator>
+#include <math.h>
 #include <queue>
 #include <string>
-#include "Global_Map.h"
-#include "Monsters.h"
-#include "Items.h"
-#include "Tile.h"
-#include <iterator>
-#include <iostream>
-#include <conio.h>
+#include <time.h>
+#include <vector>
 #include <Windows.h>
-#include "Floor.h"
-#include "Wall.h"
+
 #include "Exit.h"
+#include "Floor.h"
+#include "Global_Map.h"
 #include "GUI.h"
-#include <math.h>
+#include "Items.h"
+#include "Map.h"
+#include "Monsters.h"
 #include "Shared.h"
+#include "Tile.h"
+#include "Wall.h"
 
 
 Map::Map(int size, int total, int max, int min, int buffer, bool overlap, int mapType, int level, int maxTunnel, int minTunnel){

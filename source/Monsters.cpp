@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include "Monsters.h"
+
 #include "Abilities.h"
+#include "Monsters.h"
 
 // slime constructor
 Slime::Slime() {

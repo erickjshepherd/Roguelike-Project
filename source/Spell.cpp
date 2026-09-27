@@ -1,8 +1,10 @@
 #include "stdafx.h"
+
 #include <conio.h>
+
 #include "Global_Map.h"
-#include "Spell.h"
 #include "Shared.h"
+#include "Spell.h"
 
 Spell::Spell() {
 	castType = 0;

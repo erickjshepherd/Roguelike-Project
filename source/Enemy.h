@@ -1,8 +1,9 @@
 #pragma once
-#include "Tile.h"
 #include <queue>
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "Tile.h"
 
 class Enemy : public Tile {
 

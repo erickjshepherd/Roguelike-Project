@@ -1,16 +1,18 @@
 #include "stdafx.h"
-#include "Player.h"
-#include "Map.h"
-#include "Global_Map.h"
-#include "Tile.h"
-#include <time.h>
+
 #include <cstdlib>
 #include <ctime>
 #include <string>
-#include "SDLFuncs.h"
+#include <time.h>
+
+#include "Global_Map.h"
 #include "GUI.h"
-#include "SubMenus.h"
+#include "Map.h"
+#include "Player.h"
+#include "SDLFuncs.h"
 #include "Shared.h"
+#include "SubMenus.h"
+#include "Tile.h"
 
 Map* global_map;
 
